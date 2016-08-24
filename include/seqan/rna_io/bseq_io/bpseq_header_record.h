@@ -1,7 +1,7 @@
 // ==========================================================================
 //                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
-// Copyright (c) 2006-2016, Knut Reinert, FU Berlin
+// Copyright (c) 2006-2015, Knut Reinert, FU Berlin
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -29,12 +29,13 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Lily Shellhammer <lily.shellhammer@gmail.com>
+// Author: Gianvito Urgese <gianvito.urgese@polito.it>
 // ==========================================================================
 
+// TODO(holtgrew): Parse more than just the key/value pair.
 
-#ifndef SEQAN_RNA_FORMAT_RECORD_H_
-#define SEQAN_RNA_FORMAT_RECORD_H_
+#ifndef SEQAN_INCLUDE_SEQAN_BPSEQ_IO_BPSEQ_HEADER_RECORD_H_
+#define SEQAN_INCLUDE_SEQAN_BPSEQ_IO_BPSEQ_HEADER_RECORD_H_
 
 namespace seqan {
 
@@ -43,87 +44,71 @@ namespace seqan {
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Class RnaRecord
+// Class BpseqHeaderRecord
 // ----------------------------------------------------------------------------
 
-class RnaRecord
+/*!
+ * @class BpseqHeaderRecord
+ * @headerfile <seqan/bpseq_io.h>
+ * @brief Store key/value pair for Bpseq header records.
+ *
+ * @signature class BpseqHeaderRecord;
+ *
+ * @var CharString BpseqHeaderRecord::key;
+ * @brief Key of the header record.
+ *
+ * @var CharString BpseqHeaderRecord::value;
+ * @brief Value of the header record.
+ */
+
+/*!
+ * @fn BpseqHeaderRecord::BpseqHeaderRecord
+ * @brief Constructor
+ *
+ * @signature BpseqHeaderRecord::BpseqHeaderRecord();
+ * @signature BpseqHeaderRecord::BpseqHeaderRecord(key, value);
+ *
+ * @param[in] key   Key of the header record, @link CharString @endlink.
+ * @param[in] value Key of the header record, @link CharString @endlink.
+ */
+
+/*!
+ * @fn BpseqHeaderRecord#clear
+ *
+ * @brief Clear a BpseqHeaderRecord.
+ * @signature void clear(record);
+ *
+ * @param[in,out] record The BpseqHeaderRecord to clear.
+ */
+
+class BpseqHeaderRecord
 {
 public:
-        static const int INVALID_POS = -1;
+    // Record's key.
+    CharString key;
+    // Record's value.
+    CharString value;
 
-
-    // Amount of records.
-    int32_t amount;    
-    //beginning and ending positions of the sequence
-    int32_t begPos;
-    int32_t endPos;
-    //energy
-    float energy;    
-    // Record's name.
-    CharString name;
-    
-    //string of base at each position in Rna strand
-    Rna5String base;   
-
-    // Position of n base's pair.
-    String<int>  pair;
-
-
-    ////////RDAT FILES
-    CharString qual; //I think?
-
-    int offset;
-
-    String<CharString> seqpos;
-
-    String<CharString> annotation;
-
-    CharString comment;
-
-    //Annotation data 1
-    //annotation data 2
-
-    String<float> reactivity;
-
-    String<float> reactivity_error;
-
-    String<float> xsel;
-
-    String<float> xsel_refine;
-
-    //mutpos
-  
     // Default constructor.
-    RnaRecord() : amount(0), begPos(INVALID_POS), endPos(INVALID_POS), energy(0), name(" "), offset(0), comment("")
-    {}                                                                                      
+    BpseqHeaderRecord()
+    {}
 
+    // Construct directly with key/value.
+    BpseqHeaderRecord(CharString const & key, CharString const & value) :
+            key(key), value(value)
+    {}
 };
 
 // ============================================================================
 // Functions
 // ============================================================================
 
-// ----------------------------------------------------------------------------
-// Function clear()
-// ----------------------------------------------------------------------------
-
-
-inline void clear(RnaRecord & record)
+inline void clear(BpseqHeaderRecord & record)
 {
-    clear(record.name);
-    clear(record.base);
-    clear(record.pair);
-    clear(record.qual);
-
-    clear(record.seqpos);
-    clear(record.annotation);
-    clear(record.comment);
-    clear(record.reactivity);
-    clear(record.reactivity_error);
-    clear(record.xsel);    
-    clear(record.xsel_refine);
+    clear(record.key);
+    clear(record.value);
 }
 
 }  // namespace seqan
 
-#endif  //SEQAN_RNA_FORMAT_RECORD_H_
+#endif  // #ifndef SEQAN_INCLUDE_SEQAN_BPSEQ_IO_BPSEQ_HEADER_RECORD_H_

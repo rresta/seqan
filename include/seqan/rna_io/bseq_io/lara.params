@@ -1,0 +1,68 @@
+# default parameters for subgradient optimization
+# -------------------------------------------------------
+# number of iterations
+noofiterations=500
+#
+# number of non-decreasing iterations
+noofnondecreasingiterations=50
+#
+# my, necessary for computing appropriate step sizes
+my=1.0
+# ======================================================= 
+# filename pointing to the scoring matrix that should
+# be used for generating the alignment edges
+generatorscore=RIBOSUM65.mat
+# ======================================================= 
+# filename pointing to the scoring matrix that should 
+# be used for scoring alignment edges in the actual
+# problem 
+larascore=RIBOSUM65.mat
+#larascore=BLOSUM_4_1.mat
+# ======================================================= 
+# Gap open and extend costs for generating the alignment
+# edges
+generatorgapopen=6.0
+generatorgapextend=2.0
+generatorsuboptimality=40
+# ======================================================= 
+# Gap open and extend costs for generating the alignment
+# edges
+laraGapOpen=12.0
+laraGapExtend=5.0
+# ======================================================= 
+# scaling factor for the scores of the alignment edges
+sequencescale=1.00
+# ======================================================= 
+# gap penalty for RSA
+rsagappenalty=3.0
+# ======================================================= 
+# scoring mode, either LOGARITHMIC,SCALING or RIBOSUM
+structurescoring=LOGARITHMIC
+# ======================================================= 
+# define the weight of _half_ an interaction match for
+# fixed structures
+fixed_struct_weight=8.0
+# =======================================================
+# if we are reading dotplots, one can specify a
+# probability threshold for the bp matrices
+minimalprobability=0.1
+# ======================================================= 
+# if structurescoring=SCALING then we have to give a 
+# scaling factor
+scalingfactor=1.0
+verbosesolver=0
+
+#firstFixed=5
+#secondFixed=20
+#
+# specify the location of T-COFFEE
+tcoffee_location=t_coffee/t_coffee_5.05
+# window size specifies the length of the sliding window
+splitsequence=1
+windowsize=100
+# specify which dotplot is the target (i.e., longer) sequence
+targetsequence=1
+
+
+# some additional option
+utimelimit=-1

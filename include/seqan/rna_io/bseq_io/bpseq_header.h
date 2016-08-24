@@ -1,7 +1,7 @@
 // ==========================================================================
 //                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
-// Copyright (c) 2006-2016, Knut Reinert, FU Berlin
+// Copyright (c) 2006-2015, Knut Reinert, FU Berlin
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -29,12 +29,11 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Lily Shellhammer <lily.shellhammer@gmail.com>
+// Author: Gianvito Urgese <gianvito.urgese@polito.it>
 // ==========================================================================
 
-
-#ifndef SEQAN_RNA_FORMAT_RECORD_H_
-#define SEQAN_RNA_FORMAT_RECORD_H_
+#ifndef SEQAN_INCLUDE_SEQAN_BPSEQ_BPSEQ_HEADER_H_
+#define SEQAN_INCLUDE_SEQAN_BPSEQ_BPSEQ_HEADER_H_
 
 namespace seqan {
 
@@ -43,87 +42,21 @@ namespace seqan {
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Class RnaRecord
+// Class BpseqHeader
 // ----------------------------------------------------------------------------
 
-class RnaRecord
-{
-public:
-        static const int INVALID_POS = -1;
+/*!
+ * @class BbseqHeader
+ * @implements FormattedFileHeaderConcept
+ * @headerfile <seqan/bpseq_io.h>
+ * @brief Store BPSEQ Header information.
+ *
+ * @signature typedef String<BpseqHeaderRecord> BpseqHeader;
+ */
 
-
-    // Amount of records.
-    int32_t amount;    
-    //beginning and ending positions of the sequence
-    int32_t begPos;
-    int32_t endPos;
-    //energy
-    float energy;    
-    // Record's name.
-    CharString name;
-    
-    //string of base at each position in Rna strand
-    Rna5String base;   
-
-    // Position of n base's pair.
-    String<int>  pair;
-
-
-    ////////RDAT FILES
-    CharString qual; //I think?
-
-    int offset;
-
-    String<CharString> seqpos;
-
-    String<CharString> annotation;
-
-    CharString comment;
-
-    //Annotation data 1
-    //annotation data 2
-
-    String<float> reactivity;
-
-    String<float> reactivity_error;
-
-    String<float> xsel;
-
-    String<float> xsel_refine;
-
-    //mutpos
-  
-    // Default constructor.
-    RnaRecord() : amount(0), begPos(INVALID_POS), endPos(INVALID_POS), energy(0), name(" "), offset(0), comment("")
-    {}                                                                                      
-
-};
-
-// ============================================================================
-// Functions
-// ============================================================================
-
-// ----------------------------------------------------------------------------
-// Function clear()
-// ----------------------------------------------------------------------------
-
-
-inline void clear(RnaRecord & record)
-{
-    clear(record.name);
-    clear(record.base);
-    clear(record.pair);
-    clear(record.qual);
-
-    clear(record.seqpos);
-    clear(record.annotation);
-    clear(record.comment);
-    clear(record.reactivity);
-    clear(record.reactivity_error);
-    clear(record.xsel);    
-    clear(record.xsel_refine);
-}
+// Records for the meta information lines.
+typedef String<BpseqHeaderRecord> BpseqHeader;
 
 }  // namespace seqan
 
-#endif  //SEQAN_RNA_FORMAT_RECORD_H_
+#endif  // #ifndef SEQAN_INCLUDE_SEQAN_BPSEQ_BPSEQ_HEADER_H_
