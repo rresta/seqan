@@ -45,7 +45,9 @@ SEQAN_BEGIN_TESTSUITE(test_rna_io)
 	SEQAN_CALL_TEST(test_rna_io_read_dot_bracket);
     SEQAN_CALL_TEST(test_rna_io_read_stockholm);
     SEQAN_CALL_TEST(test_rna_io_read_bpseq);
-	SEQAN_CALL_TEST(test_rna_write_connect_record);
-	SEQAN_CALL_TEST(test_rna_write_dot_bracket_record);
+	SEQAN_CALL_TEST(test_rna_io_write_connect);
+	SEQAN_CALL_TEST(test_rna_io_write_dot_bracket);
+    SEQAN_CALL_TEST(test_rna_io_write_stockholm);
+    SEQAN_CALL_TEST(test_rna_io_write_bpseq);
 }
 SEQAN_END_TESTSUITE

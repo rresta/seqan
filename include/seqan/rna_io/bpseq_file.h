@@ -35,8 +35,8 @@
 // ==========================================================================
 // TODO(weese:) add Bcf I/O and integrate it
 
-#ifndef SEQAN_BPSEQ_IO_BPSEQ_FILE_H_
-#define SEQAN_BPSEQ_IO_BPSEQ_FILE_H_
+#ifndef SEQAN_INCLUDE_SEQAN_RNA_IO_BPSEQ_FILE_H_
+#define SEQAN_INCLUDE_SEQAN_RNA_IO_BPSEQ_FILE_H_
 
 namespace seqan {
 
@@ -44,8 +44,8 @@ namespace seqan {
 // Forwards
 // ============================================================================
 
-struct Bpseq_;
-typedef Tag<Bpseq_> Bpseq;
+//struct Bpseq_;
+//typedef Tag<Bpseq_> Bpseq;
 
 //struct Bcf_;
 //typedef Tag<Bcf_> Bcf;
@@ -96,17 +96,17 @@ typedef FormattedFile<Bpseq, Output>  BpseqFileOut;
 // Class MagicHeader
 // ----------------------------------------------------------------------------
 
-template <typename T>
-struct MagicHeader<Bpseq, T>
-{
-    static unsigned char const VALUE[18];
-};
-
-template <typename T>
-unsigned char const MagicHeader<Bpseq, T>::VALUE[18] =
-{
-    '#', '#', 'f', 'i', 'l', 'e', 'f', 'o', 'r', 'm', 'a', 't', '=', 'B', 'P', 'S', 'E', 'Q'  // BPSEQ's magic header
-};
+//template <typename T>
+//struct MagicHeader<Bpseq, T>
+//{
+//    static unsigned char const VALUE[18];
+//};
+//
+//template <typename T>
+//unsigned char const MagicHeader<Bpseq, T>::VALUE[18] =
+//{
+//    '#', '#', 'f', 'i', 'l', 'e', 'f', 'o', 'r', 'm', 'a', 't', '=', 'B', 'P', 'S', 'E', 'Q'  // BPSEQ's magic header
+//};
 
 //template <typename T>
 //struct MagicHeader<Bcf, T>
@@ -121,17 +121,17 @@ unsigned char const MagicHeader<Bpseq, T>::VALUE[18] =
 // Class FileExtensions
 // ----------------------------------------------------------------------------
 
-template <typename T>
-struct FileExtensions<Bpseq, T>
-{
-    static char const * VALUE[1];    // default is one extension
-};
-
-template <typename T>
-char const * FileExtensions<Bpseq, T>::VALUE[1] =
-{
-    ".bpseq"     // default output extension
-};
+//template <typename T>
+//struct FileExtensions<Bpseq, T>
+//{
+//    static char const * VALUE[1];    // default is one extension
+//};
+//
+//template <typename T>
+//char const * FileExtensions<Bpseq, T>::VALUE[1] =
+//{
+//    ".bpseq"     // default output extension
+//};
 
 //template <typename T>
 //struct FileExtensions<Bcf, T>
@@ -152,10 +152,7 @@ char const * FileExtensions<Bpseq, T>::VALUE[1] =
 template <typename TDirection, typename TSpec, typename TStorageSpec>
 struct FormattedFileContext<FormattedFile<Bpseq, TDirection, TSpec>, TStorageSpec>
 {
-    typedef StringSet<CharString>                                   TNameStore;
-    typedef NameStoreCache<TNameStore>                              TNameStoreCache;
-    //typedef BpseqIOContext<TNameStore, TNameStoreCache, TStorageSpec> Type;
-    typedef RnaIOContext                                             Type;
+    typedef RnaIOContext Type;
 };
 
 // ----------------------------------------------------------------------------
@@ -207,9 +204,9 @@ template <typename TSpec>
 inline void
 writeRecord(FormattedFile<Bpseq, Output, TSpec> & file, RnaRecord & record)
 {
-    writeRecord(file.iter, record, context(file), file.format);
+    writeRecord(file.iter, record, file.format);
 }
 
 }  // namespace seqan
 
-#endif // SEQAN_BPSEQ_IO_BPSEQ_FILE_H_
+#endif // SEQAN_INCLUDE_SEQAN_RNA_IO_BPSEQ_FILE_H_

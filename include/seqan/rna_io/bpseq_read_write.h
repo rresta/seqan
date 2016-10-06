@@ -118,7 +118,7 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Bpse
 
         // read paired index
         skipUntil(iter, NotFunctor<IsBlank>());
-        readUntil(buffer, iter, NextEntry());
+        readUntil(buffer, iter, IsWhitespace());
         if (empty(buffer))
             SEQAN_THROW(EmptyFieldError("PAIR"));
         unsigned pairPos;
@@ -143,17 +143,13 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Bpse
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target,
-            RnaRecord const & record,
-            RnaIOContext & context,
-            Bpseq const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, Bpseq const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: Bpseq formatted file cannot contain an alignment.");
     if (length(record.fixedGraphs) != 1)
         throw std::runtime_error("ERROR: Bpseq formatted file cannot contain multiple structure graphs.");
 
-    clear(context);
     if (!empty(record.name))
     {
         write(target, "# ");

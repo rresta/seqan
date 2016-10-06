@@ -41,11 +41,16 @@
 #include <seqan/sequence.h>
 #include <seqan/rna_io.h>
 #include <seqan/graph_types.h>
+#include <seqan/align.h>
+
+// ----------------------------------------------------------------------------
+// Connect File I/O
+// ----------------------------------------------------------------------------
 
 // A test for connect file reading
 SEQAN_DEFINE_TEST(test_rna_io_read_connect)
 {
-    //Path to example.ct
+    // Path to example.ct
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.ct");
 
@@ -58,36 +63,60 @@ SEQAN_DEFINE_TEST(test_rna_io_read_connect)
 
     readRecord(rnaRecord, rnaIOContext, iter, seqan::Connect());
 
-    /*CHECK CONNECT FILE VALUES */
-
+    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.name,"S.cerevisiae_tRNA-PHE");
+    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
+    SEQAN_ASSERT_EQ(rnaRecord.name, "S.cerevisiae_tRNA-PHE");
     seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
     SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
-
     seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
     SEQAN_ASSERT_EQ(value(adj_it), 71u);
-
-    /* CHECK DEFAULT VALUES */
-
-    //SEQAN_ASSERT_EQ(rnaRecord.qual, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.offset, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.seqpos, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.annotation, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.comment, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity_error, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel_refine, /**/);
-    
+    SEQAN_ASSERT_EQ(rnaRecord.quality, "");
+    // UNUSED: seqID, align, bppMatrGraphs, typeID, reactivity, reactError
 }
+
+SEQAN_DEFINE_TEST(test_rna_io_write_connect)
+{
+    seqan::RnaRecord record{};
+    //set values
+    record.energy = -17.5f;
+    record.name = "S.cerevisiae_tRNA-PHE";
+    record.sequence = "GCGGAUUU";
+    record.seqLen = static_cast<unsigned>(length(record.sequence));
+    seqan::TRnaRecordGraph graph;
+
+    for (unsigned idx = 0; idx < record.seqLen; ++idx)
+        addVertex(graph);
+    for (unsigned idx = 0; idx < 4; ++idx)
+        addEdge(graph, idx, 7u - idx, 1.);
+    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+
+    // Write records to string stream.String<char> out;
+    seqan::String<char> outstr;
+    writeRecord(outstr, record, seqan::Connect());
+
+    // Compare string stream to expected value.
+    seqan::String<char> expected = "8\tENERGY = -17.5\tS.cerevisiae_tRNA-PHE\n"
+            " 1\tG\t0\t2\t8\t1\n"
+            " 2\tC\t1\t3\t7\t2\n"
+            " 3\tG\t2\t4\t6\t3\n"
+            " 4\tG\t3\t5\t5\t4\n"
+            " 5\tA\t4\t6\t4\t5\n"
+            " 6\tU\t5\t7\t3\t6\n"
+            " 7\tU\t6\t8\t2\t7\n"
+            " 8\tU\t7\t9\t1\t8\n";
+    SEQAN_ASSERT_EQ(outstr, expected);
+}
+
+// ----------------------------------------------------------------------------
+// DotBracket File I/O
+// ----------------------------------------------------------------------------
 
 // A test for dot bracket rna file reading.
 SEQAN_DEFINE_TEST(test_rna_io_read_dot_bracket)
 {
-    //Path to example.ct
+    //Path to example.dt
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.dt");
 
@@ -100,30 +129,49 @@ SEQAN_DEFINE_TEST(test_rna_io_read_dot_bracket)
 
     readRecord(rnaRecord, rnaIOContext, iter, seqan::DotBracket());
 
-    /*CHECK DOTBRACKET FILE VALUES */
-
+    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.name,"S.cerevisiae_tRNA-PHE M10740");
-    SEQAN_ASSERT_EQ(rnaRecord.sequence, "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA");
-
+    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
+    SEQAN_ASSERT_EQ(rnaRecord.name, "S.cerevisiae_tRNA-PHE M10740");
+    seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
+    SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
     seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
     SEQAN_ASSERT_EQ(value(adj_it), 71u);
-    
-    /* CHECK DEFAULT VALUES */
-
-    //SEQAN_ASSERT_EQ(rnaRecord.qual, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.offset, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.seqpos, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.annotation, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.comment, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity_error, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel_refine, /**/);
-
+    SEQAN_ASSERT_EQ(rnaRecord.quality, "");
+    // UNUSED: seqID, align, bppMatrGraphs, typeID, reactivity, reactError
 }
+
+SEQAN_DEFINE_TEST(test_rna_io_write_dot_bracket)
+{
+    seqan::RnaRecord record{};
+    //set values
+    record.energy = -17.5f;
+    record.name = "S.cerevisiae_tRNA-PHE";
+    record.sequence = "GCGGAUUU";
+    record.seqLen = static_cast<unsigned>(length(record.sequence));
+    seqan::TRnaRecordGraph graph;
+
+    for (unsigned idx = 0; idx < record.seqLen; ++idx)
+        addVertex(graph);
+    for (unsigned idx = 0; idx < 3; ++idx)
+        addEdge(graph, idx, 7u - idx, 1.);
+    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+
+    // Write records to string stream.String<char> out;
+    seqan::CharString outstr;
+    writeRecord(outstr, record, seqan::DotBracket());
+
+    // Compare string stream to expected value.
+    seqan::String<char> expected = ">S.cerevisiae_tRNA-PHE/1-8\n"
+            "GCGGAUUU\n"
+            "(((..))) (-17.5)\n";
+    SEQAN_ASSERT_EQ(outstr, expected);
+}
+
+// ----------------------------------------------------------------------------
+// Stockholm File I/O
+// ----------------------------------------------------------------------------
 
 // A test for Stockholm rna file reading.
 SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
@@ -141,26 +189,71 @@ SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
 
     readRecord(rnaRecord, rnaIOContext, iter, seqan::Stockholm());
 
-    /*CHECK STOCKHOLM FILE VALUES */
-
+    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 74u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.name,"trna");
-    SEQAN_ASSERT_EQ(stringSet(rnaRecord.align)[0],
-                    "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA");
-    SEQAN_ASSERT_EQ(stringSet(rnaRecord.align)[2],
-                    "UCCGUGAUAGUUUAAUGGUCAGAAUGGGCGCUUGUCGCGUGCCAGAUCGGGGUUCAAUUCCCCGUCGCGGAG");
+    SEQAN_ASSERT_EQ(rnaRecord.energy, 0.0f);
+    SEQAN_ASSERT_EQ(rnaRecord.name, "trna");
+    seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
+    SEQAN_ASSERT_EQ(stringSet(rnaRecord.align)[0], base);
+    base = "UCCGUGAUAGUUUAAUGGUCAGAAUGGGCGCUUGUCGCGUGCCAGAUCGGGGUUCAAUUCCCCGUCGCGGAG";
+    SEQAN_ASSERT_EQ(stringSet(rnaRecord.align)[2], base);
     SEQAN_ASSERT_EQ(rnaRecord.seqID[0], "DF6280");
     SEQAN_ASSERT_EQ(rnaRecord.seqID[2], "DD6280");
 
     seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 10);
     SEQAN_ASSERT_EQ(value(adj_it), 24u);
+    // UNUSED: sequence, bppMatrGraphs, quality, typeID, reactivity, reactError
 }
 
-///////////////////BPSEQ TEST NOT COMPLETE////////////////////////
+SEQAN_DEFINE_TEST(test_rna_io_write_stockholm)
+{
+    seqan::RnaRecord record{};
+    // set values
+    record.seqLen = 9u;
+    record.name = "trna";
+    record.comment = "alignment of 1415 tRNAs";
+    seqan::Rna5String seq1 = "GCGGAUUU";
+    seqan::Rna5String seq2 = "UCCGAUAUA";
+    // create alignment
+    seqan::resize(seqan::rows(record.align), 2);
+    seqan::assignSource(seqan::row(record.align, 0), seq1);
+    seqan::assignSource(seqan::row(record.align, 1), seq2);
+    seqan::insertGap(seqan::row(record.align, 0), 4);
+    // set sequence identifiers
+    seqan::appendValue(record.seqID, seqan::CharString{"seq0"});
+    seqan::appendValue(record.seqID, seqan::CharString{"seq1"});
+
+    seqan::TRnaRecordGraph graph;
+    for (unsigned idx = 0; idx < record.seqLen; ++idx)
+        addVertex(graph);
+    for (unsigned idx = 0; idx < 4; ++idx)
+        addEdge(graph, idx, 7u - idx, 1.);
+    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+
+    // Write records to string stream.String<char> out;
+    seqan::String<char> outstr;
+    writeRecord(outstr, record, seqan::Stockholm());
+
+    // Compare string stream to expected value.
+    seqan::String<char> expected = "# STOCKHOLM 1.0\n"
+            "#=GF ID      trna\n"
+            "#=GF DE      alignment of 1415 tRNAs\n\n"
+            "seq0        \tGCGG-AUUU\n"
+            "seq1        \tUCCGAUAUA\n"
+            "#=GC SS_cons\t(((()))).\n"
+            "//\n";
+    SEQAN_ASSERT_EQ(outstr, expected);
+}
+
+// ----------------------------------------------------------------------------
+// Bpseq File I/O
+// ----------------------------------------------------------------------------
+
+// A test for connect file reading
 SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
 {
-/*  //Path to example.ct
+    // Path to example.bpseq
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.bpseq");
 
@@ -170,42 +263,31 @@ SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
 
     seqan::RnaIOContext rnaIOContext;
     seqan::RnaRecord rnaRecord;
-    //readHeader(rnaHeader, rnaIOCOntext, iter, seqan::Bpseq());
+
     readRecord(rnaRecord, rnaIOContext, iter, seqan::Bpseq());
 
-    // CHECK BPSEQ FILE VALUES 
-
-    SEQAN_ASSERT_EQ(rnaRecord.amount, 73u);
-    SEQAN_ASSERT_EQ(rnaRecord.begPos, 1);
-    SEQAN_ASSERT_EQ(rnaRecord.endPos, 73);
-    //SEQAN_ASSERT_EQ(rnaRecord.name,"S.cerevisiae_tRNA-PHE");
-    SEQAN_ASSERT_EQ(rnaRecord.sequence, "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA");
-    seqan::TAdjacencyIterator adj_it(rnaRecord.graph, 0);
-    SEQAN_ASSERT_EQ(value(adj_it), 71u);
-*/
-    // CHECK DEFAULT VALUES 
-
-    //SEQAN_ASSERT_EQ(rnaRecord.qual, /**/ //);
-    //SEQAN_ASSERT_EQ(rnaRecord.offset, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.seqpos, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.annotation, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.comment, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.reactivity_error, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel, /**/);
-    //SEQAN_ASSERT_EQ(rnaRecord.xsel_refine, /**/);
-
+    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
+    SEQAN_ASSERT_EQ(rnaRecord.seqLen, 50u);
+    SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
+    SEQAN_ASSERT_EQ(rnaRecord.energy, 0.0f);
+    seqan::Rna5String base = "GGGCCGGGCGCGGUGGCGCGCGCCUGUAGUCCCAGCUACUCGGGAGGCUC";
+    SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
+    seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 1);
+    SEQAN_ASSERT_EQ(value(adj_it), 48u);
+    SEQAN_ASSERT_EQ(rnaRecord.quality, "");
+    seqan::CharString comment = " A header line beginning with # is for comments not for actual structure information. "
+            "PDB ID 1E8O Signal Recognition Particle (SRP) RNA ";
+    SEQAN_ASSERT_EQ(rnaRecord.comment, comment);
+    // UNUSED: name, seqID, align, bppMatrGraphs, typeID, reactivity, reactError
 }
 
-SEQAN_DEFINE_TEST(test_rna_write_connect_record)
+SEQAN_DEFINE_TEST(test_rna_io_write_bpseq)
 {
-    seqan::RnaRecord record;
+    seqan::RnaRecord record{};
     //set values
-    record.seqLen = 8u;
-    record.offset = 1u;
     record.name = "S.cerevisiae_tRNA-PHE";
-    record.energy = -17.5f;
     record.sequence = "GCGGAUUU";
+    record.seqLen = static_cast<unsigned>(length(record.sequence));
     seqan::TRnaRecordGraph graph;
 
     for (unsigned idx = 0; idx < record.seqLen; ++idx)
@@ -214,50 +296,14 @@ SEQAN_DEFINE_TEST(test_rna_write_connect_record)
         addEdge(graph, idx, 7u - idx, 1.);
     append(record.fixedGraphs, seqan::RnaInterGraph(graph));
 
-
-    // Write Connect records to string stream.String<char> out;
+    // Write records to string stream.String<char> out;
     seqan::String<char> outstr;
-    writeRecord(outstr, record, seqan::Connect());
+    seqan::writeRecord(outstr, record, seqan::Bpseq());
 
     // Compare string stream to expected value.
-    seqan::String<char> expected = "8\tENERGY = -17.5\tS.cerevisiae_tRNA-PHE\n";
-     append(expected, " 1\tG\t0\t2\t8\t1\n");
-     append(expected, " 2\tC\t1\t3\t7\t2\n");
-     append(expected, " 3\tG\t2\t4\t6\t3\n");
-     append(expected, " 4\tG\t3\t5\t5\t4\n");
-     append(expected, " 5\tA\t4\t6\t4\t5\n");
-     append(expected, " 6\tU\t5\t7\t3\t6\n");
-     append(expected, " 7\tU\t6\t8\t2\t7\n");
-     append(expected, " 8\tU\t7\t9\t1\t8\n");
+    seqan::String<char> expected = "# S.cerevisiae_tRNA-PHE\n"
+            "1\tG\t8\n2\tC\t7\n3\tG\t6\n4\tG\t5\n5\tA\t4\n6\tU\t3\n7\tU\t2\n8\tU\t1\n";
     SEQAN_ASSERT_EQ(outstr, expected);
-}
-
-SEQAN_DEFINE_TEST(test_rna_write_dot_bracket_record)
-{
-    seqan::RnaRecord record;
-    //set values
-    record.seqLen = 8u;
-    record.offset = 1u;
-    record.name = "S.cerevisiae_tRNA-PHE";
-    record.energy = -17.5;
-    record.sequence = "GCGGAUUU";
-    seqan::TRnaRecordGraph graph;
-
-    for (unsigned idx = 0; idx < record.seqLen; ++idx)
-        addVertex(graph);
-    for (unsigned idx = 0; idx < 4; ++idx)
-        addEdge(graph, idx, 7u - idx, 1.);
-    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
-
-    // Write Connect records to string stream.String<char> out;
-    seqan::String<char> out;
-    writeRecord(out, record, seqan::DotBracket());
-
-    // Compare string stream to expected value.
-    seqan::String<char> expected = ">S.cerevisiae_tRNA-PHE/1-8\n";
-    append(expected, "GCGGAUUU\n");
-    append(expected, "(((()))) (-17.5)\n");
-    SEQAN_ASSERT_EQ(out, expected);
 }
 
 #endif  // TESTS_RNA_IO_TEST_RNA_IO_H_

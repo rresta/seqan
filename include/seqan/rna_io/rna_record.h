@@ -104,7 +104,6 @@ public:
 
     // Undirected graph for base pairings
     // vertices: sequence/alignment column index, edges: base pair with assigned probability
-    //String<TRnaRecordGraph> graph;
 
     // Vector of base pair probability graphs extracted from the input files
     String<RnaInterGraph> bppMatrGraphs;
@@ -137,10 +136,11 @@ public:
     //String<float> xsel_refine;
 
     //mutpos
-  
+
     // Default constructor.
-    RnaRecord() : recordID(UNDEF), seqLen(0), offset(1), energy(0.0f), name(""), sequence(""), quality(""), comment("")
-    {}                                                                                      
+    RnaRecord() : recordID(UNDEF), seqLen(0u), offset(1u), energy(0.0f), name(""), sequence(""), quality(""),
+                  comment("")
+    {}
 
 };
 

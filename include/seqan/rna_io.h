@@ -53,7 +53,6 @@
 
 #include <seqan/rna_io/rna_record.h>
 #include <seqan/rna_io/rna_header.h>
-
 #include <seqan/rna_io/rna_io_context.h>
 
 #include <seqan/rna_io/connect_read_write.h>
