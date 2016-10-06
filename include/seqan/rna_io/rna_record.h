@@ -76,7 +76,7 @@ public:
 class RnaRecord
 {
 public:
-    unsigned const UNDEF = UINT_MAX;
+    unsigned UNDEF = UINT_MAX;
 
     // identification of record
     unsigned recordID;
