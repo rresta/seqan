@@ -38,6 +38,7 @@
 #define SEQAN_INCLUDE_SEQAN_RNA_IO_STOCKHOLM_READ_WRITE_H_
 
 #include <seqan/stream.h>
+#include <seqan/rna_io/dot_bracket_read_write.h>  // for bracket-graph transformation
 
 /* IMPLEMENTATION NOTES
 
@@ -126,12 +127,11 @@ char const * FileExtensions<Stockholm, T>::VALUE[1] =
 // Function readRecord(); RnaRecord, Stockholm
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
-inline void 
-readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Stockholm const & /*tag*/)
+inline void
+readRecord(RnaRecord & record, TForwardIter & iter, Stockholm const & /*tag*/)
 {
     std::string buffer;
     clear(record);
-    clear(context);
 
     // read intro: # STOCKHOLM 1.0
     skipUntil(iter, NotFunctor<IsWhitespace>());
@@ -257,7 +257,7 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Stoc
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Stockholm const & /*tag*/)     
+writeRecord(TTarget & target, RnaRecord const & record, Stockholm const & /*tag*/)
 {
     if (length(record.fixedGraphs) != 1)
         throw std::runtime_error("ERROR: Cannot deal with multiple structure graphs.");

@@ -53,14 +53,14 @@ Rna FORMAT example:
 		- Index n-1
 		- Index n+1
 		- Number of the base to which n is paired. No pairing is indicated by 0 (zero).
-		- Natural numbering. Rnastructure ignores the actual value given in natural numbering, 
+		- Natural numbering. Rnastructure ignores the actual value given in natural numbering,
 			so it is easiest to repeat n here.
 
 CT Files can hold multiple structures of a single sequence.
-This is done by repeating the format for each structure without any blank lines between structures. 
+This is done by repeating the format for each structure without any blank lines between structures.
 
 record
- N  SEQUENCE   N-1  	 N+1	J POSITION  N  
+ N  SEQUENCE   N-1  	 N+1	J POSITION  N
  1 	G       	0    	2   	72    		1
  2 	C       	1    	3   	71    		2
  3 	G       	2    	4   	70    		3
@@ -116,12 +116,11 @@ char const * FileExtensions<Connect, T>::VALUE[1] =
 // Function readRecord(); RnaRecord, Connect
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
-inline void 
-readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Connect const & /*tag*/)
+inline void
+readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
 {
     std::string buffer;
     clear(record);
-    clear(context);
 
     // read number of entries (sequence length)
     skipUntil(iter, NotFunctor<IsWhitespace>());
@@ -146,11 +145,11 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Conn
     readUntil(record.name,  iter, IsNewline());
     clear(buffer);
 
-    /* 
+    /*
     Example records:
 
      3  G           2       4       70          3
-     N  SEQUENCE   N-1     N+1    J POSITION  N  
+     N  SEQUENCE   N-1     N+1    J POSITION  N
     */
 
     // read nucleotides with pairs
@@ -215,7 +214,7 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Conn
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)     
+writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: Connect formatted file cannot contain an alignment.");
@@ -223,7 +222,7 @@ writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
         throw std::runtime_error("ERROR: Connect formatted file cannot contain multiple structure graphs.");
 
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
-    
+
     //write old "header"
     appendNumber(target, record.seqLen);
     writeValue(target, '\t');

@@ -67,12 +67,11 @@ typedef Tag<Bpseq_> Bpseq;
 
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, Bpseq const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, Bpseq const & /*tag*/)
 {
     typedef OrFunctor<IsSpace, AssertFunctor<NotFunctor<IsNewline>, ParseError, Bpseq> > NextEntry;
     std::string buffer;
     clear(record);
-    clear(context);
 
     unsigned currPos{0};
     TRnaRecordGraph graph;

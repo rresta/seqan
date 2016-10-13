@@ -58,10 +58,8 @@ SEQAN_DEFINE_TEST(test_rna_io_read_connect)
     SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
     seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
 
-    seqan::RnaIOContext rnaIOContext;
     seqan::RnaRecord rnaRecord;
-
-    readRecord(rnaRecord, rnaIOContext, iter, seqan::Connect());
+    readRecord(rnaRecord, iter, seqan::Connect());
 
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
@@ -124,10 +122,8 @@ SEQAN_DEFINE_TEST(test_rna_io_read_dot_bracket)
     SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
     seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
 
-    seqan::RnaIOContext rnaIOContext;
     seqan::RnaRecord rnaRecord;
-
-    readRecord(rnaRecord, rnaIOContext, iter, seqan::DotBracket());
+    readRecord(rnaRecord, iter, seqan::DotBracket());
 
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
@@ -184,10 +180,8 @@ SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
     SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
     seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
 
-    seqan::RnaIOContext rnaIOContext;
     seqan::RnaRecord rnaRecord;
-
-    readRecord(rnaRecord, rnaIOContext, iter, seqan::Stockholm());
+    readRecord(rnaRecord, iter, seqan::Stockholm());
 
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 74u);
@@ -261,10 +255,8 @@ SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
     SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
     seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
 
-    seqan::RnaIOContext rnaIOContext;
     seqan::RnaRecord rnaRecord;
-
-    readRecord(rnaRecord, rnaIOContext, iter, seqan::Bpseq());
+    readRecord(rnaRecord, iter, seqan::Bpseq());
 
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 50u);

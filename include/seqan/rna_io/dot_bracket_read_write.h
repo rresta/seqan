@@ -51,7 +51,7 @@ GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA
 (((((((..((((........)))).((((.........)))).....(((((.......)))))))))))). (-17.50)
 
 -Header with amount of records
--Strand 
+-Strand
 -Dot-Bracket notation for knots or pseudoknots | Energy of rna strand
 */
 
@@ -94,7 +94,7 @@ struct FileExtensions<DotBracket, T>
 template <typename T>
 char const * FileExtensions<DotBracket, T>::VALUE[1] =
 {
-    ".dt"      // default output extension
+    ".db"      // default output extension
 };
 
 // ----------------------------------------------------------------------------
@@ -275,12 +275,11 @@ inline CharString const graph2bracket(TRnaRecordGraph const & graph)
 // Function readRecord(); RnaRecord, DotBracket
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
-inline void 
-readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, DotBracket const & /*tag*/)
+inline void
+readRecord(RnaRecord & record, TForwardIter & iter, DotBracket const & /*tag*/)
 {
     std::string buffer;
     clear(record);
-    clear(context);
 
     // read name (and offset)
     skipOne(iter);                                                      // ">" symbol
@@ -321,7 +320,7 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, DotB
         skipUntil(iter, NotFunctor<IsWhitespace>());
         if(*iter == '(')
         {
-            skipOne(iter);    
+            skipOne(iter);
             readUntil(buffer, iter, EqualsChar<')'>());
             if (!lexicalCast(record.energy, buffer))
                 throw BadLexicalCast(record.energy, buffer);
@@ -332,12 +331,12 @@ readRecord(RnaRecord & record, RnaIOContext & context, TForwardIter & iter, DotB
 
 
 // ----------------------------------------------------------------------------
-// Function writeRecord(); RnaRecord, DotBracket 
+// Function writeRecord(); RnaRecord, DotBracket
 // ----------------------------------------------------------------------------
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, DotBracket const & /*tag*/)     
+writeRecord(TTarget & target, RnaRecord const & record, DotBracket const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: DotBracket formatted file cannot contain an alignment.");
@@ -345,7 +344,7 @@ writeRecord(TTarget & target, RnaRecord const & record, DotBracket const & /*tag
         throw std::runtime_error("ERROR: DotBracket formatted file cannot contain multiple structure graphs.");
 
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
-    
+
     // write opening character for new record entry
     writeValue(target, '>');
     // write name

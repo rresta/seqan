@@ -112,7 +112,7 @@ template <typename TSpec>
 inline void
 readRecord(RnaRecord & record, FormattedFile<Stockholm, Input, TSpec> & file)
 {
-    readRecord(record, context(file), file.iter, file.format);
+    readRecord(record, file.iter, file.format);
 }
 
 

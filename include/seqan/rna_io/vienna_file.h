@@ -29,13 +29,13 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Lily Shellhammer <lily.shellhammer@gmail.com>
+// Author: Joerg Winkler <j.winkler@fu-berlin.de>
 // ==========================================================================
-// Class for reading/writing files in Connect (.ct) files
+// Class for Vienna formatted files
 // ==========================================================================
 
-#ifndef SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_FILE_H_
-#define SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_FILE_H_
+#ifndef SEQAN_RNA_IO_VIENNA_FILE_H_
+#define SEQAN_RNA_IO_VIENNA_FILE_H_
 
 
 namespace seqan {
@@ -43,51 +43,46 @@ namespace seqan {
 // ============================================================================
 // Classes, Tags
 // ============================================================================
-
-// ----------------------------------------------------------------------------
-// Class MagicHeader
-// ----------------------------------------------------------------------------
 // ============================================================================
 // Typedefs
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Typedef RnaFileIn
+// Typedef ViennaFileIn
 // ----------------------------------------------------------------------------
 
 /*!
- * @class ConnectFileIn
- * @signature typedef FormattedFile<Rna, Input> ConenctFileIn;
+ * @class ViennaFileIn
+ * @signature typedef FormattedFile<Vienna, Input> ViennaFileIn;
  * @extends FormattedFileIn
- * @headerfile <seqan/rna_format_io.h>
- * @brief Class for reading Rna files.
+ * @recordfile <seqan/rna_io.h>
+ * @brief Class for reading Vienna files.
  *
  * @see RnaRecord
  */
-typedef FormattedFile<Connect, Input> ConnectFileIn;
+typedef FormattedFile<Vienna, Input>   ViennaFileIn;
 
 // ----------------------------------------------------------------------------
-// Typedef ConnectFileOut
+// Typedef ViennaFileOut
 // ----------------------------------------------------------------------------
 
 /*!
- * @class ConnectFileOut
- * @signature typedef FormattedFile<Rna, Output> ConenctFileOut;
+ * @class ViennaFileOut
+ * @signature typedef FormattedFile<Vienna, Output> ViennaFileOut;
  * @extends FormattedFileOut
- * @headerfile <seqan/Rna_format_io.h>
- * @brief Class for writing Rna files.
+ * @recordfile <seqan/rna_io.h>
+ * @brief Class for writing Vienna files.
  *
  * @see RnaRecord
  */
-
-typedef FormattedFile<Connect, Output> ConnectFileOut;
+typedef FormattedFile<Vienna, Output>  ViennaFileOut;
 
 // ----------------------------------------------------------------------------
 // Metafunction FormattedFileContext
 // ----------------------------------------------------------------------------
 
 template <typename TDirection, typename TSpec, typename TStorageSpec>
-struct FormattedFileContext<FormattedFile<Connect, TDirection, TSpec>, TStorageSpec>
+struct FormattedFileContext<FormattedFile<Vienna, TDirection, TSpec>, TStorageSpec>
 {
     typedef RnaIOContext Type;
 };
@@ -97,35 +92,35 @@ struct FormattedFileContext<FormattedFile<Connect, TDirection, TSpec>, TStorageS
 // ----------------------------------------------------------------------------
 
 template <typename TDirection, typename TSpec>
-struct FileFormat<FormattedFile<Connect, TDirection, TSpec> >
+struct FileFormat<FormattedFile<Vienna, TDirection, TSpec> >
 {
-    typedef Connect Type;
+    typedef Vienna Type;
 };
 
 // ----------------------------------------------------------------------------
-// Function readRecord(); RnaHeader, Connect File
+// Function writeRecord(); RnaRecord, Vienna File
 // ----------------------------------------------------------------------------
 
 template <typename TSpec>
 inline void
-readRecord(RnaRecord & record, FormattedFile<Connect, Input, TSpec> & file)
+writeRecord(FormattedFile<Vienna, Output, TSpec> & file, RnaRecord & record)
+{
+    writeRecord(file.iter, record, file.format);
+}
+
+// ----------------------------------------------------------------------------
+// Function readRecord(); RnaRecord, Vienna File
+// ----------------------------------------------------------------------------
+
+template <typename TSpec>
+inline void
+readRecord(RnaRecord & record, FormattedFile<Vienna, Input, TSpec> & file)
 {
     readRecord(record, file.iter, file.format);
 }
 
 
 
-// ----------------------------------------------------------------------------
-// Function writeRecord(); RnaRecord, Connect File
-// ----------------------------------------------------------------------------
-
-template <typename TSpec>
-inline void
-writeRecord(FormattedFile<Connect, Output, TSpec> & file, RnaRecord & record)
-{
-    writeRecord(file.iter, record, file.format);
-}
-
 } //seqan namespace
 
-#endif  //SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_FILE_H_
+#endif	//SEQAN_RNA_IO_VIENNA_FILE_H_

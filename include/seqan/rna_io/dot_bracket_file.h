@@ -34,8 +34,8 @@
 // Class for writing files in dot-bracket files
 // ==========================================================================
 
-#ifndef SEQAN_RNA_DOT_BRACKET_IO_FILE_H_
-#define SEQAN_RNA_DOT_BRACKET_IO_FILE_H_
+#ifndef SEQAN_INCLUDE_SEQAN_RNA_IO_DOT_BRACKET_FILE_H_
+#define SEQAN_INCLUDE_SEQAN_RNA_IO_DOT_BRACKET_FILE_H_
 
 
 namespace seqan {
@@ -118,11 +118,11 @@ template <typename TSpec>
 inline void
 readRecord(RnaRecord & record, FormattedFile<DotBracket, Input, TSpec> & file)
 {
-    readRecord(record, context(file), file.iter, file.format);
+    readRecord(record, file.iter, file.format);
 }
 
 
 
 } //seqan namespace
 
-#endif	//SEQAN_RNA_DOT_BRACKET_IO_FILE_H_
+#endif	//SEQAN_INCLUDE_SEQAN_RNA_IO_DOT_BRACKET_FILE_H_
