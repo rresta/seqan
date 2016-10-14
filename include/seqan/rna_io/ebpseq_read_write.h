@@ -61,6 +61,34 @@ namespace seqan {
 struct Ebpseq_;
 typedef Tag<Ebpseq_> Ebpseq;
 
+// ----------------------------------------------------------------------------
+// Class MagicHeader
+// ----------------------------------------------------------------------------
+
+template <typename T>
+struct MagicHeader<Ebpseq, T> :
+    public MagicHeader<Nothing, T> {};
+
+// ============================================================================
+// Metafunctions
+// ============================================================================
+
+// --------------------------------------------------------------------------
+// Metafunction FileExtensions
+// --------------------------------------------------------------------------
+
+template <typename T>
+struct FileExtensions<Ebpseq, T>
+{
+    static char const * VALUE[1];    // default is one extension
+};
+
+template <typename T>
+char const * FileExtensions<Ebpseq, T>::VALUE[1] =
+    {
+        ".ebpseq"     // default output extension
+    };
+
 // ============================================================================
 // Functions
 // ============================================================================
@@ -68,23 +96,6 @@ typedef Tag<Ebpseq_> Ebpseq;
 // ----------------------------------------------------------------------------
 // Function readRecord()                                            [EbpseqHeader]
 // ----------------------------------------------------------------------------
-
-//inline void
-//_parseEbpseqContig(CharString & chromName, CharString const & headerValue)
-//{
-//    if (length(headerValue) < 3u)
-//        return;
-//
-//    CharString tmp = infix(headerValue, 1, length(headerValue) - 2);
-//    StringSet<CharString> tmp2;
-//    strSplit(tmp2, tmp, EqualsChar<','>());
-//    for (unsigned i = 0; i < length(tmp2); ++i)
-//    {
-//        if (!startsWith(tmp2[i], "ID="))
-//            continue;
-//        chromName = suffix(tmp2[i], 3);
-//    }
-//}
 
 inline unsigned _findIndex(StringSet<CharString> const & set, CharString const & str)
 {

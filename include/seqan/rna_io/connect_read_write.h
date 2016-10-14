@@ -1,7 +1,7 @@
 // ==========================================================================
 //                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
-// Copyright (c) 2006-2015, Knut Reinert, FU Berlin
+// Copyright (c) 2006-2016, Knut Reinert, FU Berlin
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -37,9 +37,6 @@
 #ifndef SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_READ_WRITE_H_
 #define SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_READ_WRITE_H_
 
-#include <seqan/stream.h>
-
-
 /* IMPLEMENTATION NOTES
 
 Rna FORMAT example:
@@ -73,9 +70,6 @@ namespace seqan{
 // Tags, Classes, Enums
 // ==========================================================================
 
-// ============================================================================
-// Forwards
-// ============================================================================
 // --------------------------------------------------------------------------
 // Tag Connect
 // --------------------------------------------------------------------------
@@ -83,13 +77,17 @@ namespace seqan{
 struct Connect_;
 typedef Tag<Connect_> Connect;
 
+// --------------------------------------------------------------------------
+// Class MagicHeader
+// --------------------------------------------------------------------------
+
 template <typename T>
 struct MagicHeader<Connect, T> :
     public MagicHeader<Nothing, T> {};
 
-// ============================================================================
+// ==========================================================================
 // Metafunctions
-// ============================================================================
+// ==========================================================================
 
 // --------------------------------------------------------------------------
 // Metafunction FileExtensions
@@ -100,24 +98,23 @@ struct FileExtensions<Connect, T>
 {
     static char const * VALUE[1];
 };
+
 template <typename T>
 char const * FileExtensions<Connect, T>::VALUE[1] =
-{
-    ".ct"      // default output extension
-};
-
+    {
+        ".ct"      // default output extension
+    };
 
 // ==========================================================================
 // Functions
 // ==========================================================================
 
-
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Function readRecord(); RnaRecord, Connect
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Connect const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -207,14 +204,13 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
     SEQAN_ASSERT_EQ(record.seqLen, length(record.sequence));
 }
 
-
 // ----------------------------------------------------------------------------
 // Function writeRecord(); RnaRecord, Connect
 // ----------------------------------------------------------------------------
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Connect const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: Connect formatted file cannot contain an alignment.");

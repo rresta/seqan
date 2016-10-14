@@ -36,25 +36,48 @@
 #ifndef SEQAN_INCLUDE_SEQAN_RNA_IO_BPSEQ_READ_WRITE_H_
 #define SEQAN_INCLUDE_SEQAN_RNA_IO_BPSEQ_READ_WRITE_H_
 
+#include <seqan/rna_io.h>
+
 namespace seqan {
 
-// ============================================================================
+// ==========================================================================
 // Tags, Classes, Enums
-// ============================================================================
+// ==========================================================================
 
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Tag Bpseq
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 
-/*!
- * @tag FileFormats#Bpseq
- * @headerfile <seqan/bpseq_io.h>
- * @brief Variant callinf format file.
- *
- * @signature typedef Tag<Bpseq_> Bpseq;
- */
 struct Bpseq_;
 typedef Tag<Bpseq_> Bpseq;
+
+// ----------------------------------------------------------------------------
+// Class MagicHeader
+// ----------------------------------------------------------------------------
+
+template <typename T>
+struct MagicHeader<Bpseq, T> :
+    public MagicHeader<Nothing, T> {};
+
+// ============================================================================
+// Metafunctions
+// ============================================================================
+
+// --------------------------------------------------------------------------
+// Metafunction FileExtensions
+// --------------------------------------------------------------------------
+
+template <typename T>
+struct FileExtensions<Bpseq, T>
+{
+    static char const * VALUE[1];    // default is one extension
+};
+
+template <typename T>
+char const * FileExtensions<Bpseq, T>::VALUE[1] =
+    {
+        ".bpseq"     // default output extension
+    };
 
 // ============================================================================
 // Functions
@@ -67,7 +90,7 @@ typedef Tag<Bpseq_> Bpseq;
 
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, TForwardIter & iter, Bpseq const & /*tag*/)
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Bpseq const & /*tag*/)
 {
     typedef OrFunctor<IsSpace, AssertFunctor<NotFunctor<IsNewline>, ParseError, Bpseq> > NextEntry;
     std::string buffer;
@@ -142,7 +165,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Bpseq const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Bpseq const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Bpseq const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: Bpseq formatted file cannot contain an alignment.");

@@ -61,26 +61,22 @@ namespace seqan{
 // Tags, Classes, Enums
 // ==========================================================================
 
-// ============================================================================
-// Classes, Tags
-// ============================================================================
-
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Tag DotBracket
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 struct DotBracket_;
 typedef Tag<DotBracket_> DotBracket;
 
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Class Magicheader
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 template <typename T>
 struct MagicHeader<DotBracket, T> :
     public MagicHeader<Nothing, T> {};
 
-// ============================================================================
+// ==========================================================================
 // Metafunctions
-// ============================================================================
+// ==========================================================================
 
 // --------------------------------------------------------------------------
 // Metafunction FileExtensions
@@ -91,15 +87,17 @@ struct FileExtensions<DotBracket, T>
 {
     static char const * VALUE[1];
 };
+
 template <typename T>
 char const * FileExtensions<DotBracket, T>::VALUE[1] =
 {
     ".db"      // default output extension
 };
 
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Metafunction DotBracketArgs
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+
 template <typename T = void>
 struct DotBracketArgs
 {
@@ -276,7 +274,7 @@ inline CharString const graph2bracket(TRnaRecordGraph const & graph)
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, TForwardIter & iter, DotBracket const & /*tag*/)
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, DotBracket const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -336,7 +334,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, DotBracket const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, DotBracket const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, DotBracket const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: DotBracket formatted file cannot contain an alignment.");

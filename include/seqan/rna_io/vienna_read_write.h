@@ -48,26 +48,24 @@ namespace seqan{
 // Tags, Classes, Enums
 // ==========================================================================
 
-// ============================================================================
-// Classes, Tags
-// ============================================================================
-
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Tag Vienna
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+
 struct Vienna_;
 typedef Tag<Vienna_> Vienna;
 
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
 // Class Magicheader
-// ----------------------------------------------------------------------------
+// --------------------------------------------------------------------------
+
 template <typename T>
 struct MagicHeader<Vienna, T> :
     public MagicHeader<Nothing, T> {};
 
-// ============================================================================
+// ==========================================================================
 // Metafunctions
-// ============================================================================
+// ==========================================================================
 
 // --------------------------------------------------------------------------
 // Metafunction FileExtensions
@@ -78,6 +76,7 @@ struct FileExtensions<Vienna, T>
 {
     static char const * VALUE[1];
 };
+
 template <typename T>
 char const * FileExtensions<Vienna, T>::VALUE[1] =
 {
@@ -93,7 +92,7 @@ char const * FileExtensions<Vienna, T>::VALUE[1] =
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Vienna const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -180,7 +179,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Vienna const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         throw std::runtime_error("ERROR: Vienna formatted file cannot contain an alignment.");
@@ -206,8 +205,9 @@ writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
 
     // write bracket string
     TRnaRecordGraph const & graph = record.fixedGraphs[0].inter;
-    CharString bracketStr;
+    std::string bracketStr;
     resize(bracketStr, numVertices(graph), ' ');
+    std::stack<unsigned> stack;
 
     for (unsigned idx = 0; idx < length(bracketStr); ++idx) // write pairs in bracket notation
     {
@@ -219,9 +219,20 @@ writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
 
         TRnaAdjacencyIterator adj_it(graph, idx);
         if (idx < value(adj_it))                        // open bracket
+        {
             bracketStr[idx] = '(';
+            stack.push(value(adj_it));
+        }
         else                                            // close bracket
+        {
             bracketStr[idx] = ')';
+            if (stack.empty())
+                SEQAN_FAIL("Cannot reach here.");
+            if (stack.top() == idx)
+                stack.pop();
+            else
+                throw std::runtime_error("ERROR: Vienna format does not allow pseudoknots.");
+        }
     }
     write(target, bracketStr);
 

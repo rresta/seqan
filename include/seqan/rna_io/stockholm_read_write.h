@@ -38,7 +38,8 @@
 #define SEQAN_INCLUDE_SEQAN_RNA_IO_STOCKHOLM_READ_WRITE_H_
 
 #include <seqan/stream.h>
-#include <seqan/rna_io/dot_bracket_read_write.h>  // for bracket-graph transformation
+// for bracket-graph transformation
+#include <seqan/rna_io/dot_bracket_read_write.h>
 
 /* IMPLEMENTATION NOTES
 
@@ -84,9 +85,6 @@ namespace seqan{
 // Tags, Classes, Enums
 // ==========================================================================
 
-// ============================================================================
-// Forwards
-// ============================================================================
 // --------------------------------------------------------------------------
 // Tag Connect
 // --------------------------------------------------------------------------
@@ -94,13 +92,17 @@ namespace seqan{
 struct Stockholm_;
 typedef Tag<Stockholm_> Stockholm;
 
+// --------------------------------------------------------------------------
+// Class MagicHeader
+// --------------------------------------------------------------------------
+
 template <typename T>
 struct MagicHeader<Stockholm, T> :
     public MagicHeader<Nothing, T> {};
 
-// ============================================================================
+// ==========================================================================
 // Metafunctions
-// ============================================================================
+// ==========================================================================
 
 // --------------------------------------------------------------------------
 // Metafunction FileExtensions
@@ -111,12 +113,12 @@ struct FileExtensions<Stockholm, T>
 {
     static char const * VALUE[1];
 };
+
 template <typename T>
 char const * FileExtensions<Stockholm, T>::VALUE[1] =
 {
     ".sth"      // default output extension
 };
-
 
 // ==========================================================================
 // Functions
@@ -128,7 +130,7 @@ char const * FileExtensions<Stockholm, T>::VALUE[1] =
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, TForwardIter & iter, Stockholm const & /*tag*/)
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Stockholm const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -257,7 +259,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Stockholm const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, Stockholm const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Stockholm const & /*tag*/)
 {
     if (length(record.fixedGraphs) != 1)
         throw std::runtime_error("ERROR: Cannot deal with multiple structure graphs.");
