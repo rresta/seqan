@@ -83,6 +83,7 @@
 #include "option.h" //
 #include "store_seqs.h"
 #include "interaction_edges.h"
+#include "alignment_edges.h"
 #include "struct_align.h"
 
 using namespace seqan;
@@ -133,6 +134,16 @@ int main(int argc, char const ** argv)
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     firstSimdAligns(resultsSimd, alignsSimd, rnaAligns, options);
+    //TODO embedd this routine in a function
+#pragma omp parallel for num_threads(options.threads)
+    for(unsigned i = 0; i < length(alignsSimd); ++i)
+    {
+        seqan::resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1.sequence));
+// TODO create a funciton that checks the best scores
+        rnaAligns[i].bestAlign = alignsSimd[i];
+        rnaAligns[i].bestAlignScore = resultsSimd[i];
+        checkInterEdgesAndUpdateLambda(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+    }
     return 0;
 }
 

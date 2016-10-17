@@ -101,7 +101,8 @@ struct Options
     double my; //FIXME to be changed the name
 // scoring matrix name that should be used for scoring alignment edges in the actual problem
     seqan::CharString laraScoreMatrixName;
-    Score<double, ScoreMatrix<Rna5, Default> > laraScoreMatrix;
+//    Score<double, ScoreMatrix<Rna5, Default> > laraScoreMatrix;
+    TScoreMatrix laraScoreMatrix;
 //    TScoringSchemeRib laraScoreMatrixRib;
 // Gap open and extend costs for generating the alignment edges
     double generatorGapOpen;

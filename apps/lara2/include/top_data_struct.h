@@ -78,6 +78,7 @@ typedef seqan::Align<TSequence, seqan::ArrayGaps> TAlign;      // align type
 typedef unsigned TPosition;
 typedef double TScoreValue;
 typedef seqan::CharString TString;
+typedef Score<double, ScoreMatrix<Rna5, Default> > TScoreMatrix;
 typedef seqan::Ribosum65N TRibosum;
 typedef float TBioval;
 typedef std::map<TPosition, TScoreValue> TMap;
@@ -136,6 +137,13 @@ typedef RnaStructSeq<TSequence, TString, TPosition, TBioval, TMapLine> TRnaStruc
 //typedef std::vector<TRnaStruct > TRnaVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 
+struct lambStruct
+{
+    // String with size seq1 storing all the aligned lines
+    TMap map; //mapLine;
+    unsigned indexBest;
+};
+
 struct RnaStructAlign
 {
 //public:
@@ -145,7 +153,7 @@ struct RnaStructAlign
     TAlign bestAlign;
     TScoreValue bestAlignScore;
 // String with size seq1 storing all the aligned lines
-    TMapLine mapLine;
+    seqan::String<lambStruct > lamb;
 };// rnaStructAlign;
 
 typedef RnaStructAlign TRnaAlign;
