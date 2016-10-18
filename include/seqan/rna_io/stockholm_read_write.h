@@ -153,6 +153,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         readUntil(buffer, iter, IsWhitespace());                // read line until first whitespace
         if (buffer == "//")
         {                                                       // found terminal symbols
+            skipLine(iter);
             clear(buffer);
             break;
         }

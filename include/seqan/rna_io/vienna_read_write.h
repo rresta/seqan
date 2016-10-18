@@ -158,18 +158,17 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     clear(buffer);
 
     // read energy if present
-    if(!atEnd(iter))
+    skipUntil(iter, OrFunctor<IsNewline, EqualsChar<'('> >());
+    if (!atEnd(iter) && value(iter) == '(')
     {
-        skipUntil(iter, NotFunctor<IsWhitespace>());
-        if(*iter == '(')
-        {
-            skipOne(iter);
-            readUntil(buffer, iter, EqualsChar<')'>());
-            if (!lexicalCast(record.energy, buffer))
-                throw BadLexicalCast(record.energy, buffer);
-            clear(buffer);
-        }
+        skipOne(iter);
+        readUntil(buffer, iter, EqualsChar<')'>());
+        if (!lexicalCast(record.energy, buffer))
+            throw BadLexicalCast(record.energy, buffer);
+        clear(buffer);
     }
+    if (!atEnd(iter))
+        skipLine(iter);
 }
 
 
@@ -241,8 +240,9 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
     {
         write(target, " (");
         write(target, record.energy);
-        write(target, ")\n");
+        writeValue(target, ')');
     }
+    writeValue(target, '\n');
 }
 
 }

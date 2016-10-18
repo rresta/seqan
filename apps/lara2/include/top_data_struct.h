@@ -51,11 +51,8 @@
 
 #define FASTA 0
 #define FASTQ 1
-#define BPSEQ 2
-#define EBPSEQ 3
-#define DBN 4
-#define EDBN 5
-#define UNKNOWN 6
+#define RNASTRUCT 2
+#define UNKNOWN 3
 
 #define LOGARITHMIC 0
 #define SCALE       1

@@ -96,22 +96,28 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     std::string buffer;
     clear(record);
 
-    unsigned currPos{0};
-    TRnaRecordGraph graph;
-
-    while (!atEnd(iter))
-    {
-        if (value(iter) == '#')
-        {                                       // All the information stored in the # lines are saved in a single line
-            skipOne(iter);
-            skipUntil(iter, NotFunctor<IsWhitespace>());
-            readLine(buffer, iter);
+    skipUntil(iter, NotFunctor<IsWhitespace>());
+    while (!atEnd(iter) && value(iter) == '#')
+    {                                       // All the information stored in the # lines are saved in a single line
+        skipOne(iter);
+        skipUntil(iter, NotFunctor<IsWhitespace>());
+        readLine(buffer, iter);
+        if (empty(record.name))
+        {
+            record.name = buffer;
+        }
+        else
+        {
             appendValue(record.comment, ' ');
             append(record.comment, buffer);
-            clear(buffer);
-            continue;
         }
+        clear(buffer);
+    }
 
+    TRnaRecordGraph graph;
+    unsigned currPos{0};
+    while (!atEnd(iter) && value(iter) != '#')
+    {
         // read index position
         if (currPos == 0)
         {
@@ -155,8 +161,6 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     }
     append(record.fixedGraphs, RnaInterGraph(graph));
     record.seqLen = currPos;  //set amount of records
-
-    return;
 }
 
 // ----------------------------------------------------------------------------

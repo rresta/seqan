@@ -56,7 +56,7 @@ typedef Tag<RnaStruct_> RnaStruct;
 
 struct RnaStructContents_
 {
-    String<RnaRecord> records;
+    std::vector<RnaRecord> records;
     RnaHeader header;
 };
 typedef struct RnaStructContents_ RnaStructContents;
@@ -173,23 +173,23 @@ template <typename TSpec>
 inline void
 readRecord(RnaRecord & record, FormattedFile<RnaStruct, Input, TSpec> & file)
 {
-    readRecord(record, file.context, file.iter, file.format);
+    readRecord(record, context(file), file.iter, file.format);
 }
 
 // ----------------------------------------------------------------------------
 // Function writeRecord(TagSelector)
 // ----------------------------------------------------------------------------
 
-template <typename TFwdIterator, typename TIdString, typename TSeqString>
+template <typename TFwdIterator>
 inline void
-writeRecord(TFwdIterator &, RnaRecord &, RnaIOContext &, TagSelector<> const &)
+writeRecord(TFwdIterator &, RnaRecord const &, RnaIOContext &, TagSelector<> const &)
 {
     SEQAN_FAIL("RnaStructFileOut: File format not specified.");
 }
 
-template <typename TFwdIterator, typename TIdString, typename TSeqString, typename TTagList>
+template <typename TFwdIterator, typename TTagList>
 inline void
-writeRecord(TFwdIterator & iter, RnaRecord & record, RnaIOContext & context, TagSelector<TTagList> const & format)
+writeRecord(TFwdIterator & iter, RnaRecord const & record, RnaIOContext & context, TagSelector<TTagList> const & format)
 {
     typedef typename TTagList::Type TFormat;
 
@@ -201,9 +201,9 @@ writeRecord(TFwdIterator & iter, RnaRecord & record, RnaIOContext & context, Tag
 
 template <typename TSpec>
 inline void
-writeRecord(FormattedFile<RnaStruct, Output, TSpec> & file, RnaRecord & record)
+writeRecord(FormattedFile<RnaStruct, Output, TSpec> & file, RnaRecord const & record)
 {
-    writeRecord(file.iter, record, file.context, file.format);
+    writeRecord(file.iter, record, context(file), file.format);
 }
 
 // ----------------------------------------------------------------------------
@@ -215,7 +215,7 @@ inline void
 readHeader(RnaHeader & header, FormattedFile<RnaStruct, Input, TSpec> & file)
 {
     if (isEqual(file.format, Ebpseq()))
-        readHeader(header, file.context, file.iter, file.format);
+        readHeader(header, context(file), file.iter, Ebpseq());
     // other files contain no header
 }
 
@@ -225,10 +225,10 @@ readHeader(RnaHeader & header, FormattedFile<RnaStruct, Input, TSpec> & file)
 
 template <typename TSpec>
 inline void
-writeHeader(FormattedFile<RnaStruct, Output, TSpec> & file, RnaHeader & header)
+writeHeader(FormattedFile<RnaStruct, Output, TSpec> & file, RnaHeader const & header)
 {
     if (isEqual(file.format, Ebpseq()))
-        writeHeader(file.iter, header, file.context, file.format);
+        writeHeader(file.iter, header, context(file), Ebpseq());
     // other files contain no header
 }
 
@@ -242,11 +242,14 @@ inline void readRecords(RnaStructContents & contents, FormattedFile<RnaStruct, I
     readHeader(contents.header, file);
     RnaRecord record;
     TSize numRecords = 0;
-    while (!atEnd(file) && ++numRecords <= maxRecords)
+    while (!atEnd(file.iter) && ++numRecords <= maxRecords)
     {
         readRecord(record, file);
         append(contents.records, record);
     }
+    // for files without header: create pseudo header
+    if (empty(contents.header.seqLabels))
+        createPseudoHeader(contents.header, contents.records); // in ebpseq_read_write.h
 }
 
 // ----------------------------------------------------------------------------
@@ -257,7 +260,7 @@ template <typename TSpec>
 inline void writeRecords(FormattedFile<RnaStruct, Output, TSpec> & file, RnaStructContents const & contents)
 {
     writeHeader(file, contents.header);
-    for (RnaRecord const && record : contents.records)
+    for (RnaRecord const & record : contents.records)
         writeRecord(file, record);
 }
 

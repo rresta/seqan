@@ -91,7 +91,7 @@ struct FileExtensions<DotBracket, T>
 template <typename T>
 char const * FileExtensions<DotBracket, T>::VALUE[1] =
 {
-    ".db"      // default output extension
+    ".dbn"      // default output extension
 };
 
 // --------------------------------------------------------------------------
@@ -300,12 +300,12 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     clear(buffer);
 
     // read sequence
-    skipOne(iter);
+    skipOne(iter);                                                      // newline character
     readUntil(record.sequence, iter, IsNewline());
     record.seqLen = length(record.sequence);
 
     // read bracket string and build graph
-    skipOne(iter);
+    skipOne(iter);                                                      // newline character
     readUntil(buffer, iter, IsWhitespace());
     if (length(buffer) != record.seqLen)
         throw std::runtime_error("ERROR: Bracket string must be as long as sequence.");
@@ -313,18 +313,17 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     clear(buffer);
 
     // read energy if present
-    if(!atEnd(iter))
+    skipUntil(iter, OrFunctor<IsNewline, EqualsChar<'('> >());
+    if (!atEnd(iter) && value(iter) == '(')
     {
-        skipUntil(iter, NotFunctor<IsWhitespace>());
-        if(*iter == '(')
-        {
-            skipOne(iter);
-            readUntil(buffer, iter, EqualsChar<')'>());
-            if (!lexicalCast(record.energy, buffer))
-                throw BadLexicalCast(record.energy, buffer);
-            clear(buffer);
-        }
+        skipOne(iter);
+        readUntil(buffer, iter, EqualsChar<')'>());
+        if (!lexicalCast(record.energy, buffer))
+            throw BadLexicalCast(record.energy, buffer);
+        clear(buffer);
     }
+    if (!atEnd(iter))
+        skipLine(iter);
 }
 
 
@@ -366,8 +365,9 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
     {
         write(target, " (");
         write(target, record.energy);
-        write(target, ")\n");
+        writeValue(target, ')');
     }
+    writeValue(target, '\n');
 }
 
 }

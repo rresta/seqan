@@ -410,49 +410,35 @@ writeHeader(TTarget & target, RnaHeader const & header, RnaIOContext & context, 
 }
 
 // ----------------------------------------------------------------------------
-// Function writePseudoHeader()
+// Function createPseudoHeader()
 // ----------------------------------------------------------------------------
 
-template <typename TTarget>
-inline void writePseudoHeader(TTarget & target, RnaRecord const & record, RnaIOContext & context)
+inline void createPseudoHeader(RnaHeader & header, std::vector<RnaRecord> & records)
 {
-    // comment line
-    if (!empty(record.comment))
+    std::size_t numFix{0}, numBpp{0};
+    for (unsigned idx = 0; idx < length(records); ++idx)
     {
-        write(target, "## G: ");
-        write(target, record.comment);
-        writeValue(target, '\n');
+        records[idx].recordID = idx;
+        if (!empty(records[idx].comment))
+        {
+            if (!empty(header.description))
+                append(header.description, "\t");
+            append(header.description, records[idx].comment);
+        }
+
+        appendValue(header.seqLabels, records[idx].name);
+
+        if (length(records[idx].fixedGraphs) > numFix)
+            numFix = length(records[idx].fixedGraphs);
+        if (length(records[idx].bppMatrGraphs) > numBpp)
+            numBpp = length(records[idx].bppMatrGraphs);
     }
 
-        write(target, "## S1: ");
-        write(target, record.name);
-        writeValue(target, '\n');
-        appendValue(context.seqIdent, "1");
+    for (unsigned idx = 1; idx <= numFix; ++idx)
+        appendValue(header.fixLabels, "n/a");
 
-
-    for (unsigned idx = 1; idx <= length(record.fixedGraphs); ++idx)
-    {
-        write(target, "## F");
-        write(target, idx);
-        write(target, ": n/a\n");
-        appendValue(context.fixIdent, std::to_string(idx));
-    }
-
-    for (unsigned idx = 1; idx <= length(record.bppMatrGraphs); ++idx)
-    {
-        write(target, "## M");
-        write(target, idx);
-        write(target, ": n/a\n");
-        appendValue(context.bppIdent, std::to_string(idx));
-    }
-
-    for (unsigned idx = 1; idx <= length(record.typeID); ++idx)
-    {
-        write(target, "## T");
-        write(target, idx);
-        write(target, ": n/a\n");
-        appendValue(context.typIdent, std::to_string(idx));
-    }
+    for (unsigned idx = 1; idx <= numBpp; ++idx)
+        appendValue(header.bppLabels, "n/a");
 }
 
 // ----------------------------------------------------------------------------
@@ -463,9 +449,9 @@ template <typename TTarget>
 inline void
 writeRecord(TTarget & target, RnaRecord const & record, RnaIOContext & context, Ebpseq const & /*tag*/)
 {
-    if (empty(record.typeID))               // origin not ebpseq
-        writePseudoHeader(target, record, context);
-    else if (empty(context.seqIdent))       // origin is ebpseq, but header was not printed
+    if (empty(record.sequence) && length(rows(record.align)) != 1)
+        throw std::runtime_error("ERROR: Ebpseq formatted file cannot contain an alignment.");
+    if (empty(context.seqIdent))       // origin is ebpseq, but header was not printed
         throw std::runtime_error("ERROR: Print ebpseq header first.");
     else if (record.recordID >= length(context.seqIdent))
         throw std::runtime_error("ERROR: Record ID exceeds number of sequences in ebpseq header.");

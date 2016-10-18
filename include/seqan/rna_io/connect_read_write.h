@@ -128,18 +128,27 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
 
     //read energy
     skipUntil(iter, NotFunctor<IsWhitespace>());
-    skipUntil(iter, IsWhitespace());
-    skipUntil(iter, EqualsChar<'='>());
-    skipOne(iter);
-    skipUntil(iter, NotFunctor<IsWhitespace>());
-    readUntil(buffer, iter, IsWhitespace());
-    if (!lexicalCast(record.energy, buffer))
-        throw BadLexicalCast(record.energy, buffer);
+    readUntil(buffer, iter, OrFunctor<IsWhitespace, EqualsChar<'='> >());
+    if (startsWith(buffer, "ENERGY"))
+    {
+        skipUntil(iter, EqualsChar<'='>());
+        skipOne(iter);
+        skipUntil(iter, NotFunctor<IsWhitespace>());
+        clear(buffer);
+        readUntil(buffer, iter, IsWhitespace());
+        if (!lexicalCast(record.energy, buffer))
+            throw BadLexicalCast(record.energy, buffer);
+        skipUntil(iter, NotFunctor<IsWhitespace>());
+    }
+    else
+    {
+        record.name = buffer;
+    }
     clear(buffer);
 
     // read name
-    readUntil(buffer, iter, NotFunctor<IsWhitespace>());
-    readUntil(record.name,  iter, IsNewline());
+    readUntil(buffer, iter, IsNewline());
+    append(record.name, buffer);
     clear(buffer);
 
     /*
@@ -152,7 +161,8 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     // read nucleotides with pairs
     TRnaRecordGraph graph;
     unsigned currPos {0};
-    while (!atEnd(iter))
+    record.offset = 1;
+    while (!atEnd(iter) && currPos < record.seqLen + record.offset - 1)
     {
         // offset
         skipUntil(iter, NotFunctor<IsWhitespace>());
@@ -198,7 +208,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         }
 
         clear(buffer);
-        skipUntil(iter, IsNewline());
+        skipLine(iter);
     }
     append(record.fixedGraphs, RnaInterGraph(graph));
     SEQAN_ASSERT_EQ(record.seqLen, length(record.sequence));
@@ -219,11 +229,14 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
 
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
 
-    //write old "header"
+    //write "header"
     appendNumber(target, record.seqLen);
-    writeValue(target, '\t');
-    write(target, "ENERGY = ");
-    appendNumber(target, record.energy);
+    if (record.energy != 0.0f)
+    {
+        writeValue(target, '\t');
+        write(target, "ENERGY = ");
+        appendNumber(target, record.energy);
+    }
     writeValue(target, '\t');
     write(target, record.name);
     writeValue(target, '\n');

@@ -88,22 +88,16 @@ unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TOD
             {
                 std::getline(inFile, cur_line);
                 if (cur_line.find("(") != -1 && cur_line[0] != '>') {
-                    if (cur_line.find("[") != -1 && cur_line[0] != '>') // this is not exaustive because the EDBN file format should be defined yet (we still do not know if letters or parenthesis should be used for represent the nested loops)
-                        input_type = EDBN;
-                    else
-                        input_type = DBN;
+                    input_type = RNASTRUCT;
                 }
             } while(!inFile.eof());
 // if we did not find structure, then return FASTA, otherwis we already returned EXTENDED_FASTA
         } else if(cur_line[0] == '@' )
         {
             input_type = FASTQ;
-        } else if(cur_line[0] == '#' && cur_line[1] == '#')
+        } else if(cur_line[0] == '#')
         {
-            input_type = EDBN;
-        } else if(cur_line[0] == '#' && cur_line[1] != '#')
-        {
-            input_type = DBN;
+            input_type = RNASTRUCT;
         }
     }
     inFile.close();
@@ -114,9 +108,16 @@ unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TOD
 // Function readFastaRecords()
 // ----------------------------------------------------------------------------
 // This function is able to read Fasta, MultiFasta, FASTQ, EMBL or GenBank formats.
-template <typename TOption, typename TSeqVect, typename TSeqFileIn>
-unsigned readFastaRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileIn & seqFileIn)
+template <typename TOption, typename TSeqVect>
+unsigned readFastaRecords(TSeqVect & rnaSeqs, TOption const & options, CharString const & inFilePath)
 {
+    SeqFileIn seqFileIn;
+    if (!open(seqFileIn, toCString(inFilePath), OPEN_RDONLY))
+    {
+        std::cerr << "ERROR: Could not open the file " << inFilePath << std::endl;
+        return 1;
+    }
+
     StringSet<CharString> ids;
     StringSet<Rna5String> seqs;
     StringSet<CharString> quals;
@@ -150,43 +151,23 @@ unsigned readFastaRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileI
 };
 
 // ----------------------------------------------------------------------------
-// Function readDbnRecords()
+// Function readRnaStructRecords()
 // ----------------------------------------------------------------------------
-// This function is able to read dbn format.
-template <typename TOption, typename TSeqVect, typename TSeqFileIn>
-unsigned readDbnRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileIn & seqFileIn)
+// This function is able to read RnaStruct formats.
+template <typename TOption, typename TSeqVect>
+unsigned readRnaStructRecords(TSeqVect & rnaSeqs, TOption const & options, CharString const & inFilePath)
 {
-    std::cout << "function readDbnRecords to be implemented" <<std::endl;
-};
-
-// ----------------------------------------------------------------------------
-// Function readEdbnRecords()
-// ----------------------------------------------------------------------------
-// This function is able to read edbn format.
-template <typename TOption, typename TSeqVect, typename TSeqFileIn>
-unsigned readEdbnRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileIn & seqFileIn)
-{
-    std::cout << "function readEdbnRecords to be implemented" <<std::endl;
-};
-
-// ----------------------------------------------------------------------------
-// Function readBpseqRecords()
-// ----------------------------------------------------------------------------
-// This function is able to read edbn format.
-template <typename TOption, typename TSeqVect, typename TSeqFileIn>
-unsigned readBpseqRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileIn & seqFileIn)
-{
-    std::cout << "function readBpseqRecords to be implemented" <<std::endl;
-};
-
-// ----------------------------------------------------------------------------
-// Function readEbpseqRecords()
-// ----------------------------------------------------------------------------
-// This function is able to read edbn format.
-template <typename TOption, typename TSeqVect, typename TSeqFileIn>
-unsigned readEbpseqRecords(TOption const & options, TSeqVect & rnaSeqs, TSeqFileIn & seqFileIn)
-{
-    std::cout << "function readEbpseqRecords to be implemented" <<std::endl;
+    RnaStructFileIn rnaStructFile;
+    if (!open(rnaStructFile, toCString(inFilePath), OPEN_RDONLY))
+    {
+        std::cerr << "ERROR: Could not open the rna struct file " << inFilePath << std::endl;
+        return 1;
+    }
+    RnaStructContents contents;
+    readRecords(contents, rnaStructFile, 10000);
+    rnaSeqs = contents.records;
+    _VV(options, "Read " << length(rnaSeqs) << " records from file.");
+    return 0;
 };
 
 
@@ -200,43 +181,26 @@ unsigned readRnaRecords(TOption const & options, TFile file, TSeqVect & rnaSeqs)
     unsigned seqanSupportedFiles = UNKNOWN;
     const char * fileName = toCString(file);
     CharString inFilePath = getAbsolutePath(fileName);
-    SeqFileIn seqFileIn; // TODO the definition of SeqFileIn, and all the relative functions, should be overloded with the new supported RNA file formats (jump to SeqFileIn and overload this function)
+    SeqFileIn seqFileIn;
     std::cout << "Open the file, recognize the file format and fill the RNA data structure" << std::endl;
     std::cout << "fasta, fastq, bpseq, ebpseq, dbn and edbn(extended dbn) should be supported" << std::endl;
     seqanSupportedFiles = CheckInstanceFormat(options, inFilePath);  //TODO this function must be modified in order to support the acquisition of the other input file formats
     _V(options,"Reading sequences from file type " << seqanSupportedFiles << " named " << inFilePath );
 
-    if (!open(seqFileIn, toCString(inFilePath))) //FIXME this works for FASTA and FASTQ only, because seqFileIn iso not supported for the other file formats
-    {
-        std::cerr << "ERROR: Could not open the file " << file << std::endl;
-        return 1;
-    }
     std::cout << "the file format should be recognized and a readRecord function with the file type flag should be called to acquire the inputs" <<std::endl;
     switch(seqanSupportedFiles)
     {
         case FASTA:
             _V(options, "Input file is in Fasta format");
-            readFastaRecords(options, rnaSeqs, seqFileIn);
+            readFastaRecords(rnaSeqs, options, inFilePath);
             break;
         case FASTQ:
             _V(options, "Input file is in Fastq format");
-            readFastaRecords(options, rnaSeqs, seqFileIn);
+            readFastaRecords(rnaSeqs, options, inFilePath);
             break;
-        case DBN:
-            _V(options, "Input file is in DBN format");
-            readDbnRecords(options, rnaSeqs, seqFileIn);
-            break;
-        case EDBN:
-            _V(options, "Input file is in EDBN format");
-            readEdbnRecords(options, rnaSeqs, seqFileIn);
-            break;
-        case BPSEQ:
-        _V(options, "Input file is in BPSEQ format");
-            readBpseqRecords(options, rnaSeqs, seqFileIn);
-            break;
-        case EBPSEQ:
-        _V(options, "Input file is in EBPSEQ format");
-            readEbpseqRecords(options, rnaSeqs, seqFileIn);
+        case RNASTRUCT:
+            _V(options, "Input file is RnaStruct");
+            readRnaStructRecords(rnaSeqs, options, inFilePath);
             break;
         case UNKNOWN:
             _V(options, "Unable to identify the type of your input instance. Please check the allowed file formats");

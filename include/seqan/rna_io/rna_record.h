@@ -155,7 +155,7 @@ public:
 
 inline void clear(RnaRecord & record)
 {
-    record.recordID = 0;
+    record.recordID = record.UNDEF;
     record.seqLen = 0;
     record.offset = 1;
     record.energy = 0.0f;
