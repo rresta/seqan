@@ -101,7 +101,10 @@ void computeBppMatrix(TOption const & options, TRnaStruct & rnaSeq)
     {
         if(options.verbose > 2)
             std::cout << i << "_"<< pl1[i].i <<":"<< pl1[i].j <<"|"<< pl1[i].p <<"|"<< pl1[i].type << "\t";
-        addEdge(bppMatrGraph.inter, pl1[i].i, pl1[i].j, pl1[i].p);
+        SEQAN_ASSERT(pl1[i].i > 0 && pl1[i].i <= length(rnaSeq.sequence));
+        SEQAN_ASSERT(pl1[i].j > 0 && pl1[i].j <= length(rnaSeq.sequence));
+        // convert indices from range 1..length to 0..length-1
+        addEdge(bppMatrGraph.inter, pl1[i].i - 1, pl1[i].j - 1, pl1[i].p);
     }
     append(rnaSeq.bppMatrGraphs, bppMatrGraph);
     if(options.verbose > 2)
@@ -119,7 +122,7 @@ void computeBppMatrix(TOption const & options, TRnaStruct & rnaSeq)
 // free memory occupied by vrna_fold_compound
     vrna_fold_compound_free(vc);
 // clean up
-    free(structure);
+    delete(structure);
 }
 
 #endif //_INCLUDE_VIENNA_RNA_H_
