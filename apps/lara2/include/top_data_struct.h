@@ -134,6 +134,18 @@ typedef RnaStructSeq<TSequence, TString, TPosition, TBioval, TMapLine> TRnaStruc
 //typedef std::vector<TRnaStruct > TRnaVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 
+struct upperBoundStruct
+{
+    // String with size seq2
+    unsigned seq1Index;
+    TScoreValue maxProbScoreLine;
+    unsigned seq1IndexPairLine;
+    unsigned seq2IndexPairLine;
+};
+
+// String with size seq2
+typedef String<upperBoundStruct > TUpperBound;
+
 struct lambStruct
 {
     // String with size seq1 storing all the aligned lines
@@ -149,8 +161,20 @@ struct RnaStructAlign
 // The best computed alignment is saved in these fields
     TAlign bestAlign;
     TScoreValue bestAlignScore;
+    // Mask that represents the matches from the computed alignment
+    seqan::String<unsigned > maskLong;
+    seqan::String<std::pair <unsigned, unsigned> > mask;
+    unsigned maskIndex;
+// Lower bound field
+    double lowerBound;
+// Upper bound field
+    double upperBound;
+    TUpperBound upperBoundVect;
 // String with size seq1 storing all the aligned lines
     seqan::String<lambStruct > lamb;
+    RnaStructAlign():
+            bestAlignScore(std::numeric_limits<double>::lowest())
+    {}
 };// rnaStructAlign;
 
 typedef RnaStructAlign TRnaAlign;

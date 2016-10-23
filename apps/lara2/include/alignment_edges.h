@@ -49,8 +49,53 @@ using namespace seqan;
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Function ()
+// Function saveBestAlign()
 // ----------------------------------------------------------------------------
+
+template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
+void saveBestAlign(TOption const & options, TAlign const & align,
+                   TScore const & alignScore, TRnaAlign & rnaAlign)
+{
+    if(rnaAlign.bestAlignScore < alignScore)
+    {
+        rnaAlign.bestAlign = align;
+        rnaAlign.bestAlignScore = alignScore;
+    }
+};
+
+// ----------------------------------------------------------------------------
+// Function maskCreator()
+// ----------------------------------------------------------------------------
+
+template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
+void maskCreator(TOption const & options, TAlign const & align,
+                 TScore const & alignScore, TRnaAlign & rnaAlign)
+{
+    // TODO if combination of line do not exist create it and fill with 0
+    unsigned row0Begin = clippedBeginPosition(row(align, 0));
+    unsigned row1Begin = clippedBeginPosition(row(align, 1));
+    unsigned gap0 = 0;
+    unsigned gap1 = 0;
+    unsigned j = 0;
+//    std::cout << "row0Begin " << row0Begin << " row1Begin " << row1Begin << std::endl;
+    //TODO this function can be simplifyed using the function toViewPosition(row0, i)
+    // Initialize the mask vector of size seq_max with a clear configuration
+    for(unsigned i = 0; i < length( row(align, 0) ); ++i)  //maximum size of this string is length(mapline)
+    {
+        if(row(align, 0)[i]=='-') // In this choice the assumption that no alignment between - char can exist
+        {
+            ++gap0;
+        } else if (row(align, 1)[i]=='-') // else if (row1[i]=='-')
+        {
+            ++gap1;
+        } else
+        {
+            rnaAlign.mask[j] = std::make_pair(i+row0Begin-gap0, i+row1Begin-gap1);
+            ++j;
+        }
+    }
+    rnaAlign.maskIndex = j;
+}
 
 template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
 void checkInterEdgesAndUpdateLambda(TOption const & options, TAlign const & align,
@@ -76,7 +121,7 @@ void checkInterEdgesAndUpdateLambda(TOption const & options, TAlign const & alig
         {
 
             rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] += i; // the default initializer is callet the fist time that set the value to 0
-            std::cout << i+row0Begin-gap0 << ":" << i+row1Begin-gap1 << "/" << rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] << "\t";
+//            std::cout << i+row0Begin-gap0 << ":" << i+row1Begin-gap1 << "/" << rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] << "\t";
         }
     }
     std::cout << align << std::endl;

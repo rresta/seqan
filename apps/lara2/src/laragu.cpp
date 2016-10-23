@@ -47,6 +47,7 @@
 #include <iostream>
 #include <map>
 #include <string>
+#include <limits>
 #include <sstream>
 #include <omp.h>
 
@@ -139,9 +140,16 @@ int main(int argc, char const ** argv)
     for(unsigned i = 0; i < length(alignsSimd); ++i)
     {
         seqan::resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1.sequence));
-// TODO create a funciton that checks the best scores
-        rnaAligns[i].bestAlign = alignsSimd[i];
-        rnaAligns[i].bestAlignScore = resultsSimd[i];
+
+        seqan::resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
+        seqan::resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
+        // Save the best alignments that give the absolute maximum score
+        //TODO even the alignemnt that give the smallest difference between up and low bound should be saved
+        saveBestAlign(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+        maskCreator(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+
+
+
         checkInterEdgesAndUpdateLambda(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
     }
     return 0;
