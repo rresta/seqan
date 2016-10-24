@@ -65,7 +65,7 @@ void computeBppMatrix(TOption const & options, TRnaStruct & rnaSeq)
     std::cout << length(rnaSeq.sequence) << " " << rnaSeq.sequence << std::endl;
     char *structure = new char[length(rnaSeq.sequence) + 1];
     vrna_md_t md_p;
-    RnaInterGraph bppMatrGraph, fixedGraph;
+    RnaStructureGraph bppMatrGraph, fixedGraph;
 
 //  apply default model details
     set_model_details(&md_p);

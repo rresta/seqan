@@ -48,6 +48,12 @@ namespace seqan {
 // Tag Bpseq
 // --------------------------------------------------------------------------
 
+/*!
+ * @tag FileFormats#Bpseq
+ * @headerfile <seqan/rna_io.h>
+ * @brief Bpseq format for RNA structures.
+ * @signature typedef Tag<Bpseq_> Bpseq;
+ */
 struct Bpseq_;
 typedef Tag<Bpseq_> Bpseq;
 
@@ -114,7 +120,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         clear(buffer);
     }
 
-    TRnaRecordGraph graph;
+    RnaStructureGraph graph;
     unsigned currPos{0};
     while (!atEnd(iter) && value(iter) != '#')
     {
@@ -125,7 +131,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
             if (empty(buffer))
                 SEQAN_THROW(EmptyFieldError("BEGPOS"));
             if (!lexicalCast(record.offset, buffer))
-                throw BadLexicalCast(record.offset, buffer);
+                SEQAN_THROW(BadLexicalCast(record.offset, buffer));
             currPos = record.offset;
             clear(buffer);
         }
@@ -139,7 +145,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         skipUntil(iter, NotFunctor<IsBlank>());
         readUntil(buffer, iter, NextEntry());
         appendValue(record.sequence, buffer[0]);
-        addVertex(graph);                 // add base to graph
+        addVertex(graph.inter);                 // add base to graph
         if (empty(buffer))
             SEQAN_THROW(EmptyFieldError("SEQUENCE"));
         clear(buffer);
@@ -151,15 +157,15 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
             SEQAN_THROW(EmptyFieldError("PAIR"));
         unsigned pairPos;
         if (!lexicalCast(pairPos, buffer))
-            throw BadLexicalCast(pairPos, buffer);
+            SEQAN_THROW(BadLexicalCast(pairPos, buffer));
         if (pairPos != 0 && currPos > pairPos)    // add edge if base is connected
-            addEdge(graph, pairPos - record.offset, currPos - record.offset, 1.);
+            addEdge(graph.inter, pairPos - record.offset, currPos - record.offset, 1.);
         clear(buffer);
 
         skipLine(iter);
         skipUntil(iter, NotFunctor<IsWhitespace>());
     }
-    append(record.fixedGraphs, RnaInterGraph(graph));
+    append(record.fixedGraphs, graph);
     record.seqLen = currPos;  //set amount of records
 }
 
@@ -172,9 +178,9 @@ inline void
 writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Bpseq const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
-        throw std::runtime_error("ERROR: Bpseq formatted file cannot contain an alignment.");
+        SEQAN_THROW(ParseError("ERROR: Bpseq formatted file cannot contain an alignment."));
     if (length(record.fixedGraphs) != 1)
-        throw std::runtime_error("ERROR: Bpseq formatted file cannot contain multiple structure graphs.");
+        SEQAN_THROW(ParseError("ERROR: Bpseq formatted file cannot contain multiple structure graphs."));
 
     if (!empty(record.name))
     {
@@ -198,7 +204,7 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         writeValue(target, '\t');
         if (degree(record.fixedGraphs[0].inter, i) != 0)
         {
-            TRnaAdjacencyIterator adj_it(record.fixedGraphs[0].inter, i);
+            RnaAdjacencyIterator adj_it(record.fixedGraphs[0].inter, i);
             write(target, value(adj_it) + offset);
         }
         else

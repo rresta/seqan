@@ -74,6 +74,12 @@ namespace seqan{
 // Tag Connect
 // --------------------------------------------------------------------------
 
+/*!
+ * @tag FileFormats#Connect
+ * @headerfile <seqan/rna_io.h>
+ * @brief Connect format for RNA structures.
+ * @signature typedef Tag<Connect_> Connect;
+ */
 struct Connect_;
 typedef Tag<Connect_> Connect;
 
@@ -116,6 +122,7 @@ template <typename TForwardIter>
 inline void
 readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Connect const & /*tag*/)
 {
+    RnaStructureGraph graph;
     std::string buffer;
     clear(record);
 
@@ -123,7 +130,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     skipUntil(iter, NotFunctor<IsWhitespace>());
     readUntil(buffer, iter, IsWhitespace());
     if (!lexicalCast(record.seqLen, buffer))
-        throw BadLexicalCast(record.seqLen, buffer);
+        SEQAN_THROW(BadLexicalCast(record.seqLen, buffer));
     clear(buffer);
 
     //read energy
@@ -136,8 +143,8 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         skipUntil(iter, NotFunctor<IsWhitespace>());
         clear(buffer);
         readUntil(buffer, iter, IsWhitespace());
-        if (!lexicalCast(record.energy, buffer))
-            throw BadLexicalCast(record.energy, buffer);
+        if (!lexicalCast(graph.energy, buffer))
+            SEQAN_THROW(BadLexicalCast(graph.energy, buffer));
         skipUntil(iter, NotFunctor<IsWhitespace>());
     }
     else
@@ -159,7 +166,6 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     */
 
     // read nucleotides with pairs
-    TRnaRecordGraph graph;
     unsigned currPos {0};
     record.offset = 1;
     while (!atEnd(iter) && currPos < record.seqLen + record.offset - 1)
@@ -175,7 +181,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         {
             readUntil(buffer, iter, IsWhitespace());
             if (!lexicalCast(record.offset, buffer))
-                throw BadLexicalCast(record.offset, buffer);
+                SEQAN_THROW(BadLexicalCast(record.offset, buffer));
             currPos = record.offset;
             clear(buffer);
         }
@@ -185,7 +191,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         readUntil(buffer, iter, IsWhitespace());
         append(record.sequence, buffer);
         clear(buffer);
-        addVertex(graph);
+        addVertex(graph.inter);
 
         // skip redundant indices
         skipUntil(iter, NotFunctor<IsWhitespace>());
@@ -198,19 +204,19 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         unsigned pairPos;
         readUntil(buffer, iter, IsWhitespace());
         if (!lexicalCast(pairPos, buffer))
-            throw BadLexicalCast(pairPos, buffer);
+            SEQAN_THROW(BadLexicalCast(pairPos, buffer));
         if (pairPos != 0 && currPos > pairPos)
         {
             if (pairPos >= record.offset)
-                addEdge(graph, pairPos - record.offset, currPos - record.offset, 1.0);
+                addEdge(graph.inter, pairPos - record.offset, currPos - record.offset, 1.0);
             else
-                throw std::runtime_error("ERROR: Incompatible pairing position in input file.");
+                SEQAN_THROW(ParseError("ERROR: Incompatible pairing position in input file."));
         }
 
         clear(buffer);
         skipLine(iter);
     }
-    append(record.fixedGraphs, RnaInterGraph(graph));
+    append(record.fixedGraphs, graph);
     SEQAN_ASSERT_EQ(record.seqLen, length(record.sequence));
 }
 
@@ -223,19 +229,20 @@ inline void
 writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Connect const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
-        throw std::runtime_error("ERROR: Connect formatted file cannot contain an alignment.");
+        SEQAN_THROW(ParseError("ERROR: Connect formatted file cannot contain an alignment."));
     if (length(record.fixedGraphs) != 1)
-        throw std::runtime_error("ERROR: Connect formatted file cannot contain multiple structure graphs.");
+        SEQAN_THROW(ParseError("ERROR: Connect formatted file cannot contain multiple structure graphs."));
 
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
+    RnaStructureGraph const & graph = record.fixedGraphs[0];
 
     //write "header"
     appendNumber(target, record.seqLen);
-    if (record.energy != 0.0f)
+    if (graph.energy != 0.0f)
     {
         writeValue(target, '\t');
         write(target, "ENERGY = ");
-        appendNumber(target, record.energy);
+        appendNumber(target, graph.energy);
     }
     writeValue(target, '\t');
     write(target, record.name);
@@ -254,9 +261,9 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         writeValue(target, '\t');
         appendNumber(target, i + offset + 1);
         writeValue(target, '\t');
-        if (degree(record.fixedGraphs[0].inter, i) != 0)
+        if (degree(graph.inter, i) != 0)
         {
-            TRnaAdjacencyIterator adjIter(record.fixedGraphs[0].inter, i);
+            RnaAdjacencyIterator adjIter(graph.inter, i);
             write(target, value(adjIter) + offset);
         }
         else

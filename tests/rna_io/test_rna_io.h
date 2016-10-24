@@ -64,11 +64,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_connect)
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
+    SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, -17.50f);
     SEQAN_ASSERT_EQ(rnaRecord.name, "S.cerevisiae_tRNA-PHE");
     seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
     SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
-    seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
+    seqan::RnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
     SEQAN_ASSERT_EQ(value(adj_it), 71u);
     SEQAN_ASSERT_EQ(rnaRecord.quality, "");
     // UNUSED: seqID, align, bppMatrGraphs, typeID, reactivity, reactError
@@ -78,17 +78,17 @@ SEQAN_DEFINE_TEST(test_rna_io_write_connect)
 {
     seqan::RnaRecord record{};
     //set values
-    record.energy = -17.5f;
     record.name = "S.cerevisiae_tRNA-PHE";
     record.sequence = "GCGGAUUU";
     record.seqLen = static_cast<unsigned>(length(record.sequence));
-    seqan::TRnaRecordGraph graph;
+    seqan::RnaStructureGraph graph;
 
     for (unsigned idx = 0; idx < record.seqLen; ++idx)
-        addVertex(graph);
+        addVertex(graph.inter);
     for (unsigned idx = 0; idx < 4; ++idx)
-        addEdge(graph, idx, 7u - idx, 1.);
-    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+        addEdge(graph.inter, idx, 7u - idx, 1.);
+    graph.energy = -17.5f;
+    append(record.fixedGraphs, graph);
 
     // Write records to string stream.String<char> out;
     seqan::String<char> outstr;
@@ -128,11 +128,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_dot_bracket)
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, -17.50f);
+    SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, -17.50f);
     SEQAN_ASSERT_EQ(rnaRecord.name, "S.cerevisiae_tRNA-PHE M10740");
     seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUUUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
     SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
-    seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
+    seqan::RnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 0);
     SEQAN_ASSERT_EQ(value(adj_it), 71u);
     SEQAN_ASSERT_EQ(rnaRecord.quality, "");
     // UNUSED: seqID, align, bppMatrGraphs, typeID, reactivity, reactError
@@ -142,17 +142,17 @@ SEQAN_DEFINE_TEST(test_rna_io_write_dot_bracket)
 {
     seqan::RnaRecord record{};
     //set values
-    record.energy = -17.5f;
     record.name = "S.cerevisiae_tRNA-PHE";
     record.sequence = "GCGGAUUU";
     record.seqLen = static_cast<unsigned>(length(record.sequence));
-    seqan::TRnaRecordGraph graph;
+    seqan::RnaStructureGraph graph;
 
     for (unsigned idx = 0; idx < record.seqLen; ++idx)
-        addVertex(graph);
+        addVertex(graph.inter);
     for (unsigned idx = 0; idx < 3; ++idx)
-        addEdge(graph, idx, 7u - idx, 1.);
-    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+        addEdge(graph.inter, idx, 7u - idx, 1.);
+    graph.energy = -17.5f;
+    append(record.fixedGraphs, graph);
 
     // Write records to string stream.String<char> out;
     seqan::CharString outstr;
@@ -186,7 +186,7 @@ SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 74u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, 0.0f);
+    SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, 0.0f);
     SEQAN_ASSERT_EQ(rnaRecord.name, "trna");
     seqan::Rna5String base = "GCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCA";
     SEQAN_ASSERT_EQ(stringSet(rnaRecord.align)[0], base);
@@ -195,7 +195,7 @@ SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
     SEQAN_ASSERT_EQ(rnaRecord.seqID[0], "DF6280");
     SEQAN_ASSERT_EQ(rnaRecord.seqID[2], "DD6280");
 
-    seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 10);
+    seqan::RnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 10);
     SEQAN_ASSERT_EQ(value(adj_it), 24u);
     // UNUSED: sequence, bppMatrGraphs, quality, typeID, reactivity, reactError
 }
@@ -218,12 +218,12 @@ SEQAN_DEFINE_TEST(test_rna_io_write_stockholm)
     seqan::appendValue(record.seqID, seqan::CharString{"seq0"});
     seqan::appendValue(record.seqID, seqan::CharString{"seq1"});
 
-    seqan::TRnaRecordGraph graph;
+    seqan::RnaStructureGraph graph;
     for (unsigned idx = 0; idx < record.seqLen; ++idx)
-        addVertex(graph);
+        addVertex(graph.inter);
     for (unsigned idx = 0; idx < 4; ++idx)
-        addEdge(graph, idx, 7u - idx, 1.);
-    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+        addEdge(graph.inter, idx, 7u - idx, 1.);
+    append(record.fixedGraphs, graph);
 
     // Write records to string stream.String<char> out;
     seqan::String<char> outstr;
@@ -261,10 +261,10 @@ SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
     SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 50u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
-    SEQAN_ASSERT_EQ(rnaRecord.energy, 0.0f);
+    SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, 0.0f);
     seqan::Rna5String base = "GGGCCGGGCGCGGUGGCGCGCGCCUGUAGUCCCAGCUACUCGGGAGGCUC";
     SEQAN_ASSERT_EQ(rnaRecord.sequence, base);
-    seqan::TRnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 1);
+    seqan::RnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 1);
     SEQAN_ASSERT_EQ(value(adj_it), 48u);
     SEQAN_ASSERT_EQ(rnaRecord.quality, "");
     seqan::CharString comment = " A header line beginning with # is for comments not for actual structure information. "
@@ -280,13 +280,13 @@ SEQAN_DEFINE_TEST(test_rna_io_write_bpseq)
     record.name = "S.cerevisiae_tRNA-PHE";
     record.sequence = "GCGGAUUU";
     record.seqLen = static_cast<unsigned>(length(record.sequence));
-    seqan::TRnaRecordGraph graph;
+    seqan::RnaStructureGraph graph;
 
     for (unsigned idx = 0; idx < record.seqLen; ++idx)
-        addVertex(graph);
+        addVertex(graph.inter);
     for (unsigned idx = 0; idx < 4; ++idx)
-        addEdge(graph, idx, 7u - idx, 1.);
-    append(record.fixedGraphs, seqan::RnaInterGraph(graph));
+        addEdge(graph.inter, idx, 7u - idx, 1.);
+    append(record.fixedGraphs, graph);
 
     // Write records to string stream.String<char> out;
     seqan::String<char> outstr;

@@ -89,6 +89,12 @@ namespace seqan{
 // Tag Connect
 // --------------------------------------------------------------------------
 
+/*!
+ * @tag FileFormats#Stockholm
+ * @headerfile <seqan/rna_io.h>
+ * @brief Stockholm format for RNA structures.
+ * @signature typedef Tag<Stockholm_> Stockholm;
+ */
 struct Stockholm_;
 typedef Tag<Stockholm_> Stockholm;
 
@@ -139,7 +145,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     skipUntil(iter, NotFunctor<IsWhitespace>());
     readUntil(buffer, iter, IsNewline());
     if (buffer.find("STOCKHOLM") == std::string::npos)
-        throw ParseError("Expected STOCKHOLM identifier in the first line.");
+        SEQAN_THROW(ParseError("Expected STOCKHOLM identifier in the first line."));
     skipOne(iter);
     clear(buffer);
 
@@ -234,9 +240,9 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         clear(buffer);
     }
     if (empty(bracketStr))
-        throw ParseError("Expected a secondary structure line.");
+        SEQAN_THROW(ParseError("Expected a secondary structure line."));
     if (empty(sequence))
-        throw ParseError("Expected a sequence line.");
+        SEQAN_THROW(ParseError("Expected a sequence line."));
     SEQAN_ASSERT_EQ(length(sequence), length(gapPos));
 
     // store the alignment with gaps in record
@@ -263,7 +269,7 @@ inline void
 writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Stockholm const & /*tag*/)
 {
     if (length(record.fixedGraphs) != 1)
-        throw std::runtime_error("ERROR: Cannot deal with multiple structure graphs.");
+        SEQAN_THROW(ParseError("ERROR: Cannot deal with multiple structure graphs."));
 
     write(target, "# STOCKHOLM 1.0\n");                         // header
     if (!empty(record.name))
@@ -304,7 +310,7 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         write(target, "#=GC SS_cons\t");
     }
 
-    write(target, graph2bracket(record.fixedGraphs[0].inter));
+    write(target, graph2bracket(record.fixedGraphs[0]));
     write(target, "\n//\n");                                    // closing
 }
 

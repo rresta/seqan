@@ -52,6 +52,12 @@ namespace seqan{
 // Tag Vienna
 // --------------------------------------------------------------------------
 
+/*!
+ * @tag FileFormats#Vienna
+ * @headerfile <seqan/rna_io.h>
+ * @brief Vienna format for RNA structures without pseudoknots.
+ * @signature typedef Tag<Vienna_> Vienna;
+ */
 struct Vienna_;
 typedef Tag<Vienna_> Vienna;
 
@@ -126,11 +132,11 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     skipOne(iter);
     readUntil(buffer, iter, IsWhitespace());
     if (length(buffer) != record.seqLen)
-        throw std::runtime_error("ERROR: Bracket string must be as long as sequence.");
+        SEQAN_THROW(ParseError("ERROR: Bracket string must be as long as sequence."));
 
-    TRnaRecordGraph graph;
+    RnaStructureGraph graph;
     for (unsigned idx = 0; idx < length(buffer); ++idx)
-        addVertex(graph);
+        addVertex(graph.inter);
 
     std::stack<unsigned> stack;
     for(unsigned idx = 0; idx < length(buffer); ++idx)
@@ -143,18 +149,18 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         {
             if (!stack.empty())
             {
-                addEdge(graph, idx, stack.top(), 1.);
+                addEdge(graph.inter, idx, stack.top(), 1.);
                 stack.pop();
             }
             else
             {
-                throw ParseError("Invalid bracket notation: unpaired closing bracket");
+                SEQAN_THROW(ParseError("Invalid bracket notation: unpaired closing bracket"));
             }
         }
     }
     if(!stack.empty())
-        throw ParseError("Invalid bracket notation: unpaired opening bracket");
-    append(record.fixedGraphs, RnaInterGraph(graph));
+        SEQAN_THROW(ParseError("Invalid bracket notation: unpaired opening bracket"));
+    append(record.fixedGraphs, graph);
     clear(buffer);
 
     // read energy if present
@@ -163,8 +169,8 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     {
         skipOne(iter);
         readUntil(buffer, iter, EqualsChar<')'>());
-        if (!lexicalCast(record.energy, buffer))
-            throw BadLexicalCast(record.energy, buffer);
+        if (!lexicalCast(record.fixedGraphs[0].energy, buffer))
+            SEQAN_THROW(BadLexicalCast(record.fixedGraphs[0].energy, buffer));
         clear(buffer);
     }
     if (!atEnd(iter))
@@ -181,11 +187,12 @@ inline void
 writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Vienna const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
-        throw std::runtime_error("ERROR: Vienna formatted file cannot contain an alignment.");
+        SEQAN_THROW(ParseError("ERROR: Vienna formatted file cannot contain an alignment."));
     if (length(record.fixedGraphs) != 1)
-        throw std::runtime_error("ERROR: Vienna formatted file cannot contain multiple structure graphs.");
+        SEQAN_THROW(ParseError("ERROR: Vienna formatted file cannot contain multiple structure graphs."));
 
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
+    RnaStructureGraph const & graph = record.fixedGraphs[0];
 
     // write opening character for new record entry
     writeValue(target, '>');
@@ -203,20 +210,19 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
     writeValue(target, '\n');
 
     // write bracket string
-    TRnaRecordGraph const & graph = record.fixedGraphs[0].inter;
     std::string bracketStr;
-    resize(bracketStr, numVertices(graph), ' ');
+    resize(bracketStr, numVertices(graph.inter), ' ');
     std::stack<unsigned> stack;
 
     for (unsigned idx = 0; idx < length(bracketStr); ++idx) // write pairs in bracket notation
     {
-        if (degree(graph, idx) == 0)                    // unpaired
+        if (degree(graph.inter, idx) == 0)                    // unpaired
         {
             bracketStr[idx] = '.';
             continue;
         }
 
-        TRnaAdjacencyIterator adj_it(graph, idx);
+        RnaAdjacencyIterator adj_it(graph.inter, idx);
         if (idx < value(adj_it))                        // open bracket
         {
             bracketStr[idx] = '(';
@@ -230,16 +236,16 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
             if (stack.top() == idx)
                 stack.pop();
             else
-                throw std::runtime_error("ERROR: Vienna format does not allow pseudoknots.");
+                SEQAN_THROW(ParseError("ERROR: Vienna format does not allow pseudoknots."));
         }
     }
     write(target, bracketStr);
 
     // write energy
-    if (record.energy != 0.0f)
+    if (graph.energy != 0.0f)
     {
         write(target, " (");
-        write(target, record.energy);
+        write(target, graph.energy);
         writeValue(target, ')');
     }
     writeValue(target, '\n');

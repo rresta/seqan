@@ -44,19 +44,59 @@ namespace seqan {
 // ==========================================================================
 
 // --------------------------------------------------------------------------
-// Tag Connect
+// Tag RnaStruct
 // --------------------------------------------------------------------------
 
+/*!
+ * @tag FileFormats#RnaStruct
+ * @headerfile <seqan/rna_io.h>
+ * @brief General RNA structure file type. The concrete type is defined by the file name suffix.
+ * @signature typedef Tag<RnaStruct_> RnaStruct;
+ *
+ * This tag is used as TSpec template parameter in @link FormattedFile @endlink.
+ */
 struct RnaStruct_;
 typedef Tag<RnaStruct_> RnaStruct;
+
+typedef
+TagList<Connect,
+    TagList<Stockholm,
+        TagList<DotBracket,
+            TagList<Vienna,
+                TagList<Ebpseq,
+                    TagList<Bpseq
+                    > > > > > > RnaStructFormats;
 
 // --------------------------------------------------------------------------
 // Class RnaStructContents
 // --------------------------------------------------------------------------
 
+/*!
+ * @class RnaStructContents
+ * @headerfile <seqan/rna_io.h>
+ * @brief Contains all the contents of an RNA structure file.
+ *
+ * @signature typedef struct RnaStructContents_ RnaStructContents;
+ * @see RnaRecord
+ * @see RnaHeader
+ *
+ * Container for the header and all records of an RNA structure file.
+ * If no header was present in the file, a pseudo header with the required information is stored instead.
+ */
 struct RnaStructContents_
 {
+    /*!
+     * @var std::vector<RnaRecord> RnaStructContents::records
+     * @brief All records of an RNA structure file.
+     * @see RnaRecord
+     */
     std::vector<RnaRecord> records;
+
+    /*!
+     * @var RnaHeader RnaStructContents::header
+     * @brief The (pseudo) header of an RNA structure file.
+     * @see RnaHeader
+     */
     RnaHeader header;
 };
 typedef struct RnaStructContents_ RnaStructContents;
@@ -66,51 +106,22 @@ typedef struct RnaStructContents_ RnaStructContents;
 // ============================================================================
 
 /*!
- * @class SeqFileIn
- * @signature typedef FormattedFile<Fastq, Input> SeqFileIn;
+ * @class RnaStructFileIn
+ * @signature typedef FormattedFile<RnaStruct, Input> RnaStructFileIn;
  * @extends FormattedFileIn
- * @headerfile <seqan/seq_io.h>
- * @brief Class for reading RAW, FASTA, FASTQ, EMBL and GENBANK files containing unaligned sequences.
+ * @headerfile <seqan/rna_io.h>
+ * @brief Class for reading DBN, DBV, CT, STH, BPSEQ, and EBPSEQ files containing RNA structures.
  */
-
 typedef FormattedFile<RnaStruct, Input> RnaStructFileIn;
 
 /*!
- * @class SeqFileOut
- * @signature typedef FormattedFile<Fastq, Output> SeqFileOut;
+ * @class RnaStructFileOut
+ * @signature typedef FormattedFile<RnaStruct, Output> RnaStructFileOut;
  * @extends FormattedFileOut
- * @headerfile <seqan/seq_io.h>
- * @brief Class for writing RAW, FASTA, FASTQ, EMBL and GENBANK files containing unaligned sequences.
+ * @headerfile <seqan/rna_io.h>
+ * @brief Class for writing DBN, DBV, CT, STH, BPSEQ, and EBPSEQ files containing RNA structures.
  */
-
 typedef FormattedFile<RnaStruct, Output> RnaStructFileOut;
-
-// --------------------------------------------------------------------------
-// Tag AutoSeqFormat
-// --------------------------------------------------------------------------
-// if TagSelector is set to -1, the file format is auto-detected
-
-/*!
- * @class AutoSeqFormat
- * @extends TagSelector
- * @headerfile <seqan/file.h>
- * @brief Auto-detects and stores a file format.
- *
- * @signature typedef TagList<Fastq, TagList<Fasta, TagList<Raw> > > SeqFormats;
- * @signature typedef TagSelector<SeqFormat> AutoSeqFormat;
- */
-
-typedef
-TagList<Connect,
-TagList<Stockholm,
-        TagList<DotBracket,
-        TagList<Vienna,
-        TagList<Ebpseq,
-        TagList<Bpseq
-> > > > > >
-RnaStructFormats;
-
-typedef TagSelector<RnaStructFormats>   RnaStructFormat;
 
 // ============================================================================
 // Metafunctions
@@ -127,7 +138,7 @@ struct FormattedFileContext<FormattedFile<RnaStruct, TDirection, TSpec>, TStorag
 };
 
 // ----------------------------------------------------------------------------
-// Metafunction FileFormats
+// Metafunction FileFormat
 // ----------------------------------------------------------------------------
 
 template <typename TSpec>
@@ -149,6 +160,16 @@ struct FileFormat<FormattedFile<RnaStruct, Output, TSpec> >
 // ----------------------------------------------------------------------------
 // Function readRecord(TagSelector)
 // ----------------------------------------------------------------------------
+
+/*!
+ * @fn RnaStructFileIn#readRecord
+ * @brief Read one @link FormattedFileRecordConcept @endlink from an @link RnaStructFileIn @endlink object.
+ * @signature void readRecord(record, fileIn);
+ * @param[in,out] record   The @link RnaRecord @endlink object where to write the information into.
+ * @param[in] fileIn       The @link RnaStructFileIn @endlink object to read from.
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
 
 template <typename TFwdIterator>
 inline void
@@ -180,6 +201,16 @@ readRecord(RnaRecord & record, FormattedFile<RnaStruct, Input, TSpec> & file)
 // Function writeRecord(TagSelector)
 // ----------------------------------------------------------------------------
 
+/*!
+ * @fn RnaStructFileOut#writeRecord
+ * @brief Write one @link FormattedFileRecordConcept @endlink into an @link RnaStructFileOut @endlink object.
+ * @signature void writeRecord(fileOut, record);
+ * @param[in,out] fileOut   The @link RnaStructFileOut @endlink object to write into.
+ * @param[in] record        The @link RnaRecord @endlink object where to read from.
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
+
 template <typename TFwdIterator>
 inline void
 writeRecord(TFwdIterator &, RnaRecord const &, RnaIOContext &, TagSelector<> const &)
@@ -199,6 +230,7 @@ writeRecord(TFwdIterator & iter, RnaRecord const & record, RnaIOContext & contex
         writeRecord(iter, record, context, static_cast<typename TagSelector<TTagList>::Base const &>(format));
 }
 
+
 template <typename TSpec>
 inline void
 writeRecord(FormattedFile<RnaStruct, Output, TSpec> & file, RnaRecord const & record)
@@ -210,6 +242,15 @@ writeRecord(FormattedFile<RnaStruct, Output, TSpec> & file, RnaRecord const & re
 // Function readHeader(TagSelector)
 // ----------------------------------------------------------------------------
 
+/*!
+ * @fn RnaStructFileIn#readHeader
+ * @brief Read one @link FormattedFileHeaderConcept @endlink from an @link RnaStructFileIn @endlink object.
+ * @signature void readHeader(header, fileIn);
+ * @param[in,out] header  The @link RnaHeader @endlink object where to write the information into.
+ * @param[in] fileIn      The @link RnaStructFileIn @endlink object to read from.
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
 template <typename TSpec>
 inline void
 readHeader(RnaHeader & header, FormattedFile<RnaStruct, Input, TSpec> & file)
@@ -223,6 +264,15 @@ readHeader(RnaHeader & header, FormattedFile<RnaStruct, Input, TSpec> & file)
 // Function writeHeader(TagSelector)
 // ----------------------------------------------------------------------------
 
+/*!
+ * @fn RnaStructFileOut#writeHeader
+ * @brief Write one @link FormattedFileHeaderConcept @endlink into an @link RnaStructFileOut @endlink object.
+ * @signature void writeHeader(fileOut, header);
+ * @param[in,out] fileOut   The @link RnaStructFileOut @endlink object to write into.
+ * @param[in] record        The @link RnaHeader @endlink object where to read from.
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
 template <typename TSpec>
 inline void
 writeHeader(FormattedFile<RnaStruct, Output, TSpec> & file, RnaHeader const & header)
@@ -236,6 +286,17 @@ writeHeader(FormattedFile<RnaStruct, Output, TSpec> & file, RnaHeader const & he
 // Function readRecords
 // ----------------------------------------------------------------------------
 
+/*!
+ * @fn RnaStructFileIn#readRecords
+ * @brief Read @link RnaStructContents @endlink from a @link RnaStructFileIn @endlink object.
+ * @signature void readRecords(contents, fileIn, maxRecords);
+ * @param[in,out] contents   The @link RnaStructContents @endlink object where to write the information into.
+ * @param[in] fileIn         The @link RnaStructFileIn @endlink object to read from.
+ * @see RnaStructFileIn#readRecord
+ * @see RnaStructFileIn#readHeader
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
 template <typename TSpec, typename TSize>
 inline void readRecords(RnaStructContents & contents, FormattedFile<RnaStruct, Input, TSpec> & file, TSize maxRecords)
 {
@@ -256,6 +317,17 @@ inline void readRecords(RnaStructContents & contents, FormattedFile<RnaStruct, I
 // Function writeRecords
 // ----------------------------------------------------------------------------
 
+/*!
+ * @fn RnaStructFileOut#writeRecords
+ * @brief Write @link RnaStructContents @endlink into a @link RnaStructFileOut @endlink object.
+ * @signature void writeRecords(fileOut, contents);
+ * @param[in,out] fileOut   The @link RnaStructFileOut @endlink object to write into.
+ * @param[in] contents      The @link RnaStructContents @endlink object where to read from.
+ * @see RnaStructFileOut#writeRecord
+ * @see RnaStructFileOut#writeHeader
+ * @throw IOError On low-level I/O errors.
+ * @throw ParseError On high-level file format errors.
+ */
 template <typename TSpec>
 inline void writeRecords(FormattedFile<RnaStruct, Output, TSpec> & file, RnaStructContents const & contents)
 {
