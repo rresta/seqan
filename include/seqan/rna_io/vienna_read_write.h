@@ -98,7 +98,7 @@ char const * FileExtensions<Vienna, T>::VALUE[1] =
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Vienna const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -177,6 +177,12 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         skipLine(iter);
 }
 
+template <typename TForwardIter>
+inline void
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Vienna const & /*tag*/)
+{
+    readRecord(record, iter, Vienna());
+}
 
 // ----------------------------------------------------------------------------
 // Function writeRecord(); RnaRecord, Vienna
@@ -184,7 +190,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Vienna const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         SEQAN_THROW(ParseError("ERROR: Vienna formatted file cannot contain an alignment."));
@@ -249,6 +255,13 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         writeValue(target, ')');
     }
     writeValue(target, '\n');
+}
+
+template <typename TTarget>
+inline void
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Vienna const & /*tag*/)
+{
+    writeRecord(target, record, Vienna());
 }
 
 }

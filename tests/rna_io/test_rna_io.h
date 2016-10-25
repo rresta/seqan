@@ -53,15 +53,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_connect)
     // Path to example.ct
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.ct");
-
-    seqan::String<char, seqan::MMap<> > mmapString;
-    SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
-    seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
-
+    seqan::RnaStructFileIn inputfile(seqan::toCString(rnaPath), seqan::OPEN_RDONLY);
     seqan::RnaRecord rnaRecord;
-    readRecord(rnaRecord, iter, seqan::Connect());
+    readRecord(rnaRecord, inputfile);
 
-    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
+    SEQAN_ASSERT(rnaRecord.hasUndefinedID());
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
     SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, -17.50f);
@@ -91,7 +87,7 @@ SEQAN_DEFINE_TEST(test_rna_io_write_connect)
     append(record.fixedGraphs, graph);
 
     // Write records to string stream.String<char> out;
-    seqan::String<char> outstr;
+    seqan::CharString outstr;
     writeRecord(outstr, record, seqan::Connect());
 
     // Compare string stream to expected value.
@@ -116,16 +112,12 @@ SEQAN_DEFINE_TEST(test_rna_io_read_dot_bracket)
 {
     //Path to example.dt
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
-    append(rnaPath, "/tests/rna_io/example.dt");
-
-    seqan::String<char, seqan::MMap<> > mmapString;
-    SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
-    seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
-
+    append(rnaPath, "/tests/rna_io/example.dbn");
+    seqan::RnaStructFileIn inputfile(seqan::toCString(rnaPath), seqan::OPEN_RDONLY);
     seqan::RnaRecord rnaRecord;
-    readRecord(rnaRecord, iter, seqan::DotBracket());
+    readRecord(rnaRecord, inputfile);
 
-    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
+    SEQAN_ASSERT(rnaRecord.hasUndefinedID());
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 73u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
     SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, -17.50f);
@@ -175,15 +167,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_stockholm)
     //Path to example.sth
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.sth");
-
-    seqan::String<char, seqan::MMap<> > mmapString;
-    SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
-    seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
-
+    seqan::RnaStructFileIn inputfile(seqan::toCString(rnaPath), seqan::OPEN_RDONLY);
     seqan::RnaRecord rnaRecord;
-    readRecord(rnaRecord, iter, seqan::Stockholm());
+    readRecord(rnaRecord, inputfile);
 
-    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
+    SEQAN_ASSERT(rnaRecord.hasUndefinedID());
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 74u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
     SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, 0.0f);
@@ -250,15 +238,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
     // Path to example.bpseq
     seqan::CharString rnaPath = SEQAN_PATH_TO_ROOT();
     append(rnaPath, "/tests/rna_io/example.bpseq");
-
-    seqan::String<char, seqan::MMap<> > mmapString;
-    SEQAN_ASSERT(open(mmapString, toCString(rnaPath)));
-    seqan::Iterator<seqan::String<char, seqan::MMap<> >, seqan::Rooted>::Type iter = begin(mmapString);
-
+    seqan::RnaStructFileIn inputfile(seqan::toCString(rnaPath), seqan::OPEN_RDONLY);
     seqan::RnaRecord rnaRecord;
-    readRecord(rnaRecord, iter, seqan::Bpseq());
+    readRecord(rnaRecord, inputfile);
 
-    SEQAN_ASSERT_EQ(rnaRecord.recordID, 0u);
+    SEQAN_ASSERT(rnaRecord.hasUndefinedID());
     SEQAN_ASSERT_EQ(rnaRecord.seqLen, 50u);
     SEQAN_ASSERT_EQ(rnaRecord.offset, 1u);
     SEQAN_ASSERT_EQ(rnaRecord.fixedGraphs[0].energy, 0.0f);
@@ -267,10 +251,11 @@ SEQAN_DEFINE_TEST(test_rna_io_read_bpseq)
     seqan::RnaAdjacencyIterator adj_it(rnaRecord.fixedGraphs[0].inter, 1);
     SEQAN_ASSERT_EQ(value(adj_it), 48u);
     SEQAN_ASSERT_EQ(rnaRecord.quality, "");
-    seqan::CharString comment = " A header line beginning with # is for comments not for actual structure information. "
-            "PDB ID 1E8O Signal Recognition Particle (SRP) RNA ";
+    seqan::CharString comment = " PDB ID 1E8O Signal Recognition Particle (SRP) RNA ";
     SEQAN_ASSERT_EQ(rnaRecord.comment, comment);
-    // UNUSED: name, seqID, align, bppMatrGraphs, typeID, reactivity, reactError
+    seqan::CharString name = "A header line beginning with # is for comments not for actual structure information.";
+    SEQAN_ASSERT_EQ(rnaRecord.name, name);
+    // UNUSED: seqID, align, bppMatrGraphs, typeID, reactivity, reactError
 }
 
 SEQAN_DEFINE_TEST(test_rna_io_write_bpseq)

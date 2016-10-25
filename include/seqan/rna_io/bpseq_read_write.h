@@ -96,7 +96,7 @@ char const * FileExtensions<Bpseq, T>::VALUE[1] =
 
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Bpseq const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, Bpseq const & /*tag*/)
 {
     typedef OrFunctor<IsSpace, AssertFunctor<NotFunctor<IsNewline>, ParseError, Bpseq> > NextEntry;
     std::string buffer;
@@ -118,6 +118,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
             append(record.comment, buffer);
         }
         clear(buffer);
+        skipUntil(iter, NotFunctor<IsWhitespace>());
     }
 
     RnaStructureGraph graph;
@@ -169,13 +170,20 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     record.seqLen = currPos;  //set amount of records
 }
 
+template <typename TForwardIter>
+inline void
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Bpseq const & /*tag*/)
+{
+    readRecord(record, iter, Bpseq());
+}
+
 // ----------------------------------------------------------------------------
 // Function writeRecord()                                           [BpseqRecord]
 // ----------------------------------------------------------------------------
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Bpseq const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, Bpseq const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         SEQAN_THROW(ParseError("ERROR: Bpseq formatted file cannot contain an alignment."));
@@ -213,6 +221,13 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         }
         writeValue(target, '\n');
     }
+}
+
+template <typename TTarget>
+inline void
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Bpseq const & /*tag*/)
+{
+    writeRecord(target, record, Bpseq());
 }
 
 }  // namespace seqan

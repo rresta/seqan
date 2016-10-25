@@ -281,7 +281,7 @@ inline CharString const graph2bracket(RnaStructureGraph const & graph)
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, DotBracket const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, DotBracket const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -333,6 +333,12 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
         skipLine(iter);
 }
 
+template <typename TForwardIter>
+inline void
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, DotBracket const & /*tag*/)
+{
+    readRecord(record, iter, DotBracket());
+}
 
 // ----------------------------------------------------------------------------
 // Function writeRecord(); RnaRecord, DotBracket
@@ -340,7 +346,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, DotBracket const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, DotBracket const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         SEQAN_THROW(ParseError("ERROR: DotBracket formatted file cannot contain an alignment."));
@@ -376,6 +382,13 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         writeValue(target, ')');
     }
     writeValue(target, '\n');
+}
+
+template <typename TTarget>
+inline void
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, DotBracket const & /*tag*/)
+{
+    writeRecord(target, record, DotBracket());
 }
 
 }

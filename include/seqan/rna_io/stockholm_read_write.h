@@ -136,7 +136,7 @@ char const * FileExtensions<Stockholm, T>::VALUE[1] =
 // ----------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Stockholm const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, Stockholm const & /*tag*/)
 {
     std::string buffer;
     clear(record);
@@ -259,6 +259,12 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     bracket2graph(record.fixedGraphs, bracketStr);
 }
 
+template <typename TForwardIter>
+inline void
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Stockholm const & /*tag*/)
+{
+    readRecord(record, iter, Stockholm());
+}
 
 // ----------------------------------------------------------------------------
 // Function writeRecord(); RnaRecord, Stockholm
@@ -266,7 +272,7 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Stockholm const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, Stockholm const & /*tag*/)
 {
     if (length(record.fixedGraphs) != 1)
         SEQAN_THROW(ParseError("ERROR: Cannot deal with multiple structure graphs."));
@@ -312,6 +318,13 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
 
     write(target, graph2bracket(record.fixedGraphs[0]));
     write(target, "\n//\n");                                    // closing
+}
+
+template <typename TTarget>
+inline void
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Stockholm const & /*tag*/)
+{
+    writeRecord(target, record, Stockholm());
 }
 
 } //namespace seqan

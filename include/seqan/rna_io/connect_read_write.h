@@ -120,7 +120,7 @@ char const * FileExtensions<Connect, T>::VALUE[1] =
 // --------------------------------------------------------------------------
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Connect const & /*tag*/)
+readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
 {
     RnaStructureGraph graph;
     std::string buffer;
@@ -220,13 +220,20 @@ readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter,
     SEQAN_ASSERT_EQ(record.seqLen, length(record.sequence));
 }
 
+template <typename TForwardIter>
+inline void
+readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Connect const & /*tag*/)
+{
+    readRecord(record, iter, Connect());
+}
+
 // ----------------------------------------------------------------------------
 // Function writeRecord(); RnaRecord, Connect
 // ----------------------------------------------------------------------------
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Connect const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
 {
     if (empty(record.sequence) && length(rows(record.align)) != 1)
         SEQAN_THROW(ParseError("ERROR: Connect formatted file cannot contain an alignment."));
@@ -274,6 +281,13 @@ writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContex
         appendNumber(target, i + offset);
         writeValue(target, '\n');
     }
+}
+
+template <typename TTarget>
+inline void
+writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Connect const & /*tag*/)
+{
+    writeRecord(target, record, Connect());
 }
 
 } //namespace seqan
