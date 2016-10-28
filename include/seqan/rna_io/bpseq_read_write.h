@@ -51,8 +51,9 @@ namespace seqan {
 /*!
  * @tag FileFormats#Bpseq
  * @headerfile <seqan/rna_io.h>
- * @brief Bpseq format for RNA structures.
+ * @brief Bpseq format for RNA structures (*.bpseq).
  * @signature typedef Tag<Bpseq_> Bpseq;
+ * @see FileFormats#RnaStruct
  */
 struct Bpseq_;
 typedef Tag<Bpseq_> Bpseq;
@@ -90,9 +91,8 @@ char const * FileExtensions<Bpseq, T>::VALUE[1] =
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Function readRecord()                                            [BpseqRecord]
+// Function readRecord()                                          [BpseqRecord]
 // ----------------------------------------------------------------------------
-// Read record, updating list of known sequences if new one occurs.
 
 template <typename TForwardIter>
 inline void

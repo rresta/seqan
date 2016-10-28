@@ -77,8 +77,9 @@ namespace seqan{
 /*!
  * @tag FileFormats#Connect
  * @headerfile <seqan/rna_io.h>
- * @brief Connect format for RNA structures.
+ * @brief Connect format for RNA structures (*.ct).
  * @signature typedef Tag<Connect_> Connect;
+ * @see FileFormats#RnaStruct
  */
 struct Connect_;
 typedef Tag<Connect_> Connect;
@@ -118,6 +119,7 @@ char const * FileExtensions<Connect, T>::VALUE[1] =
 // --------------------------------------------------------------------------
 // Function readRecord(); RnaRecord, Connect
 // --------------------------------------------------------------------------
+
 template <typename TForwardIter>
 inline void
 readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)

@@ -68,8 +68,9 @@ namespace seqan{
 /*!
  * @tag FileFormats#DotBracket
  * @headerfile <seqan/rna_io.h>
- * @brief Dot Bracket format for RNA structures.
+ * @brief Dot Bracket format for RNA structures (*.dbn).
  * @signature typedef Tag<DotBracket_> DotBracket;
+ * @see FileFormats#RnaStruct
  */
 struct DotBracket_;
 typedef Tag<DotBracket_> DotBracket;

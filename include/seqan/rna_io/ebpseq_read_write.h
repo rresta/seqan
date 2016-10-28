@@ -54,8 +54,9 @@ namespace seqan {
 /*!
  * @tag FileFormats#Ebpseq
  * @headerfile <seqan/rna_io.h>
- * @brief Extended bpseq format for RNA structures.
+ * @brief Extended bpseq format for RNA structures (*.ebpseq).
  * @signature typedef Tag<Ebpseq_> Ebpseq;
+ * @see FileFormats#RnaStruct
  */
 struct Ebpseq_;
 typedef Tag<Ebpseq_> Ebpseq;

@@ -55,8 +55,9 @@ namespace seqan{
 /*!
  * @tag FileFormats#Vienna
  * @headerfile <seqan/rna_io.h>
- * @brief Vienna format for RNA structures without pseudoknots.
+ * @brief Vienna format for RNA structures without pseudoknots (*.dbv).
  * @signature typedef Tag<Vienna_> Vienna;
+ * @see FileFormats#RnaStruct
  */
 struct Vienna_;
 typedef Tag<Vienna_> Vienna;

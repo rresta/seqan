@@ -52,6 +52,12 @@ namespace seqan {
  * @headerfile <seqan/rna_io.h>
  * @brief General RNA structure file type. The concrete type is defined by the file name suffix.
  * @signature typedef Tag<RnaStruct_> RnaStruct;
+ * @see FileFormats#Connect
+ * @see FileFormats#Stockholm
+ * @see FileFormats#DotBracket
+ * @see FileFormats#Vienna
+ * @see FileFormats#Bpseq
+ * @see FileFormats#Ebpseq
  *
  * This tag is used as TSpec template parameter in @link FormattedFile @endlink.
  */
@@ -292,6 +298,7 @@ writeHeader(FormattedFile<RnaStruct, Output, TSpec> & file, RnaHeader const & he
  * @signature void readRecords(contents, fileIn, maxRecords);
  * @param[in,out] contents   The @link RnaStructContents @endlink object where to write the information into.
  * @param[in] fileIn         The @link RnaStructFileIn @endlink object to read from.
+ * @param[in] maxRecords     The maximum number of records to read.
  * @see RnaStructFileIn#readRecord
  * @see RnaStructFileIn#readHeader
  * @throw IOError On low-level I/O errors.

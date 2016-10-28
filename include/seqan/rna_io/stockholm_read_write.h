@@ -92,8 +92,9 @@ namespace seqan{
 /*!
  * @tag FileFormats#Stockholm
  * @headerfile <seqan/rna_io.h>
- * @brief Stockholm format for RNA structures.
+ * @brief Stockholm format for RNA structures (*.sth).
  * @signature typedef Tag<Stockholm_> Stockholm;
+ * @see FileFormats#RnaStruct
  */
 struct Stockholm_;
 typedef Tag<Stockholm_> Stockholm;
