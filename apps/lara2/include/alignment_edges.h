@@ -52,9 +52,8 @@ using namespace seqan;
 // Function saveBestAlign()
 // ----------------------------------------------------------------------------
 
-template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
-void saveBestAlign(TOption const & options, TAlign const & align,
-                   TScore const & alignScore, TRnaAlign & rnaAlign)
+//template <typename TOption, typename TAlign, typename TScoreValue, typename TRnaAlign>
+void saveBestAlign(TAlign const & align, TScoreValue const & alignScore, TRnaAlign & rnaAlign)
 {
     if(rnaAlign.bestAlignScore < alignScore)
     {
@@ -67,11 +66,9 @@ void saveBestAlign(TOption const & options, TAlign const & align,
 // Function maskCreator()
 // ----------------------------------------------------------------------------
 
-template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
-void maskCreator(TOption const & options, TAlign const & align,
-                 TScore const & alignScore, TRnaAlign & rnaAlign)
+//template <typename TOption, typename TAlign, typename TScoreValue, typename TRnaAlign>
+void maskCreator(TAlign const & align, TScoreValue const & alignScore, TRnaAlign & rnaAlign)
 {
-    // TODO if combination of line do not exist create it and fill with 0
     unsigned row0Begin = clippedBeginPosition(row(align, 0));
     unsigned row1Begin = clippedBeginPosition(row(align, 1));
     unsigned gap0 = 0;
@@ -97,6 +94,272 @@ void maskCreator(TOption const & options, TAlign const & align,
     rnaAlign.maskIndex = j;
 }
 
+// ----------------------------------------------------------------------------
+// Function fillBound()
+// ----------------------------------------------------------------------------
+
+void fillBound(unsigned const & x, unsigned const & y, TScoreValue const & halfEdgesProb, TBound & BoundVect, TRnaAlign & rnaAlign)
+{
+    BoundVect[rnaAlign.mask[x].second].maxProbScoreLine = halfEdgesProb;
+    BoundVect[rnaAlign.mask[x].second].seq1Index = rnaAlign.mask[x].first;
+    BoundVect[rnaAlign.mask[x].second].seq1IndexPairLine = rnaAlign.mask[y].first;
+    BoundVect[rnaAlign.mask[x].second].seq2IndexPairLine = rnaAlign.mask[y].second;
+};
+
+// ----------------------------------------------------------------------------
+// Function computeUpperBound()
+// ----------------------------------------------------------------------------
+
+//template <typename TRnaAlign>
+void computeUpperBound(TRnaAlign & rnaAlign)
+{
+    TScoreValue sum = 0;
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
+    {
+        sum += rnaAlign.upperBoundVect[i].maxProbScoreLine;
+    }
+    rnaAlign.upperBound = sum;
+};
+
+// ----------------------------------------------------------------------------
+// Function computeBounds()
+// ----------------------------------------------------------------------------
+
+//template <typename TRnaAlign>
+void computeBound(TRnaAlign & rnaAlign)
+{
+    TScoreValue sumU = 0;
+    TScoreValue sumL = 0;
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
+    {
+        sumU += rnaAlign.upperBoundVect[i].maxProbScoreLine;
+        sumL += rnaAlign.lowerBoundVect[i].maxProbScoreLine;
+    }
+    rnaAlign.upperBound = sumU;
+    rnaAlign.lowerBound = sumL;
+};
+
+// ----------------------------------------------------------------------------
+// Function computeBounds() version that make use of the lemon MWM
+// ----------------------------------------------------------------------------
+
+//template <typename TRnaAlign, typename TMapVect>
+void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
+{
+    TScoreValue edgesProb, halfEdgesProb;
+//  Clear the maxProbScoreLine of the upper bound
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
+    {
+        rnaAlign.upperBoundVect[i].maxProbScoreLine = 0;
+    }
+    for(unsigned i = 0; i < rnaAlign.maskIndex - 1; ++i)
+    {
+        String<unsigned > adjVect1;
+        getVertexAdjacencyVector(adjVect1, rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first);
+        for(unsigned j = 0; i< length(adjVect1) && adjVect1[j] >= rnaAlign.mask[i].first; ++j)
+        {
+            for(unsigned w = i + 1; w < rnaAlign.maskIndex; ++w)
+            {
+                if(adjVect1[j] == rnaAlign.mask[w].first)
+                {
+                    String<unsigned > adjVect2;
+                    getVertexAdjacencyVector(adjVect2, rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second);
+                    for(unsigned z = 0; z < length(adjVect2) && adjVect2[z] >= rnaAlign.mask[i].second; ++z)
+                    {
+                        if(adjVect2[z] == rnaAlign.mask[w].second)
+                        {
+                            edgesProb = (cargo(findEdge(rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first, rnaAlign.mask[w].first)) +
+                                         cargo(findEdge(rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second, rnaAlign.mask[w].second)));
+                            // Add edge for the LowerBoundGraph
+                            lowerBound4Lemon[i][w] = edgesProb;
+                            // Compute the half edge probability to be used for the upper bound level
+                            halfEdgesProb = edgesProb / 2.0;
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine < halfEdgesProb)
+                            {
+                                fillBound(i, w, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                            }
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[w].second].maxProbScoreLine < halfEdgesProb )
+                            {
+                                fillBound(w, i, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    computeUpperBound(rnaAlign);
+}
+
+// ----------------------------------------------------------------------------
+// Function computeBounds() version that make use of an approximation of the MWM
+// ----------------------------------------------------------------------------
+
+//template <typename TRnaAlign>
+void computeBounds(TRnaAlign & rnaAlign)
+{
+    TScoreValue edgesProb, halfEdgesProb;
+//  Clear the maxProbScoreLine of the upper bound
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
+    {
+        rnaAlign.upperBoundVect[i].maxProbScoreLine = 0;
+        rnaAlign.lowerBoundVect[i].maxProbScoreLine = 0;
+    }
+    for(unsigned i = 0; i < rnaAlign.maskIndex - 1; ++i)
+    {
+        String<unsigned > adjVect1;
+        int tmp_i = -1;
+        int tmp_w = -1;
+        getVertexAdjacencyVector(adjVect1, rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first);
+        for(unsigned j = 0; i< length(adjVect1) && adjVect1[j] >= rnaAlign.mask[i].first; ++j)
+        {
+            for(unsigned w = i + 1; w < rnaAlign.maskIndex; ++w)
+            {
+                if(adjVect1[j] == rnaAlign.mask[w].first)
+                {
+                    String<unsigned > adjVect2;
+                    getVertexAdjacencyVector(adjVect2, rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second);
+                    for(unsigned z = 0; z < length(adjVect2) && adjVect2[z] >= rnaAlign.mask[i].second; ++z)
+                    {
+                        if(adjVect2[z] == rnaAlign.mask[w].second)
+                        {
+                            edgesProb = (cargo(findEdge(rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first, rnaAlign.mask[w].first)) +
+                                         cargo(findEdge(rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second, rnaAlign.mask[w].second)));
+                            // Compute the half edge probability to be used for the upper bound level
+                            halfEdgesProb = edgesProb / 2.0;
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine < halfEdgesProb)
+                            {
+                                fillBound(i, w, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                                fillBound(i, w, halfEdgesProb, rnaAlign.lowerBoundVect, rnaAlign);
+                                tmp_i = i;
+                                tmp_w = w;
+                            }
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[w].second].maxProbScoreLine < halfEdgesProb )
+                            {
+                                fillBound(w, i, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        if(tmp_i >= 0)
+        {
+            if ( rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_w].second].maxProbScoreLine < rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_i].second].maxProbScoreLine )
+            {
+                fillBound(tmp_w, tmp_i, rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_i].second].maxProbScoreLine, rnaAlign.lowerBoundVect, rnaAlign);
+            }
+        }
+    }
+    computeBound(rnaAlign);
+}
+
+// ----------------------------------------------------------------------------
+// Function computeBoundsTest()
+// ----------------------------------------------------------------------------
+
+//template <typename TOption, typename TRnaAlign, typename TMapVect>
+void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
+{
+    TScoreValue edgesProb, halfEdgesProb;
+//  Clear the maxProbScoreLine of the upper bound
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
+    {
+        rnaAlign.upperBoundVect[i].maxProbScoreLine = 0;
+        rnaAlign.lowerBoundVect[i].maxProbScoreLine = 0;
+//        std::cout << rnaAlign.upperBoundVect[i].maxProbScoreLine << "\t";
+    }
+    std::cout << std::endl;
+    clearVertices(rnaAlign.lowerBoundGraph); //TODO embedd the LEMON GRAPH directly in this point in order to do not copy the structures if the lemon::MWM is chosen
+    // Add vertex for the LowerBoundGraph
+    for(unsigned i = 0; i < rnaAlign.maskIndex; ++i)
+    {
+        addVertex(rnaAlign.lowerBoundGraph);
+    }
+    unsigned ll = 0;
+    for(unsigned i = 0; i < rnaAlign.maskIndex - 1; ++i)
+    {
+        String<unsigned > adjVect1;
+        int tmp_i = -1;
+        int tmp_w = -1;
+        getVertexAdjacencyVector(adjVect1, rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first);
+        for(unsigned j = 0; i< length(adjVect1) && adjVect1[j] >= rnaAlign.mask[i].first; ++j)
+        {
+            for(unsigned w = i + 1; w < rnaAlign.maskIndex; ++w)
+            {
+                if(adjVect1[j] == rnaAlign.mask[w].first)
+                {
+                    std::cout << "Couple of nt at position " << i << " of mask = " << rnaAlign.mask[i].first << ":" << rnaAlign.mask[i].second << std::endl;
+                    std::cout << "Couple of nt at position " << w << " of mask = " << rnaAlign.mask[w].first << ":" << rnaAlign.mask[w].second << std::endl;
+                    std::cout << "Probability on seq1 " << rnaAlign.mask[i].first << ":" << rnaAlign.mask[w].first << " = "
+                              << cargo(findEdge(rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first, rnaAlign.mask[w].first)) << std::endl;
+                    String<unsigned > adjVect2;
+                    getVertexAdjacencyVector(adjVect2, rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second);
+                    for(unsigned z = 0; z < length(adjVect2) && adjVect2[z] >= rnaAlign.mask[i].second; ++z)
+                    {
+                        if(adjVect2[z] == rnaAlign.mask[w].second)
+                        {
+                            std::cout << "Probability on seq2 " << rnaAlign.mask[w].second << ":" << rnaAlign.mask[i].second << " = "
+                                      << cargo(findEdge(rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second, rnaAlign.mask[w].second)) << std::endl;
+                            edgesProb = (cargo(findEdge(rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first, rnaAlign.mask[w].first)) +
+                                         cargo(findEdge(rnaAlign.rna2.bppMatrGraphs[0].inter, rnaAlign.mask[i].second, rnaAlign.mask[w].second)));
+                            // Add edge for the LowerBoundGraph
+                            addEdge(rnaAlign.lowerBoundGraph, i, w, edgesProb);
+                            lowerBound4Lemon[i][w] = edgesProb;
+                            ++ll;
+                            // Compute the half edge probability to be used for the upper bound level
+                            halfEdgesProb = edgesProb / 2.0;
+                            std::cout << "Sum of probabilities = " << edgesProb << std::endl;
+
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine < halfEdgesProb)
+                            {
+                                std::cout << "Previous prob of pair " << rnaAlign.mask[i].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine << std::endl;
+                                fillBound(i, w, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                                fillBound(i, w, halfEdgesProb, rnaAlign.lowerBoundVect, rnaAlign);
+                                std::cout << "Updated prob of pair " << rnaAlign.mask[i].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine << std::endl;
+                                tmp_i = i;
+                                tmp_w = w;
+                            }
+                            if ( rnaAlign.upperBoundVect[rnaAlign.mask[w].second].maxProbScoreLine < halfEdgesProb )
+                            {
+                                std::cout << "Previous prob of pair " << rnaAlign.mask[w].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[w].second].maxProbScoreLine << std::endl;
+                                fillBound(w, i, halfEdgesProb, rnaAlign.upperBoundVect, rnaAlign);
+                                std::cout << "Updated prob of pair " << rnaAlign.mask[w].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[w].second].maxProbScoreLine << std::endl;
+                            }
+                            std::cout << adjVect2[z] << "\t";
+                            std::cout << rnaAlign.mask[i].first << ":" << rnaAlign.mask[i].second << std::endl;
+                            std::cout << rnaAlign.mask[w].first << ":" << rnaAlign.mask[w].second << std::endl;
+                        }
+                    }
+                }
+            }
+        }
+        if(tmp_i >= 0)
+        {
+            if ( rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_w].second].maxProbScoreLine < rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_i].second].maxProbScoreLine )
+            {
+                std::cout << "Previous prob of pair " << rnaAlign.mask[tmp_w].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[tmp_w].second].maxProbScoreLine << std::endl;
+                fillBound(tmp_w, tmp_i, rnaAlign.lowerBoundVect[rnaAlign.mask[tmp_i].second].maxProbScoreLine, rnaAlign.lowerBoundVect, rnaAlign);
+                std::cout << "Updated prob of pair " << rnaAlign.mask[tmp_w].second << " = " << rnaAlign.upperBoundVect[rnaAlign.mask[tmp_w].second].maxProbScoreLine << std::endl;
+            }
+        }
+    }
+
+    std::cout << "Number of edges = " << ll << std::endl;
+
+    std::cout << "Upper bound vector of size " << length(rnaAlign.upperBoundVect) << std::endl;
+    computeBound(rnaAlign);
+    std::cout << "upperBound = " << rnaAlign.upperBound << std::endl;
+    std::cout << "lowerBound = " << rnaAlign.lowerBound << std::endl;
+    std::cout << "lowerBound from lemon::MWM primal = " << rnaAlign.lowerLemonBound.mwmPrimal << " dual = " << rnaAlign.lowerLemonBound.mwmDual << std::endl;
+    std::cout << rnaAlign.lowerBoundGraph << std::endl;
+// Functon used to plot the lowerBoundGraph on a file
+//    std::ofstream dotFile("/home/vitrusky8/graph_mio.dot");
+//    writeRecords(dotFile, rnaAlign.lowerBoundGraph, DotDrawing());
+//    dotFile.close();
+}
+
+
 template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
 void checkInterEdgesAndUpdateLambda(TOption const & options, TAlign const & align,
                                     TScore const & alignScore, TRnaAlign & rnaAlign)
@@ -120,7 +383,7 @@ void checkInterEdgesAndUpdateLambda(TOption const & options, TAlign const & alig
         else
         {
 
-            rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] += i; // the default initializer is callet the fist time that set the value to 0
+            rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] += i; // the default initializer is called the fist time that set the value to 0
 //            std::cout << i+row0Begin-gap0 << ":" << i+row1Begin-gap1 << "/" << rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] << "\t";
         }
     }

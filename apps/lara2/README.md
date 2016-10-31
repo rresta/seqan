@@ -1,6 +1,9 @@
 # laragu
 The new version of Lara tool for the structural-alignment of RNA sequences 
 
+To test the usage of a small alignment useful for the lower and upper bound checking (-lbm 1 set the algorithm to compute an approximation of the MWM that should be deeply tested)
+-i ./apps/lara2/demo/input_small.fa -t 2 -v 3 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1 -lbm 1
+
 To test the creation of the lamb string that will store the aligned interections that will be updated at each iteration
 -i ./apps/lara2/demo/input.fa -ir ./apps/lara2/demo/input.fa -t 2 -v 3 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1
 

@@ -43,7 +43,7 @@
 // ----------------------------------------------------------------------------
 
 #include <seqan/rna_io.h>
-//#include <seqan/align_rna.h>
+#include <seqan/align_rna.h>
 
 // ============================================================================
 // Prerequisites
@@ -58,6 +58,13 @@
 #define SCALE       1
 #define ORIGINAL    2
 #define RIBOSUM     3
+
+#define LBLEMONMWM    0
+#define LBAPPROXMWM   1
+#define LBMWMTEST     2
+
+// Value to be used to copare the difference between the upper and the lower bound difference
+#define EPSILON 0.0001
 
 // ============================================================================
 // Macro utility
@@ -75,11 +82,12 @@ typedef seqan::Align<TSequence, seqan::ArrayGaps> TAlign;      // align type
 typedef unsigned TPosition;
 typedef double TScoreValue;
 typedef seqan::CharString TString;
-typedef Score<double, ScoreMatrix<Rna5, Default> > TScoreMatrix;
+typedef seqan::Score<double, seqan::ScoreMatrix<seqan::Rna5, seqan::Default> > TScoreMatrix;
 typedef seqan::Ribosum65N TRibosum;
 typedef float TBioval;
 typedef std::map<TPosition, TScoreValue> TMap;
 typedef seqan::String<TMap > TMapLine;
+typedef std::vector<TMap > TMapVect;
 
 /*
 typedef float TCargo;
@@ -134,7 +142,7 @@ typedef RnaStructSeq<TSequence, TString, TPosition, TBioval, TMapLine> TRnaStruc
 //typedef std::vector<TRnaStruct > TRnaVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 
-struct upperBoundStruct
+struct boundStruct
 {
     // String with size seq2
     unsigned seq1Index;
@@ -144,7 +152,18 @@ struct upperBoundStruct
 };
 
 // String with size seq2
-typedef String<upperBoundStruct > TUpperBound;
+typedef seqan::String<boundStruct > TBound;
+
+typedef seqan::Graph<seqan::Undirected<double> > TLowerBoundGraph; //TODO if the Lemon library is used after the tests this graph structure should be chosen as lemon graph in order to avoid the copy of the graph
+
+struct lowerBoundLemonStruct
+{
+    double mwmPrimal; //value of the maximum weighted matching is here saved
+    double mwmDual; //value of the maximum weighted matching is here saved
+};
+
+// String with size seq2
+typedef lowerBoundLemonStruct TlowerLemonBound;
 
 struct lambStruct
 {
@@ -165,15 +184,32 @@ struct RnaStructAlign
     seqan::String<unsigned > maskLong;
     seqan::String<std::pair <unsigned, unsigned> > mask;
     unsigned maskIndex;
-// Lower bound field
+
+// Lower bound fields
     double lowerBound;
-// Upper bound field
+    TBound lowerBoundVect;  // This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider to do not use anymore the Lemon MWM
+    TLowerBoundGraph lowerBoundGraph; //graph useful for the seqan::MaximumWeightedMatch() function
+    TlowerLemonBound lowerLemonBound;
+
+// Upper bound fields
     double upperBound;
-    TUpperBound upperBoundVect;
+    TBound upperBoundVect;
+
+//  Status when the minumum difference between the two bounds is detected
+    unsigned itMinBounds; //to be used for the best lower bound
+    double lowerMinBound;
+    double upperMinBound;
+    TAlign bestAlignMinBounds;
+    TScoreValue bestAlignScoreMinBounds;
+
 // String with size seq1 storing all the aligned lines
     seqan::String<lambStruct > lamb;
     RnaStructAlign():
-            bestAlignScore(std::numeric_limits<double>::lowest())
+            bestAlignScore(std::numeric_limits<double>::lowest()),
+            lowerBound(0.0),
+            upperBound(0.0),
+            lowerMinBound(0.0),
+            upperMinBound(0.0)
     {}
 };// rnaStructAlign;
 

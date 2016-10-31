@@ -97,6 +97,10 @@ struct Options
     unsigned iterations;
 // number of non-decreasing iterations
     unsigned nonDecreasingIterations;
+// method to be used for the computation of the Lower bound (MWM or approximation can be chosen)
+    unsigned lowerBoundMethod;
+// value to be considered for the equality of upper and lower bounds difference
+    double epsilon;
 // my, necessary for computing appropriate step sizes
     double my; //FIXME to be changed the name
 // scoring matrix name that should be used for scoring alignment edges in the actual problem
@@ -145,9 +149,11 @@ struct Options
             unDown(false),
             thrGlobalUnconstr(0.666667),
             thrGlobalLocal(0.5),
-            thrBppm(1e-15),
+            thrBppm(1e-15), // 0.1 is the value used in the old Lara
             iterations(500),
             nonDecreasingIterations(50),
+            lowerBoundMethod(LBMWMTEST),
+            epsilon(EPSILON),
             my(1.0),
             laraScoreMatrixName(""), //laraScoreMatrixName("RIBOSUM65"),
             generatorGapOpen(6.0),
@@ -212,6 +218,10 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("iter", "iterations", "number of iterations.", ArgParseArgument::INTEGER, "INT"));
     addOption(parser, ArgParseOption("nditer", "nonDecreasingIterations", "number of non-decreasing iterations.",
                                      ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("lbm", "lowerBoundMethod", "method to be used for the computation of the Lower bound (MWM or approximation can be chosen)",
+                                     ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("ep", "epsilon", "value to be considered for the equality of upper and lower bounds difference",
+                                     ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("my", "my", "necessary for computing appropriate step sizes.",
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("lsm","laraScoreMatrixName",
@@ -295,6 +305,8 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(options.thrBppm, parser, "thrBppm");
     getOptionValue(options.iterations, parser, "iterations");
     getOptionValue(options.nonDecreasingIterations, parser, "nonDecreasingIterations");
+    getOptionValue(options.lowerBoundMethod, parser, "lowerBoundMethod");
+    getOptionValue(options.epsilon, parser, "epsilon");
     getOptionValue(options.my, parser, "my");
     getOptionValue(options.laraScoreMatrixName, parser, "laraScoreMatrixName");
     getOptionValue(options.generatorGapOpen, parser, "generatorGapOpen");

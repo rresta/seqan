@@ -86,6 +86,7 @@
 #include "interaction_edges.h"
 #include "alignment_edges.h"
 #include "struct_align.h"
+#include "lemon_graph.h"
 
 using namespace seqan;
 // ----------------------------------------------------------------------------
@@ -131,7 +132,7 @@ int main(int argc, char const ** argv)
         alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqsRef, options);
     }
     if(options.verbose > 2)
-        std::cout << rnaSeqs[0].bppMatrGraphs[0].inter << std:: endl;
+        std::cout << rnaSeqs[0].bppMatrGraphs[0].inter << std:: endl; //TODO when more than a bppMatrGraphs will be used, the chosen must be saved in the 0 position otherwise an index should be used instead of 0
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     firstSimdAligns(resultsSimd, alignsSimd, rnaAligns, options);
@@ -143,14 +144,45 @@ int main(int argc, char const ** argv)
 
         seqan::resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
         seqan::resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
-        // Save the best alignments that give the absolute maximum score
-        //TODO even the alignemnt that give the smallest difference between up and low bound should be saved
-        saveBestAlign(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
-        maskCreator(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+        seqan::resize(rnaAligns[i].lowerBoundVect, length(rnaAligns[i].rna2.sequence));
+
+// Save the best alignments that give the absolute maximum score
+
+        saveBestAlign(alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+// Create the mask of the current alignment to be used for the upper, lower bound computation and the lamb update
+        maskCreator(alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+
+
+        if(options.lowerBoundMethod == LBLEMONMWM) // The MWM is computed to fill the LowerBound
+        {
+//  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+            TMapVect lowerBound4Lemon;
+            lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
+            computeBounds(rnaAligns[i], lowerBound4Lemon);
+// Compute the MWM with the Lemon library
+            myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
+            rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+        } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
+        {
+            computeBounds(rnaAligns[i]);
+        } else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
+        {
+//  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
+//  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+            TMapVect lowerBound4Lemon;
+            lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
+            computeBoundsTest(rnaAligns[i], lowerBound4Lemon);
+// Compute the MWM with the Lemon library
+            myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
+        }
+        std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
+        std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
 
 
 
-        checkInterEdgesAndUpdateLambda(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+//TODO the alignemnt that give the smallest difference between up and low bound should be saved
+
+//        checkInterEdgesAndUpdateLambda(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
     }
     return 0;
 }

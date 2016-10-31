@@ -3,8 +3,11 @@
 # ===========================================================================
 # File: /apps/lara2/CMakeLists.txt
 #
-# CMakeLists.txt file for lara2.
-# ===========================================================================
+# CMakeLists.txt file for lara2
+#
+# ==========================================================================
+# Author: Gianvito Urgese <gianvito.urgese@polito.it>
+# ==========================================================================
 
 cmake_minimum_required(VERSION 3.5)
 project (seqan_apps_lara2 CXX)
@@ -27,11 +30,18 @@ SET(SEQAN_INCLUDE_DIRS "../../include")
 include_directories(${SEQAN_INCLUDE_DIRS} ) # FIXME make this variable
 include_directories(./include)
 
-set(SOURCE_FILES src/laragu.cpp)
+set(SOURCE_FILES
+        src/lemon_graph.cpp
+        src/laragu.cpp)
 
 add_executable(laragu ${SOURCE_FILES})
 
 # Vienna RNA static library should be installed
 find_library(RNA libRNA.a PATHS)
+if(RNA)
+    message("Vienna RNA FOUND")
+else()
+    message("Vienna RNA NOT FOUND")
+endif()
 
 target_link_libraries(laragu ${RNA})
