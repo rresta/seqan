@@ -383,35 +383,27 @@ void saveBestAlignMinBound(TAlign const & align, TScoreValue const & alignScore,
     }
 }
 
-
-template <typename TOption, typename TAlign, typename TScore, typename TRnaAlign>
-void checkInterEdgesAndUpdateLambda(TOption const & options, TAlign const & align,
-                                    TScore const & alignScore, TRnaAlign & rnaAlign)
+void updateLambda(TRnaAlign & rnaAlign)
 {
-// TODO if combination of line do not exist create it and fill with 0
-    unsigned row0Begin = clippedBeginPosition(row(align, 0));
-    unsigned row1Begin = clippedBeginPosition(row(align, 1));
-    unsigned gap0 = 0;
-    unsigned gap1 = 0;
-//TODO this function can be simplifyed using the function toViewPosition(row0, i)
-    for(unsigned i=0; i< length(row(align, 0));++i)  //maximum size of this string is length(mapline)
+    std::cout << "updateLambda function" << std::endl;
+    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
     {
-        if(row(align, 0)[i]=='-') // In this choice the assumption that no alignment between - char can exist
+        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0)
         {
-            ++gap0;
-        }
-        else if (row(align, 1)[i]=='-')
-        {
-            ++gap1;
-        }
-        else
-        {
-
-            rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] += i; // the default initializer is called the fist time that set the value to 0
-//            std::cout << i+row0Begin-gap0 << ":" << i+row1Begin-gap1 << "/" << rnaAlign.lamb[i+row0Begin-gap0].map[i+row1Begin-gap1] << "\t";
+            if(rnaAlign.upperBoundVect[i].seq1Index != rnaAlign.upperBoundVect[rnaAlign.upperBoundVect[i].seq1IndexPairLine].seq1IndexPairLine)
+            {
+                if(rnaAlign.upperBoundVect[i].seq1Index < rnaAlign.upperBoundVect[i].seq1IndexPairLine)
+                {
+// TODO check if this strategy is properly working a positive score is assigned to the left-side alignments. Maybe a double side strategy should be tested
+                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i] += rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
+                }
+                else
+                {
+                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i] -= rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
+                }
+            }
         }
     }
-    std::cout << align << std::endl;
 }
 
 #endif //_INCLUDE_ALIGNMENT_EDGES_H_

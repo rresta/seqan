@@ -182,6 +182,7 @@ int main(int argc, char const ** argv)
         std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
 
         unsigned index = 0;
+// The alignemnt that give the smallest difference between up and low bound should be saved
         saveBestAlignMinBound(alignsSimd[i], resultsSimd[i], rnaAligns[i], index);
         if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
         {
@@ -193,11 +194,7 @@ int main(int argc, char const ** argv)
 
         std::cout << "The step size to be used for Lambda is " << rnaAligns[i].stepSize << std::endl;
 
-
-
-//TODO the alignemnt that give the smallest difference between up and low bound should be saved
-
-//        checkInterEdgesAndUpdateLambda(options, alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+        updateLambda(rnaAligns[i]);
     }
     return 0;
 }
