@@ -160,6 +160,7 @@ struct lowerBoundLemonStruct
 {
     double mwmPrimal; //value of the maximum weighted matching is here saved
     double mwmDual; //value of the maximum weighted matching is here saved
+    unsigned mwmCardinality;
 };
 
 // String with size seq2
@@ -195,6 +196,10 @@ struct RnaStructAlign
     double upperBound;
     TBound upperBoundVect;
 
+// Parameters used to compute the stepsize
+    int slm;
+    double stepSize;
+
 //  Status when the minumum difference between the two bounds is detected
     unsigned itMinBounds; //to be used for the best lower bound
     double lowerMinBound;
@@ -209,7 +214,9 @@ struct RnaStructAlign
             lowerBound(0.0),
             upperBound(0.0),
             lowerMinBound(0.0),
-            upperMinBound(0.0)
+            upperMinBound(0.0),
+            slm(0),
+            stepSize(0.0)
     {}
 };// rnaStructAlign;
 

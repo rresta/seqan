@@ -162,12 +162,14 @@ int main(int argc, char const ** argv)
 // Compute the MWM with the Lemon library
             myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
             rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
         } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
         {
             computeBounds(rnaAligns[i]);
         } else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
         {
 //  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
+//  The approximation is used while the other structures are computed
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
             TMapVect lowerBound4Lemon;
             lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
@@ -177,6 +179,19 @@ int main(int argc, char const ** argv)
         }
         std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
         std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
+        std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
+
+        unsigned index = 0;
+        saveBestAlignMinBound(alignsSimd[i], resultsSimd[i], rnaAligns[i], index);
+        if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
+        {
+            std::cout << "computation should stopped and the bestAlignMinBounds should be returned" << std::endl;
+            //TODO implement this functionality
+        }
+//  Compute the step size for the Lambda update
+        rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+
+        std::cout << "The step size to be used for Lambda is " << rnaAligns[i].stepSize << std::endl;
 
 
 

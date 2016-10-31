@@ -114,9 +114,14 @@ void fillBound(unsigned const & x, unsigned const & y, TScoreValue const & halfE
 void computeUpperBound(TRnaAlign & rnaAlign)
 {
     TScoreValue sum = 0;
+    rnaAlign.slm = 0;
     for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
     {
-        sum += rnaAlign.upperBoundVect[i].maxProbScoreLine;
+        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0)
+        {
+            sum += rnaAlign.upperBoundVect[i].maxProbScoreLine;
+            ++rnaAlign.slm;
+        }
     }
     rnaAlign.upperBound = sum;
 };
@@ -132,8 +137,15 @@ void computeBound(TRnaAlign & rnaAlign)
     TScoreValue sumL = 0;
     for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
     {
-        sumU += rnaAlign.upperBoundVect[i].maxProbScoreLine;
-        sumL += rnaAlign.lowerBoundVect[i].maxProbScoreLine;
+        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0) {
+            sumU += rnaAlign.upperBoundVect[i].maxProbScoreLine;
+            ++rnaAlign.slm;
+        }
+        if (rnaAlign.lowerBoundVect[i].maxProbScoreLine > 0)
+        {
+            sumL += rnaAlign.lowerBoundVect[i].maxProbScoreLine;
+            --rnaAlign.slm;
+        }
     }
     rnaAlign.upperBound = sumU;
     rnaAlign.lowerBound = sumL;
@@ -357,6 +369,18 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 //    std::ofstream dotFile("/home/vitrusky8/graph_mio.dot");
 //    writeRecords(dotFile, rnaAlign.lowerBoundGraph, DotDrawing());
 //    dotFile.close();
+}
+
+void saveBestAlignMinBound(TAlign const & align, TScoreValue const & alignScore, TRnaAlign & rnaAlign, unsigned & index)
+{
+    if( (rnaAlign.lowerBound - rnaAlign.upperBound) < (rnaAlign.lowerMinBound - rnaAlign.upperMinBound))
+    {
+        rnaAlign.itMinBounds = index; //to be used for the best lower bound
+        rnaAlign.lowerMinBound = rnaAlign.lowerBound;
+        rnaAlign.upperMinBound = rnaAlign.upperBound;
+        rnaAlign.bestAlignMinBounds = align;
+        rnaAlign.bestAlignScoreMinBounds = alignScore;
+    }
 }
 
 

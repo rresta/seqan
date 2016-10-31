@@ -63,9 +63,11 @@ void myLemon::computeLowerBound(TMapVect & lowerBound4Lemon, TRnaAlign & rnaAlig
 
     rnaAlign.lowerLemonBound.mwmPrimal = mwm.matchingWeight();
     rnaAlign.lowerLemonBound.mwmDual = mwm.dualValue();
+    rnaAlign.lowerLemonBound.mwmCardinality = mwm.matchingSize();
 
     std::cout << "The cost of the primal solution of MWM is " <<  mwm.matchingWeight() << std::endl;
     std::cout << "The cost of the dual solution of MWM is " <<  mwm.dualValue() << std::endl;
+    std::cout << "The cardinality of the subgraph MWM is " <<  mwm.matchingSize() << std::endl;
 
     std::cout <<  std::endl;
     std::cout << "There is a map on the blossom edges!" << std::endl;
