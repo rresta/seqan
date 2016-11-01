@@ -166,11 +166,19 @@ struct lowerBoundLemonStruct
 // String with size seq2
 typedef lowerBoundLemonStruct TlowerLemonBound;
 
+struct lambWeightStruct
+{
+    TScoreValue step;
+    TScoreValue maxProbScoreLine;
+    unsigned seq1IndexPairLine;
+    unsigned seq2IndexPairLine;
+};
+
+typedef std::map<TPosition, lambWeightStruct> TMapWeight;
+
 struct lambStruct
 {
-    // String with size seq1 storing all the aligned lines
-    TMap map; //mapLine;
-    unsigned indexBest;
+    TMapWeight map; //mapLine;
 };
 
 struct RnaStructAlign
@@ -209,6 +217,7 @@ struct RnaStructAlign
 
 // String with size seq1 storing all the aligned lines
     seqan::String<lambStruct > lamb;
+
     RnaStructAlign():
             bestAlignScore(std::numeric_limits<double>::lowest()),
             lowerBound(0.0),

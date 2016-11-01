@@ -383,27 +383,28 @@ void saveBestAlignMinBound(TAlign const & align, TScoreValue const & alignScore,
     }
 }
 
-void updateLambda(TRnaAlign & rnaAlign)
-{
+void updateLambda(TRnaAlign & rnaAlign) {
     std::cout << "updateLambda function" << std::endl;
-    for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
-    {
-        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0)
-        {
-            if(rnaAlign.upperBoundVect[i].seq1Index != rnaAlign.upperBoundVect[rnaAlign.upperBoundVect[i].seq1IndexPairLine].seq1IndexPairLine)
-            {
-                if(rnaAlign.upperBoundVect[i].seq1Index < rnaAlign.upperBoundVect[i].seq1IndexPairLine)
-                {
+    for (unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i) {
+        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0) {
+            // the edges are not paired
+            if (rnaAlign.upperBoundVect[i].seq1Index !=
+                rnaAlign.upperBoundVect[rnaAlign.upperBoundVect[i].seq1IndexPairLine].seq1IndexPairLine) {
+                if (rnaAlign.upperBoundVect[i].seq1Index < rnaAlign.upperBoundVect[i].seq1IndexPairLine) {
 // TODO check if this strategy is properly working a positive score is assigned to the left-side alignments. Maybe a double side strategy should be tested
-                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i] += rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
+                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].step += rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
+                } else {
+                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].step -= rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
                 }
-                else
-                {
-                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i] -= rnaAlign.stepSize; // Note, the default initializer is callet the fist time that set the value to 0
-                }
+            }
+// Save the maximum interaction weight to be used for the computation of profit of a line
+            if (rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].maxProbScoreLine <
+                rnaAlign.upperBoundVect[i].maxProbScoreLine) {
+                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].maxProbScoreLine = rnaAlign.upperBoundVect[i].maxProbScoreLine;
+                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].seq1IndexPairLine = rnaAlign.upperBoundVect[i].seq1IndexPairLine;
+                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].seq2IndexPairLine = rnaAlign.upperBoundVect[i].seq2IndexPairLine;
             }
         }
     }
 }
-
 #endif //_INCLUDE_ALIGNMENT_EDGES_H_
