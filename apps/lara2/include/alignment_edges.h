@@ -295,7 +295,7 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
         int tmp_i = -1;
         int tmp_w = -1;
         getVertexAdjacencyVector(adjVect1, rnaAlign.rna1.bppMatrGraphs[0].inter, rnaAlign.mask[i].first);
-        for(unsigned j = 0; i< length(adjVect1) && adjVect1[j] >= rnaAlign.mask[i].first; ++j)
+        for(unsigned j = 0; j< length(adjVect1) && adjVect1[j] >= rnaAlign.mask[i].first; ++j)
         {
             for(unsigned w = i + 1; w < rnaAlign.maskIndex; ++w)
             {
