@@ -1,7 +1,7 @@
 // ==========================================================================
 //                 SeqAn - The Library for Sequence Analysis
 // ==========================================================================
-// Copyright (c) 2006-2015, Knut Reinert, FU Berlin
+// Copyright (c) 2006-2016, Knut Reinert, FU Berlin
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -29,7 +29,7 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Authors: Joerg Winkler <j.winkler@fu-berlin.de>
+// Author: Joerg Winkler <j.winkler@fu-berlin.de>
 // ==========================================================================
 // This file contains routines to read/write Vienna format files
 // ==========================================================================
@@ -97,6 +97,7 @@ char const * FileExtensions<Vienna, T>::VALUE[1] =
 // ----------------------------------------------------------------------------
 // Function readRecord(); RnaRecord, Vienna
 // ----------------------------------------------------------------------------
+
 template <typename TForwardIter>
 inline void
 readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
@@ -117,7 +118,8 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
         record.name = buffer.substr(0, pos);
         std::string posStr{buffer.substr(pos + 1)};
         pos = posStr.find('-');
-        if (pos == std::string::npos || !lexicalCast(record.offset, posStr.substr(0, pos))) {
+        if (pos == std::string::npos || !lexicalCast(record.offset, posStr.substr(0, pos)))
+        {
             record.name = buffer;
             record.offset = 1;
         }
@@ -150,7 +152,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
         {
             if (!stack.empty())
             {
-                addEdge(graph.inter, idx, stack.top(), 1.);
+                addEdge(graph.inter, idx, stack.top(), 1.0);
                 stack.pop();
             }
             else
@@ -161,6 +163,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
     }
     if(!stack.empty())
         SEQAN_THROW(ParseError("Invalid bracket notation: unpaired opening bracket"));
+
     append(record.fixedGraphs, graph);
     clear(buffer);
 
@@ -171,7 +174,9 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
         skipOne(iter);
         readUntil(buffer, iter, EqualsChar<')'>());
         if (!lexicalCast(record.fixedGraphs[0].energy, buffer))
+        {
             SEQAN_THROW(BadLexicalCast(record.fixedGraphs[0].energy, buffer));
+        }
         clear(buffer);
     }
     if (!atEnd(iter))
@@ -180,7 +185,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Vienna const & /*tag*/)
 
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Vienna const & /*tag*/)
+readRecord(RnaRecord & record, RnaIOContext & /*context*/, TForwardIter & iter, Vienna const & /*tag*/)
 {
     readRecord(record, iter, Vienna());
 }
@@ -223,27 +228,33 @@ writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
 
     for (unsigned idx = 0; idx < length(bracketStr); ++idx) // write pairs in bracket notation
     {
-        if (degree(graph.inter, idx) == 0)                    // unpaired
+        if (degree(graph.inter, idx) == 0)                  // unpaired
         {
             bracketStr[idx] = '.';
             continue;
         }
 
         RnaAdjacencyIterator adj_it(graph.inter, idx);
-        if (idx < value(adj_it))                        // open bracket
+        if (idx < value(adj_it))                            // open bracket
         {
             bracketStr[idx] = '(';
             stack.push(value(adj_it));
         }
-        else                                            // close bracket
+        else                                                // close bracket
         {
             bracketStr[idx] = ')';
             if (stack.empty())
+            {
                 SEQAN_FAIL("Cannot reach here.");
+            }
             if (stack.top() == idx)
+            {
                 stack.pop();
+            }
             else
+            {
                 SEQAN_THROW(ParseError("ERROR: Vienna format does not allow pseudoknots."));
+            }
         }
     }
     write(target, bracketStr);
@@ -260,10 +271,11 @@ writeRecord(TTarget & target, RnaRecord const & record, Vienna const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Vienna const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, RnaIOContext & /*context*/, Vienna const & /*tag*/)
 {
     writeRecord(target, record, Vienna());
 }
 
-}
+}  // namespace seqan
+
 #endif // SEQAN_INCLUDE_SEQAN_RNA_IO_VIENNA_READ_WRITE_H_

@@ -29,7 +29,8 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Lily Shellhammer <lily.shellhammer@gmail.com>
+// Authors: Lily Shellhammer <lily.shellhammer@gmail.com>
+//          Joerg Winkler <j.winkler@fu-berlin.de>
 // ==========================================================================
 // This file contains routines to read and write to connect format files (.ct)
 // ==========================================================================
@@ -44,23 +45,23 @@ Rna FORMAT example:
 => record START : number of bases in the sequence
 => record END: title of the structure
 => Each line has information about a base pair in the sequence
-	Each line is a base, with this order of information:
-		- Base number: index n
-		- Base (A, C, G, T, U, X)
-		- Index n-1
-		- Index n+1
-		- Number of the base to which n is paired. No pairing is indicated by 0 (zero).
-		- Natural numbering. Rnastructure ignores the actual value given in natural numbering,
-			so it is easiest to repeat n here.
+    Each line is a base, with this order of information:
+        - Base number: index n
+        - Base (A, C, G, T, U, X)
+        - Index n-1
+        - Index n+1
+        - Number of the base to which n is paired. No pairing is indicated by 0 (zero).
+        - Natural numbering. RnaStructure ignores the actual value given in natural numbering,
+            so it is easiest to repeat n here.
 
 CT Files can hold multiple structures of a single sequence.
 This is done by repeating the format for each structure without any blank lines between structures.
 
 record
- N  SEQUENCE   N-1  	 N+1	J POSITION  N
- 1 	G       	0    	2   	72    		1
- 2 	C       	1    	3   	71    		2
- 3 	G       	2    	4   	70    		3
+ N  SEQUENCE    N-1     N+1     J POSITION      N
+ 1  G           0       2       72              1
+ 2  C           1       3       71              2
+ 3  G           2       4       70              3
 
 */
 
@@ -108,9 +109,9 @@ struct FileExtensions<Connect, T>
 
 template <typename T>
 char const * FileExtensions<Connect, T>::VALUE[1] =
-    {
-        ".ct"      // default output extension
-    };
+{
+    ".ct"      // default output extension
+};
 
 // ==========================================================================
 // Functions
@@ -133,9 +134,10 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
     readUntil(buffer, iter, IsWhitespace());
     if (!lexicalCast(record.seqLen, buffer))
         SEQAN_THROW(BadLexicalCast(record.seqLen, buffer));
+
     clear(buffer);
 
-    //read energy
+    // read energy
     skipUntil(iter, NotFunctor<IsWhitespace>());
     readUntil(buffer, iter, OrFunctor<IsWhitespace, EqualsChar<'='> >());
     if (startsWith(buffer, "ENERGY"))
@@ -147,6 +149,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
         readUntil(buffer, iter, IsWhitespace());
         if (!lexicalCast(graph.energy, buffer))
             SEQAN_THROW(BadLexicalCast(graph.energy, buffer));
+
         skipUntil(iter, NotFunctor<IsWhitespace>());
     }
     else
@@ -168,7 +171,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
     */
 
     // read nucleotides with pairs
-    unsigned currPos {0};
+    unsigned currPos{};
     record.offset = 1;
     while (!atEnd(iter) && currPos < record.seqLen + record.offset - 1)
     {
@@ -184,6 +187,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
             readUntil(buffer, iter, IsWhitespace());
             if (!lexicalCast(record.offset, buffer))
                 SEQAN_THROW(BadLexicalCast(record.offset, buffer));
+
             currPos = record.offset;
             clear(buffer);
         }
@@ -207,6 +211,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
         readUntil(buffer, iter, IsWhitespace());
         if (!lexicalCast(pairPos, buffer))
             SEQAN_THROW(BadLexicalCast(pairPos, buffer));
+
         if (pairPos != 0 && currPos > pairPos)
         {
             if (pairPos >= record.offset)
@@ -224,7 +229,7 @@ readRecord(RnaRecord & record, TForwardIter & iter, Connect const & /*tag*/)
 
 template <typename TForwardIter>
 inline void
-readRecord(RnaRecord & record, SEQAN_UNUSED RnaIOContext &, TForwardIter & iter, Connect const & /*tag*/)
+readRecord(RnaRecord & record, RnaIOContext & /*context*/, TForwardIter & iter, Connect const & /*tag*/)
 {
     readRecord(record, iter, Connect());
 }
@@ -245,7 +250,7 @@ writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
     Rna5String const sequence = empty(record.sequence) ? source(row(record.align, 0)) : record.sequence;
     RnaStructureGraph const & graph = record.fixedGraphs[0];
 
-    //write "header"
+    // write "header"
     appendNumber(target, record.seqLen);
     if (graph.energy != 0.0f)
     {
@@ -257,11 +262,11 @@ writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
     write(target, record.name);
     writeValue(target, '\n');
 
-    //write "body"
+    // write "body"
     unsigned offset = record.offset > 0 ? record.offset : 1;
     for (unsigned i = 0; i < length(sequence); ++i)
     {
-        writeValue(target, ' ');    //All records start with a space
+        writeValue(target, ' ');  // All records start with a space
         appendNumber(target, i + offset);
         writeValue(target, '\t');
         write(target, sequence[i]);
@@ -287,11 +292,12 @@ writeRecord(TTarget & target, RnaRecord const & record, Connect const & /*tag*/)
 
 template <typename TTarget>
 inline void
-writeRecord(TTarget & target, RnaRecord const & record, SEQAN_UNUSED RnaIOContext &, Connect const & /*tag*/)
+writeRecord(TTarget & target, RnaRecord const & record, RnaIOContext & /*context*/,
+            Connect const & /*tag*/)
 {
     writeRecord(target, record, Connect());
 }
 
-} //namespace seqan
+} // namespace seqan
 
 #endif // SEQAN_INCLUDE_SEQAN_RNA_IO_CONNECT_READ_WRITE_H_
