@@ -196,7 +196,7 @@ struct RnaStructAlign
 
 // Lower bound fields
     double lowerBound;
-    TBound lowerBoundVect;  // This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider to do not use anymore the Lemon MWM
+//    TBound lowerBoundVect;  // This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider to do not use anymore the Lemon MWM
     TLowerBoundGraph lowerBoundGraph; //graph useful for the seqan::MaximumWeightedMatch() function
     TlowerLemonBound lowerLemonBound;
 

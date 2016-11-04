@@ -144,7 +144,6 @@ int main(int argc, char const ** argv)
 
         seqan::resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
         seqan::resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
-        seqan::resize(rnaAligns[i].lowerBoundVect, length(rnaAligns[i].rna2.sequence));
 
 // Save the best alignments that give the absolute maximum score
 
