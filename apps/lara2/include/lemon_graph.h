@@ -41,12 +41,16 @@
 // Lemon headers
 // ----------------------------------------------------------------------------
 
-//#include <iostream>
-//#include <lemon/list_graph.h>
-//#include <lemon/smart_graph.h>
-//#include <lemon/matching.h>
+#include <lemon/list_graph.h>
+#include <lemon/smart_graph.h>
+#include <lemon/matching.h>
+
+// ----------------------------------------------------------------------------
+// Lara data types
+// ----------------------------------------------------------------------------
 
 #include "data_types.h"
+
 // ============================================================================
 // Functions
 // ============================================================================
@@ -54,7 +58,5 @@
 namespace myLemon {
     void computeLowerBound(TMapVect &lowerBound4Lemon, TRnaAlign & rnaAlign);
 }
-
-
 
 #endif //_INCLUDE_LEMON_GRAPH_H_
