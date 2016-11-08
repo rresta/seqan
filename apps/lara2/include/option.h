@@ -55,10 +55,24 @@
 // App headers
 // ----------------------------------------------------------------------------
 
-#include "top_data_struct.h" //defined all the constant used in the app
-#include "misc_options.h"
+// defines all the constants used in the app
+#include "top_data_struct.h"
 
 //using namespace std;
+
+// ============================================================================
+// Functors
+// ============================================================================
+
+typedef EqualsChar<'.'>        IsDot;
+typedef EqualsChar<'/'>        IsSlash;
+typedef EqualsChar<'\\'>       IsBackSlash;
+
+#ifdef PLATFORM_WINDOWS
+typedef IsBackSlash        IsPathDelimited;
+#else
+typedef IsSlash            IsPathDelimited;
+#endif
 
 // ----------------------------------------------------------------------------
 // Class Options
@@ -281,6 +295,88 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     setMaxValue(parser, "threads", "1");
 #endif
 //    setDefaultValue(parser, "threads", options.threadsCount);
+}
+
+// ----------------------------------------------------------------------------
+// Function setEnv()
+// ----------------------------------------------------------------------------
+
+template <typename TString, typename TValue>
+bool setEnv(TString const & key, TValue & value)
+{
+#ifdef PLATFORM_WINDOWS
+    return !_putenv_s(toCString(key), toCString(value));
+#else
+    return !setenv(toCString(key), toCString(value), true);
+#endif
+}
+
+// ----------------------------------------------------------------------------
+// Function getCwd()
+// ----------------------------------------------------------------------------
+
+template <typename TString>
+void getCwd(TString & string)
+{
+    char cwd[1000];
+
+#ifdef PLATFORM_WINDOWS
+    _getcwd(cwd, 1000);
+#else
+    ignoreUnusedVariableWarning(getcwd(cwd, 1000));
+#endif
+
+    assign(string, cwd);
+}
+
+// ----------------------------------------------------------------------------
+// Function firstOf()
+// ----------------------------------------------------------------------------
+
+template <typename TString, typename TFunctor>
+inline typename Iterator<TString const, Standard>::Type
+firstOf(TString const & string, TFunctor const & f)
+{
+    typedef typename Iterator<TString const, Standard>::Type TIter;
+
+    TIter it = begin(string, Standard());
+    skipUntil(it, f);
+
+    return it;
+}
+
+// ----------------------------------------------------------------------------
+// Function lastOf()
+// ----------------------------------------------------------------------------
+
+template <typename TString, typename TFunctor>
+inline typename Iterator<TString const, Standard>::Type
+lastOf(TString const & string, TFunctor const & f)
+{
+    typedef ModifiedString<TString const, ModReverse>        TStringRev;
+    typedef typename Iterator<TStringRev, Standard>::Type    TIterRev;
+
+    TStringRev revString(string);
+    TIterRev revIt = firstOf(revString, f);
+
+    return end(string) - position(revIt, revString);
+}
+
+// ----------------------------------------------------------------------------
+// Function getPath()
+// ----------------------------------------------------------------------------
+
+template <typename TString>
+inline typename Prefix<TString const>::Type
+getPath(TString const & string)
+{
+    typedef typename Iterator<TString const, Standard>::Type TIter;
+
+    TIter it = lastOf(string, IsPathDelimited());
+
+    if (it != begin(string, Standard())) --it;
+
+    return prefix(string, it);
 }
 
 // ----------------------------------------------------------------------------

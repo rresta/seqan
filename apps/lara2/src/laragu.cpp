@@ -79,8 +79,8 @@
 // App headers
 // ----------------------------------------------------------------------------
 
-#include "top_data_struct.h" // defined all the constant used in the app
-//#include "misc_options.h"
+// defines all the constants used in the app
+#include "top_data_struct.h"
 #include "option.h" //
 #include "store_seqs.h"
 #include "interaction_edges.h"
@@ -208,7 +208,7 @@ int main(int argc, char const ** argv)
         rnaAligns[i].structScore.lamb = & rnaAligns[i].lamb;
     }
 
-    for(unsigned j = 0; j < 500; ++j)
+    for(unsigned j = 0; j < 1; ++j)
     {
         for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
         {
