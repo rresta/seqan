@@ -56,7 +56,7 @@
 // ----------------------------------------------------------------------------
 
 // defines all the constants used in the app
-#include "top_data_struct.h"
+#include "data_types.h"
 
 //using namespace std;
 

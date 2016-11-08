@@ -46,7 +46,7 @@
 //#include <lemon/smart_graph.h>
 //#include <lemon/matching.h>
 
-#include "top_data_struct.h"
+#include "data_types.h"
 // ============================================================================
 // Functions
 // ============================================================================

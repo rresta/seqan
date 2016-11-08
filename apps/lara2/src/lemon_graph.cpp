@@ -4,7 +4,7 @@
 #include <lemon/matching.h>
 
 
-#include "top_data_struct.h" // defined all the constant used in the app
+#include "data_types.h"
 #include "lemon_graph.h"
 
 // ----------------------------------------------------------------------------

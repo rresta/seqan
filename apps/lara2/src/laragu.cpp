@@ -80,12 +80,12 @@
 // ----------------------------------------------------------------------------
 
 // defines all the constants used in the app
-#include "top_data_struct.h"
+#include "data_types.h"
 #include "option.h" //
 #include "store_seqs.h"
 #include "interaction_edges.h"
-#include "alignment_edges.h"
-#include "struct_align.h"
+#include "lara_core.h"
+#include "alignment.h"
 #include "lemon_graph.h"
 
 using namespace seqan;
