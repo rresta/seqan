@@ -157,12 +157,8 @@ void firstSimdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & aligns
     }
 };
 
-// ----------------------------------------------------------------------------
-// Function firstSimdAligns()
-// ----------------------------------------------------------------------------
-
-template <typename TResultsSimd, typename TAlignsSimd, typename TRnaAlignVect, typename TOptions>
-void firstSimdAligns(TResultsSimd & resultsSimd, TAlignsSimd & alignsSimd, TRnaAlignVect & rnaAligns, TOptions const & options)
+template <typename TAlignsSimd>
+void createSimdAligns(TAlignsSimd & alignsSimd, TRnaAlignVect const & rnaAligns)
 {
     for(unsigned i = 0; i < length(rnaAligns); ++i)
     {
@@ -172,16 +168,6 @@ void firstSimdAligns(TResultsSimd & resultsSimd, TAlignsSimd & alignsSimd, TRnaA
         assignSource(row(align, 1), rnaAligns[i].rna2.sequence);
         appendValue(alignsSimd, align);
     }
-    firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
-    if (options.verbose > 2)
-    {
-        for(unsigned i = 0; i < length(rnaAligns); ++i)
-        {
-            std::cout << alignsSimd[i];
-            std::cout << resultsSimd[i] << std::endl;
-        }
-    }
 }
-
 
 #endif //_INCLUDE_STRUCT_ALIGN_H_

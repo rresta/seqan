@@ -145,6 +145,10 @@ void computeBound(TRnaAlign & rnaAlign)
             } else {
                 sumL += rnaAlign.upperBoundVect[i].maxProbScoreLine;
             }
+            std::cout << rnaAlign.upperBoundVect[i].maxProbScoreLine << "\t";
+            std::cout << rnaAlign.upperBoundVect[i].seq1Index << ":" << i << "\t";
+            std::cout << rnaAlign.upperBoundVect[i].seq1IndexPairLine << ":";
+            std::cout << rnaAlign.upperBoundVect[i].seq2IndexPairLine << std::endl;
         }
     }
     rnaAlign.upperBound = sumU + sumL;

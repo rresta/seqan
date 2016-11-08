@@ -108,6 +108,8 @@ int main(int argc, char const ** argv)
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
 
+
+
     TRnaVect rnaSeqsRef;
     TRnaVect rnaSeqs; // Define the structure that will store all the input RNAs sequences
 
@@ -119,6 +121,7 @@ int main(int argc, char const ** argv)
     bppInteractionGraphBuild(options, rnaSeqs);
 //  Create the alignment data structure that will be used to store all the alignments
     TRnaAlignVect rnaAligns;
+    //TODO make a function that do this job
     if( options.inFileRef == "" )
     {
         std::cout << "fasta file name of reference is not available"
@@ -131,11 +134,13 @@ int main(int argc, char const ** argv)
         bppInteractionGraphBuild(options, rnaSeqsRef);
         alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqsRef, options);
     }
+
     if(options.verbose > 2)
         std::cout << rnaSeqs[0].bppMatrGraphs[0].inter << std:: endl; //TODO when more than a bppMatrGraphs will be used, the chosen must be saved in the 0 position otherwise an index should be used instead of 0
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
-    firstSimdAligns(resultsSimd, alignsSimd, rnaAligns, options);
+    createSimdAligns(alignsSimd, rnaAligns);
+    firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
     //TODO embedd this routine in a function
 #pragma omp parallel for num_threads(options.threads)
     for(unsigned i = 0; i < length(alignsSimd); ++i)
@@ -186,7 +191,7 @@ int main(int argc, char const ** argv)
         if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
         {
             std::cout << "computation should stopped and the bestAlignMinBounds should be returned" << std::endl;
-            //TODO implement this functionality
+//            return 0;
         }
 //  Compute the step size for the Lambda update
         rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
@@ -195,6 +200,43 @@ int main(int argc, char const ** argv)
 
         updateLambda(rnaAligns[i]);
     }
+
+//    String<TScoringSchemeStruct> alignsSimdLamb;
+//    seqan::resize(alignsSimdLamb, length(alignsSimd));
+    for (unsigned i = 0; i < length(alignsSimd); ++i)
+    {
+        rnaAligns[i].structScore.lamb = & rnaAligns[i].lamb;
+    }
+
+    for(unsigned j = 0; j < 500; ++j)
+    {
+        for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+        {
+            resultsSimd[i] = globalAlignment(alignsSimd[i], rnaAligns[i].structScore, seqan::AffineGaps());
+            /*
+//  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+            TMapVect lowerBound4Lemon;
+            lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
+            computeBounds(rnaAligns[i], lowerBound4Lemon);
+// Compute the MWM with the Lemon library
+            myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
+            rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
+            */
+
+            computeBounds(rnaAligns[i]);
+
+//  Compute the step size for the Lambda update
+            rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+
+            std::cout << " step size = " << rnaAligns[i].stepSize << std::endl;
+
+            updateLambda(rnaAligns[i]);
+        }
+        std::cout << "computation " << j << std::endl;
+    }
+
+
     return 0;
 }
 

@@ -45,6 +45,8 @@
 #include <seqan/rna_io.h>
 #include <seqan/align_rna.h>
 
+#include <score_structure_rna.h>
+
 // ============================================================================
 // Prerequisites
 // ============================================================================
@@ -89,57 +91,6 @@ typedef std::map<TPosition, TScoreValue> TMap;
 typedef seqan::String<TMap > TMapLine;
 typedef std::vector<TMap > TMapVect;
 
-/*
-typedef float TCargo;
-typedef Graph<Directed<TCargo> > TDgraph;
-typedef VertexDescriptor<TDgraph>::Type TDVertexDescriptor;
-typedef EdgeDescriptor<TDgraph>::Type TDEdgeDescriptor;
-typedef Graph<Undirected<TCargo> > TUgraph;
-typedef VertexDescriptor<TUgraph>::Type TUVertexDescriptor;
-typedef EdgeDescriptor<TUgraph>::Type TUEdgeDescriptor;
-*/
-
-//typedef Map<TPosition, TDVertexDescriptor> TMapDGraph;
-//typedef seqan::String<TMapDGraph > TMapDGraphStr;
-
-//typedef Map<TPosition, TUVertexDescriptor> TMapUGraph;
-//typedef seqan::String<TMapUGraph > TMapUGraphStr;
-/*
-template <typename TString, typename TPosition>
-struct fixedStructElement {
-    TString method; // place the method and parameters used to compute the structure
-//	seqan::String<unsigned> structure;
-    seqan::String<TPosition> seqPos;
-    seqan::String<TPosition> interPos;
-};
-template <typename TString, typename TBioval>
-struct bioValStructElement {
-    TString method; // place the method and parameters used to compute the structure
-//	seqan::String<TBioval> val;
-    seqan::String<TBioval> val;
-};
-
-struct vectGraphElement {
-    std::vector<TUVertexDescriptor> uVertexVect;
-    TUgraph interGraph; // this graph represents all the computed interaction edges
-    std::vector<TDVertexDescriptor> dVertexVect;
-    TDgraph interGraphUpdated;
-};
-*/
-
-template <typename TSequence, typename TString, typename TPosition, typename TBioval, typename TMapLine>
-struct RnaStructSeq {
-    TSequence seq;  // from fasta input
-    TString qual;  // from fasta input
-    TString id;  // from fasta input
-    TString info; // raw info from bpseq or ebpseq input
-//    seqan::String<fixedStructElement<TString, TPosition> > structPairMate; //TODO use this field to collect all the structural information of this sequence
-//    seqan::String<bioValStructElement<TString, TBioval> > structBioVal;
-//    vectGraphElement bpProb;
-};
-
-typedef RnaStructSeq<TSequence, TString, TPosition, TBioval, TMapLine> TRnaStruct;
-//typedef std::vector<TRnaStruct > TRnaVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 
 struct boundStruct
@@ -174,22 +125,29 @@ struct lambWeightStruct
     unsigned seq2IndexPairLine;
 };
 
-typedef std::map<TPosition, lambWeightStruct> TMapWeight;
+//typedef std::map<TPosition, lambWeightStruct> TMapWeight;
 
 struct lambStruct
 {
-    TMapWeight map; //mapLine;
+    std::map<TPosition, lambWeightStruct> map; //mapLine;
 };
+
+typedef seqan::String<lambStruct > TLambVect;
+
+typedef seqan::Score<double, seqan::ScoreMatrix<seqan::Rna5, TRibosum> > TScoreMatrixRib;
+typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrixRib, TLambVect> > TScoringSchemeStruct;
 
 struct RnaStructAlign
 {
 //public:
-    seqan::RnaRecord rna1; // If we have problems with the memory the index of the TRnaVect can instead saved
+    seqan::RnaRecord rna1; // TODO If we have problems with the memory the index of the TRnaVect can instead saved
+    unsigned idBppSeq1;
     seqan::RnaRecord rna2;
+    unsigned idBppSeq2;
 // The best computed alignment is saved in these fields
     TAlign bestAlign;
     TScoreValue bestAlignScore;
-    // Mask that represents the matches from the computed alignment
+// Mask that represents the matches from the computed alignment
     seqan::String<unsigned > maskLong;
     seqan::String<std::pair <unsigned, unsigned> > mask;
     unsigned maskIndex;
@@ -216,10 +174,15 @@ struct RnaStructAlign
     TScoreValue bestAlignScoreMinBounds;
 
 // String with size seq1 storing all the aligned lines
-    seqan::String<lambStruct > lamb;
+    TLambVect lamb;
+
+// Scoring scheme used for the structural alignment
+    TScoringSchemeStruct structScore;
 
     RnaStructAlign():
             bestAlignScore(std::numeric_limits<double>::lowest()),
+            idBppSeq1(0),
+            idBppSeq2(0),
             lowerBound(0.0),
             upperBound(0.0),
             lowerMinBound(0.0),
