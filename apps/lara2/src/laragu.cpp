@@ -154,7 +154,7 @@ int main(int argc, char const ** argv)
 
         saveBestAlign(alignsSimd[i], resultsSimd[i], rnaAligns[i]);
 // Create the mask of the current alignment to be used for the upper, lower bound computation and the lamb update
-        maskCreator(alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+        maskCreator(alignsSimd[i], rnaAligns[i]);
 
 
         if(options.lowerBoundMethod == LBLEMONMWM) // The MWM is computed to fill the LowerBound

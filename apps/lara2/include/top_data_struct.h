@@ -141,35 +141,35 @@ struct RnaStructAlign
 {
 //public:
     seqan::RnaRecord rna1; // TODO If we have problems with the memory the index of the TRnaVect can instead saved
-    unsigned idBppSeq1;
+    unsigned idBppSeq1{};
     seqan::RnaRecord rna2;
-    unsigned idBppSeq2;
+    unsigned idBppSeq2{};
 // The best computed alignment is saved in these fields
     TAlign bestAlign;
-    TScoreValue bestAlignScore;
+    TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
 // Mask that represents the matches from the computed alignment
     seqan::String<unsigned > maskLong;
     seqan::String<std::pair <unsigned, unsigned> > mask;
     unsigned maskIndex;
 
 // Lower bound fields
-    double lowerBound;
+    double lowerBound{};
 //    TBound lowerBoundVect;  // This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider to do not use anymore the Lemon MWM
     TLowerBoundGraph lowerBoundGraph; //graph useful for the seqan::MaximumWeightedMatch() function
     TlowerLemonBound lowerLemonBound;
 
 // Upper bound fields
-    double upperBound;
+    double upperBound{};
     TBound upperBoundVect;
 
 // Parameters used to compute the stepsize
-    int slm;
-    double stepSize;
+    int slm{};
+    double stepSize{};
 
 //  Status when the minumum difference between the two bounds is detected
     unsigned itMinBounds; //to be used for the best lower bound
-    double lowerMinBound;
-    double upperMinBound;
+    double lowerMinBound{};
+    double upperMinBound{};
     TAlign bestAlignMinBounds;
     TScoreValue bestAlignScoreMinBounds;
 
@@ -178,18 +178,6 @@ struct RnaStructAlign
 
 // Scoring scheme used for the structural alignment
     TScoringSchemeStruct structScore;
-
-    RnaStructAlign():
-            bestAlignScore(std::numeric_limits<double>::lowest()),
-            idBppSeq1(0),
-            idBppSeq2(0),
-            lowerBound(0.0),
-            upperBound(0.0),
-            lowerMinBound(0.0),
-            upperMinBound(0.0),
-            slm(0),
-            stepSize(0.0)
-    {}
 };// rnaStructAlign;
 
 typedef RnaStructAlign TRnaAlign;

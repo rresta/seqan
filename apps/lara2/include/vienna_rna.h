@@ -101,8 +101,8 @@ void computeBppMatrix(TOption const & options, TRnaStruct & rnaSeq)
     {
         if(options.verbose > 2)
             std::cout << i << "_"<< pl1[i].i <<":"<< pl1[i].j <<"|"<< pl1[i].p <<"|"<< pl1[i].type << "\t";
-        SEQAN_ASSERT(pl1[i].i > 0 && pl1[i].i <= length(rnaSeq.sequence));
-        SEQAN_ASSERT(pl1[i].j > 0 && pl1[i].j <= length(rnaSeq.sequence));
+        SEQAN_ASSERT(pl1[i].i > 0 && static_cast<unsigned>(pl1[i].i) <= length(rnaSeq.sequence));
+        SEQAN_ASSERT(pl1[i].j > 0 && static_cast<unsigned>(pl1[i].j) <= length(rnaSeq.sequence));
         // convert indices from range 1..length to 0..length-1
         addEdge(bppMatrGraph.inter, pl1[i].i - 1, pl1[i].j - 1, pl1[i].p);
     }

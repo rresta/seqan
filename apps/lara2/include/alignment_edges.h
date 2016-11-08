@@ -67,7 +67,7 @@ void saveBestAlign(TAlign const & align, TScoreValue const & alignScore, TRnaAli
 // ----------------------------------------------------------------------------
 
 //template <typename TOption, typename TAlign, typename TScoreValue, typename TRnaAlign>
-void maskCreator(TAlign const & align, TScoreValue const & alignScore, TRnaAlign & rnaAlign)
+void maskCreator(TAlign const & align, TRnaAlign & rnaAlign)
 {
     unsigned row0Begin = clippedBeginPosition(row(align, 0));
     unsigned row1Begin = clippedBeginPosition(row(align, 1));

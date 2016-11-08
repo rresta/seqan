@@ -65,8 +65,6 @@
 template <typename TOption, typename TVect>
 void bppInteractionGraphBuild(TOption const & options, TVect  & rnaSeqs)
 {
-//variable used to plot or not the energy matrix (for now is disabled but the function is tested)
-    bool write_dot_plot = 0; //TODO decide if provide this option in the options
 // Create a c-style string object for str:
     String<char, CStyle> cStr;
     for(unsigned i=0;i<length(rnaSeqs);++i)  // TODO Execute this part in PARALLEL
@@ -86,7 +84,6 @@ void bppInteractionGraphBuild(TOption const & options, TVect  & rnaSeqs)
 // TODO add the filtering step that involve the biological input and the majority voter of predicted structures
         }
 /*
-
         std::cout << "Input Degree nodo 0 = " << inDegree(rnaSeqs[i].bpProb.interGraph, rnaSeqs[i].bpProb.uVertexVect[0]) << std::endl;
         std::cout << "Output Degree nodo 0 = " << outDegree(rnaSeqs[i].bpProb.interGraph, rnaSeqs[i].bpProb.uVertexVect[0]) << std::endl;
 //		std::cout << rnaSeqs[i].bpProb.interGraph << std::endl;

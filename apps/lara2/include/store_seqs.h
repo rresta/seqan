@@ -87,7 +87,7 @@ unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TOD
             do
             {
                 std::getline(inFile, cur_line);
-                if (cur_line.find("(") != -1 && cur_line[0] != '>') {
+                if (cur_line.find("(") != std::string::npos && cur_line[0] != '>') {
                     input_type = RNASTRUCT;
                 }
             } while(!inFile.eof());
