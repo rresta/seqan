@@ -59,7 +59,7 @@ class Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >
 //template <typename TValue, typename TSequence>  //typename TGap
 //class Score<TValue, RnaStructureScore<TSequence> >
 {
-  public:
+public:
 
 //	typedef typename Value<TSequence>::Type TSeqValue;
     // A table of position x (ord value) giving the counts of the characters at the given positions.
@@ -70,51 +70,19 @@ class Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >
 //	VALUE_SIZE = ValueSize<typename Value<TSequence>::Type>::VALUE,
 //	TAB_SIZE = VALUE_SIZE * VALUE_SIZE
 //};
-   // The data table.
+    // The data table.
 //    Score<TValue, ScoreMatrix<TSeqValue, Ribosume65> >
-	TScoreMatrix _score_matrix;
+    TScoreMatrix score_matrix;
 //    TValue _score_matrix_tab[TAB_SIZE];
 
 //	Score<TValue, ScoreMatrix<Rna, Default> > scoringSchemeMatrix; //(data_gap_extend, data_gap_open)
 //	String<std::map<size_t, TValue> >   _mapLine; //Rene
 //	TMapline   _mapLine;
-	String<std::map<unsigned, TValue> > *_mapLine;
-	TLambVect *lamb;
+    String<std::map<unsigned, TValue> > * _mapLine;
+    TLambVect * lamb;
 
-	Score() {}
-
-    // Construct given a map string.
-    template <typename TMapline, typename TGap> //, typename TTag> //, typename TSequence
-    explicit
-//    Score(TMapline const & mapline, TSequence const & seq, TAlign const & align)
-    Score(TMapline *mapline, TGap const &gap_extend, TGap const & gap_open) : _score_matrix(gap_extend, gap_open)
-    //, TSequence const & seq, TTag)//, TScoreMatrix const &subMatrix)
-    {
-        std::cout << "assignPosition(*this, mapline, seq);" << std::endl;
-        showScoringMatrix(_score_matrix);
-//        _mapLine = mapline;
-//        std::cout << (*_mapLine)[8][4] << " mapline" <<  std::endl;
-
-//        _score_matrix(gap_extend, gap_open);
-//        _data_gap_extend=gap_extend;
-//        _data_gap_open=gap_open;
-//        std::cout << _data_gap_open << std::endl;
-//        for(unsigned i=0; i< TAB_SIZE; ++i)
-//        	_score_matrix_tab[i] = ScoringMatrixData_<TValue, typename Value<TSequence>::Type, TTag>::getData()[i];
-////        _score_matrix_tab=
-//        std::cout << _score_matrix_tab[1] << "  " << TAB_SIZE << std::endl;
-//        setDefaultScoreMatrix(scoringSchemeMatrix, subMatrix);
-//        showScoringMatrix(scoringSchemeMatrix);
-//        setDefaultScoreMatrix(*this, TSpec());
-    }
-//    template <typename TValue>
-//    updateMapLineValue(TMapline const & mapline) {
-//        _mapLine = mapline;
-//    }
     TValue getMapLineValue(unsigned seq1_pos, unsigned seq2_pos) const
     {
-//    	return 5;
-
  //   	if (((*_mapLine)[seq1_pos]).find(seq2_pos) !=  ((*_mapLine)[seq1_pos]).end())
 		if ((*lamb)[seq1_pos].map.count(seq2_pos) == 1)
     		return ((*lamb)[seq1_pos].map[seq2_pos].step + (*lamb)[seq1_pos].map[seq2_pos].maxProbScoreLine);
@@ -214,9 +182,9 @@ void fillUpdateMapline(TMapLine & mapline, TAlign const & align, TSequence const
 //template <typename TScore>
 //void showScoringMatrix(TScore sSchemeRna)
 //{
-//	for(unsigned i=0; i< length(sSchemeRna._score_matrix_tab); ++i)
-//		std::cout << sSchemeRna._score_matrix_tab[i] << "\t";
-//	std::cout << "\n" << length(sSchemeRna._score_matrix_tab) << std::endl;
+//	for(unsigned i=0; i< length(sSchemeRna.score_matrix_tab); ++i)
+//		std::cout << sSchemeRna.score_matrix_tab[i] << "\t";
+//	std::cout << "\n" << length(sSchemeRna.score_matrix_tab) << std::endl;
 //
 //}
 
@@ -250,10 +218,10 @@ scoreGapExtendHorizontal(
 //	std::cout << "entry1._seq[entry1._pos] = "<< (*entry1._seq)[posit] << " entry1._pos = " << posit << "  ||  ";
 //	std::cout << "entry2._seq[entry2._pos] = "<< (*entry2._seq)[position(entry2)] << " entry2._pos = " << position(entry2) << " scoreGapExtendHorizontal " << std::endl;
 //	std::cout << (int)value(entry1) << " " << (*entry1._seq)[posit] << std::endl;
-	return scoreGapExtendHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+	return scoreGapExtendHorizontal(me.score_matrix, (*entry1._seq)[position(entry1)] ,
                                     (*entry2._seq)[position(entry2)]);
-//    return scoreGapExtendHorizontal(me._score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
-//    return scoreGapExtendHorizontal(me._score_matrix, Nothing(), Nothing());
+//    return scoreGapExtendHorizontal(me.score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
+//    return scoreGapExtendHorizontal(me.score_matrix, Nothing(), Nothing());
 }
 
 // --------------------------------------------------------------------------
@@ -267,8 +235,8 @@ scoreGapOpenHorizontal(
         ConsensusScoreSequenceEntry<TSeq1> const & entry1,
         ConsensusScoreSequenceEntry<TSeq2> const & entry2)
 {
-//	return scoreGapOpenHorizontal(me._score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
-	return scoreGapOpenHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+//	return scoreGapOpenHorizontal(me.score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
+	return scoreGapOpenHorizontal(me.score_matrix, (*entry1._seq)[position(entry1)] ,
                                   (*entry2._seq)[position(entry2)]);
 }
 
@@ -283,8 +251,8 @@ scoreGapOpenVertical(
         ConsensusScoreSequenceEntry<TSeq1> const & /*entry1*/,
         ConsensusScoreSequenceEntry<TSeq2> const & /*entry2*/)
 {
-//	return scoreGapOpenVertical(me._score_matrix, entry1._seq[0][entry1.pos], entry2._seq[0][entry2.pos]);
-	return scoreGapOpenVertical(me._score_matrix, Nothing(), Nothing());
+//	return scoreGapOpenVertical(me.score_matrix, entry1._seq[0][entry1.pos], entry2._seq[0][entry2.pos]);
+	return scoreGapOpenVertical(me.score_matrix, Nothing(), Nothing());
 }
 
 // --------------------------------------------------------------------------
@@ -298,8 +266,8 @@ scoreGapExtendVertical(
         ConsensusScoreSequenceEntry<TSeq1> const & /*entry1*/,
         ConsensusScoreSequenceEntry<TSeq2> const & /*entry2*/)
 {
-//	return scoreGapExtendVertical(me._score_matrix, entry1._seq[0][entry1.pos], entry2._seq[0][entry2.pos]);
-	return scoreGapExtendVertical(me._score_matrix, Nothing(), Nothing());
+//	return scoreGapExtendVertical(me.score_matrix, entry1._seq[0][entry1.pos], entry2._seq[0][entry2.pos]);
+	return scoreGapExtendVertical(me.score_matrix, Nothing(), Nothing());
 }
 
 
@@ -319,12 +287,12 @@ score(Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >  const & me,
         std::cout << (*entry1._seq)[position(entry1)] << " " << (*entry2._seq)[position(entry2)] << " "
                   << position(entry1) << " " << position(entry2) << " "
                   << me.getMapLineValue(position(entry1), position(entry2)) << " "
-                  << score(me._score_matrix, (*entry1._seq)[position(entry1)], (*entry2._seq)[position(entry2)])
+                  << score(me.score_matrix, (*entry1._seq)[position(entry1)], (*entry2._seq)[position(entry2)])
                   << std::endl;
     }
     // " mapLine =  " << me._mapLine[position(entry1)][position(entry2)] << std::endl; // me._mapLine[position(entry1)][position(entry2)]
-//	return score(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]); // Normal Score using the substitutional matrix
-	return score(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+//	return score(me.score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]); // Normal Score using the substitutional matrix
+	return score(me.score_matrix, (*entry1._seq)[position(entry1)] ,
                  (*entry2._seq)[position(entry2)]) + me.getMapLineValue(position(entry1), position(entry2));
 }
 

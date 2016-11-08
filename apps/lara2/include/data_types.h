@@ -145,7 +145,7 @@ struct lambStruct
 typedef seqan::String<lambStruct> TLambVect;
 
 typedef seqan::Score<double, seqan::ScoreMatrix<seqan::Rna5, TRibosum> > TScoreMatrixRib;
-typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrixRib, TLambVect> > TScoringSchemeStruct;
+typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrix, TLambVect> > TScoringSchemeStruct;
 
 struct RnaStructAlign
 {

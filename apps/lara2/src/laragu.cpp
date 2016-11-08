@@ -207,9 +207,10 @@ int main(int argc, char const ** argv)
     for (unsigned i = 0; i < length(alignsSimd); ++i)
     {
         rnaAligns[i].structScore.lamb = & rnaAligns[i].lamb;
+        rnaAligns[i].structScore.score_matrix = options.laraScoreMatrix;
     }
 
-    for(unsigned j = 0; j < 1; ++j)
+    for(unsigned j = 0; j < 100; ++j)
     {
         for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
         {
