@@ -58,64 +58,6 @@
 // Functions
 // ============================================================================
 
-// ----------------------------------------------------------------------------
-// Function bppInteractionGraphBuild()
-// ----------------------------------------------------------------------------
 
-template <typename TOption, typename TVect>
-void bppInteractionGraphBuild(TVect & rnaSeqs, TOption const & options)
-{
-// Create a c-style string object for str:
-    String<char, CStyle> cStr;
-    for (unsigned i = 0; i < length(rnaSeqs); ++i)  // TODO Execute this part in PARALLEL
-    {
-        cStr = rnaSeqs[i].sequence;
-//		CharString curSeq = rnaSeqs[0].seq;
-        std::cout << toCString(cStr) << std::endl;
-
-//TODO once is given support to introduce several BPP from the extended bpseq
-// file or from the dot plot file in this position must be placed a condition
-// capable to discriminate which bpp matrix to use
-        if (length(rnaSeqs[i].bppMatrGraphs) == 0) // if(dotplot or extended bpseq data are not present)
-        {
-            computeBppMatrix(rnaSeqs[i], options);
-        }
-        else
-        {
-// TODO read the BPP matrix from the rnaSeqs[i].bpp_matr_graphs field that contains all the structures acquired by the files
-// TODO add the filtering step that involve the biological input and the majority voter of predicted structures
-        }
-/*
-        std::cout << "Input Degree nodo 0 = " << inDegree(rnaSeqs[i].bpProb.interGraph, rnaSeqs[i].bpProb.uVertexVect[0]) << std::endl;
-        std::cout << "Output Degree nodo 0 = " << outDegree(rnaSeqs[i].bpProb.interGraph, rnaSeqs[i].bpProb.uVertexVect[0]) << std::endl;
-//		std::cout << rnaSeqs[i].bpProb.interGraph << std::endl;
-
-        // Output distances of shortest paths
-//	    Iterator<TUgraph, VertexIterator>::Type it(rnaSeqs[i].bpProb.interGraph);
-        typedef Iterator<TUgraph, OutEdgeIterator>::Type TOutEdgeIterator;
-//TODO place the printing part in an external function printWeightedGraph()
-        for(unsigned j=0;j<length(rnaSeqs[i].bpProb.uVertexVect);++j)
-        {
-            TOutEdgeIterator it(rnaSeqs[i].bpProb.interGraph, rnaSeqs[i].bpProb.uVertexVect[j]);
-            for(;!atEnd(it);goNext(it)) {
-                //		    std::cout << "Edge id = " << it;
-// build the directed graph that will be updated over the iterations
-//				addEdge(rnaSeqs[i].bpProb.interGraphUpdated, source(*it), target(*it), cargo(*it));
-//				addEdge(rnaSeqs[i].bpProb.interGraphUpdated, target(*it), source(*it), cargo(*it));
-                std::cout << "source = " << source(*it) << "\ttarget = " << target(*it) << "\tcargo = " << cargo(*it) << std::endl;
-            }
-        }
-
-//	    while (!atEnd(it))
-//	    {
-//	        std::cout << "Distance from 0 to " << getValue(it) << ": ";
-//	        std::cout << getProperty(rnaSeqs[i].bpProb.uVertexVect, getValue(it)) << std::endl;
-//	        goNext(it);
-//	    }
-
-//		dEdge = addEdge(g,v0,v1);
-*/
-    }
-}
 
 #endif //_INCLUDE_INTERACTION_EDGES_H_

@@ -61,7 +61,8 @@
 #include <seqan/index.h>
 #include <seqan/arg_parse.h>
 #include <seqan/store.h>
-#include <seqan/stream.h>    // to stream a CharString into cout
+// to stream a CharString into cout
+#include <seqan/stream.h>
 #include <seqan/align.h>
 //#include <seqan/graph_align.h>
 //#include <seqan/align_profile.h>
@@ -83,7 +84,7 @@
 #include "data_types.h"
 #include "option.h" //
 #include "store_seqs.h"
-#include "interaction_edges.h"
+#include "vienna_rna.h"
 #include "lara_core.h"
 #include "alignment.h"
 #include "lemon_graph.h"

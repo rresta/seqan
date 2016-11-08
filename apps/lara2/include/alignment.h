@@ -51,7 +51,7 @@ void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
 {
     for (unsigned i = 0; i < length(rnaSeqs) - 1; ++i)
     {
-        TRnaAlign rnaAlign;
+        RnaStructAlign rnaAlign();
         for (unsigned j = i + 1; j < length(rnaSeqs); ++j)
         {
             // in this way the alignment map structure will be always created with the maximum size
@@ -86,7 +86,7 @@ void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
 {
     for(unsigned i = 0; i < length(rnaSeqs); ++i)
     {
-        TRnaAlign rnaAlign;
+        RnaStructAlign rnaAlign();
         for (unsigned j=0;j<length(rnaSeqsRef); ++j)
         {
             // in this way the alignment map structure will be always created with the maximum size
