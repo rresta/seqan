@@ -36,12 +36,6 @@
 #ifndef _INCLUDE_STRUCT_ALIGN_H_
 #define _INCLUDE_STRUCT_ALIGN_H_
 
-// ----------------------------------------------------------------------------
-// App headers
-// ----------------------------------------------------------------------------
-
-//#include "vienna_rna.h"
-
 // ============================================================================
 // Functions
 // ============================================================================
@@ -49,20 +43,25 @@
 // ----------------------------------------------------------------------------
 // Function alignVectorBuild()
 // ----------------------------------------------------------------------------
+
 // Used to generate the alignments from a single input file
 template <typename TRnaAligns, typename TRnaSeqs, typename TOption>
 void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
                       TOption const & options)
 {
-    for (unsigned i = 0; i < length(rnaSeqs) - 1; ++i) {
+    for (unsigned i = 0; i < length(rnaSeqs) - 1; ++i)
+    {
         TRnaAlign rnaAlign;
-        for (unsigned j = i + 1; j < length(rnaSeqs); ++j) {
-            if (length(rnaSeqs[i].sequence) <
-                length(rnaSeqs[j].sequence)) // in this way the alignment map structure will be always created with the maximum size
+        for (unsigned j = i + 1; j < length(rnaSeqs); ++j)
+        {
+            // in this way the alignment map structure will be always created with the maximum size
+            if (length(rnaSeqs[i].sequence) < length(rnaSeqs[j].sequence))
             {
                 rnaAlign.rna1 = rnaSeqs[j];
                 rnaAlign.rna2 = rnaSeqs[i];
-            } else {
+            }
+            else
+            {
                 rnaAlign.rna1 = rnaSeqs[i];
                 rnaAlign.rna2 = rnaSeqs[j];
             }
@@ -79,25 +78,29 @@ void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
 // ----------------------------------------------------------------------------
 // Function alignVectorBuild()
 // ----------------------------------------------------------------------------
+
 // Used to generate the alignments from two different input files
 template <typename TRnaAligns, typename TRnaSeqs, typename TOption>
 void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
                       TRnaSeqs const & rnaSeqsRef, TOption const & options)
 {
-    for(unsigned i=0;i<length(rnaSeqs); ++i)
+    for(unsigned i = 0; i < length(rnaSeqs); ++i)
     {
         TRnaAlign rnaAlign;
-        for(unsigned j=0;j<length(rnaSeqsRef); ++j)
+        for (unsigned j=0;j<length(rnaSeqsRef); ++j)
         {
-            if(length(rnaSeqs[i].sequence) < length(rnaSeqsRef[j].sequence)) // in this way the alignment map structure will be always created with the maximum size
+            // in this way the alignment map structure will be always created with the maximum size
+            if (length(rnaSeqs[i].sequence) < length(rnaSeqsRef[j].sequence))
             {
                 rnaAlign.rna1 = rnaSeqsRef[j];
                 rnaAlign.rna2 = rnaSeqs[i];
-            }else {
+            }
+            else
+            {
                 rnaAlign.rna1 = rnaSeqs[i];
                 rnaAlign.rna2 = rnaSeqsRef[j];
             }
-            if(options.verbose > 2)
+            if (options.verbose > 2)
             {
                 std::cout << rnaAlign.rna1.sequence << std::endl;
                 std::cout << rnaAlign.rna2.sequence << std::endl;
@@ -114,9 +117,9 @@ void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
 template <typename TOptions>
 void setScoreMatrix(TOptions & options)
 {
-    options.laraScoreMatrix.data_gap_extend=options.laraGapExtend;
-    options.laraScoreMatrix.data_gap_open=options.laraGapOpen;
-    if(options.laraScoreMatrixName != "")
+    options.laraScoreMatrix.data_gap_extend = options.laraGapExtend;
+    options.laraScoreMatrix.data_gap_open = options.laraGapOpen;
+    if (options.laraScoreMatrixName != "")
     {
         loadScoreMatrix(options.laraScoreMatrix, toCString(getAbsolutePath(toCString(options.laraScoreMatrixName))));
         _V(options, "Provided scoring matrix will be used");

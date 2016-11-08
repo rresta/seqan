@@ -63,14 +63,15 @@ using namespace seqan;
 // ----------------------------------------------------------------------------
 
 template <typename TOption, typename TPath>
-unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TODO to be deprecated after all the requested file formats will be available in SeqAn
+unsigned CheckInstanceFormat(TOption const & options, TPath const & inFilePath)
+// TODO to be deprecated after all the requested file formats will be available in SeqAn
 {
     _V(options, "Check the Instance Format and save the input file code")
     unsigned input_type = UNKNOWN;
     std::ifstream inFile(toCString(inFilePath));
     _V(options, "input file ifstream " << inFilePath);
     std::string cur_line;
-    if(inFile.is_open())
+    if (inFile.is_open())
     {
         std::getline(inFile, cur_line);
 /*
@@ -87,15 +88,18 @@ unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TOD
             do
             {
                 std::getline(inFile, cur_line);
-                if (cur_line.find("(") != std::string::npos && cur_line[0] != '>') {
+                if (cur_line.find("(") != std::string::npos && cur_line[0] != '>')
+                {
                     input_type = RNASTRUCT;
                 }
             } while(!inFile.eof());
 // if we did not find structure, then return FASTA, otherwis we already returned EXTENDED_FASTA
-        } else if(cur_line[0] == '@' )
+        }
+        else if(cur_line[0] == '@' )
         {
             input_type = FASTQ;
-        } else if(cur_line[0] == '#')
+        }
+        else if(cur_line[0] == '#')
         {
             input_type = RNASTRUCT;
         }
@@ -107,6 +111,7 @@ unsigned CheckInstanceFormat(TOption const & options, TPath & inFilePath) // TOD
 // ----------------------------------------------------------------------------
 // Function readFastaRecords()
 // ----------------------------------------------------------------------------
+
 // This function is able to read Fasta, MultiFasta, FASTQ, EMBL or GenBank formats.
 template <typename TOption, typename TSeqVect>
 unsigned readFastaRecords(TSeqVect & rnaSeqs, TOption const & options, CharString const & inFilePath)
@@ -125,12 +130,13 @@ unsigned readFastaRecords(TSeqVect & rnaSeqs, TOption const & options, CharStrin
     {
         readRecords(ids, seqs, quals, seqFileIn);
     }
-    catch (Exception const &e) {
+    catch (Exception const &e)
+    {
         std::cout << "ERROR: " << e.what() << std::endl;
         return 1;
     }
     seqan::resize(rnaSeqs, length(ids));
-    if(length(quals) == length(ids))
+    if (length(quals) == length(ids))
     {
         for (unsigned i = 0; i < length(ids); ++i)
         {
@@ -139,7 +145,9 @@ unsigned readFastaRecords(TSeqVect & rnaSeqs, TOption const & options, CharStrin
             rnaSeqs[i].quality = quals[i];
             _VV(options, rnaSeqs[i].name << "\t" << rnaSeqs[i].sequence << "\t" << rnaSeqs[i].quality);
         }
-    } else {
+    }
+    else
+    {
         for (unsigned i = 0; i < length(ids); ++i)
         {
             rnaSeqs[i].name = ids[i];
@@ -176,7 +184,7 @@ unsigned readRnaStructRecords(TSeqVect & rnaSeqs, TOption const & options, CharS
 // ----------------------------------------------------------------------------
 // This function is able to read Fasta, MultiFasta, FASTQ, EMBL, GenBank, dbn, edbn, bpseq and ebpseq formats.
 template <typename TOption, typename TFile, typename TSeqVect>
-unsigned readRnaRecords(TOption const & options, TFile file, TSeqVect & rnaSeqs)
+unsigned readRnaRecords(TSeqVect & rnaSeqs, TOption const & options, TFile const & file)
 {
     unsigned seqanSupportedFiles = UNKNOWN;
     const char * fileName = toCString(file);
@@ -184,10 +192,12 @@ unsigned readRnaRecords(TOption const & options, TFile file, TSeqVect & rnaSeqs)
     SeqFileIn seqFileIn;
     std::cout << "Open the file, recognize the file format and fill the RNA data structure" << std::endl;
     std::cout << "fasta, fastq, bpseq, ebpseq, dbn and edbn(extended dbn) should be supported" << std::endl;
-    seqanSupportedFiles = CheckInstanceFormat(options, inFilePath);  //TODO this function must be modified in order to support the acquisition of the other input file formats
+    seqanSupportedFiles = CheckInstanceFormat(options, inFilePath);
+    //TODO this function must be modified in order to support the acquisition of the other input file formats
     _V(options,"Reading sequences from file type " << seqanSupportedFiles << " named " << inFilePath );
 
-    std::cout << "the file format should be recognized and a readRecord function with the file type flag should be called to acquire the inputs" <<std::endl;
+    std::cout << "the file format should be recognized and a readRecord function with the file type flag should be "
+            "called to acquire the inputs" << std::endl;
     switch(seqanSupportedFiles)
     {
         case FASTA:
@@ -207,8 +217,6 @@ unsigned readRnaRecords(TOption const & options, TFile file, TSeqVect & rnaSeqs)
             _V(options, "Please check, if you supplied a either valid fasta/extended fasta file or a dotplot instance.");
             exit(1);
     }
-
-
     return 0;
 }
 

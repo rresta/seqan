@@ -63,11 +63,11 @@
 // ----------------------------------------------------------------------------
 
 template <typename TOption, typename TVect>
-void bppInteractionGraphBuild(TOption const & options, TVect  & rnaSeqs)
+void bppInteractionGraphBuild(TVect & rnaSeqs, TOption const & options)
 {
 // Create a c-style string object for str:
     String<char, CStyle> cStr;
-    for(unsigned i=0;i<length(rnaSeqs);++i)  // TODO Execute this part in PARALLEL
+    for (unsigned i = 0; i < length(rnaSeqs); ++i)  // TODO Execute this part in PARALLEL
     {
         cStr = rnaSeqs[i].sequence;
 //		CharString curSeq = rnaSeqs[0].seq;
@@ -76,10 +76,12 @@ void bppInteractionGraphBuild(TOption const & options, TVect  & rnaSeqs)
 //TODO once is given support to introduce several BPP from the extended bpseq
 // file or from the dot plot file in this position must be placed a condition
 // capable to discriminate which bpp matrix to use
-        if(length(rnaSeqs[i].bppMatrGraphs) == 0) // if(dotplot or extended bpseq data are not present)
+        if (length(rnaSeqs[i].bppMatrGraphs) == 0) // if(dotplot or extended bpseq data are not present)
         {
-            computeBppMatrix(options, rnaSeqs[i]);
-        }else{
+            computeBppMatrix(rnaSeqs[i], options);
+        }
+        else
+        {
 // TODO read the BPP matrix from the rnaSeqs[i].bpp_matr_graphs field that contains all the structures acquired by the files
 // TODO add the filtering step that involve the biological input and the majority voter of predicted structures
         }

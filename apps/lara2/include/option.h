@@ -143,11 +143,14 @@ struct Options
     seqan::CharString tcoffeeLocation;
 // Define the id of the sequence that must be splitted
     unsigned splitSequence;
-// window size specifies the length of the sliding window when the local alignment algorithm is used (long sequnce vs short)
+// window size specifies the length of the sliding window when the local alignment algorithm is used
+// (long sequence vs short)
     unsigned windowSize;
 // time used for an hard timeout
     unsigned timeLimit;
-// verbose(0) no outputs, verbose(1) Displays global statistics, verbose(2) Displays extensive statistics for each batch of reads.
+// verbose(0) no outputs,
+// verbose(1) Displays global statistics,
+// verbose(2) Displays extensive statistics for each batch of reads.
     unsigned verbose;
 // number of threads forced
     unsigned threads;
@@ -215,32 +218,40 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     //setDescription(parser);
     addUsageLine(parser, "./lara <\\fI-i inFile\\fP> \
             [\\fI-w outFile\\fP] [\\fI -parameters\\fP]");
-    addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, verbose(2) Displays extensive statistics for each batch of reads.",
-                                     ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, "
+            "verbose(2) Displays extensive statistics for each batch of reads.", ArgParseArgument::INTEGER, "INT"));
 
     addSection(parser, "LaRA Alignment Options");
-    addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended input file."));
-    addOption(parser, ArgParseOption("g", "affineLinearDgs", "Chose the gap scheme affine(0) linear(1) or dynamic(2) to be used in the alignment (default: affine(0))."));
+    addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended "
+            "input file."));
+    addOption(parser, ArgParseOption("g", "affineLinearDgs", "Chose the gap scheme affine(0) linear(1) or dynamic(2) "
+            "to be used in the alignment (default: affine(0))."));
     addOption(parser, ArgParseOption("a", "globalLocal", "Use the local or global algorithm (default: global(false)."));
-    addOption(parser, ArgParseOption("ut", "unTop", "type used for the global-unconstrained alignment AlignConfig TTop (default: top(false). "));
-    addOption(parser, ArgParseOption("ul", "unLeft", "type used for the global-unconstrained alignment AlignConfig TLeft (default: left(false). "));
-    addOption(parser, ArgParseOption("ur", "unRight", "type used for the global-unconstrained alignment AlignConfig TRight (default: right(false). "));
-    addOption(parser, ArgParseOption("ud", "unDown", "type used for the global-unconstrained alignment AlignConfig TDown (default: dow(false). "));
-    addOption(parser, ArgParseOption("tgu", "thrGlobalUnconstr", "Threshold of ratio sizes for automatic choice global and global-Unconstrained algorithm (default: 2/3)"));
-    addOption(parser, ArgParseOption("tgl", "thrGlobalLocal", "Threshold of ratio sizes for automatic choice global and Local algorithm (default: 1/2))"));
-    addOption(parser, ArgParseOption("tb", "thrBppm", "(Parameter used during the RNAfold execution to select the minimum energy to be considered (default: 1e-15)"));
+    addOption(parser, ArgParseOption("ut", "unTop", "type used for the global-unconstrained alignment AlignConfig TTop "
+            "(default: top(false). "));
+    addOption(parser, ArgParseOption("ul", "unLeft", "type used for the global-unconstrained alignment AlignConfig "
+            "TLeft (default: left(false). "));
+    addOption(parser, ArgParseOption("ur", "unRight", "type used for the global-unconstrained alignment AlignConfig "
+            "TRight (default: right(false). "));
+    addOption(parser, ArgParseOption("ud", "unDown", "type used for the global-unconstrained alignment AlignConfig "
+            "TDown (default: dow(false). "));
+    addOption(parser, ArgParseOption("tgu", "thrGlobalUnconstr", "Threshold of ratio sizes for automatic choice "
+            "global and global-Unconstrained algorithm (default: 2/3)"));
+    addOption(parser, ArgParseOption("tgl", "thrGlobalLocal", "Threshold of ratio sizes for automatic choice global "
+            "and Local algorithm (default: 1/2))"));
+    addOption(parser, ArgParseOption("tb", "thrBppm", "(Parameter used during the RNAfold execution to select the "
+            "minimum energy to be considered (default: 1e-15)"));
     addOption(parser, ArgParseOption("iter", "iterations", "number of iterations.", ArgParseArgument::INTEGER, "INT"));
     addOption(parser, ArgParseOption("nditer", "nonDecreasingIterations", "number of non-decreasing iterations.",
                                      ArgParseArgument::INTEGER, "INT"));
-    addOption(parser, ArgParseOption("lbm", "lowerBoundMethod", "method to be used for the computation of the Lower bound (MWM or approximation can be chosen)",
-                                     ArgParseArgument::INTEGER, "INT"));
-    addOption(parser, ArgParseOption("ep", "epsilon", "value to be considered for the equality of upper and lower bounds difference",
-                                     ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("lbm", "lowerBoundMethod", "method to be used for the computation of the Lower "
+            "bound (MWM or approximation can be chosen)", ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("ep", "epsilon", "value to be considered for the equality of upper and lower "
+            "bounds difference", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("my", "my", "necessary for computing appropriate step sizes.",
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
-    addOption(parser, ArgParseOption("lsm","laraScoreMatrixName",
-                                     "scoring matrix name that should be used for scoring alignment edges in the actual problem",
-                                     ArgParseOption::STRING));
+    addOption(parser, ArgParseOption("lsm","laraScoreMatrixName", "scoring matrix name that should be used for scoring "
+            "alignment edges in the actual problem", ArgParseOption::STRING));
     addOption(parser, ArgParseOption("ggo", "generatorGapOpen",
                                      "Gap open costs for generating the alignment edges.",
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
@@ -263,9 +274,10 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC,SCALING or RIBOSUM",
                                      ArgParseOption::STRING));
-    addOption(parser, ArgParseOption("fsw", "fixedStructWeight", "define the weight of _half_ an interaction match for fixed structures",
-                                     ArgParseArgument::DOUBLE, "DOUBLE"));
-    addOption(parser, ArgParseOption("scal", "scalingFactor", "if structurescoring=SCALING then we have to give a scaling factor", ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("fsw", "fixedStructWeight", "define the weight of _half_ an interaction match for "
+            "fixed structures", ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("scal", "scalingFactor", "if structurescoring=SCALING then we have to give a "
+            "scaling factor", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("spseq", "splitSequence", "Define the id of the sequence that must be splitted.",
                                      ArgParseArgument::INTEGER, "INT")); // TODO fix the meaning of this parameter
     addOption(parser, ArgParseOption("ws", "windowSize", "window size specifies the length of the sliding window.",
@@ -275,7 +287,8 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
 
     addSection(parser, "Input Options");
     addOption(parser, ArgParseOption("i", "inFile", "Path to the input file", ArgParseArgument::INPUT_FILE, "IN"));
-    addOption(parser, ArgParseOption("ir", "inFileRef", "Path to the reference input file", ArgParseArgument::INPUT_FILE, "IN"));
+    addOption(parser, ArgParseOption("ir", "inFileRef", "Path to the reference input file",
+                                     ArgParseArgument::INPUT_FILE, "IN"));
     addOption(parser, ArgParseOption("tcl", "tcoffeeLocation", "location of T-COFFEE.", ArgParseOption::STRING));
 
     addSection(parser, "Output Options");
@@ -302,7 +315,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
 // ----------------------------------------------------------------------------
 
 template <typename TString, typename TValue>
-bool setEnv(TString const & key, TValue & value)
+bool setEnv(TString const & key, TValue const & value)
 {
 #ifdef PLATFORM_WINDOWS
     return !_putenv_s(toCString(key), toCString(value));
@@ -383,7 +396,7 @@ getPath(TString const & string)
 // Function parseCmd()
 // ----------------------------------------------------------------------------
 template <typename TOption>
-ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, int const argc, char const ** argv)
+ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, int argc, char const ** argv)
 {
     ArgumentParser::ParseResult res = parse(parser, argc, argv);
     if (res != ArgumentParser::PARSE_OK)
@@ -424,7 +437,8 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(options.inFile, parser, "inFile");
     if( options.inFile == "" )
     {
-        std::cout << "fasta file name is " << options.inFile << std::endl; //FIXME if input file is not provided the program is stack
+        std::cout << "fasta file name is " << options.inFile << std::endl;
+        //FIXME if input file is not provided the program is stack
         return ArgumentParser::PARSE_ERROR;
     }
     getOptionValue(options.inFileRef, parser, "inFileRef");

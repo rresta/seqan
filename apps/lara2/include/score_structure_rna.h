@@ -81,13 +81,12 @@ class Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >
 	String<std::map<unsigned, TValue> > *_mapLine;
 	TLambVect *lamb;
 
-    Score() {}
-
     // Construct given a map string.
     template <typename TMapline, typename TGap> //, typename TTag> //, typename TSequence
     explicit
 //    Score(TMapline const & mapline, TSequence const & seq, TAlign const & align)
-    Score(TMapline *mapline, TGap const &gap_extend, TGap const &gap_open) : _score_matrix(gap_extend, gap_open)//, TSequence const & seq, TTag)//, TScoreMatrix const &subMatrix)
+    Score(TMapline *mapline, TGap const &gap_extend, TGap const & gap_open) : _score_matrix(gap_extend, gap_open)
+    //, TSequence const & seq, TTag)//, TScoreMatrix const &subMatrix)
     {
         std::cout << "assignPosition(*this, mapline, seq);" << std::endl;
         showScoringMatrix(_score_matrix);
@@ -110,11 +109,12 @@ class Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >
 //    updateMapLineValue(TMapline const & mapline) {
 //        _mapLine = mapline;
 //    }
-    TValue getMapLineValue(unsigned const & seq1_pos, unsigned const & seq2_pos) const{
+    TValue getMapLineValue(unsigned seq1_pos, unsigned seq2_pos) const
+    {
 //    	return 5;
 
  //   	if (((*_mapLine)[seq1_pos]).find(seq2_pos) !=  ((*_mapLine)[seq1_pos]).end())
-		if((*lamb)[seq1_pos].map.count(seq2_pos) == 1)
+		if ((*lamb)[seq1_pos].map.count(seq2_pos) == 1)
     		return ((*lamb)[seq1_pos].map[seq2_pos].step + (*lamb)[seq1_pos].map[seq2_pos].maxProbScoreLine);
     	else
     		return 0;
@@ -150,14 +150,14 @@ struct SequenceEntryForScore<Score<TValue, RnaStructureScore<TScoreMatrix, TLamb
 // --------------------------------------------------------------------------
 // it is convenient to create the map lists on the longer sequence in order to reduce the length of the list
 template <typename TSequence>
-void invertSeqForSize(TSequence &seq1, TSequence &seq2)
+void invertSeqForSize(TSequence & seq1, TSequence & seq2)
 {
 	TSequence tmp;
-	if(length(seq1)<length(seq2))
+	if (length(seq1) < length(seq2))
 	{
-		tmp=seq1;
-		seq1=seq2;
-		seq2=tmp;
+		tmp = seq1;
+		seq1 = seq2;
+		seq2 = tmp;
 	}
 }
 
@@ -166,7 +166,8 @@ void invertSeqForSize(TSequence &seq1, TSequence &seq2)
 // --------------------------------------------------------------------------
 //TODO to be tested deeply
 template <typename TAlign, typename TMapLine, typename TSequence, typename TValue>
-void fillUpdateMapline(TAlign const &align, TMapLine &mapline, TSequence const &seq1, TValue const & factor) //FIXME the sequence is used to pass the sequence type only
+void fillUpdateMapline(TMapLine & mapline, TAlign const & align, TSequence const & seq1, TValue const & factor)
+//FIXME the sequence is used to pass the sequence type only
 {
 	TValue struct_score = 0.1 * factor; // this score must be updated including structural score
 
@@ -178,28 +179,33 @@ void fillUpdateMapline(TAlign const &align, TMapLine &mapline, TSequence const &
     unsigned gap0 = 0;
     unsigned gap1 = 0;
     std::cout << "row0Begin " << row0Begin << " row1Begin " << row1Begin << std::endl;
-    for(unsigned i=0; i< length(row(align, 0));++i)  //maximum size of this string is length(mapline)
+    for (unsigned i = 0; i < length(row(align, 0)); ++i)  //maximum size of this string is length(mapline)
 	{
-		if(row0[i]=='-')
+		if (row0[i] == '-')
 		{
 			++gap0;
-		} else if (row1[i]=='-') {
+		}
+        else if (row1[i] == '-')
+        {
 			++gap1;
 		}
-		if(row0[i]==row1[i])
+		if(row0[i] == row1[i])
 		{
-			mapline[i+row0Begin-gap0][i+row1Begin-gap1] = struct_score*i; // must be decided if the computed score must be summed or just replaced
-			std::cout << i+row0Begin-gap0 << ":" << i+row1Begin-gap1 << "/" << mapline[i+row0Begin-gap0][i+row1Begin-gap1] << "\t";
+			mapline[i + row0Begin - gap0][i + row1Begin - gap1] = struct_score * i;
+            // must be decided if the computed score must be summed or just replaced
+			std::cout << i + row0Begin - gap0 << ":" << i + row1Begin - gap1 << "/"
+                      << mapline[i + row0Begin - gap0][i + row1Begin - gap1] << "\t";
 		}
 	}
     std::cout << "Sequence 1 " << row(align, 1) << std::endl;
 //    myMapType::const_iterator it=myMap.begin(); it!=myMap.end(); ++it
     typedef typename Value<TMapLine>::Type TMap;
-    for(unsigned i=0; i< seqan::length(mapline);++i)  //maximum size of this string is length(mapline)
+    for (unsigned i = 0; i < seqan::length(mapline); ++i)  //maximum size of this string is length(mapline)
 	{
-    	for (typename TMap::const_iterator it =mapline[i].begin(); it!=mapline[i].end();  ++it) { //in this way only full lists are printed
-    			std::cout << i << ":" << it->first << " " << "/" << it->second <<"\n";
-    	    }
+    	for (typename TMap::const_iterator it = mapline[i].begin(); it != mapline[i].end(); ++it)
+        { // in this way only full lists are printed
+            std::cout << i << ":" << it->first << " " << "/" << it->second << "\n";
+        }
 	}
 }
 
@@ -242,7 +248,8 @@ scoreGapExtendHorizontal(
 //	std::cout << "entry1._seq[entry1._pos] = "<< (*entry1._seq)[posit] << " entry1._pos = " << posit << "  ||  ";
 //	std::cout << "entry2._seq[entry2._pos] = "<< (*entry2._seq)[position(entry2)] << " entry2._pos = " << position(entry2) << " scoreGapExtendHorizontal " << std::endl;
 //	std::cout << (int)value(entry1) << " " << (*entry1._seq)[posit] << std::endl;
-	return scoreGapExtendHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]);
+	return scoreGapExtendHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+                                    (*entry2._seq)[position(entry2)]);
 //    return scoreGapExtendHorizontal(me._score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
 //    return scoreGapExtendHorizontal(me._score_matrix, Nothing(), Nothing());
 }
@@ -259,7 +266,8 @@ scoreGapOpenHorizontal(
         ConsensusScoreSequenceEntry<TSeq2> const & entry2)
 {
 //	return scoreGapOpenHorizontal(me._score_matrix, (unsigned)ordValue(entry1._seq[0][entry1._pos]), (unsigned)ordValue(entry2._seq[0][entry2._pos]));
-	return scoreGapOpenHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]);
+	return scoreGapOpenHorizontal(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+                                  (*entry2._seq)[position(entry2)]);
 }
 
 // --------------------------------------------------------------------------
@@ -305,14 +313,18 @@ score(Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >  const & me,
       ConsensusScoreSequenceEntry<TSeq2> const & entry2)
 {
 	if (me.getMapLineValue(position(entry1),position(entry2)) != 0)
-		std::cout << (*entry1._seq)[position(entry1)] << " " << (*entry2._seq)[position(entry2)] << " " << position(entry1) <<
-			" " << position(entry2) << " " << me.getMapLineValue(position(entry1),position(entry2)) <<
-			" " << score(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]) <<	std::endl;// " mapLine =  " << me._mapLine[position(entry1)][position(entry2)] << std::endl; // me._mapLine[position(entry1)][position(entry2)]
+    {
+        std::cout << (*entry1._seq)[position(entry1)] << " " << (*entry2._seq)[position(entry2)] << " "
+                  << position(entry1) << " " << position(entry2) << " "
+                  << me.getMapLineValue(position(entry1), position(entry2)) << " "
+                  << score(me._score_matrix, (*entry1._seq)[position(entry1)], (*entry2._seq)[position(entry2)])
+                  << std::endl;
+    }
+    // " mapLine =  " << me._mapLine[position(entry1)][position(entry2)] << std::endl; // me._mapLine[position(entry1)][position(entry2)]
 //	return score(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]); // Normal Score using the substitutional matrix
-	return score(me._score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]) + me.getMapLineValue(position(entry1), position(entry2));
+	return score(me._score_matrix, (*entry1._seq)[position(entry1)] ,
+                 (*entry2._seq)[position(entry2)]) + me.getMapLineValue(position(entry1), position(entry2));
 }
-
-
 
 }  // namespace seqan
 

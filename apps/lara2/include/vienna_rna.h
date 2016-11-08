@@ -60,7 +60,7 @@ extern "C" {
 // ----------------------------------------------------------------------------
 
 template <typename TOption, typename TRnaStruct>
-void computeBppMatrix(TOption const & options, TRnaStruct & rnaSeq)
+void computeBppMatrix(TRnaStruct & rnaSeq, TOption const & options)
 {
     std::cout << length(rnaSeq.sequence) << " " << rnaSeq.sequence << std::endl;
     char *structure = new char[length(rnaSeq.sequence) + 1];

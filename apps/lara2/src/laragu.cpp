@@ -114,11 +114,11 @@ int main(int argc, char const ** argv)
     TRnaVect rnaSeqs; // Define the structure that will store all the input RNAs sequences
 
     _V(options, "Open the input file and fill the TRnaVect data structure");
-    readRnaRecords(options, options.inFile ,rnaSeqs);
+    readRnaRecords(rnaSeqs, options, options.inFile);
     _V(options, "Analyse the rnaSeqs structure and check which info are required for the selected analysis");
 
 // Add the weight interaction edges vector map in the data structure
-    bppInteractionGraphBuild(options, rnaSeqs);
+    bppInteractionGraphBuild(rnaSeqs, options);
 //  Create the alignment data structure that will be used to store all the alignments
     TRnaAlignVect rnaAligns;
     //TODO make a function that do this job
@@ -130,8 +130,8 @@ int main(int argc, char const ** argv)
     } else
     {
         std::cout << "fasta file name is " << options.inFileRef << std::endl; //FIXME if input file is not provided the program is stack
-        readRnaRecords(options, options.inFileRef, rnaSeqsRef);
-        bppInteractionGraphBuild(options, rnaSeqsRef);
+        readRnaRecords(rnaSeqsRef, options, options.inFileRef);
+        bppInteractionGraphBuild(rnaSeqsRef, options);
         alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqsRef, options);
     }
 
@@ -152,9 +152,9 @@ int main(int argc, char const ** argv)
 
 // Save the best alignments that give the absolute maximum score
 
-        saveBestAlign(alignsSimd[i], resultsSimd[i], rnaAligns[i]);
+        saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
 // Create the mask of the current alignment to be used for the upper, lower bound computation and the lamb update
-        maskCreator(alignsSimd[i], rnaAligns[i]);
+        maskCreator(rnaAligns[i], alignsSimd[i]);
 
 
         if(options.lowerBoundMethod == LBLEMONMWM) // The MWM is computed to fill the LowerBound
@@ -187,7 +187,7 @@ int main(int argc, char const ** argv)
 
         unsigned index = 0;
 // The alignemnt that give the smallest difference between up and low bound should be saved
-        saveBestAlignMinBound(alignsSimd[i], resultsSimd[i], rnaAligns[i], index);
+        saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
         if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
         {
             std::cout << "computation should stopped and the bestAlignMinBounds should be returned" << std::endl;

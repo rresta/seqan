@@ -51,22 +51,31 @@
 // Prerequisites
 // ============================================================================
 
-#define FASTA 0
-#define FASTQ 1
-#define RNASTRUCT 2
-#define UNKNOWN 3
+enum LaraFileType
+{
+    FASTA,
+    FASTQ,
+    RNASTRUCT,
+    UNKNOWN
+};
 
-#define LOGARITHMIC 0
-#define SCALE       1
-#define ORIGINAL    2
-#define RIBOSUM     3
+enum LaraScore
+{
+    LOGARITHMIC,
+    SCALE,
+    ORIGINAL,
+    RIBOSUM,
+};
 
-#define LBLEMONMWM    0
-#define LBAPPROXMWM   1
-#define LBMWMTEST     2
+enum LaraMwmMethod
+{
+    LBLEMONMWM,
+    LBAPPROXMWM,
+    LBMWMTEST
+};
 
 // Value to be used to copare the difference between the upper and the lower bound difference
-#define EPSILON 0.0001
+double const EPSILON = 0.0001;
 
 // ============================================================================
 // Macro utility
@@ -90,7 +99,6 @@ typedef float TBioval;
 typedef std::map<TPosition, TScoreValue> TMap;
 typedef seqan::String<TMap > TMapLine;
 typedef std::vector<TMap > TMapVect;
-
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 
 struct boundStruct
@@ -105,7 +113,9 @@ struct boundStruct
 // String with size seq2
 typedef seqan::String<boundStruct > TBound;
 
-typedef seqan::Graph<seqan::Undirected<double> > TLowerBoundGraph; //TODO if the Lemon library is used after the tests this graph structure should be chosen as lemon graph in order to avoid the copy of the graph
+typedef seqan::Graph<seqan::Undirected<double> > TLowerBoundGraph;
+//TODO if the Lemon library is used after the tests this graph structure should be chosen as lemon graph in order to
+// avoid the copy of the graph
 
 struct lowerBoundLemonStruct
 {
@@ -132,7 +142,7 @@ struct lambStruct
     std::map<TPosition, lambWeightStruct> map; //mapLine;
 };
 
-typedef seqan::String<lambStruct > TLambVect;
+typedef seqan::String<lambStruct> TLambVect;
 
 typedef seqan::Score<double, seqan::ScoreMatrix<seqan::Rna5, TRibosum> > TScoreMatrixRib;
 typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrixRib, TLambVect> > TScoringSchemeStruct;
@@ -154,7 +164,9 @@ struct RnaStructAlign
 
 // Lower bound fields
     double lowerBound{};
-//    TBound lowerBoundVect;  // This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider to do not use anymore the Lemon MWM
+//    TBound lowerBoundVect;
+// This field is used to approximate the maximum weighted match If tests of this usage are positive we can cosider
+// to do not use anymore the Lemon MWM
     TLowerBoundGraph lowerBoundGraph; //graph useful for the seqan::MaximumWeightedMatch() function
     TlowerLemonBound lowerLemonBound;
 
@@ -182,6 +194,5 @@ struct RnaStructAlign
 
 typedef RnaStructAlign TRnaAlign;
 typedef std::vector<TRnaAlign> TRnaAlignVect;
-
 
 #endif //_INCLUDE_TOP_DATA_STRUCT_H_
