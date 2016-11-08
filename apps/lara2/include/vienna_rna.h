@@ -69,7 +69,7 @@ extern "C" {
 // Function computeBppMatrix()
 // ----------------------------------------------------------------------------
 
-template <typename TOption, typename TRnaStruct>
+template <typename TRnaStruct, typename TOption>
 void computeBppMatrix(TRnaStruct & rnaSeq, TOption const & options)
 {
     std::cout << length(rnaSeq.sequence) << " " << rnaSeq.sequence << std::endl;
@@ -143,7 +143,7 @@ void computeBppMatrix(TRnaStruct & rnaSeq, TOption const & options)
 // Function bppInteractionGraphBuild()
 // ----------------------------------------------------------------------------
 
-template <typename TOption, typename TVect>
+template <typename TVect, typename TOption>
 void bppInteractionGraphBuild(TVect & rnaSeqs, TOption const & options)
 {
 // Create a c-style string object for str:

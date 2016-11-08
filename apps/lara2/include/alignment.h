@@ -45,13 +45,13 @@
 // ----------------------------------------------------------------------------
 
 // Used to generate the alignments from a single input file
-template <typename TRnaAligns, typename TRnaSeqs, typename TOption>
-void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
+template <typename TOption>
+void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect const & rnaSeqs,
                       TOption const & options)
 {
     for (unsigned i = 0; i < length(rnaSeqs) - 1; ++i)
     {
-        RnaStructAlign rnaAlign();
+        RnaStructAlign rnaAlign;
         for (unsigned j = i + 1; j < length(rnaSeqs); ++j)
         {
             // in this way the alignment map structure will be always created with the maximum size
@@ -80,13 +80,13 @@ void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
 // ----------------------------------------------------------------------------
 
 // Used to generate the alignments from two different input files
-template <typename TRnaAligns, typename TRnaSeqs, typename TOption>
-void alignVectorBuild(TRnaAligns & rnaAligns, TRnaSeqs const & rnaSeqs,
-                      TRnaSeqs const & rnaSeqsRef, TOption const & options)
+template <typename TOption>
+void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect const & rnaSeqs,
+                      TRnaVect const & rnaSeqsRef, TOption const & options)
 {
     for(unsigned i = 0; i < length(rnaSeqs); ++i)
     {
-        RnaStructAlign rnaAlign();
+        RnaStructAlign rnaAlign;
         for (unsigned j=0;j<length(rnaSeqsRef); ++j)
         {
             // in this way the alignment map structure will be always created with the maximum size

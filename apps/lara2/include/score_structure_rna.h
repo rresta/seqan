@@ -81,6 +81,8 @@ class Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >
 	String<std::map<unsigned, TValue> > *_mapLine;
 	TLambVect *lamb;
 
+	Score() {}
+
     // Construct given a map string.
     template <typename TMapline, typename TGap> //, typename TTag> //, typename TSequence
     explicit
