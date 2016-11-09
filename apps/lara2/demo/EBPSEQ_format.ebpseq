@@ -10,14 +10,14 @@
 ## M2: Base pair probability matrix computed with a tool such RNAfold
 ## Mn: Base pair probability matrix computed with a tool such RNAfold
 ## T1: Type of biological validated data (SHAPE, DMS, CMCT). This field should be designed considering the data available in the https://rmdb.stanford.edu/deposit/specs/ (a comment can be saved to store additional iformation)
-## T2 Type of biological validated data (SHAPE, DMS, CMCT).
+## T2: Type of biological validated data (SHAPE, DMS, CMCT).
 # S1 T2
 # I	NT	QU	R2	RE2	F1	F2	M1	M2
 1	A	H	3.4552	1.1760	8	5	<5/0.003 | 8/0.87>	<4/0.002 | 5/0.3 | 8/0.007>
 2	G	{	46.9128	13.8533	7	4	<5/0.03 | 7/0.4>	<4/0.6 | 7/0.3>
 3	U	#	0.1740	0.2738	6	6	<6/0.5>	<6/0.8>
 4	C	!	0.0000	0.0000	0	2	<>	<1/0.002 | 2/0.6>
-5	C	7	0.0000	0.0000	0	1	<1/0.003 | 1/0.03>	<1/0.3>
+5	C	7	0.0000	0.0000	0	1	<1/0.003 | 2/0.03>	<1/0.3>
 6	G	T	0.0279	0.0161	3	3	<3/0.5>	<3/0.8>
 7	U	@	0.0997	0.0575	2	0	<2/0.4>	<2/0.3>
 8	C	g	0.0000	0.0000	1	0	<1/0.87>	<1/0.007>
@@ -27,7 +27,7 @@
 2	G	{	16.9128	1.8533	7	<5/0.03 | 7/0.4>
 3	C	#	0.1740	0.2738	6	<6/0.6>
 4	C	!	0.0000	2.0220	0	<>
-5	C	&	0.4300	0.0110	0	<1/0.003 | 1/0.03>
+5	C	&	0.4300	0.0110	0	<1/0.003 | 2/0.03>
 6	A	T	0.0279	0.0161	3	<3/0.6>
 7	U	@	0.0997	0.0575	2	<2/0.4>
 8	C	1	0.0000	0.0000	1	<1/0.87>

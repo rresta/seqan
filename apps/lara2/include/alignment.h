@@ -36,9 +36,31 @@
 #ifndef _INCLUDE_STRUCT_ALIGN_H_
 #define _INCLUDE_STRUCT_ALIGN_H_
 
+// ----------------------------------------------------------------------------
+// App headers
+// ----------------------------------------------------------------------------
+
+#include "vienna_rna.h"
+
 // ============================================================================
 // Functions
 // ============================================================================
+
+// ----------------------------------------------------------------------------
+// Function bppInteractionGraphBuild()
+// ----------------------------------------------------------------------------
+
+template <typename TOption>
+void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
+{
+#pragma omp parallel for num_threads(options.threads)
+    for (unsigned i = 0; i < length(rnaSeqs); ++i)
+        //FIXME add a check for vienna and if not found print error
+    {
+        if (length(rnaSeqs[i].bppMatrGraphs) == 0) // if(dotplot or extended bpseq data are not present)
+            computeBppMatrix(rnaSeqs[i], options);
+    }
+}
 
 // ----------------------------------------------------------------------------
 // Function alignVectorBuild()

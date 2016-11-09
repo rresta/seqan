@@ -31,7 +31,6 @@ include_directories(${SEQAN_INCLUDE_DIRS} ) # FIXME make this variable
 include_directories(./include)
 
 set(SOURCE_FILES
-        src/lemon_graph.cpp
         src/laragu.cpp)
 
 add_executable(laragu ${SOURCE_FILES})

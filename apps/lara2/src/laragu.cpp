@@ -61,20 +61,12 @@
 #include <seqan/index.h>
 #include <seqan/arg_parse.h>
 #include <seqan/store.h>
-// to stream a CharString into cout
 #include <seqan/stream.h>
 #include <seqan/align.h>
-//#include <seqan/graph_align.h>
-//#include <seqan/align_profile.h>
 #include <seqan/align_rna.h>
-//#include <seqan/vcf_io.h>
-//#include <seqan/bpseq_io.h>
 #include <seqan/graph_types.h>
 #include <seqan/rna_io.h>
 
-// ----------------------------------------------------------------------------
-// Boost headers
-// ----------------------------------------------------------------------------
 
 // ----------------------------------------------------------------------------
 // App headers
@@ -82,14 +74,14 @@
 
 // defines all the constants used in the app
 #include "data_types.h"
-#include "option.h" //
+#include "option.h"
 #include "store_seqs.h"
-#include "vienna_rna.h"
 #include "lara_core.h"
 #include "alignment.h"
 #include "lemon_graph.h"
 
 using namespace seqan;
+
 // ----------------------------------------------------------------------------
 // Function main()
 // ----------------------------------------------------------------------------
@@ -98,7 +90,7 @@ int main(int argc, char const ** argv)
 {
     if (argc==1)
         std::cout << "type ./lara_gu --help to get the parameters table (-i option is mandatory)" << std::endl;
-    seqan::ArgumentParser parser;
+    ArgumentParser parser;
 
     Options options;
 
@@ -108,8 +100,6 @@ int main(int argc, char const ** argv)
 
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
-
-
 
     TRnaVect rnaSeqsRef;
     TRnaVect rnaSeqs; // Define the structure that will store all the input RNAs sequences
@@ -122,41 +112,37 @@ int main(int argc, char const ** argv)
     bppInteractionGraphBuild(rnaSeqs, options);
 //  Create the alignment data structure that will be used to store all the alignments
     TRnaAlignVect rnaAligns;
-    //TODO make a function that do this job
+//TODO make a function that do this job
     if( options.inFileRef == "" )
     {
-        std::cout << "fasta file name of reference is not available"
-                "create the alignment data structure on a single file" << std::endl;
         alignVectorBuild(rnaAligns, rnaSeqs, options);
-    } else
+    }
+    else
     {
-        std::cout << "fasta file name is " << options.inFileRef << std::endl; //FIXME if input file is not provided the program is stack
         readRnaRecords(rnaSeqsRef, options, options.inFileRef);
         bppInteractionGraphBuild(rnaSeqsRef, options);
         alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqsRef, options);
     }
 
-    if(options.verbose > 2)
-        std::cout << rnaSeqs[0].bppMatrGraphs[0].inter << std:: endl; //TODO when more than a bppMatrGraphs will be used, the chosen must be saved in the 0 position otherwise an index should be used instead of 0
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
+    // simd vector is created
     createSimdAligns(alignsSimd, rnaAligns);
+
+// first non-structural alignment is computed
     firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
-    //TODO embedd this routine in a function
-#pragma omp parallel for num_threads(options.threads)
+
+//#pragma omp parallel for num_threads(options.threads)
     for(unsigned i = 0; i < length(alignsSimd); ++i)
     {
-        seqan::resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1.sequence));
-
-        seqan::resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
-        seqan::resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
+        resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1.sequence));
+        resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
+        resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
 
 // Save the best alignments that give the absolute maximum score
-
         saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
 // Create the mask of the current alignment to be used for the upper, lower bound computation and the lamb update
         maskCreator(rnaAligns[i], alignsSimd[i]);
-
 
         if(options.lowerBoundMethod == LBLEMONMWM) // The MWM is computed to fill the LowerBound
         {
@@ -201,6 +187,7 @@ int main(int argc, char const ** argv)
 
         updateLambda(rnaAligns[i]);
     }
+
 
 //    String<TScoringSchemeStruct> alignsSimdLamb;
 //    seqan::resize(alignsSimdLamb, length(alignsSimd));

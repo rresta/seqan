@@ -190,171 +190,30 @@ unsigned readRnaRecords(TSeqVect & rnaSeqs, TOption const & options, TFile const
     const char * fileName = toCString(file);
     CharString inFilePath = getAbsolutePath(fileName);
     SeqFileIn seqFileIn;
-    std::cout << "Open the file, recognize the file format and fill the RNA data structure" << std::endl;
-    std::cout << "fasta, fastq, bpseq, ebpseq, dbn and edbn(extended dbn) should be supported" << std::endl;
     seqanSupportedFiles = CheckInstanceFormat(options, inFilePath);
-    //TODO this function must be modified in order to support the acquisition of the other input file formats
     _V(options,"Reading sequences from file type " << seqanSupportedFiles << " named " << inFilePath );
-
-    std::cout << "the file format should be recognized and a readRecord function with the file type flag should be "
-            "called to acquire the inputs" << std::endl;
+// the file format should be recognized and a readRecord function with the file type flag should be
+// called to acquire the inputs
     switch(seqanSupportedFiles)
     {
         case FASTA:
-            _V(options, "Input file is in Fasta format");
+            _VV(options, "Input file is in Fasta format");
             readFastaRecords(rnaSeqs, options, inFilePath);
             break;
         case FASTQ:
-            _V(options, "Input file is in Fastq format");
+            _VV(options, "Input file is in Fastq format");
             readFastaRecords(rnaSeqs, options, inFilePath);
             break;
         case RNASTRUCT:
-            _V(options, "Input file is RnaStruct");
+            _VV(options, "Input file is RnaStruct");
             readRnaStructRecords(rnaSeqs, options, inFilePath);
             break;
         case UNKNOWN:
             _V(options, "Unable to identify the type of your input instance. Please check the allowed file formats");
-            _V(options, "Please check, if you supplied a either valid fasta/extended fasta file or a dotplot instance.");
+            _V(options, "Please check, if you supplied a either valid file.");
             exit(1);
     }
     return 0;
 }
-
-/*
-// ----------------------------------------------------------------------------
-// Function clear()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig>
-inline void clear(SeqStore<TSpec, TConfig> & me)
-{
-    clear(me.seqs);
-    clear(me.names);
-}
-
-// ----------------------------------------------------------------------------
-// Function shrinkToFit()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig>
-inline void shrinkToFit(SeqStore<TSpec, TConfig> & me)
-{
-    shrinkToFit(me.seqs);
-    shrinkToFit(me.names);
-}
-
-// ----------------------------------------------------------------------------
-// Function reserve()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig, typename TSize>
-inline void reserve(SeqStore<TSpec, TConfig> & me, TSize newCapacity)
-{
-    reserve(me.seqs, newCapacity, Exact());
-}
-
-// ----------------------------------------------------------------------------
-// Function open()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig, typename TFileName>
-inline bool open(SeqStore<TSpec, TConfig> & me, TFileName const & fileName, int openMode)
-{
-    CharString name;
-
-    name = fileName;    append(name, ".txt");
-    if (!open(me.seqs, toCString(name), openMode)) return false;
-
-    name = fileName;    append(name, ".rid");
-    if (!open(me.names, toCString(name), openMode)) return false;
-
-    return true;
-}
-
-// ----------------------------------------------------------------------------
-// Function save()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig, typename TFileName>
-inline bool save(SeqStore<TSpec, TConfig> const & me, TFileName const & fileName)
-{
-    CharString name;
-
-    name = fileName;    append(name, ".txt");
-    if (!save(me.seqs, toCString(name))) return false;
-
-    name = fileName;    append(name, ".rid");
-    if (!save(me.names, toCString(name))) return false;
-
-    return true;
-}
-
-// --------------------------------------------------------------------------
-// Function swap()
-// --------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig>
-void swap(SeqStore<TSpec, TConfig> & a, SeqStore<TSpec, TConfig> & b)
-{
-    std::swap(a.seqs, b.seqs);
-    std::swap(a.names, b.names);
-}
-
-// ----------------------------------------------------------------------------
-// Function readRecords()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig, typename TFileSpec>
-inline void readRecords(SeqStore<TSpec, TConfig> & me,
-                        FormattedFile<Fastq, Input, TFileSpec> & fileIn)
-{
-    readRecords(me.names, me.seqs, fileIn);
-}
-
-template <typename TSpec, typename TConfig, typename TFileSpec, typename TSize>
-inline void readRecords(SeqStore<TSpec, TConfig> & me,
-                        FormattedFile<Fastq, Input, TFileSpec> & fileIn,
-                        TSize maxRecords)
-{
-    readRecords(me.names, me.seqs, fileIn, maxRecords);
-}
-
-// ----------------------------------------------------------------------------
-// Function reverse()
-// ----------------------------------------------------------------------------
-
-template <typename TSpec, typename TConfig>
-inline void reverse(SeqStore<TSpec, TConfig> & me)
-{
-    for (unsigned seqId = 0; seqId < length(me.seqs); ++seqId)
-        reverse(me.seqs[seqId]);
-}
-
-// ----------------------------------------------------------------------------
-// Function appendReverseComplement()
-// ----------------------------------------------------------------------------
-// Append reverse complemented sequences.
-
-template <typename TSpec, typename TConfig>
-void appendReverseComplement(SeqStore<TSpec, TConfig> & me)
-{
-    typedef SeqStore<TSpec, TConfig>    TSeqStore;
-    typedef typename TSeqStore::TSeqs   TSeqs;
-    typedef typename Value<TSeqs>::Type TSeq;
-    typedef typename Size<TSeqs>::Type  TSeqId;
-
-    TSeqId seqsCount = length(me.seqs);
-
-    reserve(me.seqs, 2 * seqsCount, Exact());
-    reserve(concat(me.seqs), 2 * lengthSum(me.seqs), Exact());
-
-    for (TSeqId seqId = 0; seqId < seqsCount; ++seqId)
-    {
-        TSeq const & seq = me.seqs[seqId];
-        appendValue(me.seqs, seq);
-        reverseComplement(back(me.seqs));
-    }
-}
-*/
 
 #endif // #ifndef _INCLUDE_STORE_SEQS_H_
