@@ -87,11 +87,6 @@ void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect const & rnaSeqs,
                 rnaAlign.rna1 = rnaSeqs[i];
                 rnaAlign.rna2 = rnaSeqs[j];
             }
-            if(options.verbose > 2)
-            {
-                std::cout << rnaAlign.rna1.sequence << std::endl;
-                std::cout << rnaAlign.rna2.sequence << std::endl;
-            }
             rnaAligns.push_back(rnaAlign);
         }
     }
@@ -144,14 +139,14 @@ void setScoreMatrix(TOptions & options)
     if (options.laraScoreMatrixName != "")
     {
         loadScoreMatrix(options.laraScoreMatrix, toCString(getAbsolutePath(toCString(options.laraScoreMatrixName))));
-        _V(options, "Provided scoring matrix will be used");
-        showScoringMatrix(options.laraScoreMatrix);
+        _V(options, "Provided scoring matrix will be used " << options.laraScoreMatrixName);
+//        showScoringMatrix(options.laraScoreMatrix);
     }
     else
     {
         _V(options, "Predefined RIBOSUM matrix will be used");
         setDefaultScoreMatrix(options.laraScoreMatrix, TRibosum());
-        showScoringMatrix(options.laraScoreMatrix);
+//        showScoringMatrix(options.laraScoreMatrix);
     }
 }
 

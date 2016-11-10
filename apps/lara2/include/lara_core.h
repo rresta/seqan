@@ -148,10 +148,10 @@ void computeBound(TRnaAlign & rnaAlign)
             {
                 sumL += rnaAlign.upperBoundVect[i].maxProbScoreLine;
             }
-            std::cout << rnaAlign.upperBoundVect[i].maxProbScoreLine << "\t";
-            std::cout << rnaAlign.upperBoundVect[i].seq1Index << ":" << i << "\t";
-            std::cout << rnaAlign.upperBoundVect[i].seq1IndexPairLine << ":";
-            std::cout << rnaAlign.upperBoundVect[i].seq2IndexPairLine << std::endl;
+//            std::cout << rnaAlign.upperBoundVect[i].maxProbScoreLine << "\t";
+//            std::cout << rnaAlign.upperBoundVect[i].seq1Index << ":" << i << "\t";
+//            std::cout << rnaAlign.upperBoundVect[i].seq1IndexPairLine << ":";
+//            std::cout << rnaAlign.upperBoundVect[i].seq2IndexPairLine << std::endl;
         }
     }
     rnaAlign.upperBound = sumU + sumL;
@@ -373,18 +373,19 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)
 {
-    if ((rnaAlign.lowerBound - rnaAlign.upperBound) < (rnaAlign.lowerMinBound - rnaAlign.upperMinBound))
+    if ((rnaAlign.upperBound - rnaAlign.lowerBound) < (rnaAlign.upperMinBound - rnaAlign.lowerMinBound))
     {
         rnaAlign.itMinBounds = index; //to be used for the best lower bound
         rnaAlign.lowerMinBound = rnaAlign.lowerBound;
         rnaAlign.upperMinBound = rnaAlign.upperBound;
+        rnaAlign.stepSizeMinBound = rnaAlign.stepSize;
         rnaAlign.bestAlignMinBounds = align;
         rnaAlign.bestAlignScoreMinBounds = alignScore;
     }
 }
 
 void updateLambda(TRnaAlign & rnaAlign) {
-    std::cout << "updateLambda function" << std::endl;
+//    std::cout << "updateLambda function" << std::endl;
     for (unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i) {
         if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0) {
             // the edges are not paired

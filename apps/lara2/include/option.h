@@ -150,7 +150,8 @@ struct Options
     unsigned timeLimit;
 // verbose(0) no outputs,
 // verbose(1) Displays global statistics,
-// verbose(2) Displays extensive statistics for each batch of reads.
+// verbose(2) Displays extensive statistics for each batch of reads,
+// verbose(3) Debug output.
     unsigned verbose;
 // number of threads forced
     unsigned threads;
@@ -219,7 +220,8 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addUsageLine(parser, "./lara <\\fI-i inFile\\fP> \
             [\\fI-w outFile\\fP] [\\fI -parameters\\fP]");
     addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, "
-            "verbose(2) Displays extensive statistics for each batch of reads.", ArgParseArgument::INTEGER, "INT"));
+            "verbose(2) Displays extensive statistics for each batch of reads, verbose(3) Debug output.",
+            ArgParseArgument::INTEGER, "INT"));
 
     addSection(parser, "LaRA Alignment Options");
     addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended "
@@ -303,7 +305,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("t", "threads", "Specify the number of threads to use.", ArgParseOption::INTEGER));
     setMinValue(parser, "threads", "1");
 #ifdef _OPENMP
-    setMaxValue(parser, "threads", "4");
+    setMaxValue(parser, "threads", std::to_string(std::thread::hardware_concurrency() + 1));
 #else
     setMaxValue(parser, "threads", "1");
 #endif

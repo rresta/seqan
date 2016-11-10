@@ -89,6 +89,7 @@ double const EPSILON = 0.0001;
 
 #define _V(_opt, _str) {if(_opt.verbose>0) std::cerr << _str << std::endl;}
 #define _VV(_opt, _str) {if(_opt.verbose>1) std::cerr << _str << std::endl;}
+#define _VVV(_opt, _str) {if(_opt.verbose>2) std::cerr << _str << std::endl;}
 
 // ============================================================================
 // Types used in the program
@@ -187,7 +188,8 @@ struct RnaStructAlign
 //  Status when the minumum difference between the two bounds is detected
     unsigned itMinBounds; //to be used for the best lower bound
     double lowerMinBound{};
-    double upperMinBound{};
+    double upperMinBound{std::numeric_limits<TScoreValue>::max()};
+    double stepSizeMinBound{};
     TAlign bestAlignMinBounds;
     TScoreValue bestAlignScoreMinBounds;
 
