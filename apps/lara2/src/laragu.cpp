@@ -50,6 +50,7 @@
 #include <limits>
 #include <sstream>
 #include <omp.h>
+#include <ctime>
 
 // ----------------------------------------------------------------------------
 // SeqAn headers
@@ -134,6 +135,9 @@ int main(int argc, char const ** argv)
     String<TScoreValue> resultsSimd;
     // simd vector is created
     createSimdAligns(alignsSimd, rnaAligns);
+// timer start
+    std::clock_t begin = std::clock();
+    std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
 
 // first non-structural alignment is computed
     firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
@@ -261,6 +265,10 @@ int main(int argc, char const ** argv)
         std::cerr << "|" ;
     }
     std::cerr << std::endl;
+// timer stop
+    std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
+    std::clock_t end = std::clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
     for (unsigned i = 0; i < length(rnaAligns); ++i)
     {
@@ -274,6 +282,10 @@ int main(int argc, char const ** argv)
         _VV(options, "Minumum step size is " << rnaAligns[i].stepSizeMinBound << "\n\n");
 
     }
+
+// Print elapsed time
+    _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>(endChrono - beginChrono).count()); //std::chrono::microseconds
+    _VV(options, "\nTime difference = " << elapsed_secs);
 
     return 0;
 }

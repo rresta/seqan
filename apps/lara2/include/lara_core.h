@@ -373,7 +373,8 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)
 {
-    if ((rnaAlign.upperBound - rnaAlign.lowerBound) < (rnaAlign.upperMinBound - rnaAlign.lowerMinBound))
+//    if ((rnaAlign.upperBound - rnaAlign.lowerBound) < (rnaAlign.upperMinBound - rnaAlign.lowerMinBound))
+    if( rnaAlign.stepSize < rnaAlign.stepSizeMinBound)
     {
         rnaAlign.itMinBounds = index; //to be used for the best lower bound
         rnaAlign.lowerMinBound = rnaAlign.lowerBound;

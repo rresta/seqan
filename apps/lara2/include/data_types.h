@@ -183,13 +183,13 @@ struct RnaStructAlign
 
 // Parameters used to compute the stepsize
     int slm{};
-    double stepSize{};
+    double stepSize{std::numeric_limits<TScoreValue>::max()};
 
 //  Status when the minumum difference between the two bounds is detected
     unsigned itMinBounds; //to be used for the best lower bound
     double lowerMinBound{};
-    double upperMinBound{std::numeric_limits<TScoreValue>::max()};
-    double stepSizeMinBound{};
+    double upperMinBound{};
+    double stepSizeMinBound{std::numeric_limits<TScoreValue>::max()};
     TAlign bestAlignMinBounds;
     TScoreValue bestAlignScoreMinBounds;
 
