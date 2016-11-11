@@ -114,6 +114,9 @@ int main(int argc, char const ** argv)
     bppInteractionGraphBuild(rnaSeqs, options);
 //  Create the alignment data structure that will be used to store all the alignments
     TRnaAlignVect rnaAligns;
+//  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
+    TRnaAlignVect goldRnaAligns;
+    std::vector<unsigned> eraseVect;
 //TODO make a function that do this job
     if( options.inFileRef == "" )
     {
@@ -163,7 +166,7 @@ int main(int argc, char const ** argv)
 // Compute the MWM with the Lemon library
             myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
             rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
-            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
+//            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
         } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
         {
             computeBounds(rnaAligns[i]);
@@ -186,19 +189,35 @@ int main(int argc, char const ** argv)
         unsigned index = 0;
 // The alignemnt that give the smallest difference between up and low bound should be saved
         saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
+
         if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
         {
-            std::cout << "computation for this alignment should stopped and the bestAlignMinBounds should be returned" << std::endl;
+            std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
+                      "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound  << std::endl;
+            eraseVect.push_back(i);
 // FIXME computation for this alignment should stopped and the bestAlignMinBounds should be returned
 //            return 0;
         }
-//  Compute the step size for the Lambda update
-        rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+        else
+        {
+            //  Compute the step size for the Lambda update
+            rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
 
-        _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration 0 is " << rnaAligns[i].stepSize);
+            _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration 0 is " << rnaAligns[i].stepSize);
 
-        updateLambda(rnaAligns[i]);
+            updateLambda(rnaAligns[i]);
+        }
+
     }
+    for(unsigned i = eraseVect.size(); i > 0; --i)
+    {
+        goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
+        rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
+        erase(alignsSimd, eraseVect[i-1]);
+        erase(resultsSimd, eraseVect[i-1]);
+    }
+    eraseVect.clear();
+
 
 //    String<TScoringSchemeStruct> alignsSimdLamb;
 //    seqan::resize(alignsSimdLamb, length(alignsSimd));
@@ -224,7 +243,7 @@ int main(int argc, char const ** argv)
 // Compute the MWM with the Lemon library
                 myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
                 rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
-                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
+//                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
             } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
             {
                 computeBounds(rnaAligns[i]);
@@ -247,20 +266,29 @@ int main(int argc, char const ** argv)
             saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
             if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
             {
-                std::cout << "computation for this alignment should stopped and the bestAlignMinBounds should be returned" << std::endl;
+                std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
+                        "upper bound = " << rnaAligns[i].upperBound << " lower bound = "<< std::endl;
+                eraseVect.push_back(i);
 // FIXME computation for this alignment should stopped and the bestAlignMinBounds should be returned
 //            return 0;
-            }
-
-            computeBounds(rnaAligns[i]);
+            } else {
 
 //  Compute the step size for the Lambda update
-            rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+                rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
 
-            _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration" << x << " is " << rnaAligns[i].stepSize);
+                _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration" << x << " is " << rnaAligns[i].stepSize);
 
-            updateLambda(rnaAligns[i]);
+                updateLambda(rnaAligns[i]);
+            }
         }
+        for(unsigned i = eraseVect.size(); i > 0; --i)
+        {
+            goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
+            rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
+            erase(alignsSimd, eraseVect[i-1]);
+            erase(resultsSimd, eraseVect[i-1]);
+        }
+        eraseVect.clear();
 //        std::cout << "computation " << j << std::endl;
         std::cerr << "|" ;
     }
@@ -270,6 +298,7 @@ int main(int argc, char const ** argv)
     std::clock_t end = std::clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
+    _VV(options, "Plot of the rnaAligns structure " << std::endl);
     for (unsigned i = 0; i < length(rnaAligns); ++i)
     {
         _VV(options, "Alignment number " << i);
@@ -280,6 +309,20 @@ int main(int argc, char const ** argv)
         _VV(options, "Best Upper bound is " << rnaAligns[i].upperMinBound);
         _VV(options, "Step size found at iteration " << rnaAligns[i].itMinBounds);
         _VV(options, "Minumum step size is " << rnaAligns[i].stepSizeMinBound << "\n\n");
+
+    }
+
+    _VV(options, "Plot of the goldRnaAligns structure " << std::endl);
+    for (unsigned i = 0; i < length(goldRnaAligns); ++i)
+    {
+        _VV(options, "Alignment number " << i);
+        _VV(options, "Best alignment based on the Score is " << goldRnaAligns[i].bestAlignScore << "\n" <<  goldRnaAligns[i].bestAlign);
+        _VV(options, "Best alignment based on the Min Bounds is " << goldRnaAligns[i].bestAlignScoreMinBounds << "\n" <<  goldRnaAligns[i].bestAlignMinBounds);
+        _VV(options, "The step size to be used for Lambda at last iteration is " << goldRnaAligns[i].stepSize);
+        _VV(options, "Best Lower bound is " << goldRnaAligns[i].lowerMinBound);
+        _VV(options, "Best Upper bound is " << goldRnaAligns[i].upperMinBound);
+        _VV(options, "Step size found at iteration " << goldRnaAligns[i].itMinBounds);
+        _VV(options, "Minumum step size is " << goldRnaAligns[i].stepSizeMinBound << "\n\n");
 
     }
 

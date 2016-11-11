@@ -227,8 +227,8 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended "
             "input file."));
     addOption(parser, ArgParseOption("g", "affineLinearDgs", "Chose the gap scheme affine(0) linear(1) or dynamic(2) "
-            "to be used in the alignment (default: affine(0))."));
-    addOption(parser, ArgParseOption("a", "globalLocal", "Use the local or global algorithm (default: global(false)."));
+            "to be used in the alignment (default: affine(0)). ", ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("a", "globalLocal", "Use the local or global algorithm (default: global(false). "));
     addOption(parser, ArgParseOption("ut", "unTop", "type used for the global-unconstrained alignment AlignConfig TTop "
             "(default: top(false). "));
     addOption(parser, ArgParseOption("ul", "unLeft", "type used for the global-unconstrained alignment AlignConfig "
@@ -238,12 +238,12 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("ud", "unDown", "type used for the global-unconstrained alignment AlignConfig "
             "TDown (default: dow(false). "));
     addOption(parser, ArgParseOption("tgu", "thrGlobalUnconstr", "Threshold of ratio sizes for automatic choice "
-            "global and global-Unconstrained algorithm (default: 2/3)"));
+            "global and global-Unconstrained algorithm (default: 2/3)", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("tgl", "thrGlobalLocal", "Threshold of ratio sizes for automatic choice global "
-            "and Local algorithm (default: 1/2))"));
+            "and Local algorithm (default: 1/2))", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("tb", "thrBppm", "(Parameter used during the RNAfold execution to select the "
-            "minimum energy to be considered (default: 1e-15)"));
-    addOption(parser, ArgParseOption("iter", "iterations", "number of iterations.", ArgParseArgument::INTEGER, "INT"));
+            "minimum energy to be considered (default: 1e-15) ", ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("iter", "iterations", "number of iterations. ", ArgParseArgument::INTEGER, "INT"));
     addOption(parser, ArgParseOption("nditer", "nonDecreasingIterations", "number of non-decreasing iterations.",
                                      ArgParseArgument::INTEGER, "INT"));
     addOption(parser, ArgParseOption("lbm", "lowerBoundMethod", "method to be used for the computation of the Lower "

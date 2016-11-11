@@ -15,6 +15,7 @@ message (STATUS "Configuring apps/lara")
 
 set(CMAKE_CXX_STANDARD  14)
 #set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -fopenmp")
+#set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wextra")
 FIND_PACKAGE(OpenMP REQUIRED)
 if(OPENMP_FOUND)
     MESSAGE("OPENMP FOUND")
