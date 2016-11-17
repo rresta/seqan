@@ -57,7 +57,7 @@ void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
     for (unsigned i = 0; i < length(rnaSeqs); ++i)
         //FIXME add a check for vienna and if not found print error
     {
-        if (length(rnaSeqs[i].bppMatrGraphs) == 0) // if(dotplot or extended bpseq data are not present)
+        if (empty(rnaSeqs[i].bppMatrGraphs)) // if(dotplot or extended bpseq data are not present)
             computeBppMatrix(rnaSeqs[i], options);
     }
 }
@@ -68,62 +68,41 @@ void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
 
 // Used to generate the alignments from a single input file
 template <typename TOption>
-void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect const & rnaSeqs,
-                      TOption const & options)
+void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect & rnaSeqs, TRnaVect & rnaSeqs2, TOption const & options)
 {
-    for (unsigned i = 0; i < length(rnaSeqs) - 1; ++i)
+    bool const TWOFILES = empty(options.inFileRef);
+
+    // Read first file
+    readRnaRecords(rnaSeqs, options, options.inFile);
+    // Add the weight interaction edges vector map in the data structure
+    bppInteractionGraphBuild(rnaSeqs, options);
+
+    // Read second file if present
+    if (TWOFILES)
     {
-        RnaStructAlign rnaAlign;
-        for (unsigned j = i + 1; j < length(rnaSeqs); ++j)
-        {
-            // in this way the alignment map structure will be always created with the maximum size
-            if (length(rnaSeqs[i].sequence) < length(rnaSeqs[j].sequence))
-            {
-                rnaAlign.rna1 = rnaSeqs[j];
-                rnaAlign.rna2 = rnaSeqs[i];
-            }
-            else
-            {
-                rnaAlign.rna1 = rnaSeqs[i];
-                rnaAlign.rna2 = rnaSeqs[j];
-            }
-            rnaAligns.push_back(rnaAlign);
-        }
+        readRnaRecords(rnaSeqs2, options, options.inFileRef);
+        bppInteractionGraphBuild(rnaSeqs2, options);
     }
-}
+    TRnaVect & rnaSeqsRef = TWOFILES ? rnaSeqs2 : rnaSeqs;
 
-// ----------------------------------------------------------------------------
-// Function alignVectorBuild()
-// ----------------------------------------------------------------------------
-
-// Used to generate the alignments from two different input files
-template <typename TOption>
-void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect const & rnaSeqs,
-                      TRnaVect const & rnaSeqsRef, TOption const & options)
-{
-    for(unsigned i = 0; i < length(rnaSeqs); ++i)
+    for (unsigned i = 0; i < length(rnaSeqs); ++i)
     {
         RnaStructAlign rnaAlign;
-        for (unsigned j=0;j<length(rnaSeqsRef); ++j)
+        for (unsigned j = TWOFILES ? 0 : i + 1; j < length(rnaSeqsRef); ++j)
         {
             // in this way the alignment map structure will be always created with the maximum size
             if (length(rnaSeqs[i].sequence) < length(rnaSeqsRef[j].sequence))
             {
-                rnaAlign.rna1 = rnaSeqsRef[j];
-                rnaAlign.rna2 = rnaSeqs[i];
+                rnaAlign.rna1 = & rnaSeqsRef[j];
+                rnaAlign.rna2 = & rnaSeqs[i];
             }
             else
             {
-                rnaAlign.rna1 = rnaSeqs[i];
-                rnaAlign.rna2 = rnaSeqsRef[j];
+                rnaAlign.rna1 = & rnaSeqs[i];
+                rnaAlign.rna2 = & rnaSeqsRef[j];
             }
-            if (options.verbose > 2)
-            {
-                std::cout << rnaAlign.rna1.sequence << std::endl;
-                std::cout << rnaAlign.rna2.sequence << std::endl;
-            }
+            rnaAligns.push_back(rnaAlign);
         }
-        rnaAligns.push_back(rnaAlign);
     }
 }
 
@@ -180,13 +159,14 @@ void firstSimdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & aligns
 template <typename TAlignsSimd>
 void createSimdAligns(TAlignsSimd & alignsSimd, TRnaAlignVect const & rnaAligns)
 {
+    resize(alignsSimd, length(rnaAligns));
     for(unsigned i = 0; i < length(rnaAligns); ++i)
     {
         TAlign align;
         resize(rows(align), 2);
-        assignSource(row(align, 0), rnaAligns[i].rna1.sequence);
-        assignSource(row(align, 1), rnaAligns[i].rna2.sequence);
-        appendValue(alignsSimd, align);
+        assignSource(row(align, 0), rnaAligns[i].rna1->sequence);
+        assignSource(row(align, 1), rnaAligns[i].rna2->sequence);
+        alignsSimd[i] = align;
     }
 }
 

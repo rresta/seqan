@@ -157,9 +157,9 @@ typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrix, TLambVect> > T
 struct RnaStructAlign
 {
 //public:
-    seqan::RnaRecord rna1; // TODO If we have problems with the memory the index of the TRnaVect can instead saved
+    seqan::RnaRecord * rna1;  // not owning
+    seqan::RnaRecord * rna2;
     unsigned idBppSeq1{};
-    seqan::RnaRecord rna2;
     unsigned idBppSeq2{};
 // The best computed alignment is saved in these fields
     TAlign bestAlign;

@@ -103,37 +103,15 @@ int main(int argc, char const ** argv)
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
 
-    TRnaVect rnaSeqsRef;
-    TRnaVect rnaSeqs; // Define the structure that will store all the input RNAs sequences
-
-    _V(options, "\nOpen the input file and fill the TRnaVect data structure");
-    readRnaRecords(rnaSeqs, options, options.inFile);
-    _V(options, "\nAnalyse the rnaSeqs structure and check which info are required for the selected analysis");
-
-// Add the weight interaction edges vector map in the data structure
-    bppInteractionGraphBuild(rnaSeqs, options);
 //  Create the alignment data structure that will be used to store all the alignments
     TRnaAlignVect rnaAligns;
 //  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
     TRnaAlignVect goldRnaAligns;
     std::vector<unsigned> eraseVect;
-//TODO make a function that do this job
-    if( options.inFileRef == "" )
-    {
-        alignVectorBuild(rnaAligns, rnaSeqs, options);
-    }
-    else
-    {
-        readRnaRecords(rnaSeqsRef, options, options.inFileRef);
-        bppInteractionGraphBuild(rnaSeqsRef, options);
-        alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqsRef, options);
-    }
-    /*
-    for(unsigned i=0; i<length(rnaSeqs); ++i)
-    {
-        std::cout << rnaSeqs[i].bppMatrGraphs[1].inter << std::endl;
-    }
-    */
+
+    TRnaVect rnaSeqs, rnaSeqs2;
+    alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqs2, options);
+
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     // simd vector is created
@@ -148,9 +126,9 @@ int main(int argc, char const ** argv)
 #pragma omp parallel for num_threads(options.threads)
     for(unsigned i = 0; i < length(alignsSimd); ++i)
     {
-        resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1.sequence));
-        resize(rnaAligns[i].mask, length(rnaAligns[i].rna2.sequence));
-        resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2.sequence));
+        resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1->sequence));  // length of longer sequence
+        resize(rnaAligns[i].mask, length(rnaAligns[i].rna2->sequence));  // length of shorter sequence
+        resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2->sequence));
 
 // Save the best alignments that give the absolute maximum score
         saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
