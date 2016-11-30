@@ -70,19 +70,13 @@ void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
 template <typename TOption>
 void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect & rnaSeqs, TRnaVect & rnaSeqs2, TOption const & options)
 {
-    bool const TWOFILES = empty(options.inFileRef);
+    bool const TWOFILES = !empty(rnaSeqs2);
 
-    // Read first file
-    readRnaRecords(rnaSeqs, options, options.inFile);
     // Add the weight interaction edges vector map in the data structure
     bppInteractionGraphBuild(rnaSeqs, options);
-
-    // Read second file if present
     if (TWOFILES)
-    {
-        readRnaRecords(rnaSeqs2, options, options.inFileRef);
         bppInteractionGraphBuild(rnaSeqs2, options);
-    }
+
     TRnaVect & rnaSeqsRef = TWOFILES ? rnaSeqs2 : rnaSeqs;
 
     for (unsigned i = 0; i < length(rnaSeqs); ++i)

@@ -77,7 +77,6 @@
 // defines all the constants used in the app
 #include "data_types.h"
 #include "option.h"
-#include "store_seqs.h"
 #include "lara_core.h"
 #include "alignment.h"
 #include "lemon_graph.h"
@@ -85,32 +84,84 @@
 using namespace seqan;
 
 // ----------------------------------------------------------------------------
+// Function _readRnaInputFile()
+// ----------------------------------------------------------------------------
+
+template <typename TOption>
+void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TOption const & options)
+{
+    if (empty(filename))
+        return;
+
+    RnaStructFileIn rnaStructFile;
+    CharString inFilePath = getAbsolutePath(toCString(filename));
+    if (open(rnaStructFile, toCString(inFilePath), OPEN_RDONLY))
+    {
+        _V(options, "Input file is RnaStruct.");
+        readRecords(filecontents, rnaStructFile, 100000u);
+        close(rnaStructFile);
+    }
+    else
+    {
+        _V(options, "Input file is Fasta/Fastq.");
+        SeqFileIn seqFileIn(toCString(inFilePath));
+        StringSet<CharString> ids;
+        StringSet<Rna5String> seqs;
+        StringSet<CharString> quals;
+        readRecords(ids, seqs, quals, seqFileIn);
+        close(seqFileIn);
+        resize(filecontents.records, length(ids));
+        SEQAN_ASSERT_EQ(length(ids), length(seqs));
+        for (typename Size<StringSet<CharString> >::Type idx = 0u; idx < length(ids); ++idx)
+        {
+            filecontents.records[idx].name = ids[idx];
+            filecontents.records[idx].sequence = seqs[idx];
+        }
+        if (length(quals) == length(ids))
+        {
+            for (typename Size<StringSet<CharString> >::Type idx = 0u; idx < length(ids); ++idx)
+                filecontents.records[idx].quality = quals[idx];
+        }
+    }
+}
+
+// ----------------------------------------------------------------------------
 // Function main()
 // ----------------------------------------------------------------------------
 
-int main(int argc, char const ** argv)
+int main (int argc, char const ** argv)
 {
-    if (argc==1)
-        std::cout << "type ./lara_gu --help to get the parameters table (-i option is mandatory)" << std::endl;
+    if (argc == 1)
+        std::cout << "type ./laragu --help to get the parameters table (-i option is mandatory)" << std::endl;
+
     ArgumentParser parser;
-
     Options options;
-
     setupArgumentParser(parser, options);
     ArgumentParser::ParseResult res;
     res = parse(options, parser, argc, argv); // Fill the options structure with the standard and the acquired arguments
-
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
 
-//  Create the alignment data structure that will be used to store all the alignments
+    // read input files
+    RnaStructContents filecontents1;
+    RnaStructContents filecontents2;
+    _readRnaInputFile(filecontents1, options.inFile, options);
+    _readRnaInputFile(filecontents2, options.inFileRef, options);
+    _V(options, "Read " << length(filecontents1.records) << " and " << length(filecontents2.records)
+                         << " records from input files.");
+
+    // create pairwise alignments
     TRnaAlignVect rnaAligns;
+    alignVectorBuild(rnaAligns, filecontents1.records, filecontents2.records, options);
+
+//  Create the alignment data structure that will be used to store all the alignments
+
 //  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
     TRnaAlignVect goldRnaAligns;
     std::vector<unsigned> eraseVect;
 
-    TRnaVect rnaSeqs, rnaSeqs2;
-    alignVectorBuild(rnaAligns, rnaSeqs, rnaSeqs2, options);
+    // TRnaVect rnaSeqs, rnaSeqs2;
+
 
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
@@ -124,7 +175,7 @@ int main(int argc, char const ** argv)
     firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
 
 #pragma omp parallel for num_threads(options.threads)
-    for(unsigned i = 0; i < length(alignsSimd); ++i)
+    for (unsigned i = 0; i < length(alignsSimd); ++i)
     {
         resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1->sequence));  // length of longer sequence
         resize(rnaAligns[i].mask, length(rnaAligns[i].rna2->sequence));  // length of shorter sequence
@@ -145,10 +196,12 @@ int main(int argc, char const ** argv)
             myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
             rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
 //            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
-        } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
+        }
+        else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
         {
             computeBounds(rnaAligns[i]);
-        } else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
+        }
+        else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
         {
 //  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
 //  The approximation is used while the other structures are computed
@@ -187,7 +240,7 @@ int main(int argc, char const ** argv)
         }
 
     }
-    for(unsigned i = eraseVect.size(); i > 0; --i)
+    for (unsigned i = eraseVect.size(); i > 0; --i)
     {
         goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
         rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
@@ -206,7 +259,7 @@ int main(int argc, char const ** argv)
         rnaAligns[i].structScore.score_matrix = options.laraScoreMatrix;
     }
 
-    for(unsigned x = 0; x < options.iterations; ++x)
+    for (unsigned x = 0; x < options.iterations; ++x)
     {
 #pragma omp parallel for num_threads(options.threads)
         for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
@@ -259,7 +312,7 @@ int main(int argc, char const ** argv)
                 updateLambda(rnaAligns[i]);
             }
         }
-        for(unsigned i = eraseVect.size(); i > 0; --i)
+        for (unsigned i = eraseVect.size(); i > 0; --i)
         {
             goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
             rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
