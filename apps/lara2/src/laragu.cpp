@@ -221,7 +221,8 @@ int main (int argc, char const ** argv)
 // The alignemnt that give the smallest difference between up and low bound should be saved
         saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
 
-        if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
+        if ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon) &&
+                (rnaAligns[i].nonDecreasingIterations < options.nonDecreasingIterations))
         {
             std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
                       "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound  << std::endl;
@@ -232,7 +233,21 @@ int main (int argc, char const ** argv)
         else
         {
             //  Compute the step size for the Lambda update
-            rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+            double stepSize;
+            stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+
+            //  Check the number of non degreasing iterations
+            if(rnaAligns[i].stepSize < stepSize)
+            {
+                ++rnaAligns[i].nonDecreasingIterations;
+            }
+            else
+            {
+                rnaAligns[i].nonDecreasingIterations = 0; //TODO evaluate if the reset of this value is the right strategy with respect to the decremental solution
+            }
+
+            // Assign the new stepSize to for the Lambda update
+            rnaAligns[i].stepSize = stepSize;
 
             _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration 0 is " << rnaAligns[i].stepSize);
 
