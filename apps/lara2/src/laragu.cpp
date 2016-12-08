@@ -150,11 +150,15 @@ int main (int argc, char const ** argv)
     _V(options, "Read " << length(filecontents1.records) << " and " << length(filecontents2.records)
                          << " records from input files.");
 
-    // create pairwise alignments
-    TRnaAlignVect rnaAligns;
-    alignVectorBuild(rnaAligns, filecontents1.records, filecontents2.records, options);
+    // add the weight interaction edges vector map in the data structure using Vienna package
+    bppInteractionGraphBuild(filecontents1.records, options);
+    bppInteractionGraphBuild(filecontents2.records, options);
 
-//  Create the alignment data structure that will be used to store all the alignments
+    // create pairwise alignments
+    RnaSeqSet setH;
+    RnaSeqSet setV;
+    TRnaAlignVect rnaAligns;
+    crossproduct(setH, setV, rnaAligns, filecontents1.records, filecontents2.records);
 
 //  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
     TRnaAlignVect goldRnaAligns;
@@ -166,7 +170,7 @@ int main (int argc, char const ** argv)
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     // simd vector is created
-    createSimdAligns(alignsSimd, rnaAligns);
+    createSimdAligns(alignsSimd, setH, setV);
 // timer start
     std::clock_t begin = std::clock();
     std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
@@ -177,9 +181,9 @@ int main (int argc, char const ** argv)
 #pragma omp parallel for num_threads(options.threads)
     for (unsigned i = 0; i < length(alignsSimd); ++i)
     {
-        resize(rnaAligns[i].lamb, length(rnaAligns[i].rna1->sequence));  // length of longer sequence
-        resize(rnaAligns[i].mask, length(rnaAligns[i].rna2->sequence));  // length of shorter sequence
-        resize(rnaAligns[i].upperBoundVect, length(rnaAligns[i].rna2->sequence));
+        resize(rnaAligns[i].lamb, length(setH[i]));  // length of longer sequence
+        resize(rnaAligns[i].mask, length(setV[i]));  // length of shorter sequence
+        resize(rnaAligns[i].upperBoundVect, length(setV[i]));
 
 // Save the best alignments that give the absolute maximum score
         saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
@@ -255,7 +259,7 @@ int main (int argc, char const ** argv)
         }
 
     }
-    for (unsigned i = eraseVect.size(); i > 0; --i)
+    for (auto i = eraseVect.size(); i > 0; --i)
     {
         goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
         rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
@@ -263,7 +267,6 @@ int main (int argc, char const ** argv)
         erase(resultsSimd, eraseVect[i-1]);
     }
     eraseVect.clear();
-
 
 //    String<TScoringSchemeStruct> alignsSimdLamb;
 //    seqan::resize(alignsSimdLamb, length(alignsSimd));

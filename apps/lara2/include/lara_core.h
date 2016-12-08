@@ -172,8 +172,8 @@ void computeBound(TRnaAlign & rnaAlign)
 
 void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 {
-    RnaStructureGraph & graph1 = rnaAlign.rna1->bppMatrGraphs[rnaAlign.idBppSeq1];
-    RnaStructureGraph & graph2 = rnaAlign.rna2->bppMatrGraphs[rnaAlign.idBppSeq2];
+    RnaStructureGraph & graph1 = rnaAlign.bppGraphH;
+    RnaStructureGraph & graph2 = rnaAlign.bppGraphV;
     TScoreValue edgesProb, halfEdgesProb;
 //  Clear the maxProbScoreLine of the upper bound
     for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
@@ -226,8 +226,8 @@ void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 //template <typename TRnaAlign>
 void computeBounds(TRnaAlign & rnaAlign)
 {
-    RnaStructureGraph & graph1 = rnaAlign.rna1->bppMatrGraphs[rnaAlign.idBppSeq1];
-    RnaStructureGraph & graph2 = rnaAlign.rna2->bppMatrGraphs[rnaAlign.idBppSeq2];
+    RnaStructureGraph & graph1 = rnaAlign.bppGraphH;
+    RnaStructureGraph & graph2 = rnaAlign.bppGraphV;
     TScoreValue edgesProb, halfEdgesProb;
 //  Clear the maxProbScoreLine of the upper bound
     for (unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)
@@ -280,8 +280,8 @@ void computeBounds(TRnaAlign & rnaAlign)
 //template <typename TOption, typename TRnaAlign, typename TMapVect>
 void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 {
-    RnaStructureGraph & graph1 = rnaAlign.rna1->bppMatrGraphs[rnaAlign.idBppSeq1];
-    RnaStructureGraph & graph2 = rnaAlign.rna2->bppMatrGraphs[rnaAlign.idBppSeq2];
+    RnaStructureGraph & graph1 = rnaAlign.bppGraphH;
+    RnaStructureGraph & graph2 = rnaAlign.bppGraphV;
     TScoreValue edgesProb, halfEdgesProb;
 //  Clear the maxProbScoreLine of the upper bound
     for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i)

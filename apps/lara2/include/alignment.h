@@ -29,7 +29,8 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Gianvito Urgese <gianvito.urgese@polito.it>
+// Authors: Gianvito Urgese <gianvito.urgese@polito.it>
+//          Joerg Winkler <j.winkler@fu-berlin.de>
 // ==========================================================================
 // This file contains
 // ==========================================================================
@@ -54,49 +55,10 @@ template <typename TOption>
 void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
 {
 #pragma omp parallel for num_threads(options.threads)
-    for (unsigned i = 0; i < length(rnaSeqs); ++i)
-        //FIXME add a check for vienna and if not found print error
+    for (typename Size<TRnaVect>::Type i = 0; i < length(rnaSeqs); ++i)
     {
-        if (empty(rnaSeqs[i].bppMatrGraphs)) // if(dotplot or extended bpseq data are not present)
+        if (empty(rnaSeqs[i].bppMatrGraphs))  // if dotplot or extended bpseq data are not present
             computeBppMatrix(rnaSeqs[i], options);
-    }
-}
-
-// ----------------------------------------------------------------------------
-// Function alignVectorBuild()
-// ----------------------------------------------------------------------------
-
-// Used to generate the alignments from a single input file
-template <typename TOption>
-void alignVectorBuild(TRnaAlignVect & rnaAligns, TRnaVect & rnaSeqs, TRnaVect & rnaSeqs2, TOption const & options)
-{
-    bool const TWOFILES = !empty(rnaSeqs2);
-
-    // Add the weight interaction edges vector map in the data structure
-    bppInteractionGraphBuild(rnaSeqs, options);
-    if (TWOFILES)
-        bppInteractionGraphBuild(rnaSeqs2, options);
-
-    TRnaVect & rnaSeqsRef = TWOFILES ? rnaSeqs2 : rnaSeqs;
-
-    for (unsigned i = 0; i < length(rnaSeqs); ++i)
-    {
-        RnaStructAlign rnaAlign;
-        for (unsigned j = TWOFILES ? 0 : i + 1; j < length(rnaSeqsRef); ++j)
-        {
-            // in this way the alignment map structure will be always created with the maximum size
-            if (length(rnaSeqs[i].sequence) < length(rnaSeqsRef[j].sequence))
-            {
-                rnaAlign.rna1 = & rnaSeqsRef[j];
-                rnaAlign.rna2 = & rnaSeqs[i];
-            }
-            else
-            {
-                rnaAlign.rna1 = & rnaSeqs[i];
-                rnaAlign.rna2 = & rnaSeqsRef[j];
-            }
-            rnaAligns.push_back(rnaAlign);
-        }
     }
 }
 
@@ -151,17 +113,83 @@ void firstSimdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & aligns
 };
 
 template <typename TAlignsSimd>
-void createSimdAligns(TAlignsSimd & alignsSimd, TRnaAlignVect const & rnaAligns)
+void createSimdAligns(TAlignsSimd & alignsSimd, RnaSeqSet const & setH, RnaSeqSet const & setV)
 {
-    resize(alignsSimd, length(rnaAligns));
-    for(unsigned i = 0; i < length(rnaAligns); ++i)
+    resize(alignsSimd, length(setH));
+    auto it = makeZipIterator(begin(setH), begin(setV), begin(alignsSimd));
+    auto itEnd = makeZipIterator(end(setH), end(setV), end(alignsSimd));
+
+    while (it != itEnd)
     {
         TAlign align;
         resize(rows(align), 2);
-        assignSource(row(align, 0), rnaAligns[i].rna1->sequence);
-        assignSource(row(align, 1), rnaAligns[i].rna2->sequence);
-        alignsSimd[i] = align;
+        assignSource(row(align, 0), std::get<0>(*it));
+        assignSource(row(align, 1), std::get<1>(*it));
+        std::get<2>(*it) = align;
+        ++it;
     }
+}
+
+// ----------------------------------------------------------------------------
+// Function crossproduct()
+// ----------------------------------------------------------------------------
+
+inline void _fillVectors (RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect::iterator & alignInfo,
+                          TRnaVect::iterator const & it1, TRnaVect::iterator const & it2)
+{
+    // in this way the alignment map structure will be always created with the maximum size
+    if (length(it1->sequence) > length(it2->sequence))
+    {
+        appendValue(setH, it1->sequence);
+        appendValue(setV, it2->sequence);
+        alignInfo->bppGraphH = it1->bppMatrGraphs[alignInfo->idBppSeqH];
+        alignInfo->bppGraphV = it2->bppMatrGraphs[alignInfo->idBppSeqV];
+    }
+    else
+    {
+        appendValue(setH, it2->sequence);
+        appendValue(setV, it1->sequence);
+        alignInfo->bppGraphH = it2->bppMatrGraphs[alignInfo->idBppSeqH];
+        alignInfo->bppGraphV = it1->bppMatrGraphs[alignInfo->idBppSeqV];
+    }
+    ++alignInfo;
+}
+
+// unique combination of all sequences of one single set
+void crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns, TRnaVect & seqs)
+{
+    typename Size<TRnaVect>::Type const len = length(seqs);
+    if (len == 0)
+        return;
+
+    reserve(setH, len * (len - 1) / 2);
+    reserve(setV, len * (len - 1) / 2);
+    resize(rnaAligns, len * (len - 1) / 2);
+    TRnaAlignVect::iterator alignInfo = rnaAligns.begin();
+
+    for (TRnaVect::iterator it1 = seqs.begin(); it1 != seqs.end(); ++it1)
+        for (TRnaVect::iterator it2 = it1 + 1u; it2 != seqs.end(); ++it2)
+            _fillVectors(setH, setV, alignInfo, it1, it2);
+}
+
+// combination of all sequences of two sets
+void crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns,
+                  TRnaVect & seqs1, TRnaVect & seqs2)
+{
+    if (empty(seqs2))
+    {
+        crossproduct(setH, setV, rnaAligns, seqs1);
+        return;
+    }
+
+    reserve(setH, length(seqs1) * length(seqs2));
+    reserve(setV, length(seqs1) * length(seqs2));
+    resize(rnaAligns, length(seqs1) * length(seqs2));
+    TRnaAlignVect::iterator alignInfo = rnaAligns.begin();
+
+    for (TRnaVect::iterator it1 = seqs1.begin(); it1 != seqs1.end(); ++it1)
+        for (TRnaVect::iterator it2 = seqs2.begin(); it2 != seqs2.end(); ++it2)
+            _fillVectors(setH, setV, alignInfo, it1, it2);
 }
 
 #endif //_INCLUDE_STRUCT_ALIGN_H_

@@ -29,7 +29,8 @@
 // DAMAGE.
 //
 // ==========================================================================
-// Author: Gianvito Urgese <gianvito.urgese@polito.it>
+// Authors: Gianvito Urgese <gianvito.urgese@polito.it>
+//          Joerg Winkler <j.winkler@fu-berlin.de>
 // ==========================================================================
 // This file contains the variable definition and structures of laragu
 // application.
@@ -49,9 +50,10 @@
 // SeqAn headers
 // ----------------------------------------------------------------------------
 
+#include <seqan/basic.h>
 #include <seqan/rna_io.h>
 #include <seqan/align_rna.h>
-#include <score_structure_rna.h>
+#include "score_structure_rna.h"
 
 // ============================================================================
 // Prerequisites
@@ -107,6 +109,7 @@ typedef std::map<TPosition, TScoreValue> TMap;
 typedef seqan::String<TMap > TMapLine;
 typedef std::vector<TMap > TMapVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
+typedef StringSet<Rna5String, Dependent<Generous> > RnaSeqSet;
 
 struct boundStruct
 {
@@ -157,10 +160,10 @@ typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrix, TLambVect> > T
 struct RnaStructAlign
 {
 //public:
-    seqan::RnaRecord * rna1;  // not owning
-    seqan::RnaRecord * rna2;
-    unsigned idBppSeq1{};
-    unsigned idBppSeq2{};
+    seqan::RnaStructureGraph bppGraphH;
+    seqan::RnaStructureGraph bppGraphV;
+    unsigned idBppSeqH{};
+    unsigned idBppSeqV{};
 // The best computed alignment is saved in these fields
     TAlign bestAlign;
     TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
