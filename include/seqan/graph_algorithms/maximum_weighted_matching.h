@@ -29,45 +29,45 @@
 // DAMAGE.
 //
 // ==========================================================================
+// Author: Joerg Winkler <j.winkler@fu-berlin.de>
+// ==========================================================================
+// Implementation for maximum weighted matching for general graphs.
+// The implemented algorithm is the heuristic from Drake/Hougardy (2005),
+// which has a performance ratio of 2/3 - epsilon.
+// ==========================================================================
 
-#ifndef SEQAN_HEADER_GRAPH_ALGORITHMS_H
-#define SEQAN_HEADER_GRAPH_ALGORITHMS_H
+#ifndef INCLUDE_SEQAN_GRAPH_ALGORITHMS_MAXIMUM_WEIGHTED_MATCHING_H_
+#define INCLUDE_SEQAN_GRAPH_ALGORITHMS_MAXIMUM_WEIGHTED_MATCHING_H_
 
-// External / STL
-#include <set>
-#include <queue>
-#include <vector>
-#include <utility>
+namespace seqan {
 
-// Seqan
-#include <seqan/graph_types.h>
-#include <seqan/random.h>
-#include <seqan/misc/union_find.h>
+// ============================================================================
+// Forwards
+// ============================================================================
 
-// Graph algorithms
-#include <seqan/graph_algorithms/graph_algorithm_heap_tree.h>
-#include <seqan/graph_algorithms/graph_algorithm_hmm.h>
-#include <seqan/graph_algorithms/graph_algorithm_lis_his.h>
+// ============================================================================
+// Tags, Classes, Enums
+// ============================================================================
 
-// Individual graph algorithms.
-#include <seqan/graph_algorithms/all_pairs_shortest_path.h>
-#include <seqan/graph_algorithms/bellman_ford.h>
-#include <seqan/graph_algorithms/bipartite_matching.h>
-#include <seqan/graph_algorithms/breadth_first_search.h>
-#include <seqan/graph_algorithms/connected_components.h>
-#include <seqan/graph_algorithms/depth_first_search.h>
-#include <seqan/graph_algorithms/dijkstra.h>
-#include <seqan/graph_algorithms/floyd_warshall.h>
-#include <seqan/graph_algorithms/ford_fulkerson.h>
-#include <seqan/graph_algorithms/kruskal.h>
-#include <seqan/graph_algorithms/maximum_weighted_matching.h>
-#include <seqan/graph_algorithms/path_growing.h>
-#include <seqan/graph_algorithms/prim.h>
-#include <seqan/graph_algorithms/single_source_shortest_path.h>
-#include <seqan/graph_algorithms/strongly_connected_compnents.h>
-#include <seqan/graph_algorithms/topological_sort.h>
-#include <seqan/graph_algorithms/transitive_closure.h>
-#include <seqan/graph_algorithms/weakly_connected_components.h>
-#include <seqan/graph_algorithms/weighted_bipartite_matching.h>
+// ============================================================================
+// Metafunctions
+// ============================================================================
 
-#endif  // #ifndef SEQAN_HEADER_GRAPH_ALGORITHMS_H
+// ============================================================================
+// Functions
+// ============================================================================
+
+// ----------------------------------------------------------------------------
+// Function maximumWeightedMatching()
+// ----------------------------------------------------------------------------
+
+template <typename TSpec>
+void
+maximumWeightedMatching(Graph<TSpec> const & graph)
+{
+    std::cout << graph << std::endl;
+}
+
+}  // namespace seqan
+
+#endif  // #ifndef INCLUDE_SEQAN_GRAPH_ALGORITHMS_MAXIMUM_WEIGHTED_MATCHING_H_

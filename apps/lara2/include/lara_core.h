@@ -38,6 +38,11 @@
 #ifndef _INCLUDE_ALIGNMENT_EDGES_H_
 #define _INCLUDE_ALIGNMENT_EDGES_H_
 
+#include <map>
+#include <utility>
+#include <seqan/graph_algorithms.h>
+#include "lemon_graph.h"
+
 // ----------------------------------------------------------------------------
 // App headers
 // ----------------------------------------------------------------------------
@@ -376,6 +381,34 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
               << rnaAlign.lowerLemonBound.mwmDual << std::endl;
     std::cout << rnaAlign.lowerBoundGraph << std::endl;
 }
+
+void computeLowerBoundHougardy(TMapVect & lowerBound4Lemon, TRnaAlign & rnaAlign)
+{
+    TLowerBoundGraph graph;
+
+    // add vertices
+    forEach(lowerBound4Lemon, [&graph] (TMap const & map) { addVertex(graph); });
+
+    // add edges
+    for (unsigned vertexIdx = 0; vertexIdx < length(lowerBound4Lemon); ++vertexIdx)
+    {
+        for (auto edgeCargo = lowerBound4Lemon[vertexIdx].begin(); edgeCargo != lowerBound4Lemon[vertexIdx].end(); ++edgeCargo)
+        //forEach(lowerBound4Lemon[vertexIdx], [&graph, vertexIdx] (std::pair<TPosition const, TScoreValue> const & edgeCargo)
+        {
+            addEdge(graph, vertexIdx, edgeCargo->first, edgeCargo->second);
+        };
+    }
+    maximumWeightedMatching(graph);
+
+    myLemon::computeLowerBound(lowerBound4Lemon, rnaAlign);
+
+    // seqan::mwm(graph)
+
+//    rnaAlign.lowerLemonBound.mwmPrimal = mwm.matchingWeight();
+//    rnaAlign.lowerLemonBound.mwmDual = mwm.dualValue();
+//    rnaAlign.lowerLemonBound.mwmCardinality = mwm.matchingSize();
+
+};
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)
 {

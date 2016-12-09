@@ -218,8 +218,15 @@ int main (int argc, char const ** argv)
             std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
             std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
             std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
+        } else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+        {
+            TMapVect lowerBound4Lemon;
+            lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
+            computeBounds(rnaAligns[i], lowerBound4Lemon);
+// Compute the MWM with the Lemon library
+            computeLowerBoundHougardy(lowerBound4Lemon, rnaAligns[i]);
+            rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
         }
-
 
         unsigned index = 0;
 // The alignemnt that give the smallest difference between up and low bound should be saved
@@ -309,6 +316,16 @@ int main (int argc, char const ** argv)
                 std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
                 std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
                 std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
+            } else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+            {
+//  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+                TMapVect lowerBound4Lemon;
+                lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
+                computeBounds(rnaAligns[i], lowerBound4Lemon);
+// Compute the MWM with the Lemon library
+                computeLowerBoundHougardy(lowerBound4Lemon, rnaAligns[i]);
+                rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+//                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
             }
 
 // The alignemnt that give the smallest difference between up and low bound should be saved

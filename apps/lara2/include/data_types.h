@@ -79,7 +79,8 @@ enum LaraMwmMethod
 {
     LBLEMONMWM,
     LBAPPROXMWM,
-    LBMWMTEST
+    LBMWMTEST,
+    LBLINEARTIMEMWM
 };
 
 // Value to be used to copare the difference between the upper and the lower bound difference
