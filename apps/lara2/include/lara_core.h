@@ -382,25 +382,22 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
     std::cout << rnaAlign.lowerBoundGraph << std::endl;
 }
 
-void computeLowerBoundHougardy(TMapVect & lowerBound4Lemon, TRnaAlign & rnaAlign)
+void computeLowerBoundHougardy(TMapVect & interactions, TRnaAlign & rnaAlign)
 {
     TLowerBoundGraph graph;
 
     // add vertices
-    forEach(lowerBound4Lemon, [&graph] (TMap const & map) { addVertex(graph); });
+    forEach(interactions, [&graph] (TMap const & map) { addVertex(graph); });
 
     // add edges
-    for (unsigned vertexIdx = 0; vertexIdx < length(lowerBound4Lemon); ++vertexIdx)
-    {
-        for (auto edgeCargo = lowerBound4Lemon[vertexIdx].begin(); edgeCargo != lowerBound4Lemon[vertexIdx].end(); ++edgeCargo)
-        //forEach(lowerBound4Lemon[vertexIdx], [&graph, vertexIdx] (std::pair<TPosition const, TScoreValue> const & edgeCargo)
-        {
+    for (unsigned vertexIdx = 0; vertexIdx < length(interactions); ++vertexIdx)
+        for (auto edgeCargo = interactions[vertexIdx].begin(); edgeCargo != interactions[vertexIdx].end(); ++edgeCargo)
             addEdge(graph, vertexIdx, edgeCargo->first, edgeCargo->second);
-        };
-    }
-    maximumWeightedMatching(graph);
 
-    myLemon::computeLowerBound(lowerBound4Lemon, rnaAlign);
+    rnaAlign.lowerLemonBound.mwmPrimal = maximumWeightedMatchingGreedy(graph);
+
+//    myLemon::computeLowerBound(lowerBound4Lemon, rnaAlign);
+//    std::cerr << "Lemon: " << rnaAlign.lowerLemonBound.mwmPrimal << std::endl;
 
     // seqan::mwm(graph)
 

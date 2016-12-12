@@ -58,14 +58,46 @@ namespace seqan {
 // ============================================================================
 
 // ----------------------------------------------------------------------------
-// Function maximumWeightedMatching()
+// Function maximumWeightedMatchingGreedy()
 // ----------------------------------------------------------------------------
 
-template <typename TSpec>
-void
-maximumWeightedMatching(Graph<TSpec> const & graph)
+template <typename TCargo>
+TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
 {
-    std::cout << graph << std::endl;
+    typedef typename Iterator<Graph<Undirected<TCargo> >, EdgeIterator>::Type TEdgeIter;
+    typedef typename Iterator<Graph<Undirected<TCargo> >, AdjacencyIterator>::Type TAdjacIterator;
+    typedef typename VertexDescriptor<Graph<Undirected<TCargo> > >::Type TVertex;
+
+    Graph<Undirected<TCargo> > tmpGraph (graph); // copy for not changing the original graph
+    TCargo maxWeight {};
+    TVertex src;
+    TVertex trg;
+
+    while (numEdges(tmpGraph) > 0)
+    {
+        TCargo mw {};
+        TEdgeIter edgeIt(tmpGraph);
+        for (; !atEnd(edgeIt); goNext(edgeIt))
+        {
+            if (getCargo(*edgeIt) > mw)
+            {
+                mw = getCargo(*edgeIt);
+                src = getSource(*edgeIt);
+                trg = getTarget(*edgeIt);
+            }
+        }
+
+        TAdjacIterator adj1(tmpGraph, src);
+        for (; !atEnd(adj1); goNext(adj1))
+            removeEdge(tmpGraph, src, *adj1);
+        TAdjacIterator adj2(tmpGraph, trg);
+        for (; !atEnd(adj2); goNext(adj2))
+            removeEdge(tmpGraph, trg, *adj2);
+        removeVertex(tmpGraph, src);
+        removeVertex(tmpGraph, trg);
+        maxWeight += mw;
+    }
+    return maxWeight;
 }
 
 }  // namespace seqan
