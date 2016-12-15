@@ -61,8 +61,54 @@ namespace seqan {
 // Function maximumWeightedMatchingGreedy()
 // ----------------------------------------------------------------------------
 
+// Compute greedy MWM (performance ratio 1/2)
 template <typename TCargo>
 TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
+{
+    typedef Graph<Undirected<TCargo> > TUGraph;
+    typedef typename EdgeDescriptor<TUGraph>::Type TEdge;
+    typedef typename Iterator<TUGraph, EdgeIterator>::Type TEdgeIter;
+    typedef typename Iterator<TUGraph, AdjacencyIterator>::Type TAdjacIterator;
+    typedef typename VertexDescriptor<TUGraph>::Type TVertex;
+
+    // set up edge vector and bit vector for conflicting edges
+    std::vector<TEdgeIter> edges;
+    std::vector<bool> conflictFree;
+    reserve(edges, numEdges(graph));
+    resize(conflictFree, numEdges(graph), true);
+    for (TEdgeIter edgeIt(graph); !atEnd(edgeIt); goNext(edgeIt))
+    {
+        edges.push_back(edgeIt);
+    }
+
+    // sort edges with respect to their weight, start with the highest
+    std::sort(edges.begin(), edges.end(), [] (auto a, auto b) { return getCargo(*a) >= getCargo(*b); });
+
+    TCargo maxWeight {};
+    for (std::size_t idx = 0u; idx < length(edges); ++idx)
+    {
+        if (!conflictFree[idx])  // skip edge if conflict with a previous edge
+            continue;
+
+        maxWeight += getCargo(*edges[idx]);  // edge is contained in the matching
+        TVertex src = getSource(*edges[idx]);
+        TVertex trg = getTarget(*edges[idx]);
+
+        for (auto c = idx + 1; c < length(edges); ++c)  // search for edge conflicts
+        {
+            if (conflictFree[c] && (getSource(*edges[c]) == src || getSource(*edges[c]) == trg ||
+                getTarget(*edges[c]) == src || getTarget(*edges[c]) == trg))
+            {
+                conflictFree[c] = false;
+            }
+        }
+    }
+    return maxWeight;
+}
+
+/*
+template <typename TCargo>
+TCargo maximumWeightedMatchingGreedy2(Graph<Undirected<TCargo> > const & graph)
 {
     typedef typename Iterator<Graph<Undirected<TCargo> >, EdgeIterator>::Type TEdgeIter;
     typedef typename Iterator<Graph<Undirected<TCargo> >, AdjacencyIterator>::Type TAdjacIterator;
@@ -99,6 +145,15 @@ TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
     }
     return maxWeight;
 }
+ */
+
+// ----------------------------------------------------------------------------
+// Function maximumWeightedMatchingApproxLinear()
+// ----------------------------------------------------------------------------
+
+// Compute fast linear time approximation MWM (performance ratio 0)
+//template <typename TCargo>
+//TCargo maximumWeightedMatchingApproxLinear(Graph<Undirected<TCargo> > const & graph)
 
 }  // namespace seqan
 
