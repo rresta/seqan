@@ -165,6 +165,7 @@ struct RnaStructAlign
     seqan::RnaStructureGraph bppGraphV;
     unsigned idBppSeqH{};
     unsigned idBppSeqV{};
+    double sequenceScale{1.0};
 // The best computed alignment is saved in these fields
     TAlign bestAlign;
     TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
@@ -189,6 +190,7 @@ struct RnaStructAlign
     int slm{};
     double stepSize{std::numeric_limits<TScoreValue>::max()};
     int nonDecreasingIterations{};
+    double my{1.0};
 
 //  Status when the minumum difference between the two bounds is detected
     unsigned itMinBounds; //to be used for the best lower bound

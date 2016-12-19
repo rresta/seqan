@@ -92,23 +92,29 @@ void setScoreMatrix(TOptions & options)
 template <typename TResultsSimd, typename TAlignsSimd, typename TOptions>
 void firstSimdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & alignsSimd, TOptions const & options)
 {
+    TScoreMatrix laraScoreMatrix = options.laraScoreMatrix;
+    for(unsigned j = 0; j < length(laraScoreMatrix.data_tab[j]); ++j)
+    {
+        laraScoreMatrix.data_tab[j] = laraScoreMatrix.data_tab[j] / options.sequenceScale;
+//TODO sequenceScale can be substituted from a runtime computed parameter that consider the identity of the sequences or other aspects
+    }
     if (!options.globalLocal)  //TODO implement the global-unconstrained alignment using the parameters in the options
     {
         if (options.affineLinearDgs == 0)
-            resultsSimd = globalAlignment(alignsSimd, options.laraScoreMatrix, AffineGaps());
+            resultsSimd = globalAlignment(alignsSimd, laraScoreMatrix, AffineGaps());
         else if (options.affineLinearDgs == 1)
-            resultsSimd = globalAlignment(alignsSimd, options.laraScoreMatrix, LinearGaps());
+            resultsSimd = globalAlignment(alignsSimd, laraScoreMatrix, LinearGaps());
         else
-            resultsSimd = globalAlignment(alignsSimd, options.laraScoreMatrix, DynamicGaps());
+            resultsSimd = globalAlignment(alignsSimd, laraScoreMatrix, DynamicGaps());
 
     } else
     {
         if (options.affineLinearDgs == 0)
-            resultsSimd = localAlignment(alignsSimd, options.laraScoreMatrix, AffineGaps());
+            resultsSimd = localAlignment(alignsSimd, laraScoreMatrix, AffineGaps());
         else if (options.affineLinearDgs == 1)
-            resultsSimd = localAlignment(alignsSimd, options.laraScoreMatrix, LinearGaps());
+            resultsSimd = localAlignment(alignsSimd, laraScoreMatrix, LinearGaps());
         else
-            resultsSimd = localAlignment(alignsSimd, options.laraScoreMatrix, DynamicGaps());
+            resultsSimd = localAlignment(alignsSimd, laraScoreMatrix, DynamicGaps());
     }
 };
 

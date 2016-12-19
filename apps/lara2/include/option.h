@@ -125,12 +125,12 @@ struct Options
 // Gap open and extend costs for generating the alignment edges
     double generatorGapOpen;
     double generatorGapExtend;
-    double generatorSuboptimality; // FIXME what means this parameter?
+    double generatorSuboptimality; // FIXME what means this parameter? (Parameter for the generation of alignment edges. The higher the value of 'generatorsuboptimality', the more alignment edges are created.)
 // Gap open and extend costs for generating the alignment edges
     double laraGapOpen;
     double laraGapExtend;
 // scaling factor for the scores of the alignment edges
-    double sequenceScale;
+    double sequenceScale; // Specifies the contribution of the sequence scores (specified by the larascore matrix) to the overall structural alignment.
 // gap penalty for RSA
     double rsaGapPenalty;
 // scoring mode, either LOGARITHMIC,SCALING or RIBOSUM

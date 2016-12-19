@@ -1,6 +1,9 @@
 # laragu
 The new version of Lara tool for the structural-alignment of RNA sequences 
 
+To test 200 iterations over a small dataset with lower bound MWM and a scaling factor applied on the ribosum matrices
+-i ./apps/lara2/demo/input_small.fa -t 2 -v 2 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1 -lbm 1 -ssc 10
+
 To test 200 iterations over a small dataset with lower bound MWM
 -i ./apps/lara2/demo/U5.fa -v 2 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1 -lbm 0 -iter 200 -tb 1e-15
 

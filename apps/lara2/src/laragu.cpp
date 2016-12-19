@@ -178,12 +178,24 @@ int main (int argc, char const ** argv)
 // first non-structural alignment is computed
     firstSimdAlignsGlobalLocal(resultsSimd, alignsSimd, options);
 
+    for (unsigned i = 0; i < length(alignsSimd); ++i)
+    {
+        rnaAligns[i].structScore.score_matrix = options.laraScoreMatrix;
+        for(unsigned j = 0; j < length(options.laraScoreMatrix.data_tab[j]); ++j)
+        {
+            rnaAligns[i].structScore.score_matrix.data_tab[j] = rnaAligns[i].structScore.score_matrix.data_tab[j] /
+                                                                options.sequenceScale;
+//TODO sequenceScale can be substituted from a runtime computed parameter that consider the identity of the sequences or other aspects
+        }
+    }
+
 #pragma omp parallel for num_threads(options.threads)
     for (unsigned i = 0; i < length(alignsSimd); ++i)
     {
         resize(rnaAligns[i].lamb, length(setH[i]));  // length of longer sequence
         resize(rnaAligns[i].mask, length(setV[i]));  // length of shorter sequence
         resize(rnaAligns[i].upperBoundVect, length(setV[i]));
+        rnaAligns[i].my = options.my;
 
 // Save the best alignments that give the absolute maximum score
         saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
@@ -218,7 +230,8 @@ int main (int argc, char const ** argv)
             std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
             std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
             std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
-        } else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+        }
+        else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
         {
             TMapVect lowerBound4Lemon;
             lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
@@ -232,8 +245,7 @@ int main (int argc, char const ** argv)
 // The alignemnt that give the smallest difference between up and low bound should be saved
         saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
 
-        if ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon) &&
-                (rnaAligns[i].nonDecreasingIterations < options.nonDecreasingIterations))
+        if ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon))
         {
             std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
                       "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound  << std::endl;
@@ -244,21 +256,7 @@ int main (int argc, char const ** argv)
         else
         {
             //  Compute the step size for the Lambda update
-            double stepSize;
-            stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
-
-            //  Check the number of non degreasing iterations
-            if(rnaAligns[i].stepSize < stepSize)
-            {
-                ++rnaAligns[i].nonDecreasingIterations;
-            }
-            else
-            {
-                rnaAligns[i].nonDecreasingIterations = 0; //TODO evaluate if the reset of this value is the right strategy with respect to the decremental solution
-            }
-
-            // Assign the new stepSize to for the Lambda update
-            rnaAligns[i].stepSize = stepSize;
+            rnaAligns[i].stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
 
             _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration 0 is " << rnaAligns[i].stepSize);
 
@@ -282,6 +280,12 @@ int main (int argc, char const ** argv)
     {
         rnaAligns[i].structScore.lamb = & rnaAligns[i].lamb;
         rnaAligns[i].structScore.score_matrix = options.laraScoreMatrix;
+        for(unsigned j = 0; j < length(options.laraScoreMatrix.data_tab[j]); ++j)
+        {
+            rnaAligns[i].structScore.score_matrix.data_tab[j] = rnaAligns[i].structScore.score_matrix.data_tab[j] /
+                    options.sequenceScale;
+//TODO sequenceScale can be substituted from a runtime computed parameter that consider the identity of the sequences or other aspects
+        }
     }
 
     for (unsigned x = 0; x < options.iterations; ++x)
@@ -300,10 +304,12 @@ int main (int argc, char const ** argv)
                 myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
                 rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
 //                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
-            } else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
+            }
+            else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
             {
                 computeBounds(rnaAligns[i]);
-            } else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
+            }
+            else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
             {
 //  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
 //  The approximation is used while the other structures are computed
@@ -316,13 +322,14 @@ int main (int argc, char const ** argv)
                 std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
                 std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
                 std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
-            } else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+            }
+            else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
             {
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
                 TMapVect lowerBound4Lemon;
                 lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
                 computeBounds(rnaAligns[i], lowerBound4Lemon);
-// Compute the MWM with the Lemon library
+// Compute the MWM with the Hougardy method in linear time
                 computeLowerBoundHougardy(lowerBound4Lemon, rnaAligns[i]);
                 rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
 //                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
@@ -337,10 +344,32 @@ int main (int argc, char const ** argv)
                 eraseVect.push_back(i);
 // FIXME computation for this alignment should stopped and the bestAlignMinBounds should be returned
 //            return 0;
-            } else {
+            }
+            else
+            {
+                // there was nothing going on in the last couple of iterations, half rnaAligns[i].my therefore
+                if (rnaAligns[i].nonDecreasingIterations == options.nonDecreasingIterations)
+                {
+                    rnaAligns[i].my = rnaAligns[i].my/2; //TODO check if there is the necessity to multiply or reset
+                    // this value in case of decreasing stepsize (an opposite mechanism or a my reset should be designed for this purpose)
+                }
 
 //  Compute the step size for the Lambda update
-                rnaAligns[i].stepSize = options.my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+                double stepSize;
+                stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+
+                //  Check the number of non decreasing iterations
+                if(rnaAligns[i].stepSize < stepSize)
+                {
+                    ++rnaAligns[i].nonDecreasingIterations;
+                }
+                else
+                {
+                    rnaAligns[i].nonDecreasingIterations = 0; //TODO evaluate if the reset of this value is the right strategy with respect to the decremental solution
+                }
+
+                // Assign the new stepSize to for the Lambda update
+                rnaAligns[i].stepSize = stepSize;
 
                 _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration" << x << " is " << rnaAligns[i].stepSize);
 
