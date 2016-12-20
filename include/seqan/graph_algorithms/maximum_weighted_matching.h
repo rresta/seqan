@@ -39,6 +39,8 @@
 #ifndef INCLUDE_SEQAN_GRAPH_ALGORITHMS_MAXIMUM_WEIGHTED_MATCHING_H_
 #define INCLUDE_SEQAN_GRAPH_ALGORITHMS_MAXIMUM_WEIGHTED_MATCHING_H_
 
+// #include <experimental/random>
+
 namespace seqan {
 
 // ============================================================================
@@ -152,8 +154,42 @@ TCargo maximumWeightedMatchingGreedy2(Graph<Undirected<TCargo> > const & graph)
 // ----------------------------------------------------------------------------
 
 // Compute fast linear time approximation MWM (performance ratio 0)
-//template <typename TCargo>
-//TCargo maximumWeightedMatchingApproxLinear(Graph<Undirected<TCargo> > const & graph)
+/*template <typename TCargo>
+Graph<Undirected<TCargo> > maximumWeightedMatchingApproxLinear(Graph<Undirected<TCargo> > const & graph)
+{
+
+
+
+    typedef typename Iterator<Graph<Undirected<TCargo> >, EdgeIterator>::Type TEdgeIter;
+    typedef typename Iterator<Graph<Undirected<TCargo> >, AdjacencyIterator>::Type TAdjacIterator;
+    typedef typename VertexDescriptor<Graph<Undirected<TCargo> > >::Type TVertex;
+
+    Graph<Undirected<TCargo> > matching (graph); // copy for not changing the original graph
+    TVertex src;
+    TVertex trg;
+
+    while (numEdges(matching) > 0)
+    {
+        int randomEdge = std::experimental::randint(0, numEdges(matching) - 1);
+
+        mw = getCargo(*edgeIt);
+        src = getSource(*edgeIt);
+        trg = getTarget(*edgeIt);
+
+
+
+        TAdjacIterator adj1(matching, src);
+        for (; !atEnd(adj1); goNext(adj1))
+            removeEdge(matching, src, *adj1);
+        TAdjacIterator adj2(matching, trg);
+        for (; !atEnd(adj2); goNext(adj2))
+            removeEdge(matching, trg, *adj2);
+        removeVertex(matching, src);
+        removeVertex(matching, trg);
+        maxWeight += mw;
+    }
+    return maxWeight;
+}*/
 
 }  // namespace seqan
 

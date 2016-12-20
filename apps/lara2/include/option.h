@@ -437,12 +437,9 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(options.threads, parser, "threads");
 
     getOptionValue(options.inFile, parser, "inFile");
-    if( options.inFile == "" )
-    {
-        std::cout << "fasta file name is " << options.inFile << std::endl;
-        //FIXME if input file is not provided the program is stack
+    if (empty(options.inFile))
         return ArgumentParser::PARSE_ERROR;
-    }
+
     getOptionValue(options.inFileRef, parser, "inFileRef");
     getOptionValue(options.outFile, parser, "outFile");
     CharString tmpDir, paramFile;

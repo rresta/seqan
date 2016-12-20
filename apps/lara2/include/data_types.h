@@ -181,6 +181,7 @@ struct RnaStructAlign
 // to do not use anymore the Lemon MWM
     TLowerBoundGraph lowerBoundGraph; //graph useful for the seqan::MaximumWeightedMatch() function
     TlowerLemonBound lowerLemonBound;
+    double lowerGreedyBound;
 
 // Upper bound fields
     double upperBound{};

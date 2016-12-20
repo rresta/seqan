@@ -132,7 +132,10 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
 int main (int argc, char const ** argv)
 {
     if (argc == 1)
-        std::cout << "type ./laragu --help to get the parameters table (-i option is mandatory)" << std::endl;
+    {
+        std::cout << "type " << argv[0] << " --help to get the parameters table (-i option is mandatory)" << std::endl;
+        return 1;
+    }
 
     ArgumentParser parser;
     Options options;
@@ -164,9 +167,6 @@ int main (int argc, char const ** argv)
     TRnaAlignVect goldRnaAligns;
     std::vector<unsigned> eraseVect;
 
-    // TRnaVect rnaSeqs, rnaSeqs2;
-
-
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     // simd vector is created
@@ -189,6 +189,10 @@ int main (int argc, char const ** argv)
         }
     }
 
+    double mwmtime = 0.0;
+    double lemtime = 0.0;
+    double boutime = 0.0;
+
 #pragma omp parallel for num_threads(options.threads)
     for (unsigned i = 0; i < length(alignsSimd); ++i)
     {
@@ -207,38 +211,57 @@ int main (int argc, char const ** argv)
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
             TMapVect lowerBound4Lemon;
             lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-            computeBounds(rnaAligns[i], lowerBound4Lemon);
+            computeBounds(rnaAligns[i], & lowerBound4Lemon);
+            computeUpperBoundScore(rnaAligns[i]);
 // Compute the MWM with the Lemon library
-            myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
+            myLemon::computeLowerBoundScore(lowerBound4Lemon, rnaAligns[i]);
             rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
 //            rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
         }
         else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
         {
-            computeBounds(rnaAligns[i]);
+            computeBounds(rnaAligns[i], NULL);
+            computeLowerAndUpperBoundScore(rnaAligns[i]);
         }
         else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
         {
 //  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
 //  The approximation is used while the other structures are computed
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+
+            // Compute the MWM with the Lemon library
             TMapVect lowerBound4Lemon;
             lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-            computeBoundsTest(rnaAligns[i], lowerBound4Lemon);
-// Compute the MWM with the Lemon library
-            myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
-            std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
-            std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
-            std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
+            std::clock_t clstart = std::clock();
+            computeBounds(rnaAligns[i], & lowerBound4Lemon);
+            computeLowerAndUpperBoundScore(rnaAligns[i]);  // also calculate GU approximation
+            boutime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+            clstart = std::clock();
+            myLemon::computeLowerBoundScore(lowerBound4Lemon, rnaAligns[i]);
+            lemtime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+
+            // Compute the MWM with the seqan greedy MWM algorithm
+            clstart = std::clock();
+            computeLowerBoundGreedy(lowerBound4Lemon, rnaAligns[i]);
+            mwmtime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+
+            _VV(options, "Upper bound              = " << rnaAligns[i].upperBound);
+
+            _VV(options, "Lower Bound lemon primal = " << rnaAligns[i].lowerLemonBound.mwmPrimal << " \tdual = "
+                      << rnaAligns[i].lowerLemonBound.mwmDual);
+            _VV(options, "Lower bound seqan greedy = " << rnaAligns[i].lowerGreedyBound);
+            _VV(options, "Lower bound approx       = " << rnaAligns[i].lowerBound);
+            _VV(options, "num edges (slm) = " << rnaAligns[i].slm);
         }
-        else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+        else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using greedy algorithm
         {
             TMapVect lowerBound4Lemon;
             lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-            computeBounds(rnaAligns[i], lowerBound4Lemon);
-// Compute the MWM with the Lemon library
-            computeLowerBoundHougardy(lowerBound4Lemon, rnaAligns[i]);
-            rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+            computeBounds(rnaAligns[i], & lowerBound4Lemon);
+            computeUpperBoundScore(rnaAligns[i]);
+// Compute the MWM
+            computeLowerBoundGreedy(lowerBound4Lemon, rnaAligns[i]);
+            rnaAligns[i].lowerBound = rnaAligns[i].lowerGreedyBound;
         }
 
         unsigned index = 0;
@@ -247,11 +270,9 @@ int main (int argc, char const ** argv)
 
         if ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon))
         {
-            std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
-                      "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound  << std::endl;
+            _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
+                      "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound);
             eraseVect.push_back(i);
-// FIXME computation for this alignment should stopped and the bestAlignMinBounds should be returned
-//            return 0;
         }
         else
         {
@@ -299,39 +320,57 @@ int main (int argc, char const ** argv)
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
                 TMapVect lowerBound4Lemon;
                 lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-                computeBounds(rnaAligns[i], lowerBound4Lemon);
+                computeBounds(rnaAligns[i], & lowerBound4Lemon);
+                computeUpperBoundScore(rnaAligns[i]);
 // Compute the MWM with the Lemon library
-                myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
+                myLemon::computeLowerBoundScore(lowerBound4Lemon, rnaAligns[i]);
                 rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
 //                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
             }
             else if (options.lowerBoundMethod == LBAPPROXMWM) // Approximation of MWM is computed to fill the LowerBound
             {
-                computeBounds(rnaAligns[i]);
+                computeBounds(rnaAligns[i], NULL);
+                computeLowerAndUpperBoundScore(rnaAligns[i]);
             }
             else if (options.lowerBoundMethod == LBMWMTEST) // Function used to test the aproximation of MWM is computed to fill the LowerBound
             {
 //  In this branch three different methods are available for the computation: 1) the MWM approx, 2) the lemon MWM, 3) the seqan MWM <to be implemented>
 //  The approximation is used while the other structures are computed
 //  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
+
+                // Compute the MWM with the Lemon library
                 TMapVect lowerBound4Lemon;
                 lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-                computeBoundsTest(rnaAligns[i], lowerBound4Lemon);
-// Compute the MWM with the Lemon library
-                myLemon::computeLowerBound(lowerBound4Lemon, rnaAligns[i]);
-                std::cout << "Lower bound = " << rnaAligns[i].lowerBound << std::endl;
-                std::cout << "Upper bound = " << rnaAligns[i].upperBound << std::endl;
-                std::cout << "Slm = " << rnaAligns[i].slm << std::endl;
+                std::clock_t clstart = std::clock();
+                computeBounds(rnaAligns[i], & lowerBound4Lemon);
+                computeLowerAndUpperBoundScore(rnaAligns[i]);  // also calculate GU approximation
+                boutime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+                clstart = std::clock();
+                myLemon::computeLowerBoundScore(lowerBound4Lemon, rnaAligns[i]);
+                lemtime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+
+                // Compute the MWM with the seqan greedy MWM algorithm
+                clstart = std::clock();
+                computeLowerBoundGreedy(lowerBound4Lemon, rnaAligns[i]);
+                mwmtime += double(std::clock() - clstart) / CLOCKS_PER_SEC;
+
+                _VV(options, "Upper bound              = " << rnaAligns[i].upperBound);
+
+                _VV(options, "Lower Bound lemon primal = " << rnaAligns[i].lowerLemonBound.mwmPrimal << " \tdual = "
+                                                           << rnaAligns[i].lowerLemonBound.mwmDual);
+                _VV(options, "Lower bound seqan greedy = " << rnaAligns[i].lowerGreedyBound);
+                _VV(options, "Lower bound approx       = " << rnaAligns[i].lowerBound);
+                _VV(options, "num edges (slm) = " << rnaAligns[i].slm);
             }
-            else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using algorithm from Drake/Hougardy
+            else if(options.lowerBoundMethod == LBLINEARTIMEMWM) // using greedy algorithm
             {
-//  Define the datastructure that will be passed to the lemon::MWM function to compute the full lowerBound
                 TMapVect lowerBound4Lemon;
                 lowerBound4Lemon.resize(rnaAligns[i].maskIndex);
-                computeBounds(rnaAligns[i], lowerBound4Lemon);
-// Compute the MWM with the Hougardy method in linear time
-                computeLowerBoundHougardy(lowerBound4Lemon, rnaAligns[i]);
-                rnaAligns[i].lowerBound = rnaAligns[i].lowerLemonBound.mwmPrimal;
+                computeBounds(rnaAligns[i], & lowerBound4Lemon);
+                computeUpperBoundScore(rnaAligns[i]);
+
+                computeLowerBoundGreedy(lowerBound4Lemon, rnaAligns[i]);
+                rnaAligns[i].lowerBound = rnaAligns[i].lowerGreedyBound;
 //                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
             }
 
@@ -339,11 +378,9 @@ int main (int argc, char const ** argv)
             saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
             if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
             {
-                std::cout << "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
-                        "upper bound = " << rnaAligns[i].upperBound << " lower bound = "<< std::endl;
+                _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
+                    "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound);
                 eraseVect.push_back(i);
-// FIXME computation for this alignment should stopped and the bestAlignMinBounds should be returned
-//            return 0;
             }
             else
             {
@@ -376,7 +413,7 @@ int main (int argc, char const ** argv)
                 updateLambda(rnaAligns[i]);
             }
         }
-        for (unsigned i = eraseVect.size(); i > 0; --i)
+        for (size_t i = eraseVect.size(); i > 0; --i)
         {
             goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
             rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
@@ -387,13 +424,18 @@ int main (int argc, char const ** argv)
 //        std::cout << "computation " << j << std::endl;
         std::cerr << "|" ;
     }
-    std::cerr << std::endl;
+    _VV(options, "\nmap computation time = " << boutime << "\nlemon MWM time       = " << lemtime
+                                             << "\ngreedy MWM time      = " << mwmtime);
+
 // timer stop
     std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
     std::clock_t end = std::clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-    _VV(options, "Plot of the rnaAligns structure " << std::endl);
+    if (!empty(rnaAligns))
+    {
+        _VV(options, "Plot of the rnaAligns structure " << std::endl);
+    }
     for (unsigned i = 0; i < length(rnaAligns); ++i)
     {
         _VV(options, "Alignment number " << i);
@@ -407,7 +449,10 @@ int main (int argc, char const ** argv)
 
     }
 
-    _VV(options, "Plot of the goldRnaAligns structure " << std::endl);
+    if (!empty(goldRnaAligns))
+    {
+        _VV(options, "Plot of the goldRnaAligns structure " << std::endl);
+    }
     for (unsigned i = 0; i < length(goldRnaAligns); ++i)
     {
         _VV(options, "Alignment number " << i);

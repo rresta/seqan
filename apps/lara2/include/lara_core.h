@@ -117,7 +117,7 @@ void fillBound(TBound & BoundVect, TRnaAlign const & rnaAlign, unsigned x, unsig
 // Function computeUpperBound()
 // ----------------------------------------------------------------------------
 
-void computeUpperBound(TRnaAlign & rnaAlign)
+void computeUpperBoundScore(TRnaAlign & rnaAlign)
 {
     TScoreValue sum = 0;
     rnaAlign.slm = 0;
@@ -140,10 +140,11 @@ void computeUpperBound(TRnaAlign & rnaAlign)
 // Function computeBound()
 // ----------------------------------------------------------------------------
 
-void computeBound(TRnaAlign & rnaAlign)
+void computeLowerAndUpperBoundScore(TRnaAlign & rnaAlign)
 {
     TScoreValue sumU = 0;
     TScoreValue sumL = 0;
+    rnaAlign.slm = 0;
     for(unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i) {
         if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0) {
             // the edges are not paired
@@ -175,7 +176,7 @@ void computeBound(TRnaAlign & rnaAlign)
 // Function computeBounds() version that make use of the lemon MWM
 // ----------------------------------------------------------------------------
 
-void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
+void computeBounds(TRnaAlign & rnaAlign, TMapVect * lowerBound4Lemon)
 {
     RnaStructureGraph & graph1 = rnaAlign.bppGraphH;
     RnaStructureGraph & graph2 = rnaAlign.bppGraphV;
@@ -203,8 +204,11 @@ void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
                         {
                             edgesProb = (cargo(findEdge(graph1.inter, rnaAlign.mask[i].first, rnaAlign.mask[w].first)) +
                                          cargo(findEdge(graph2.inter, rnaAlign.mask[i].second, rnaAlign.mask[w].second)));
+
                             // Add edge for the LowerBoundGraph
-                            lowerBound4Lemon[i][w] = edgesProb;
+                            if (lowerBound4Lemon != NULL)
+                                (*lowerBound4Lemon)[i][w] = edgesProb;
+
                             // Compute the half edge probability to be used for the upper bound level
                             halfEdgesProb = edgesProb / 2.0;
                             if (rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine < halfEdgesProb)
@@ -221,13 +225,14 @@ void computeBounds(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
             }
         }
     }
-    computeUpperBound(rnaAlign);
+    // computeUpperBound(rnaAlign);
 }
 
 // ----------------------------------------------------------------------------
 // Function computeBounds() version that make use of an approximation of the MWM
 // ----------------------------------------------------------------------------
 
+/*
 //template <typename TRnaAlign>
 void computeBounds(TRnaAlign & rnaAlign)
 {
@@ -275,8 +280,9 @@ void computeBounds(TRnaAlign & rnaAlign)
             }
         }
     }
-    computeBound(rnaAlign);
+    // computeBound(rnaAlign);
 }
+
 
 // ----------------------------------------------------------------------------
 // Function computeBoundsTest()
@@ -295,7 +301,6 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
 //        std::cout << rnaAlign.upperBoundVect[i].maxProbScoreLine << "\t";
     }
     std::cout << std::endl;
-    //TODO embed the LEMON GRAPH directly in this point in order to do not copy the structures if the lemon::MWM is chosen
     clearVertices(rnaAlign.lowerBoundGraph);
     // Add vertex for the LowerBoundGraph
     for(unsigned i = 0; i < rnaAlign.maskIndex; ++i)
@@ -338,7 +343,7 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
                             ++ll;
                             // Compute the half edge probability to be used for the upper bound level
                             halfEdgesProb = edgesProb / 2.0;
-                            std::cout << "Sum of probabilities = " << edgesProb << std::endl;
+                            // std::cout << "Sum of probabilities = " << edgesProb << std::endl;
 
                             if (rnaAlign.upperBoundVect[rnaAlign.mask[i].second].maxProbScoreLine < halfEdgesProb)
                             {
@@ -381,8 +386,9 @@ void computeBoundsTest(TRnaAlign & rnaAlign, TMapVect & lowerBound4Lemon)
               << rnaAlign.lowerLemonBound.mwmDual << std::endl;
     std::cout << rnaAlign.lowerBoundGraph << std::endl;
 }
+*/
 
-void computeLowerBoundHougardy(TMapVect & interactions, TRnaAlign & rnaAlign)
+void computeLowerBoundGreedy(TMapVect & interactions, TRnaAlign & rnaAlign)
 {
     TLowerBoundGraph graph;
 
@@ -394,17 +400,7 @@ void computeLowerBoundHougardy(TMapVect & interactions, TRnaAlign & rnaAlign)
         for (auto edgeCargo = interactions[vertexIdx].begin(); edgeCargo != interactions[vertexIdx].end(); ++edgeCargo)
             addEdge(graph, vertexIdx, edgeCargo->first, edgeCargo->second);
 
-    rnaAlign.lowerLemonBound.mwmPrimal = maximumWeightedMatchingGreedy(graph);
-
-//    myLemon::computeLowerBound(lowerBound4Lemon, rnaAlign);
-//    std::cerr << "Lemon: " << rnaAlign.lowerLemonBound.mwmPrimal << std::endl;
-
-    // seqan::mwm(graph)
-
-//    rnaAlign.lowerLemonBound.mwmPrimal = mwm.matchingWeight();
-//    rnaAlign.lowerLemonBound.mwmDual = mwm.dualValue();
-//    rnaAlign.lowerLemonBound.mwmCardinality = mwm.matchingSize();
-
+    rnaAlign.lowerGreedyBound = maximumWeightedMatchingGreedy(graph);
 };
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)
@@ -423,33 +419,32 @@ void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreVal
 
 void updateLambda(TRnaAlign & rnaAlign) {
 //    std::cout << "updateLambda function" << std::endl;
-    for (unsigned i = 0; i < length(rnaAlign.upperBoundVect); ++i) {
-        if (rnaAlign.upperBoundVect[i].maxProbScoreLine > 0) {
+    for (size_t i = 0; i < length(rnaAlign.upperBoundVect); ++i) {
+        struct boundStruct const & ub = rnaAlign.upperBoundVect[i];
+
+        if (ub.maxProbScoreLine > 0) {
+            struct lambWeightStruct & lambWeight = rnaAlign.lamb[ub.seq1Index].map[i];
+
             // the edges are not paired
-            if (rnaAlign.upperBoundVect[i].seq1Index !=
-                rnaAlign.upperBoundVect[rnaAlign.upperBoundVect[i].seq1IndexPairLine].seq1IndexPairLine)
+            if (ub.seq1Index != rnaAlign.upperBoundVect[ub.seq1IndexPairLine].seq1IndexPairLine)
             {
-                if (rnaAlign.upperBoundVect[i].seq1Index < rnaAlign.upperBoundVect[i].seq1IndexPairLine)
+                if (ub.seq1Index < ub.seq1IndexPairLine)
                 {
 // TODO check if this strategy is properly working a positive score is assigned to the left-side alignments.
 // Maybe a double side strategy should be tested
-                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].step += rnaAlign.stepSize;
+                    lambWeight.step += rnaAlign.stepSize;
                     // Note, the default initializer is callet the fist time that set the value to 0
                 } else {
-                    rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].step -= rnaAlign.stepSize;
+                    lambWeight.step -= rnaAlign.stepSize;
                     // Note, the default initializer is callet the fist time that set the value to 0
                 }
             }
 // Save the maximum interaction weight to be used for the computation of profit of a line
-            if (rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].maxProbScoreLine <
-                rnaAlign.upperBoundVect[i].maxProbScoreLine)
+            if (lambWeight.maxProbScoreLine < ub.maxProbScoreLine)
             {
-                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].maxProbScoreLine
-                        = rnaAlign.upperBoundVect[i].maxProbScoreLine;
-                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].seq1IndexPairLine
-                        = rnaAlign.upperBoundVect[i].seq1IndexPairLine;
-                rnaAlign.lamb[rnaAlign.upperBoundVect[i].seq1Index].map[i].seq2IndexPairLine
-                        = rnaAlign.upperBoundVect[i].seq2IndexPairLine;
+                lambWeight.maxProbScoreLine = ub.maxProbScoreLine;
+                lambWeight.seq1IndexPairLine = ub.seq1IndexPairLine;
+                lambWeight.seq2IndexPairLine = ub.seq2IndexPairLine;
             }
         }
     }
