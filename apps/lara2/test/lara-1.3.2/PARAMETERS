@@ -1,0 +1,68 @@
+**********************************************************************
+* http://www.planet-lisa.net
+* Developed by Markus Bauer, Gunnar Klau, Patrick May and Knut Reinert
+* January 2007
+**********************************************************************
+
+The following parameters are supported by LaRA and can be set in the 
+param file ("lara.params" by default).
+
+
+noofiterations: 
+Number of iterations that should be performed. The higher the number,
+the longer the computation takes.
+
+
+noofnondecreasingiterations:
+Number of non-decreasing iterations: If the value of the Lagrangian
+dual does not decrease within the specified number, the optimization
+process is stopped and the best solution is written to the library
+file.
+
+
+my:
+The stepsize within the subgradient procedure is given by the
+following equation: 
+	s = my*([upper bound]-[lower bound])/([no of subgradients])
+
+
+generatorscore: 
+Use the specified scoring matrix (has to be in RIBOSUM format) for
+generating alignment edges.
+
+
+larascore: 
+Use the specified scoring matrix (has to be in RIBOSUM format) for
+scoring the sequence part of the structural alignment.
+
+
+generatorsuboptimality: 
+Parameter for the generation of alignment edges. The higher the value
+of 'generatorsuboptimality', the more alignment edges are created.
+
+
+sequencescale: 
+Specifies the contribution of the sequence scores (specified by the
+larascore matrix) to the overall structural alignment.
+
+
+laraGapOpen,laraGapExtend:
+Specifies the gap costs for the structural alignment.
+
+
+structurescoring:
+Either
+'LOGARITHMIC': score = log( p_{ij}/p_{min} )
+'SCALING'    : score = <scalingfactor>
+
+
+verbosesolver:
+Either
+1	: creates verbose output
+0	: disables verbose output
+
+
+tcoffee_location: 
+If you want to use your own version of T-Coffee (instead of the one
+that is provided by LaRA), then specify the T-Coffee location by this
+parameter.

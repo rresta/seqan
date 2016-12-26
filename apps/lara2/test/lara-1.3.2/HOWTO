@@ -1,0 +1,133 @@
+**********************************************************************
+
+			lara 1.3
+		(LAgrange Relaxed Alignments)
+
+		  http://www.planet-lisa.net
+			June 2007
+
+**********************************************************************
+
+lara computes a multiple sequence-structure RNA alignments based on 
+advanced combinatorial optimization techniques. It uses a Lagrangian 
+relaxation approach to perform all-against-all comparisons and feeds 
+the popular T-Coffee sequence alignment program with provably (near-)
+optimal pairwise structural alignments, which will then respect 
+structural constraints while building the overall multiple alignment.
+
+lara is a command line program, i.e. you have to start lara within a
+shell.
+
+
+Quick Start
+==========
+
+$ ./prepare.sh			(if you run lara for the first time)
+$ ./lara -i sample/tRNA.aln10.fasta
+
+
+Slowly but Surely
+=================
+
+Before you start aligning, make sure that you run prepare.sh,
+i.e. execute:
+
+$ ./prepare.sh
+
+This makes sure that T-COFFEE will run properly.
+
+
+The main command for running lara looks like:
+
+./lara -i <input_file> [-s] [-w <output_file>] [-o <parameter_file>]
+
+
+The only mandatory argument is the input file (provided via the "-i"
+flag) containing (extended) fasta sequences. You do not have to
+specify what input you are providing, lara automatically detects your
+input.
+
+
+"<input_file>"
+
+Specifies the name of the fasta file holding the input sequences. The
+input file must contain either fasta or extended fasta sequences.
+
+
+"-s"
+
+If the "-s" is provided, then only the MFE structure is taken as the
+structural input. Without "-s" the base pair probability matrices are
+used (the default setting).
+
+
+"-w <output_file>"
+
+Specifies the file where the output (i.e.,multiple alignment) should
+be written to. The default value is stdout.
+
+
+"-o <parameter_file>"
+
+Specifies the parameter file. Some important parameters are listed in
+the next section. The default value is "lara.params".
+
+
+Sample Commands
+===============
+
+Given the sample files, a typical run of lara should be as simple as:
+
+$ ./lara -i sample/tRNA.aln10.fasta
+
+This commands specifies that lara should take the fasta sequences in
+tRNA.aln10.fasta as its input, compute the corresponding base pair
+probability matrices and write the computed alignment to stdout.
+
+If you want to use single MFE structures alone instead of the base
+pair probability matrices, execute
+
+$ ./lara -i sample/tRNA.aln10.fasta -s
+
+
+If you want to write the alignment to a file (e.g. "foo"), then the
+following line will do the trick:
+
+$ ./lara -i sample/tRNA.aln10.fasta -w foo
+
+
+If you want to provide an alternative parameter file, simply type:
+
+$ ./lara -i sample/tRNA.aln10.fasta -o foo.params
+
+
+Parameter File
+==============
+
+For a detailed explanation of the various parameters see the
+PARAMETERS file.
+
+
+Additional Information
+======================
+
+If you find lara useful for your own research, please cite the following paper:
+
+Markus Bauer, Gunnar W. Klau, and Knut Reinert:
+
+Accurate Multiple Sequence-Structure Alignment of RNA Sequences Using
+Combinatorial Optimization.
+
+Technical Report, Department of Mathematics ands Computer Science,
+Free University Berlin. TR-B-07-06, March 2007.
+
+
+
+Acknowledgments
+===============
+
+lara uses the folding routines from the Vienna RNA package
+(http://www.tbi.univie.ac.at/~ivo/RNA/), the matching code from the
+'Library of Efficient Data Structures and Algorithms'
+(http://www.algorithmic-solutions.com/enleda.htm), and T-COFFEE
+(http://www.tcoffee.org) to compute the actual multiple alignment.
