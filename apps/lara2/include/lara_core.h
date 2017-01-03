@@ -393,7 +393,7 @@ void computeLowerBoundGreedy(TMapVect & interactions, TRnaAlign & rnaAlign)
     TLowerBoundGraph graph;
 
     // add vertices
-    forEach(interactions, [&graph] (TMap const & map) { addVertex(graph); });
+    forEach(interactions, [&graph] (TMap const &) { addVertex(graph); });
 
     // add edges
     for (unsigned vertexIdx = 0; vertexIdx < length(interactions); ++vertexIdx)

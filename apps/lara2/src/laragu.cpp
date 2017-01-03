@@ -402,7 +402,7 @@ int main (int argc, char const ** argv)
                 }
                 else
                 {
-                    rnaAligns[i].nonDecreasingIterations = 0; //TODO evaluate if the reset of this value is the right strategy with respect to the decremental solution
+                    rnaAligns[i].nonDecreasingIterations = 0u; //TODO evaluate if the reset of this value is the right strategy with respect to the decremental solution
                 }
 
                 // Assign the new stepSize to for the Lambda update
