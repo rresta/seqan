@@ -173,19 +173,25 @@ void crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns,
     resize(rnaAligns, len * (len - 1) / 2);
     TRnaAlignVect::iterator alignInfo = rnaAligns.begin();
 
+    unsigned p = 0;
     for (TRnaVect::iterator it1 = seqs.begin(); it1 != seqs.end(); ++it1)
+    {
         for (TRnaVect::iterator it2 = it1 + 1u; it2 != seqs.end(); ++it2)
+        {
             _fillVectors(setH, setV, alignInfo, it1, it2);
+            rnaAligns[p].idBppSeqH = std::distance(seqs.begin(), it1);
+            rnaAligns[p].idBppSeqV = std::distance(seqs.begin(), it2);
+            ++p;
+        }
+    }
 }
 
 // combination of all sequences of two sets
-void crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns,
-                  TRnaVect & seqs1, TRnaVect & seqs2)
-{
-    if (empty(seqs2))
-    {
+bool crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns,
+                  TRnaVect & seqs1, TRnaVect & seqs2) {
+    if (empty(seqs2)) {
         crossproduct(setH, setV, rnaAligns, seqs1);
-        return;
+        return false;
     }
 
     reserve(setH, length(seqs1) * length(seqs2));
@@ -193,9 +199,18 @@ void crossproduct(RnaSeqSet & setH, RnaSeqSet & setV, TRnaAlignVect & rnaAligns,
     resize(rnaAligns, length(seqs1) * length(seqs2));
     TRnaAlignVect::iterator alignInfo = rnaAligns.begin();
 
+    unsigned p = 0;
     for (TRnaVect::iterator it1 = seqs1.begin(); it1 != seqs1.end(); ++it1)
+    {
         for (TRnaVect::iterator it2 = seqs2.begin(); it2 != seqs2.end(); ++it2)
+        {
             _fillVectors(setH, setV, alignInfo, it1, it2);
+            rnaAligns[p].idBppSeqH = std::distance(seqs1.begin(), it1);
+            rnaAligns[p].idBppSeqV = std::distance(seqs2.begin(), it2);
+            ++p;
+        }
+    }
+    return true;
 }
 
 #endif //_INCLUDE_STRUCT_ALIGN_H_

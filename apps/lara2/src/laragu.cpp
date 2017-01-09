@@ -80,50 +80,9 @@
 #include "lara_core.h"
 #include "alignment.h"
 #include "lemon_graph.h"
-
+#include "tcoffee_interface.h"
+#include "lara_io.h"
 using namespace seqan;
-
-// ----------------------------------------------------------------------------
-// Function _readRnaInputFile()
-// ----------------------------------------------------------------------------
-
-template <typename TOption>
-void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TOption const & options)
-{
-    if (empty(filename))
-        return;
-
-    RnaStructFileIn rnaStructFile;
-    CharString inFilePath = getAbsolutePath(toCString(filename));
-    if (open(rnaStructFile, toCString(inFilePath), OPEN_RDONLY))
-    {
-        _V(options, "Input file is RnaStruct.");
-        readRecords(filecontents, rnaStructFile, 100000u);
-        close(rnaStructFile);
-    }
-    else
-    {
-        _V(options, "Input file is Fasta/Fastq.");
-        SeqFileIn seqFileIn(toCString(inFilePath));
-        StringSet<CharString> ids;
-        StringSet<Rna5String> seqs;
-        StringSet<CharString> quals;
-        readRecords(ids, seqs, quals, seqFileIn);
-        close(seqFileIn);
-        resize(filecontents.records, length(ids));
-        SEQAN_ASSERT_EQ(length(ids), length(seqs));
-        for (typename Size<StringSet<CharString> >::Type idx = 0u; idx < length(ids); ++idx)
-        {
-            filecontents.records[idx].name = ids[idx];
-            filecontents.records[idx].sequence = seqs[idx];
-        }
-        if (length(quals) == length(ids))
-        {
-            for (typename Size<StringSet<CharString> >::Type idx = 0u; idx < length(ids); ++idx)
-                filecontents.records[idx].quality = quals[idx];
-        }
-    }
-}
 
 // ----------------------------------------------------------------------------
 // Function main()
@@ -157,11 +116,13 @@ int main (int argc, char const ** argv)
     bppInteractionGraphBuild(filecontents1.records, options);
     bppInteractionGraphBuild(filecontents2.records, options);
 
+    // Single or double inFile this flag is used for te generation of T-Coffee lib
+    bool singleOrDoubleInFile;
     // create pairwise alignments
     RnaSeqSet setH;
     RnaSeqSet setV;
     TRnaAlignVect rnaAligns;
-    crossproduct(setH, setV, rnaAligns, filecontents1.records, filecontents2.records);
+    singleOrDoubleInFile = crossproduct(setH, setV, rnaAligns, filecontents1.records, filecontents2.records);
 
 //  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
     TRnaAlignVect goldRnaAligns;
@@ -198,11 +159,11 @@ int main (int argc, char const ** argv)
     {
         resize(rnaAligns[i].lamb, length(setH[i]));  // length of longer sequence
         resize(rnaAligns[i].mask, length(setV[i]));  // length of shorter sequence
-        resize(rnaAligns[i].upperBoundVect, length(setV[i]));
+        resize(rnaAligns[i].upperBoundVect, length(setV[i]));  // length of shorter sequence
         rnaAligns[i].my = options.my;
 
 // Save the best alignments that give the absolute maximum score
-        saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
+//        saveBestAlign(rnaAligns[i], alignsSimd[i], resultsSimd[i]);
 // Create the mask of the current alignment to be used for the upper, lower bound computation and the lamb update
         maskCreator(rnaAligns[i], alignsSimd[i]);
 
@@ -264,9 +225,11 @@ int main (int argc, char const ** argv)
             rnaAligns[i].lowerBound = rnaAligns[i].lowerGreedyBound;
         }
 
-        unsigned index = 0;
+        int index = -1;
 // The alignemnt that give the smallest difference between up and low bound should be saved
-        saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
+        saveBestAligns(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
+//        saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
+//        saveBestAlignScore(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
 
         if ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon))
         {
@@ -285,12 +248,15 @@ int main (int argc, char const ** argv)
         }
 
     }
+
     for (auto i = eraseVect.size(); i > 0; --i)
     {
+//        std::cout << i << " " << eraseVect[i-1] << " " << eraseVect[i] << std::endl;
         goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
         rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
         erase(alignsSimd, eraseVect[i-1]);
-        erase(resultsSimd, eraseVect[i-1]);
+//        std::cout << length(resultsSimd) << " value resultsSimd = " << resultsSimd[eraseVect[i-1]] << std::endl;
+        erase(resultsSimd, eraseVect[i-1]);  //FIXME there is a random problem during the seqan::erase of these seqan::strings
     }
     eraseVect.clear();
 
@@ -375,7 +341,8 @@ int main (int argc, char const ** argv)
             }
 
 // The alignemnt that give the smallest difference between up and low bound should be saved
-            saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
+            saveBestAligns(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
+//            saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
             if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
             {
                 _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
@@ -435,36 +402,24 @@ int main (int argc, char const ** argv)
     if (!empty(rnaAligns))
     {
         _VV(options, "Plot of the rnaAligns structure " << std::endl);
-    }
-    for (unsigned i = 0; i < length(rnaAligns); ++i)
-    {
-        _VV(options, "Alignment number " << i);
-        _VV(options, "Best alignment based on the Score is " << rnaAligns[i].bestAlignScore << "\n" <<  rnaAligns[i].bestAlign);
-        _VV(options, "Best alignment based on the Min Bounds is " << rnaAligns[i].bestAlignScoreMinBounds << "\n" <<  rnaAligns[i].bestAlignMinBounds);
-        _VV(options, "The step size to be used for Lambda at last iteration is " << rnaAligns[i].stepSize);
-        _VV(options, "Best Lower bound is " << rnaAligns[i].lowerMinBound);
-        _VV(options, "Best Upper bound is " << rnaAligns[i].upperMinBound);
-        _VV(options, "Step size found at iteration " << rnaAligns[i].itMinBounds);
-        _VV(options, "Minumum step size is " << rnaAligns[i].stepSizeMinBound << "\n\n");
-
+        plotOutput(options, rnaAligns);
     }
 
     if (!empty(goldRnaAligns))
     {
         _VV(options, "Plot of the goldRnaAligns structure " << std::endl);
+        plotOutput(options, goldRnaAligns);
     }
-    for (unsigned i = 0; i < length(goldRnaAligns); ++i)
-    {
-        _VV(options, "Alignment number " << i);
-        _VV(options, "Best alignment based on the Score is " << goldRnaAligns[i].bestAlignScore << "\n" <<  goldRnaAligns[i].bestAlign);
-        _VV(options, "Best alignment based on the Min Bounds is " << goldRnaAligns[i].bestAlignScoreMinBounds << "\n" <<  goldRnaAligns[i].bestAlignMinBounds);
-        _VV(options, "The step size to be used for Lambda at last iteration is " << goldRnaAligns[i].stepSize);
-        _VV(options, "Best Lower bound is " << goldRnaAligns[i].lowerMinBound);
-        _VV(options, "Best Upper bound is " << goldRnaAligns[i].upperMinBound);
-        _VV(options, "Step size found at iteration " << goldRnaAligns[i].itMinBounds);
-        _VV(options, "Minumum step size is " << goldRnaAligns[i].stepSizeMinBound << "\n\n");
 
+    rnaAligns.insert( rnaAligns.end(), goldRnaAligns.begin(), goldRnaAligns.end() );
+
+    if(rnaAligns.size() > 1) // This is a multiple alignment an the T-Coffee library must be printed
+    {
+        createTCoffeeLib(options, singleOrDoubleInFile, filecontents1, filecontents2, rnaAligns);
     }
+
+
+
 
 // Print elapsed time
     _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>(endChrono - beginChrono).count()); //std::chrono::microseconds

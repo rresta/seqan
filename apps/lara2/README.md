@@ -1,6 +1,9 @@
 # laragu
 The new version of Lara tool for the structural-alignment of RNA sequences 
 
+To test the tcoffe lib file production (A problem with the multithread execution is present and should be fixed)
+-i ./apps/lara2/demo/input.fa -t 2 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1 -lbm 1 -ssc 10 -tcm 2 -tb 0.2 -v 1 -t 1 -td /home/vitrusky8/git/seqan/apps/lara2/demo/tmp
+
 To test 200 iterations over a small dataset with lower bound MWM and a scaling factor applied on the ribosum matrices
 -i ./apps/lara2/demo/input_small.fa -t 2 -v 2 -a -lsm ./apps/lara2/ribosum_matrices/RIBOSUM45-30_N.txt -lgo -2 -lge -1 -lbm 1 -ssc 10
 

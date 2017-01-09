@@ -133,7 +133,7 @@ struct Options
     double sequenceScale; // Specifies the contribution of the sequence scores (specified by the larascore matrix) to the overall structural alignment.
 // gap penalty for RSA
     double rsaGapPenalty;
-// scoring mode, either LOGARITHMIC,SCALING or RIBOSUM
+// scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM
     seqan::CharString structureScoring;
 // define the weight of _half_ an interaction match for fixed structures
     double fixedStructWeight;
@@ -141,6 +141,8 @@ struct Options
     double scalingFactor;
 // specify the location of T-COFFEE
     seqan::CharString tcoffeeLocation;
+// specify the method to be used to create the T-Coffe library
+    unsigned tcoffeLibMode;
 // Define the id of the sequence that must be splitted
     unsigned splitSequence;
 // window size specifies the length of the sliding window when the local alignment algorithm is used
@@ -185,6 +187,7 @@ struct Options
             fixedStructWeight(8.0),
             scalingFactor(1.0),
             tcoffeeLocation("t_coffee/t_coffee_5.05"),
+            tcoffeLibMode(SWITCH),
             splitSequence(1),
             windowSize(100),
             timeLimit(-1),
@@ -274,7 +277,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("rsag", "rsaGapPenalty", "gap penalty for RSA",
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
-    addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC,SCALING or RIBOSUM",
+    addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM",
                                      ArgParseOption::STRING));
     addOption(parser, ArgParseOption("fsw", "fixedStructWeight", "define the weight of _half_ an interaction match for "
             "fixed structures", ArgParseArgument::DOUBLE, "DOUBLE"));
@@ -291,17 +294,18 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("i", "inFile", "Path to the input file", ArgParseArgument::INPUT_FILE, "IN"));
     addOption(parser, ArgParseOption("ir", "inFileRef", "Path to the reference input file",
                                      ArgParseArgument::INPUT_FILE, "IN"));
-    addOption(parser, ArgParseOption("tcl", "tcoffeeLocation", "location of T-COFFEE.", ArgParseOption::STRING));
 
     addSection(parser, "Output Options");
     addOption(parser, seqan::ArgParseOption( "w", "outFile", "Path to the output file (default: stdout)",
                                              ArgParseArgument::OUTPUT_FILE, "OUT"));
     addOption(parser, ArgParseOption("td", "tmpDir", "Specify a temporary directory where to save intermediate files. \
             Default: use the input file directory.", ArgParseOption::STRING));
+    addOption(parser, ArgParseOption("tcl", "tcoffeeLocation", "location of T-COFFEE.", ArgParseOption::STRING));
+    addOption(parser, ArgParseOption("tcm","tcoffeLibMode", "method used to create the T-Coffe library "
+                                             "either     PROPORTIONAL, SWITCH (defoult), ALLINTER", ArgParseArgument::INTEGER, "INT"));
 
     // Setup performance options.
     addSection(parser, "Performance Options");
-
     addOption(parser, ArgParseOption("t", "threads", "Specify the number of threads to use.", ArgParseOption::INTEGER));
     setMinValue(parser, "threads", "1");
 #ifdef _OPENMP
@@ -431,6 +435,7 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(options.fixedStructWeight, parser, "fixedStructWeight");
     getOptionValue(options.scalingFactor, parser, "scalingFactor");
     getOptionValue(options.tcoffeeLocation, parser, "tcoffeeLocation");
+    getOptionValue(options.tcoffeLibMode, parser, "tcoffeLibMode");
     getOptionValue(options.splitSequence, parser, "splitSequence");
     getOptionValue(options.windowSize, parser, "windowSize");
     getOptionValue(options.timeLimit, parser, "timeLimit");
@@ -446,11 +451,12 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(tmpDir, parser, "tmpDir");
     if (!isSet(parser, "tmpDir"))
     {
-        tmpDir = getPath(options.inFile);
-        if (empty(tmpDir))
-            getCwd(tmpDir);
+        //TODO ADD the address to the OS temporary folder (using #include <experimental/filesystem> )
+//        if (empty(tmpDir))
+//            getCwd(tmpDir);
     }
     setEnv("TMPDIR", tmpDir);
+    options.tmpDir = tmpDir;
     _V(options, "The absolute path where to create the tmpDir is " << tmpDir);
     _V(options, "Initialized the Options structure");
     setScoreMatrix(options);

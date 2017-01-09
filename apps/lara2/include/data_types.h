@@ -72,7 +72,14 @@ enum LaraScore
     LOGARITHMIC,
     SCALE,
     ORIGINAL,
-    RIBOSUM,
+    RIBOSUM
+};
+
+enum LaraTCoffeeLibMode
+{
+    PROPORTIONAL,
+    SWITCH,
+    ALLINTER
 };
 
 enum LaraMwmMethod
@@ -85,6 +92,11 @@ enum LaraMwmMethod
 
 // Value to be used to copare the difference between the upper and the lower bound difference
 double const EPSILON = 0.0001;
+
+//Values used for T-Coffee lib preparation
+int const TCOFFSET = 500;
+int const TCMULT = 10000;
+int const TCMAX = 1000;
 
 // ============================================================================
 // Macro utility
@@ -158,6 +170,20 @@ typedef seqan::String<lambStruct> TLambVect;
 typedef seqan::Score<double, seqan::ScoreMatrix<seqan::Rna5, TRibosum> > TScoreMatrixRib;
 typedef seqan::Score<TScoreValue, RnaStructureScore<TScoreMatrix, TLambVect> > TScoringSchemeStruct;
 
+struct bestAlign
+{
+    TAlign bestAlign;
+    TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
+    int it; //to be used for the best lower bound
+    double lowerBound{};
+    double upperBound{};
+    double stepSizeBound{std::numeric_limits<TScoreValue>::max()};
+    TBound upperBoundVect;
+    seqan::String<std::pair <unsigned, unsigned> > mask;
+    unsigned maskIndex;
+};
+typedef bestAlign TBestAlign;
+
 struct RnaStructAlign
 {
 //public:
@@ -167,8 +193,9 @@ struct RnaStructAlign
     unsigned idBppSeqV{};
     double sequenceScale{1.0};
 // The best computed alignment is saved in these fields
-    TAlign bestAlign;
-    TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
+    TBestAlign forScore;
+//    TAlign bestAlign;
+//    TScoreValue bestAlignScore{std::numeric_limits<TScoreValue>::lowest()};
 // Mask that represents the matches from the computed alignment
     seqan::String<unsigned > maskLong;
     seqan::String<std::pair <unsigned, unsigned> > mask;
@@ -194,12 +221,13 @@ struct RnaStructAlign
     double my{1.0};
 
 //  Status when the minumum difference between the two bounds is detected
-    unsigned itMinBounds; //to be used for the best lower bound
-    double lowerMinBound{};
-    double upperMinBound{};
-    double stepSizeMinBound{std::numeric_limits<TScoreValue>::max()};
-    TAlign bestAlignMinBounds;
-    TScoreValue bestAlignScoreMinBounds;
+    TBestAlign forMinBound;
+//    unsigned itMinBounds; //to be used for the best lower bound
+//    double lowerMinBound{};
+//    double upperMinBound{};
+//    double stepSizeMinBound{std::numeric_limits<TScoreValue>::max()};
+//    TAlign bestAlignMinBounds;
+//    TScoreValue bestAlignScoreMinBounds;
 
 // String with size seq1 storing all the aligned lines
     TLambVect lamb;
