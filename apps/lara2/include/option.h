@@ -171,7 +171,7 @@ struct Options
             thrGlobalLocal(0.5),
             thrBppm(1e-15), // 0.1 is the value used in the old Lara
             iterations(500),
-            nonDecreasingIterations(50),
+            nonDecreasingIterations(50u),
             lowerBoundMethod(LBMWMTEST),
             epsilon(EPSILON),
             my(1.0),

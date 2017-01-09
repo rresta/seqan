@@ -396,14 +396,14 @@ void computeLowerBoundGreedy(TMapVect & interactions, TRnaAlign & rnaAlign)
     TLowerBoundGraph graph;
 
     // add vertices
-    forEach(interactions, [&graph] (TMap const & map) { addVertex(graph); });
+    forEach(interactions, [&graph] (TMap const &) { addVertex(graph); });
 
     // add edges
     for (unsigned vertexIdx = 0; vertexIdx < length(interactions); ++vertexIdx)
         for (auto edgeCargo = interactions[vertexIdx].begin(); edgeCargo != interactions[vertexIdx].end(); ++edgeCargo)
             addEdge(graph, vertexIdx, edgeCargo->first, edgeCargo->second);
 
-    rnaAlign.lowerGreedyBound = maximumWeightedMatchingGreedy(graph);
+    rnaAlign.lowerGreedyBound = maximumWeightedMatchingGreedy<5>(graph);
 };
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)

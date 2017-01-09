@@ -217,7 +217,7 @@ struct RnaStructAlign
 // Parameters used to compute the stepsize
     int slm{};
     double stepSize{std::numeric_limits<TScoreValue>::max()};
-    int nonDecreasingIterations{};
+    unsigned nonDecreasingIterations{};
     double my{1.0};
 
 //  Status when the minumum difference between the two bounds is detected
