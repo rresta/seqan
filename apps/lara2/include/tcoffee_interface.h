@@ -182,7 +182,7 @@ template <typename TOption>
 int computeTCoffeWeights(TTCoffeeLib & tcLib, TOption const & options, RnaStructContents const & filecontents1,
                           RnaStructContents const & filecontents2, TRnaAlignVect & rnaAligns)
 {
-    #pragma omp parallel for num_threads(options.threads)
+//    #pragma omp parallel for num_threads(options.threads)
     for(unsigned i = 0; i < rnaAligns.size(); ++i)
     {
         tcoffeePair tcPair;
@@ -224,7 +224,7 @@ template <typename TOption>
 int computeTCoffeWeights(TTCoffeeLib & tcLib, TOption const & options, RnaStructContents const & filecontents1,
                           TRnaAlignVect & rnaAligns)
 {
-    #pragma omp parallel for num_threads(options.threads)
+//    #pragma omp parallel for num_threads(options.threads)
     for(unsigned i = 0; i < rnaAligns.size(); ++i)
     {
         tcoffeePair tcPair;

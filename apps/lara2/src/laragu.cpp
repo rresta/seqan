@@ -126,12 +126,15 @@ int main (int argc, char const ** argv)
 
 //  Create the alignment data structure that will host the alignments with small difference between upper and lower bound
     TRnaAlignVect goldRnaAligns;
-    std::vector<unsigned> eraseVect;
+    std::vector<bool> eraseV;
+    bool checkEraseV = false;
 
     StringSet<TAlign> alignsSimd;
     String<TScoreValue> resultsSimd;
     // simd vector is created
     createSimdAligns(alignsSimd, setH, setV);
+    eraseV.assign(length(alignsSimd), false);
+
 // timer start
     std::clock_t begin = std::clock();
     std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
@@ -235,7 +238,9 @@ int main (int argc, char const ** argv)
         {
             _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
                       "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound);
-            eraseVect.push_back(i);
+//            eraseVect.push_back(i);
+            eraseV[i] = true;
+            checkEraseV = true;
         }
         else
         {
@@ -249,16 +254,20 @@ int main (int argc, char const ** argv)
 
     }
 
-    for (auto i = eraseVect.size(); i > 0; --i)
+    if (checkEraseV)
     {
-//        std::cout << i << " " << eraseVect[i-1] << " " << eraseVect[i] << std::endl;
-        goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
-        rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
-        erase(alignsSimd, eraseVect[i-1]);
-//        std::cout << length(resultsSimd) << " value resultsSimd = " << resultsSimd[eraseVect[i-1]] << std::endl;
-        erase(resultsSimd, eraseVect[i-1]);  //FIXME there is a random problem during the seqan::erase of these seqan::strings
+        for (int i = eraseV.size() - 1; i >= 0; --i)
+        {
+            if(eraseV[i])
+            {
+                goldRnaAligns.push_back(rnaAligns[i]);
+                rnaAligns.erase(rnaAligns.begin() + i);
+                erase(alignsSimd, i);
+                erase(resultsSimd, i);
+                eraseV.erase(eraseV.begin() + i);
+            }
+        }
     }
-    eraseVect.clear();
 
 //    String<TScoringSchemeStruct> alignsSimdLamb;
 //    seqan::resize(alignsSimdLamb, length(alignsSimd));
@@ -275,8 +284,9 @@ int main (int argc, char const ** argv)
         }
     }
 
-    for (unsigned x = 0; x < options.iterations; ++x)
+    for (unsigned x = 0; x < options.iterations && length(alignsSimd) > 0; ++x)
     {
+        checkEraseV = false;
 #pragma omp parallel for num_threads(options.threads)
         for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
         {
@@ -347,7 +357,9 @@ int main (int argc, char const ** argv)
             {
                 _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
                     "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound);
-                eraseVect.push_back(i);
+//                eraseVect.push_back(i);
+                eraseV[i] = true;
+                checkEraseV = true;
             }
             else
             {
@@ -380,15 +392,21 @@ int main (int argc, char const ** argv)
                 updateLambda(rnaAligns[i]);
             }
         }
-        for (size_t i = eraseVect.size(); i > 0; --i)
+
+        if (checkEraseV)
         {
-            goldRnaAligns.push_back(rnaAligns[eraseVect[i-1]]);
-            rnaAligns.erase(rnaAligns.begin() + eraseVect[i-1]);
-            erase(alignsSimd, eraseVect[i-1]);
-            erase(resultsSimd, eraseVect[i-1]);
+            for (int i = eraseV.size() - 1; i >= 0; --i)
+            {
+                if(eraseV[i])
+                {
+                    goldRnaAligns.push_back(rnaAligns[i]);
+                    rnaAligns.erase(rnaAligns.begin() + i);
+                    erase(alignsSimd, i);
+                    erase(resultsSimd, i);
+                    eraseV.erase(eraseV.begin() + i);
+                }
+            }
         }
-        eraseVect.clear();
-//        std::cout << "computation " << j << std::endl;
         std::cerr << "|" ;
     }
     _VV(options, "\nmap computation time = " << boutime << "\nlemon MWM time       = " << lemtime
