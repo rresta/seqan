@@ -70,40 +70,58 @@ template <long unsigned BLOCKSIZE, typename TCargo>
 inline TCargo _evaluateConflicts(uint32_t & isUsed, std::array<TCargo, BLOCKSIZE> const & weights,
                                  TConflictVect const & conflicts)
 {
+    // first variant (eliminate second element of pair, which is smaller)
+    std::size_t eliminate = conflicts.front().second;
     TConflictVect remainingConflicts;
-
-    // first variant
-    uint32_t isUsed1 = isUsed;
-    std::size_t eliminate = conflicts.front().first;
-    std::copy_if(conflicts.begin(), conflicts.end(), remainingConflicts.begin(), [&eliminate] (auto const & p)
+    std::copy_if(conflicts.begin(), conflicts.end(), std::back_inserter(remainingConflicts),
+                 [&eliminate] (std::pair<std::size_t, std::size_t> const & conflict)
     {
-        return p.first != eliminate && p.second != eliminate;
+        return conflict.first != eliminate && conflict.second != eliminate;
     });
     TCargo excludedWeight1 = weights[eliminate];
+    uint32_t isUsed1 = isUsed;
     if (!remainingConflicts.empty())
         excludedWeight1 += _evaluateConflicts(isUsed1, weights, remainingConflicts);
 
-    // second variant
-    uint32_t isUsed2 = isUsed;
-    eliminate = conflicts.front().second;
-    remainingConflicts.clear();
-    std::copy_if(conflicts.begin(), conflicts.end(), remainingConflicts.begin(), [&eliminate] (auto const & p)
-    {
-        return p.first != eliminate && p.second != eliminate;
-    });
+    // second variant (eliminate first element of pair, which is larger)
+    eliminate = conflicts.front().first;
     TCargo excludedWeight2 = weights[eliminate];
+
+    // trim traversion if weight2 is too high
+    if (excludedWeight1 <= excludedWeight2)
+    {
+        isUsed = isUsed1 & ~(1 << conflicts.front().second);  // delete bit for 2nd element
+        return excludedWeight1;
+    }
+
+    bool noDependency = conflicts.size() - remainingConflicts.size() == 1u;
+    remainingConflicts.clear();
+    std::copy_if(conflicts.begin(), conflicts.end(), std::back_inserter(remainingConflicts),
+                 [&eliminate] (std::pair<std::size_t, std::size_t> const & conflict)
+    {
+        return conflict.first != eliminate && conflict.second != eliminate;
+    });
+
+    // trim traversion if the removal of the first conflict does not influence any other conflict
+    if (noDependency && conflicts.size() - remainingConflicts.size() == 1u)
+    {
+        isUsed = isUsed1 & ~(1 << conflicts.front().second);  // delete bit for 2nd element
+        return excludedWeight1;
+    }
+
+    uint32_t isUsed2 = isUsed;
     if (!remainingConflicts.empty())
         excludedWeight2 += _evaluateConflicts(isUsed2, weights, remainingConflicts);
 
     // evaluate variants
     if (excludedWeight1 < excludedWeight2)
     {  // use first variant
-        isUsed = isUsed1 & ~(1 << conflicts.front().first);  // take isUsed1 and delete bit (eliminate 1st of pair)
+        isUsed = isUsed1 & ~(1 << conflicts.front().second);  // take isUsed1 and delete bit (eliminate 2nd of pair)
         return excludedWeight1;
     }
     else
     {  // use second variant
-        isUsed = isUsed2 & ~(1 << conflicts.front().second);  // take isUsed2 and delete bit (eliminate 2nd of pair)
+        isUsed = isUsed2 & ~(1 << conflicts.front().first);  // take isUsed2 and delete bit (eliminate 1st of pair)
         return excludedWeight2;
     }
 }
@@ -164,7 +182,6 @@ TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
     else
     {
         static_assert(BLOCKSIZE <= 32u, "BLOCKSIZE is only supported for values lower or equal 32.");
-        //std::array<bool, BLOCKSIZE> isUsed;
         uint32_t isUsed;
         std::array<TCargo, BLOCKSIZE> weights;
         std::vector<std::size_t> selection;
@@ -187,12 +204,12 @@ TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
             TConflictVect conflicts;
             for (unsigned long i = 0u; i < selection.size(); ++i)
             {
-                TVertexDescr const & src = getSource(*edges[i]);
-                TVertexDescr const & trg = getTarget(*edges[i]);
+                TVertexDescr const & src = getSource(*edges[selection[i]]);
+                TVertexDescr const & trg = getTarget(*edges[selection[i]]);
                 for (unsigned long j = i + 1u; j < selection.size(); ++j)
                 {
-                    if (src == getSource(*edges[j]) || trg == getSource(*edges[j]) ||
-                        src == getTarget(*edges[j]) || trg == getTarget(*edges[j]))
+                    if (src == getSource(*edges[selection[j]]) || trg == getSource(*edges[selection[j]]) ||
+                        src == getTarget(*edges[selection[j]]) || trg == getTarget(*edges[selection[j]]))
                     {
                         conflicts.push_back(std::make_pair(i, j));
                     }
