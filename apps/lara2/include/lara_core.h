@@ -57,15 +57,18 @@ using namespace seqan;
 // Function saveBestAlign()
 // ----------------------------------------------------------------------------
 
+/*
 //template <typename TOption, typename TAlign, typename TScoreValue, typename TRnaAlign>
 void saveBestAlign(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore)
 {
-    if (rnaAlign.bestAlignScore < alignScore)
+    if (rnaAlign.forScore.bestAlignScore < alignScore)
     {
-        rnaAlign.bestAlign = align;
-        rnaAlign.bestAlignScore = alignScore;
+//        rnaAlign.forScore.it = -1;
+        rnaAlign.forScore.bestAlign = align;
+        rnaAlign.forScore.bestAlignScore = alignScore;
     }
 };
+*/
 
 // ----------------------------------------------------------------------------
 // Function maskCreator()
@@ -393,29 +396,55 @@ void computeLowerBoundGreedy(TMapVect & interactions, TRnaAlign & rnaAlign)
     TLowerBoundGraph graph;
 
     // add vertices
-    forEach(interactions, [&graph] (TMap const & map) { addVertex(graph); });
+    forEach(interactions, [&graph] (TMap const &) { addVertex(graph); });
 
     // add edges
     for (unsigned vertexIdx = 0; vertexIdx < length(interactions); ++vertexIdx)
         for (auto edgeCargo = interactions[vertexIdx].begin(); edgeCargo != interactions[vertexIdx].end(); ++edgeCargo)
             addEdge(graph, vertexIdx, edgeCargo->first, edgeCargo->second);
 
-    rnaAlign.lowerGreedyBound = maximumWeightedMatchingGreedy(graph);
+    rnaAlign.lowerGreedyBound = maximumWeightedMatchingGreedy<5>(graph);
 };
 
 void saveBestAlignMinBound(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, unsigned index)
 {
 //    if ((rnaAlign.upperBound - rnaAlign.lowerBound) < (rnaAlign.upperMinBound - rnaAlign.lowerMinBound))
-    if( rnaAlign.stepSize <= rnaAlign.stepSizeMinBound)  //TODO check if this <= is expensive
+    if( rnaAlign.stepSize <= rnaAlign.forMinBound.stepSizeBound)  //TODO check if this <= is expensive
     {
-        rnaAlign.itMinBounds = index; //to be used for the best lower bound
-        rnaAlign.lowerMinBound = rnaAlign.lowerBound;
-        rnaAlign.upperMinBound = rnaAlign.upperBound;
-        rnaAlign.stepSizeMinBound = rnaAlign.stepSize;
-        rnaAlign.bestAlignMinBounds = align;
-        rnaAlign.bestAlignScoreMinBounds = alignScore;
+        rnaAlign.forMinBound.it = index; //to be used for the best lower bound
+        rnaAlign.forMinBound.lowerBound = rnaAlign.lowerBound;
+        rnaAlign.forMinBound.upperBound = rnaAlign.upperBound;
+        rnaAlign.forMinBound.stepSizeBound = rnaAlign.stepSize;
+        rnaAlign.forMinBound.bestAlign = align;
+        rnaAlign.forMinBound.bestAlignScore = alignScore;
+        rnaAlign.forMinBound.upperBoundVect = rnaAlign.upperBoundVect;
+        rnaAlign.forMinBound.mask = rnaAlign.mask;
+        rnaAlign.forMinBound.maskIndex = rnaAlign.maskIndex;
     }
 }
+void saveBestAlignScore(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, int index)
+{
+//    if ((rnaAlign.upperBound - rnaAlign.lowerBound) < (rnaAlign.upperMinBound - rnaAlign.lowerMinBound))
+    if( rnaAlign.forScore.bestAlignScore < alignScore)  //TODO check if this < is expensive
+    {
+        rnaAlign.forScore.it = index; //to be used for the best lower bound
+        rnaAlign.forScore.lowerBound = rnaAlign.lowerBound;
+        rnaAlign.forScore.upperBound = rnaAlign.upperBound;
+        rnaAlign.forScore.stepSizeBound = rnaAlign.stepSize;
+        rnaAlign.forScore.bestAlign = align;
+        rnaAlign.forScore.bestAlignScore = alignScore;
+        rnaAlign.forScore.upperBoundVect = rnaAlign.upperBoundVect;
+        rnaAlign.forScore.mask = rnaAlign.mask;
+        rnaAlign.forScore.maskIndex = rnaAlign.maskIndex;
+    }
+}
+
+void saveBestAligns(TRnaAlign & rnaAlign, TAlign const & align, TScoreValue alignScore, int index)
+{
+    saveBestAlignMinBound(rnaAlign, align, alignScore, index);
+    saveBestAlignScore(rnaAlign, align, alignScore, index);
+}
+
 
 void updateLambda(TRnaAlign & rnaAlign) {
 //    std::cout << "updateLambda function" << std::endl;

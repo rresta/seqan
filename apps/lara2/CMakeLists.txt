@@ -46,4 +46,10 @@ else()
     message("Vienna RNA NOT FOUND")
 endif()
 
-target_link_libraries(laragu ${RNA})
+find_package(Boost COMPONENTS system filesystem REQUIRED)
+
+target_link_libraries(laragu
+        ${RNA}
+        ${Boost_FILESYSTEM_LIBRARY}
+        ${Boost_SYSTEM_LIBRARY}
+        )
