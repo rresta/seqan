@@ -118,6 +118,61 @@ void firstSimdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & aligns
     }
 };
 
+// ----------------------------------------------------------------------------
+// Function simdAlignsGlobalLocal()
+// ----------------------------------------------------------------------------
+//TODO modify this function in order to implement the SIMD alignment
+template <typename TResultsSimd, typename TAlignsSimd, typename TOptions>
+void simdAlignsGlobalLocal(TResultsSimd & resultsSimd, TAlignsSimd & alignsSimd, TRnaAlignVect const & rnaAligns, TOptions const & options)
+{
+    if (!options.globalLocal)  //TODO implement the global-unconstrained alignment using the parameters in the options
+    {
+        if (options.affineLinearDgs == 0)
+        {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = globalAlignment(alignsSimd[i], rnaAligns[i].structScore, AffineGaps());
+
+        }
+        else if (options.affineLinearDgs == 1)
+        {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = globalAlignment(alignsSimd[i], rnaAligns[i].structScore, LinearGaps());
+
+        }
+        else {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = globalAlignment(alignsSimd[i], rnaAligns[i].structScore, DynamicGaps());
+
+        }
+    }
+    else
+    {
+        if (options.affineLinearDgs == 0)
+        {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = localAlignment(alignsSimd[i], rnaAligns[i].structScore, AffineGaps());
+
+        }
+        else if (options.affineLinearDgs == 1)
+        {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = localAlignment(alignsSimd[i], rnaAligns[i].structScore, LinearGaps());
+
+        }
+        else {
+#pragma omp parallel for num_threads(options.threads)
+            for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
+                resultsSimd[i] = localAlignment(alignsSimd[i], rnaAligns[i].structScore, DynamicGaps());
+
+        }
+    }
+};
+
 template <typename TAlignsSimd>
 void createSimdAligns(TAlignsSimd & alignsSimd, RnaSeqSet const & setH, RnaSeqSet const & setV)
 {

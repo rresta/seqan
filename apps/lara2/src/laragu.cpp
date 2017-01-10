@@ -286,6 +286,8 @@ int main (int argc, char const ** argv)
 
     for (unsigned x = 0; x < options.iterations && length(alignsSimd) > 0; ++x)
     {
+        // All structural alignment is computed
+        simdAlignsGlobalLocal(resultsSimd, alignsSimd, rnaAligns, options);
         checkEraseV = false;
 #pragma omp parallel for num_threads(options.threads)
         for (unsigned i = 0; i < length(alignsSimd); ++i) // TODO replace this function with the SIMD implementation for execute in PARALLEL
