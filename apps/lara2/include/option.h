@@ -52,12 +52,6 @@
 #include <seqan/arg_parse.h>
 
 // ----------------------------------------------------------------------------
-// Boost headers
-// ----------------------------------------------------------------------------
-
-#include <boost/filesystem.hpp>
-
-// ----------------------------------------------------------------------------
 // App headers
 // ----------------------------------------------------------------------------
 
@@ -65,7 +59,6 @@
 #include "data_types.h"
 
 //using namespace std;
-namespace fs = boost::filesystem;
 
 // ============================================================================
 // Functors
@@ -458,10 +451,9 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(tmpDir, parser, "tmpDir");
     if (!isSet(parser, "tmpDir"))
     {
-        //TODO ADD the address to the OS temporary folder (using #include <experimental/filesystem> )
-        tmpDir = fs::temp_directory_path().string();
-//        if (empty(tmpDir))
-//            getCwd(tmpDir);
+        tmpDir = SEQAN_TEMP_FILENAME();
+        // remove "/test_file" suffix
+        erase(tmpDir, length(tmpDir) - 10u, length(tmpDir));
     }
     setEnv("TMPDIR", tmpDir);
     options.tmpDir = tmpDir;
