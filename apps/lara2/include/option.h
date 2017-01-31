@@ -172,7 +172,7 @@ struct Options
             thrBppm(1e-15), // 0.1 is the value used in the old Lara
             iterations(500),
             nonDecreasingIterations(50u),
-            lowerBoundMethod(LBMWMTEST),
+            lowerBoundMethod(LBLEMONMWM),
             epsilon(EPSILON),
             my(1.0),
             laraScoreMatrixName(""), //laraScoreMatrixName("RIBOSUM65"),
@@ -302,7 +302,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
             Default: use the input file directory.", ArgParseOption::STRING));
     addOption(parser, ArgParseOption("tcl", "tcoffeeLocation", "location of T-COFFEE.", ArgParseOption::STRING));
     addOption(parser, ArgParseOption("tcm","tcoffeLibMode", "method used to create the T-Coffe library "
-                                             "either     PROPORTIONAL, SWITCH (defoult), ALLINTER", ArgParseArgument::INTEGER, "INT"));
+                                             "either     PROPORTIONAL, SWITCH (defoult), ALLINTER, FIXEDINTER", ArgParseArgument::INTEGER, "INT"));
 
     // Setup performance options.
     addSection(parser, "Performance Options");

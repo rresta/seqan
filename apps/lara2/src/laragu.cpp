@@ -82,6 +82,7 @@
 #include "lemon_graph.h"
 #include "tcoffee_interface.h"
 #include "lara_io.h"
+
 using namespace seqan;
 
 // ----------------------------------------------------------------------------
@@ -228,6 +229,12 @@ int main (int argc, char const ** argv)
             rnaAligns[i].lowerBound = rnaAligns[i].lowerGreedyBound;
         }
 
+        //  Compute the step size for the Lambda update
+        if(rnaAligns[i].slm > 0)
+            rnaAligns[i].stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+        else
+            rnaAligns[i].stepSize = 0;
+
         int index = -1;
 // The alignemnt that give the smallest difference between up and low bound should be saved
         saveBestAligns(rnaAligns[i], alignsSimd[i], resultsSimd[i], index);
@@ -238,14 +245,44 @@ int main (int argc, char const ** argv)
         {
             _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
                       "upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound);
+
+/*
+            std::cout << rnaAligns[i].idBppSeqH << "/" << rnaAligns[i].idBppSeqV <<
+            " upper bound = " << rnaAligns[i].upperBound << " lower bound = " << rnaAligns[i].lowerBound << std::endl;
+            if (rnaAligns[i].idBppSeqH == 3 && rnaAligns[i].idBppSeqV == 4)
+            {
+                std::cout << rnaAligns[i].forMinBound.bestAlign << std::endl;
+                std::cout << "Graph H \n" << rnaAligns[i].bppGraphH.inter << std::endl;
+                std::cout << "Graph V \n" << rnaAligns[i].bppGraphV.inter << std::endl;
+                std::cout << "3 - 312 / 4 - 310 " << rnaAligns[i].lamb[312].map[310].step << " / "
+                          << rnaAligns[i].lamb[312].map[310].maxProbScoreLine
+                          << " : " << length(rnaAligns[i].lamb[310]) << std::endl;
+                std::cout << "length 308 " << length(rnaAligns[i].lamb[308]) << " / "
+                          << std::endl;
+
+                std::cout << "length fixed " << length(filecontents1.records[rnaAligns[i].idBppSeqH].fixedGraphs[0]) << std::endl;
+
+                std::cout << outDegree(filecontents1.records[3].bppMatrGraphs[0].inter, 308) << std::endl;
+
+                String<unsigned int> vect;
+                getVertexAdjacencyVector(vect, filecontents1.records[3].bppMatrGraphs[0].inter, 300);
+
+                std::cout << seqan::length(vect) << std::endl;
+                std::cout << degree(filecontents1.records[3].bppMatrGraphs[0].inter, 312) << std::endl;
+                std::cout << degree(filecontents1.records[4].bppMatrGraphs[0].inter, 310) << std::endl;
+
+//                TEdgeStump * currentOut1 = filecontents1.records[3].bppMatrGraphs[0].inter.data_vertex[312];
+//                TEdgeStump * currentOut2 = filecontents1.records[3].bppMatrGraphs[0].inter.data_vertex[309];
+//                std::cout << "312 = " << currentOut1 << " 309 = " << currentOut2 << std::endl;
+            }
+*/
+
 //            eraseVect.push_back(i);
             eraseV[i] = true;
             checkEraseV = true;
         }
         else
         {
-            //  Compute the step size for the Lambda update
-            rnaAligns[i].stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
 
             _VVV(options, "\nThe step size to be used for Lambda for alignment " << i << " in iteration 0 is " << rnaAligns[i].stepSize);
 
@@ -352,9 +389,13 @@ int main (int argc, char const ** argv)
 //                rnaAligns[i].slm = rnaAligns[i].slm - (rnaAligns[i].lowerLemonBound.mwmCardinality * 2);
             }
 
-// The alignemnt that give the smallest difference between up and low bound should be saved
-            saveBestAligns(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
-//            saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
+            //  Compute the step size for the Lambda update
+            double stepSize;
+            if(rnaAligns[i].slm > 0)
+                stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
+            else
+                stepSize = 0;
+
             if (rnaAligns[i].upperBound - rnaAligns[i].lowerBound < options.epsilon)
             {
                 _VV(options, "Computation for this alignment should stopped and the bestAlignMinBounds should be returned "
@@ -371,10 +412,6 @@ int main (int argc, char const ** argv)
                     rnaAligns[i].my = rnaAligns[i].my/2; //TODO check if there is the necessity to multiply or reset
                     // this value in case of decreasing stepsize (an opposite mechanism or a my reset should be designed for this purpose)
                 }
-
-//  Compute the step size for the Lambda update
-                double stepSize;
-                stepSize = rnaAligns[i].my * ((rnaAligns[i].upperBound - rnaAligns[i].lowerBound) / rnaAligns[i].slm);
 
                 //  Check the number of non decreasing iterations
                 if(rnaAligns[i].stepSize < stepSize)
@@ -393,6 +430,9 @@ int main (int argc, char const ** argv)
 
                 updateLambda(rnaAligns[i]);
             }
+            // The alignemnt that give the smallest difference between up and low bound should be saved
+            saveBestAligns(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
+//            saveBestAlignMinBound(rnaAligns[i], alignsSimd[i], resultsSimd[i], x);
         }
 
         if (checkEraseV)

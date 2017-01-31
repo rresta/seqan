@@ -79,7 +79,8 @@ enum LaraTCoffeeLibMode
 {
     PROPORTIONAL,
     SWITCH,
-    ALLINTER
+    ALLINTER,
+    FIXEDINTER
 };
 
 enum LaraMwmMethod

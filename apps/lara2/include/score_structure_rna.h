@@ -282,6 +282,7 @@ score(Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >  const & me,
       ConsensusScoreSequenceEntry<TSeq1> const & entry1,
       ConsensusScoreSequenceEntry<TSeq2> const & entry2)
 {
+	/*
 	if (me.getMapLineValue(position(entry1),position(entry2)) != 0)
     {
         std::cout << (*entry1._seq)[position(entry1)] << " " << (*entry2._seq)[position(entry2)] << " "
@@ -290,6 +291,7 @@ score(Score<TValue, RnaStructureScore<TScoreMatrix, TLambVect> >  const & me,
                   << score(me.score_matrix, (*entry1._seq)[position(entry1)], (*entry2._seq)[position(entry2)])
                   << std::endl;
     }
+    */
     // " mapLine =  " << me._mapLine[position(entry1)][position(entry2)] << std::endl; // me._mapLine[position(entry1)][position(entry2)]
 //	return score(me.score_matrix, (*entry1._seq)[position(entry1)] , (*entry2._seq)[position(entry2)]); // Normal Score using the substitutional matrix
 	return score(me.score_matrix, (*entry1._seq)[position(entry1)] ,
