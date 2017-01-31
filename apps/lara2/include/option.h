@@ -52,12 +52,6 @@
 #include <seqan/arg_parse.h>
 
 // ----------------------------------------------------------------------------
-// Boost headers
-// ----------------------------------------------------------------------------
-
-#include <boost/filesystem.hpp>
-
-// ----------------------------------------------------------------------------
 // App headers
 // ----------------------------------------------------------------------------
 
@@ -65,7 +59,6 @@
 #include "data_types.h"
 
 //using namespace std;
-namespace fs = boost::filesystem;
 
 // ============================================================================
 // Functors
@@ -179,7 +172,7 @@ struct Options
             thrBppm(1e-15), // 0.1 is the value used in the old Lara
             iterations(500),
             nonDecreasingIterations(50u),
-            lowerBoundMethod(LBMWMTEST),
+            lowerBoundMethod(LBLEMONMWM),
             epsilon(EPSILON),
             my(1.0),
             laraScoreMatrixName(""), //laraScoreMatrixName("RIBOSUM65"),
@@ -309,7 +302,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
             Default: use the input file directory.", ArgParseOption::STRING));
     addOption(parser, ArgParseOption("tcl", "tcoffeeLocation", "location of T-COFFEE.", ArgParseOption::STRING));
     addOption(parser, ArgParseOption("tcm","tcoffeLibMode", "method used to create the T-Coffe library "
-                                             "either     PROPORTIONAL, SWITCH (defoult), ALLINTER", ArgParseArgument::INTEGER, "INT"));
+                                             "either     PROPORTIONAL, SWITCH (defoult), ALLINTER, FIXEDINTER", ArgParseArgument::INTEGER, "INT"));
 
     // Setup performance options.
     addSection(parser, "Performance Options");
@@ -458,10 +451,9 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(tmpDir, parser, "tmpDir");
     if (!isSet(parser, "tmpDir"))
     {
-        //TODO ADD the address to the OS temporary folder (using #include <experimental/filesystem> )
-        tmpDir = fs::temp_directory_path().string();
-//        if (empty(tmpDir))
-//            getCwd(tmpDir);
+        tmpDir = SEQAN_TEMP_FILENAME();
+        // remove "/test_file" suffix
+        erase(tmpDir, length(tmpDir) - 10u, length(tmpDir));
     }
     setEnv("TMPDIR", tmpDir);
     options.tmpDir = tmpDir;
