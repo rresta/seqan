@@ -1,0 +1,26 @@
+HMMer 1.8.4 global	HMMer1_hmmls_-1.16
+HMMer 1.8.4 local	HMMer1_hmmfs_-6.14
+HMMer 2.3.2 global	HMMer2_hmmls_-11.7
+HMMer 2.3.2 local	HMMer2_hmmfs_-3
+NCBIblast	NCBIblast_W11_top_24
+NCBIblast -W7	NCBIblast_W7_top_22
+NCBIblast -W7 65%	NCBIblast_W7_541010_top_26
+RSmatch 1.2	RSmatch12_15
+SAM 3.5 + HMMer 2.3.2	SAM35-HMMer2_-17.6
+SAM 3.5 global	SAM35_sw3_-15.83
+SAM 3.5 local	SAM35_sw2_-4.86
+WUblast	WUblast_W11_top_72
+WUblast -W3	WUblast_W3_top_108
+WUblast -W7	WUblast_W7_top_103
+WUblast -W7 65%	WUblast_W7_541010_top_86
+WUblast -W7 PUPY	WUblast_W7_pupy_top_92
+fasta	fasta_z11_top_89
+fasta 65% ktup6	fasta_541010_z11_top_ktup6_85
+fasta FOLDALIGN	fasta_sdf_5025_top_235
+fasta RIBOSUM	fasta_z11_R9540_1010_top_6
+fasta U	fasta_U_z11_152
+paralign -b1000	paralign_b1000_top_11
+paralign -b1000 65%	paralign_541010_b1000_top_91
+ssearch	ssearch_z11_top_97
+ssearch -U	ssearch_U_z11_159
+ssearch 65%	ssearch_541010_z11_top_91

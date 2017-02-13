@@ -1,0 +1,120 @@
+Scripts used to produce the results presented in "Exploring genomic
+dark matter: homology search for non-coding RNA" by Freyhult EK,
+Bollback JP and Gardner PP
+
+_____________________
+Creating subsets
+_____________________
+
+subset.py
+Used to create the query datasets.
+
+subset.py produces N subsets (subalignments) of n sequences from an
+input alignment (in fasta format), N and n are user defined. The
+sequences in a subset all have pairwise sequence identities to each
+other within a user defined range. Additionaly a maximum number of
+overlapping sequences between two different subsets can be defined.
+
+
+__________________________________________
+For computing sensitivity and specificity
+__________________________________________
+
+scores.py
+Produces a list of scores that can be used to create a ROC plot.
+scores.py produces a list of scores for all the hits reported by
+the selected search algorithm (one of NCBI-BLAST, WU-BLAST, FASTA,
+SSEARCH, HMMer 2.3.2, HMMer 1.8.4, SAM 3.5, SAM 3.5 + HMMer 2.3.2,
+RSmatch 1.2 and parAlign). This list can be used to produce ROC plots
+and to find the optimal cutoff score (that optimises the MCC for
+example).
+
+run_scores.sh 
+An example of a script used to run scores.py on our
+datasets. For this scripts the positive and negative databases for
+rRNA, U5 and tRNA have been joined to rRNA_pn.db, U5_pn.db, and
+tRNA_pn.db.
+
+
+
+homology.py
+Computes the fraction of true positive and false positive prediction.
+homology.py reports the fraction of recovered database entries
+by a search of the specified query using a specified search method and
+cutoff.
+
+run_homology.sh
+
+This is the script that I have used for running homology.py
+
+Example usage;
+
+Run in the dataset directory:
+ 
+bash$ run_homology.sh sam35 -4.86 '-sw 2' sw2_-4.86&
+bash$ ls -1 */id*/*_sw2_-4.86.sam35.sens|grep -v sh | xargs -n 40 cat | tr '/' '\t'| tr ' ' '\t' |sed -e 's/\.fa//g' | sort -f > SAM35_sw2_-4.86.tps
+bash$ ls -1 */id*/*_sw2_-4.86.sam35.sens|grep sh | xargs -n 40 cat | tr '/' '\t'| tr ' ' '\t' |sed -e 's/\.fa//g' | sort -f > SAM35_sw2_-4.86.fps
+
+gives two files, one with the fraction of true positives and the other
+with the fraction of false positives.
+
+
+_________________________
+Genome scan
+_________________________
+
+getgff.py
+Computes the fraction of true positive and false positive predictions.
+Very similar to homology.py, but instead of a database with a
+set of sequences to identify the database is a genomoe sequence. The
+output written to stdout is in gff-like format reporting the positions
+of the hits etc.
+
+run_getgff.sh
+This is an example of a script that I would use to run getgff.py on
+all out tRNA rRNA and U5 datasets. In this example the forward and
+reverse genome databases are searched separately, this is not
+necessary for all algorithms (the single sequence methods for example
+search both strands by default).
+
+genomehomology.py
+Reads two gff-like files and computed sensitivity and specificity.
+genomehomology.py will assume that the file ncRNA.gff is in the
+current directory. This file should contain information of locations
+of the known ncRNAs in the genome. The input to the program is;
+
+genomehomology.py dataset id method target cutoff
+
+where dataset is for example tRNA_t02 or another dataset name, id is one of the identityclasses, for example id5070, method is the homology search method, or the name of the gff file that you want to use (but omit .gff in the name), for example wublast_W3, target is one of "all", "target" and "w_pseudo", "all" means that all the RNAs from the same family as the dataset RNA will be considered to be targets, "target" means that only the specific RNA corresponding to the dataset will be considered as target, "w_pseudo" does only have an effect for tRNA datasets and means that all tRNAs and also all tRNA pseudogenes will be considered as targets, finally, cutoff is a score cutoff, this can usually be omitted as a cutoff was probably already used when the .gff file was created.
+
+--
+An example of how to run the scripts:
+
+In the directory where the datasets are
+bash$ ls
+rRNA/
+tRNA/
+U5/
+run the following;
+
+bash$ run_getgff.sh sam35 10 '-sw 3' sw3_10
+
+This will run the genome scan with SAM 3.5 using the cutoff 10 and the
+option -sw 3 (global). The output will be a set of files
+tRNA/id*/tRNA_sw3_10.sam35.gff
+tRNA/id*/tRNA_sw3_10.sam35_rev.gff
+rRNA/id*/tRNA_sw3_10.sam35.gff
+rRNA/id*/tRNA_sw3_10.sam35_rev.gff
+U5/id*/U5_sw3_10.sam35.gff
+U5/id*/U5_sw3_10.sam35_rev.gff
+
+Join the files into one gff-like file;
+
+bash$ ls -1 */*/*_sw3_10.sam35*.gff|xargs -n 40 cat|sort -f > SAM35_sw3_10.gff
+
+bash$ genomehomology.py SAM35_sw3_10.gff all;
+
+This will assume that you have the file ncRNA.gff that defines the
+positions of the ncRNAs in the genome in the current directory. The
+produced file will have five columns; identity, dataset, sensitivity,
+specificity and MCC.

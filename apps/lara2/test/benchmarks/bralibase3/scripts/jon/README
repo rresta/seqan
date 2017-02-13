@@ -1,0 +1,29 @@
+---
+INSTALLATION:
+run "make"
+---
+USAGE:
+For easy usage run:
+run_asr.pl --n 5 --b 1 --l 0.2 tRNA00.erpin
+
+---
+This explains the programs 'rnanc' and 'stomb'.
+
+Rnanc and stomb are compiled at the same time using the included Makefile.
+
+Program operation can be done via command line arguments or a user prompt. If no arguments are supplied this is the default.
+
+---
+Command line usage of 'rnanc':
+
+rnanc <data-file-name> <tree-file-name> <parameter-file-name> <out-put-file-name> <number-reconstructions> <write-original-data-to-out-file (0,1)> <condition on freq canonical> <debug-to-stdout (0,1)>
+
+### The last argument is optional. The default is to not show debug information to standard out.
+
+
+---
+Command line usage of 'stomb':
+
+stomb <data-file-name> <out-put-file-name>
+
+### No optional arguments.

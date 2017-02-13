@@ -1,0 +1,18 @@
+\begin{table}[hbt]
+\centering
+{\footnotesize
+\begin{tabular}{||l|c|c|c|c|c||}
+\hline
+\hline
+{\bf Program} & {\bf Sensitivity}   & {\bf Specificity}   & {\bf MCC}   & \multicolumn{2}{|c||}{\bf Ave. MCC Rank} \\
+                 &                      &                      &              & Median & Mean \\
+\hline
+
+\hline
+\multicolumn{6}{||c||}{\bf Five input sequences }\\
+\hline
+\ncbiblast (W7,65\%) & (0.40,\textbf{0.88,}0.96) & (0.998,\textbf{0.999},1.000) & (0.61,\textbf{0.93},0.96) & 17.0 & 15.84\\ 
+\wublast (W7,65\%) & (0.39,\textbf{0.88,}0.96) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.93},0.96) & 17.0 & 15.68\\ 
+\fasta (ktup6,65\%) & (0.40,\textbf{0.89,}0.96) & (0.999,\textbf{0.999},1.000) & (0.61,\textbf{0.93},0.97) & 16.0 & 14.45\\ 
+\paralign (65\%) & (0.38,\textbf{0.82,}0.89) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.89},0.93) & 21.0 & 19.65\\ 
+\ssearch (65\%) & (0.38,\textbf{0.88,}0.95) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.93},0.97) & 14.0 & 14.30\\ 

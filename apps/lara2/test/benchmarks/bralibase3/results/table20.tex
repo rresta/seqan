@@ -1,0 +1,67 @@
+\begin{table}[hbt]
+\centering
+{\footnotesize
+\begin{tabular}{||l|c|c|c|c|c||}
+\hline
+\hline
+{\bf Program} & {\bf Sensitivity}   & {\bf Specificity}   & {\bf MCC}   & \multicolumn{2}{|c||}{\bf Ave. MCC Rank} \\
+                 &                      &                      &              & Median & Mean \\
+\hline
+
+\hline
+\multicolumn{6}{||c||}{\bf Sequence based methods}\\
+\hline
+\ncbiblast & (0.53,\textbf{0.71,}0.94) & (0.978,\textbf{0.987},0.993) & (0.67,\textbf{0.76},0.85) & 29.0 & 29.10\\ 
+\ncbiblast (W7) & (0.69,\textbf{0.83,}1.00) & (0.924,\textbf{0.951},0.974) & (0.67,\textbf{0.70},0.72) & 31.0 & 30.40\\ 
+\ncbiblast (W7,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.997},0.998) & (0.89,\textbf{0.94},0.96) & 16.0 & 15.61\\ 
+\wublast & (0.58,\textbf{0.76,}0.98) & (0.977,\textbf{0.991},0.994) & (0.72,\textbf{0.80},0.88) & 27.0 & 26.48\\ 
+\wublast (W7) & (0.88,\textbf{0.97,}0.98) & (0.989,\textbf{0.997},0.998) & (0.90,\textbf{0.93},0.97) & 20.0 & 16.28\\ 
+\wublast (W3) & (0.89,\textbf{0.97,}0.98) & (0.990,\textbf{0.997},0.999) & (0.91,\textbf{0.93},0.97) & 18.0 & 15.73\\ 
+\wublast (W7,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.998},0.999) & (0.90,\textbf{0.94},0.96) & 17.0 & 15.72\\ 
+\wublast (W7,PUPY) & (0.77,\textbf{0.97,}1.00) & (0.973,\textbf{0.981},0.985) & (0.81,\textbf{0.87},0.89) & 26.0 & 23.10\\ 
+\fasta  & (0.85,\textbf{0.97,}1.00) & (0.988,\textbf{0.996},0.998) & (0.88,\textbf{0.93},0.96) & 15.0 & 15.78\\ 
+\fasta (ktup6,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.997},0.998) & (0.89,\textbf{0.94},0.96) & 16.0 & 14.55\\ 
+\fasta (U) & (0.84,\textbf{0.97,}0.98) & (0.989,\textbf{0.993},0.996) & (0.89,\textbf{0.93},0.94) & 21.0 & 20.18\\ 
+\fasta (RIBOSUM) & (0.25,\textbf{0.57,}0.79) & (0.936,\textbf{0.993},0.998) & (0.46,\textbf{0.54},0.69) & 32.0 & 32.08\\ 
+\fasta (FOLDALIGN) & (0.69,\textbf{0.85,}0.98) & (0.988,\textbf{1.000},1.000) & (0.82,\textbf{0.89},0.93) & 23.0 & 21.43\\ 
+\paralign & (0.57,\textbf{0.76,}0.93) & (0.979,\textbf{0.988},0.992) & (0.70,\textbf{0.78},0.85) & 28.0 & 28.04\\ 
+\paralign (65\%) & (0.81,\textbf{0.93,}0.96) & (0.994,\textbf{0.999},1.000) & (0.89,\textbf{0.93},0.96) & 16.0 & 15.30\\ 
+\ssearch  & (0.83,\textbf{0.96,}0.98) & (0.994,\textbf{0.999},0.999) & (0.90,\textbf{0.95},0.97) & 12.0 & 12.59\\ 
+\ssearch (65\%) & (0.81,\textbf{0.96,}0.97) & (0.994,\textbf{0.999},0.999) & (0.89,\textbf{0.95},0.97) & 12.0 & 13.26\\ 
+\ssearch (U) & (0.84,\textbf{0.96,}0.98) & (0.984,\textbf{0.989},0.995) & (0.86,\textbf{0.91},0.93) & 25.0 & 23.34\\ 
+\hline
+\multicolumn{6}{||c||}{\bf Profile HMM methods}\\
+\hline
+\hmmer (1.8.4,local) & (0.71,\textbf{0.90,}0.95) & (0.999,\textbf{1.000},1.000) & (0.83,\textbf{0.95},0.97) & 11.0 & 12.06\\ 
+\hmmer (1.8.4,global) & (0.74,\textbf{0.84,}0.90) & (1.000,\textbf{1.000},1.000) & (0.85,\textbf{0.91},0.94) & 16.0 & 15.16\\ 
+\hmmer (2.3.2,local) & (0.74,\textbf{0.94,}0.97) & (0.996,\textbf{0.997},0.998) & (0.84,\textbf{0.93},0.97) & 12.0 & 14.36\\ 
+\hmmer (2.3.2,global) & (0.74,\textbf{0.86,}0.94) & (1.000,\textbf{1.000},1.000) & (0.85,\textbf{0.92},0.96) & \textbf{9.5} & 12.87 \\ 
+\sam (local) & (0.74,\textbf{0.94,}0.97) & (0.999,\textbf{1.000},1.000) & (0.85,\textbf{0.96},0.98) & \textbf{10.0} & 10.42 \\ 
+\sam (global) & (0.84,\textbf{0.94,}0.98) & (0.997,\textbf{0.998},0.999) & (0.88,\textbf{0.95},0.97) & 11.0 & 11.19\\ 
+\minitab[l]{\sam (model) + \\ \hmmer (2.3.2,search)} & (0.78,\textbf{0.90,}0.95) & (0.998,\textbf{1.000},1.000) & (0.83,\textbf{0.94},0.97) & 12.0 & 13.17\\ 
+\hline
+\multicolumn{6}{||c||}{\bf Structure enhanced methods}\\
+\hline
+\erpin & (0.10,\textbf{0.23,}0.42) & (1.000,\textbf{1.000},1.000) & (0.30,\textbf{0.47},0.63) & 33.0 & 32.51\\ 
+\infernal (0.7) & (0.97,\textbf{0.99,}1.00) & (0.997,\textbf{1.000},1.000) & (0.97,\textbf{0.98},1.00) & \textbf{2.0} & 4.28 \\ 
+\infernal (0.7,local) & (0.96,\textbf{0.99,}1.00) & (0.999,\textbf{1.000},1.000) & (0.97,\textbf{0.99},1.00) & \textbf{2.0} & 3.11 \\ 
+\infernal (0.55) & (0.88,\textbf{0.93,}0.98) & (1.000,\textbf{1.000},1.000) & (0.93,\textbf{0.96},0.99) & \textbf{4.0} & 8.37 \\ 
+\ravenna (ML) & (0.79,\textbf{0.94,}0.97) & (1.000,\textbf{1.000},1.000) & (0.88,\textbf{0.96},0.98) & \textbf{7.0} & 7.89 \\ 
+\ravenna (ML,local) & (0.80,\textbf{0.94,}0.97) & (0.995,\textbf{0.998},0.999) & (0.88,\textbf{0.94},0.96) & 14.0 & 13.22\\ 
+\rsearch & (0.84,\textbf{0.94,}0.99) & (1.000,\textbf{1.000},1.000) & (0.91,\textbf{0.97},0.99) & \textbf{4.0} & 6.61 \\ 
+\rsmatch & (0.57,\textbf{0.62,}0.91) & (0.989,\textbf{0.997},0.998) & (0.72,\textbf{0.76},0.89) & 26.0 & 25.80\\ 
+\hline
+\hline
+\end{tabular}
+\caption[]{ Tabulated results of searches with {\bf twenty} sequences. From
+left to right column one contains program names and settings, column two sensitivity,
+column three specificity, column four Matthew's correlation coefficient (MCC)
+and column five contains both a median and mean ranking determined
+by the MCC (see Box 2 for definitions). Sensitivity, specificity and MCC are summarised as 3-tuples
+displaying the lower quartiles, medians and upper quartiles. Median MCC
+rankings below ten (one being the best) are indicated with bold font.
+See Methods section and Supplementary Tables~\ref{table:homol:alg}\&\ref{table:homol:alg2} 
+for algorithm settings.
+}\label{table:20seqs}
+}
+\end{table}

@@ -1,0 +1,34 @@
+All files are in tab - delimited format. With:
+column 1: dataset identifier (ncRNAfamily-alnNN-alignmentmethod) 
+column 2: accuracy values (SCI or SPS) 
+
+File names indicate algorithm and parameters used (more details of
+these are given in the supplementary materials of Gardner, Wilm & Washietl
+(2005)). 
+
+The *_rnaz.dat files contain SCI scores.
+The *_baliscore.dat files contain SPS scores as calculated with bali_score.c
+from Balibase.
+
+The file "ALL_ave_perc_id_grouped_HML.dat" gives:
+column 1: dataset identifier (ncRNAfamily-alnNN-alignmentmethod)
+column 2: mean percent sequence identity - as calculated with alistat (part of
+Sean Eddy's SQUID package).
+column 3: the homology grouping: High (H), Medium (M) or Low (L).
+NB. See erratum below.
+
+NB. The Table 1 in Gardner, Wilm & Washietl (2005) does not include the SRP
+scores. Please remove these before running your benchmarks! I.e.
+unalias ls; ls -1 | awk '{print "grep -v SRP "$1" > "$1"_noSRP"}' >remove_SRP.sh; chmod +x remove_SRP.sh; ./remove_SRP.sh;
+
+Erratum: Some of the pairwise sequence identities have been scrambled (due to
+a combination of mis-formatting and alistat sensitivity to mis-formatted
+alignments). An updated set of identities can be found in
+"ALL_ave_perc_id_grouped_HML_recalculated.dat".  In order to reproduce the
+results presented in our paper use "ALL_ave_perc_id_grouped_HML.dat" otherwise
+use the update. Note that the comparison of alignment methods of our paper
+remain valid - it is only the homology groups are affected by this error.
+
+
+
+

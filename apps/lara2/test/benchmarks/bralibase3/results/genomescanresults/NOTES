@@ -1,0 +1,8 @@
+Genome scan results
+
+The result files *.tpfptnfn contain for each dataset (identified by
+identity and target name). Each file has 7 columns; identity, target
+name, optimal score, TP, FP, TN, and FN.
+
+ncRNA.gff contains information of locations of the known RNAs in the
+database sequence (human chromosome 12:90M-130M).

@@ -1,0 +1,113 @@
+#########################################################
+#BRALIBASE III: Benchmarking homology search algorithms.#
+#########################################################
+
+Below are explainations of BRaliBase3 data files, scripts and results.
+
+datasets/:
+	#ncRNA databases in fasta format
+	rRNA.db
+	tRNA.db
+	U5.db
+	
+	#Shuffled databases in fasta format
+	shrRNA.db
+	shtRNA.db
+	shU5.db
+	
+	#The original curated alignments + structure annotation in aligned fasta format:
+	rRNA_aligned.db
+	tRNA_aligned.db
+	U5_aligned.db
+	
+	#Mapping files from seq* names to original Rfam names
+	rRNA.mapping
+	tRNA.mapping 
+	U5.mapping
+	
+	5/:
+		rRNA/  tRNA/  U5/
+		       #Identity ranges
+		       id4060/  id5070/  id6080/  id7085/  id8095/
+				#Datasets in: 
+				#1. unaligned fasta format (*[!erpin].fa)
+				#2. stockholm format alignments with structure 
+				#annotation (*.stk)
+				#3. erpin style fasta alignment format with 
+				#structure annotation (*.erpin.fa)
+				#NB. Alignments were inferred using ProAlign
+				#and structures were inferred with RNAalifold
+				*[!erpin].fa
+				*.stk
+				*.erpin.fa
+	20/:
+		rRNA/  tRNA/  U5/
+		       id4060/  id5070/  id6080/  id7085/  id8095/
+				#Datasets in: 
+				#1. unaligned fasta format (*[!erpin].fa)
+				#2. stockholm format alignments with structure 
+				#annotation (*.stk)
+				#3. erpin style fasta alignment format with 
+				#structure annotation (*.erpin.fa)
+				#NB. Alignments were inferred using ProAlign
+				#and structures were inferred with RNAalifold
+				*[!erpin].fa
+				*.stk
+				*.erpin.fa
+results/:
+	make_table5.pl	 #Generate supplementary tables for the 5 seq experiments
+	make_table20.pl	 #Generate supplementary tables for the 20 seq experiments
+	
+	make_boxplots.R	 #R code for generating boxplots
+	make_boxplots.sh #shell script for calling R and fixing postscript files.
+
+	5:
+		#Data files. *.tps contains sensitivity & *.fps contains 
+		#1-specificity
+		*.tps
+		*.fps
+	20:
+		#Data files. *.tps contains sensitivity & *.fps contains 
+		#1-specificity
+		*.tps
+		*.fps
+			
+scripts/:
+	#NB. Many of these scripts may be rather machine specific (either
+	#Linux PC or Sun-solaris). Use with extreme caution! 
+
+eva/:
+	#Eva's scripts for running Blast, Fasta, HMMer, SAM & RSmatch. 
+	#See NOTES.	
+	
+jon/:
+	#Jon's code for generating ASR & PSR sequences.
+	
+paul/:
+	#Paul's scripts for aligning, folding and running Erpin, Infernal,
+	#RaveNnA and RSearch. 
+	align_fold.pl		#Runs ProAlign & RNAalifold, reformats output
+				#into Infernal-stockholm, RSearch-stockholm &
+				#Erpin-fasta.
+				#Requires ProAlign, RNAalifold & sreformat.
+				
+	run_erpin.pl		#Runs Erpin
+	run_infernal7.pl	#Runs Infernal - some of the code for parsing Infernal
+				output is borrowed from Sam Griffiths-Jones' scripts.
+	run_rsearch.pl		#Runs RSearch
+	run_rsearch_calc.sh	#Computes the number of RSearch hits and removes
+				#redundancies for searches with multiple 
+				#sequences.
+	run_ravenna.pl		#Runs RaveNnA (a.k.a. CM2HMM, CMzasha, InfernalSpacemanSpliff)
+	    
+
+	#Run the following analysis code from the "results" directory:
+	make_table5.pl		#Perl code for making 5 seq results tables.
+	make_table20.pl		#Perl code for making 20 seq results tables.
+	
+	make_boxplots.R		#R code for generating boxplots
+	make_boxplots.sh	#Shell script for running R & fixing the output files
+
+
+######################################################################
+

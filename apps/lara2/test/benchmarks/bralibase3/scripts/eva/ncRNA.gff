@@ -1,0 +1,47 @@
+miRNA-MI0000812/12	.	exon	4204665	4204758	.	+	.	miRNA
+tRNAscan_Asp-GTC/12	.	exon	4932268	4932339	.	+	.	tRNA-Asp tRNA_t00
+tRNAscan_Pseudo-TGG/12	.	exon	5993160	5993233	.	-	.	tRNA-pseudo tRNA_t01
+miRNA-MI0000453/12	.	exon	6460059	6460158	.	+	.	miRNA
+tRNAscan_Gln-CTG/12	.	exon	7324861	7324938	.	-	.	tRNA-Gln tRNA_t02
+tRNAscan_Asp-GTC/12	.	exon	7399750	7399821	.	+	.	tRNA-Asp tRNA_t03
+tRNAscan_Trp-CCA/12	.	exon	7400499	7400570	.	+	.	tRNA-Trp tRNA_t04
+rRNA-RF00001/12	.	exon	7980030	7980152	.	-	.	rRNA rRNA_t03 Ändrar till - 9/5 2006
+snRNA-RF00020/12	.	exon	10362952	10363067	.	+	.	snRNA U5_t00
+rRNA-RF00001/12	.	exon	10676061	10676176	.	+	.	rRNA rRNA_t01
+rRNA-RF00001/12	.	exon	13021482	13021588	.	+	.	rRNA rRNA_t00
+tRNA_pseudoexon/12	.	exon	22849266	22849338	.	+	.	tRNA-pseudo
+GTRNA_Pseudo-CTC/12	.	exon	22849266	22849338	.	-	.	tRNA-pseudo
+rRNA-RF00001/12	.	exon	27730208	27730319	.	+	.	rRNA rRNA_t02
+tRNAscan_Asp-GTC/12	.	exon	31385805	31385875	.	+	.	tRNA-Asp
+rRNA-RF00001/12	.	exon	32292344	32292462	.	-	.	rRNA rRNA_t04 Ändrar till - 9/5 2006
+tRNAscan_Ala-TGC/12	.	exon	33931182	33931253	.	-	.	tRNA-Ala tRNA_t05
+tRNAscan_Asp-GTC/12	.	exon	33936772	33936843	.	-	.	tRNA-Asp tRNA_t00 ändrar till - (isf +) 2/5 2006
+tRNAscan_Phe-GAA/12	.	exon	33937270	33937342	.	-	.	tRNA-Phe tRNA_t06
+tRNAscan_Asp-GTC/12	.	exon	33949074	33949145	.	-	.	tRNA-Asp tRNA_t00 ändrar till - (isf +) 2/5 2006
+tRNAscan_Ala-TGC/12	.	exon	33949393	33949464	.	+	.	tRNA-Ala tRNA_t07
+Mt_tRNA_pseudoexon/12	.	exon	35592744	35592796	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35592794	35592843	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35592841	35592890	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35592888	35592937	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35592935	35592984	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35592982	35593031	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593029	35593078	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593076	35593125	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593123	35593172	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593170	35593219	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593217	35593266	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593264	35593313	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593311	35593360	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593358	35593407	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593405	35593454	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593452	35593501	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593499	35593548	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593546	35593595	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593593	35593642	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593640	35593689	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593687	35593736	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	35593734	35593798	.	+	.	mt-tRNA-pseudo
+tRNAscan_Pseudo-AAT/12	.	exon	38241079	38241153	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	39325033	39325103	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	39325104	39325162	.	+	.	mt-tRNA-pseudo
+Mt_tRNA_pseudoexon/12	.	exon	39325163	39325227	.	+	.	mt-tRNA-pseudo

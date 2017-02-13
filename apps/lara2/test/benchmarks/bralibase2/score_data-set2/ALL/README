@@ -1,0 +1,45 @@
+These are the data files used to produce figure 3 of Gardner, Wilm & Washietl
+(2005). Curves were plotted using the lowess smoothing function implemented in
+"R". 
+
+All files are tab-delimited:
+column 1: alignment identifier (alnNN)
+column 2: value (ID, SPS or SCI)
+
+Average pairwise sequence identities are in the following file:
+ave_pw_seq_id.dat
+
+SPS scores for each algorithm are here:
+clustal_bali.dat
+dynalign_bali.dat
+foldalign.global.fold_bali.dat
+muscle_bali.dat
+pcma_bali.dat
+pmcomp_bali.dat
+pmcomp-fast_bali.dat
+poa_bali.dat
+proalign_bali.dat
+prrn_bali.dat
+stemloc-fast110_bali.dat
+stemloc-slow_bali.dat
+
+SCI scores for each algorithm are here: 
+clustal_rnaz.dat
+dynalign_rnaz.dat
+foldalign.global.fold_rnaz.dat
+muscle_rnaz.dat
+pcma_rnaz.dat
+pmcomp-fast_rnaz.dat
+pmcomp_rnaz.dat
+poa_rnaz.dat
+proalign_rnaz.dat
+prrn_rnaz.dat
+stemloc-fast110_rnaz.dat
+stemloc-slow_rnaz.dat
+structural_rnaz.dat
+
+
+
+
+
+

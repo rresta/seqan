@@ -1,0 +1,39 @@
+\begin{table}[hbt]
+\centering
+{\footnotesize
+\begin{tabular}{||l|c|c|c|c|c||}
+\hline
+\hline
+{\bf Program} & {\bf Sensitivity}   & {\bf Specificity}   & {\bf MCC}   & \multicolumn{2}{|c||}{\bf Ave. MCC Rank} \\
+                 &                      &                      &              & Median & Mean \\
+\hline
+
+\hline
+\multicolumn{6}{||c||}{\bf Five input sequences }\\
+\hline
+\ncbiblast (W7,65\%) & (0.40,\textbf{0.88,}0.96) & (0.998,\textbf{0.999},1.000) & (0.61,\textbf{0.93},0.96) & 17.0 & 15.84\\ 
+\wublast (W7,65\%) & (0.39,\textbf{0.88,}0.96) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.93},0.96) & 17.0 & 15.68\\ 
+\fasta (ktup6,65\%) & (0.40,\textbf{0.89,}0.96) & (0.999,\textbf{0.999},1.000) & (0.61,\textbf{0.93},0.97) & 16.0 & 14.45\\ 
+\paralign (65\%) & (0.38,\textbf{0.82,}0.89) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.89},0.93) & 21.0 & 19.65\\ 
+\ssearch (65\%) & (0.38,\textbf{0.88,}0.95) & (0.999,\textbf{1.000},1.000) & (0.60,\textbf{0.93},0.97) & 14.0 & 14.30\\ 
+\hline
+\multicolumn{6}{||c||}{\bf Twenty input sequences }\\
+\hline
+\ncbiblast (W7,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.997},0.998) & (0.89,\textbf{0.94},0.96) & 16.00 & 15.61\\ 
+\wublast (W7,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.998},0.999) & (0.90,\textbf{0.94},0.96) & 17.00 & 15.72\\ 
+\fasta (ktup6,65\%) & (0.83,\textbf{0.96,}1.00) & (0.991,\textbf{0.997},0.998) & (0.89,\textbf{0.94},0.96) & 16.00 & 14.55\\ 
+\paralign (65\%) & (0.81,\textbf{0.93,}0.96) & (0.994,\textbf{0.999},1.000) & (0.89,\textbf{0.93},0.96) & 16.00 & 15.30\\ 
+\ssearch (65\%) & (0.81,\textbf{0.96,}0.97) & (0.994,\textbf{0.999},0.999) & (0.89,\textbf{0.95},0.97) & 12.00 & 13.26\\ 
+\hline
+\hline
+\end{tabular}
+\caption[]{ 
+Tabulated results of the sequence based methods with identical scoring
+parameters. From left to right column one contains program names, column
+two sensitivity, column three specificity, column four Matthew's correlation
+coefficient (MCC) and column five a median and mean ranking determined by the
+MCC. Sensitivity, specificity and MCC are summarised as 3-tuples displaying
+the lower quartiles, medians and upper quartiles.
+}\label{table:WU}
+}
+\end{table}

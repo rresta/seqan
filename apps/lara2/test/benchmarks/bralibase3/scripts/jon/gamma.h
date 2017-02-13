@@ -1,0 +1,1 @@
+extern int      DiscreteGamma (double freqK[], double rK[], double alfa, double beta, int K, int median);
