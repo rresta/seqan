@@ -269,7 +269,41 @@ void computeTCoffeWeightsFixedInter(tcoffeePair & tcPair, TOption const & option
     }
 }
 
-
+// ----------------------------------------------------------------------------
+// Function computeTCoffeWeightsMethodSel()
+// ----------------------------------------------------------------------------
+template <typename TOption, typename TRecord>
+void computeTCoffeWeightsMethodSel(tcoffeePair & tcPair, TOption const & options, TRecord const & rna1,
+                         TRecord const & rna2, TRnaAlign & rnaAlign)
+{
+    if(length(rna1.fixedGraphs[0]) > 0 &&
+       length(rna2.fixedGraphs[0]))
+    {
+        if (options.tcoffeLibMode == PROPORTIONAL) {
+            _VV(options, " passed from PROPORTIONAL mode");
+            computeTCoffeWeightsProportional(tcPair, options, rna1, rna2, rnaAlign);
+        } else if (options.tcoffeLibMode == SWITCH) {
+            _VV(options, " passed from SWITCH mode");
+            computeTCoffeWeightsSwitch(tcPair, options, rna1, rna2, rnaAlign);
+        } else if (options.tcoffeLibMode == ALLINTER) {
+//                std::cout << i << " seq1 " << rnaAligns[i].idBppSeqH << " seq2 " << rnaAligns[i].idBppSeqV << std::endl;
+            _VV(options, " passed from ALLINTER mode");
+            computeTCoffeWeightsAllInter(tcPair, options, rna1, rna2, rnaAlign);
+        } else if (options.tcoffeLibMode == FIXEDINTER) {
+//                std::cout << i << " seq1 " << rnaAligns[i].idBppSeqH << " seq2 " << rnaAligns[i].idBppSeqV << std::endl;
+            _VV(options, " passed from FIXEDINTER mode");
+            computeTCoffeWeightsFixedInter(tcPair, options, rna1, rna2, rnaAlign);
+        } else {
+            std::cout << "Select one of the available modes to compute the T-COFFE library" << std::endl;
+            //            return -1;
+        }
+    }
+    else
+    {
+        _VV(options, " passed from SEQALIGNONLY mode");
+        computeTCoffeWeightsSeqAlignOnly(tcPair, options, rna1, rna2, rnaAlign);
+    }
+}
 // ----------------------------------------------------------------------------
 // Function computeTCoffeWeights()
 // ----------------------------------------------------------------------------
@@ -285,44 +319,15 @@ int computeTCoffeWeights(TTCoffeeLib & tcLib, TOption const & options, RnaStruct
         tcPair.idSeqH = rnaAligns[i].idBppSeqH + 1;
         tcPair.idSeqV = filecontents1.records.size() + rnaAligns[i].idBppSeqV + 1;
 //        if(rnaAligns[i].forMinBound.upperBound > 0)
-        if(length(filecontents1.records[rnaAligns[i].idBppSeqH].fixedGraphs[0]) > 0 &&
-                length(filecontents2.records[rnaAligns[i].idBppSeqV].fixedGraphs[0]))
+        if(length(filecontents1.records[rnaAligns[i].idBppSeqH].sequence) >=
+           length(filecontents1.records[rnaAligns[i].idBppSeqV].sequence))
         {
-            if(options.tcoffeLibMode == PROPORTIONAL)
-            {
-                _VV(options, " passed from PROPORTIONAL mode");
-                computeTCoffeWeightsProportional(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                                 filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            }
-            else if (options.tcoffeLibMode == SWITCH)
-            {
-                _VV(options, " passed from SWITCH mode");
-                computeTCoffeWeightsSwitch(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                           filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            }
-            else if (options.tcoffeLibMode == ALLINTER)
-            {
-                _VV(options, " passed from ALLINTER mode");
-                computeTCoffeWeightsAllInter(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                             filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            }
-            else if (options.tcoffeLibMode == FIXEDINTER)
-            {
-                _VV(options, " passed from FIXEDINTER mode");
-                computeTCoffeWeightsFixedInter(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                             filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            }
-            else
-            {
-                std::cout << "Select one of the available modes to compute the T-COFFE library" << std::endl;
-//            return -1;
-            }
-        }
-        else
+            computeTCoffeWeightsMethodSel(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
+                                          filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
+        } else
         {
-            _VV(options, " passed from SEQALIGNONLY mode");
-            computeTCoffeWeightsSeqAlignOnly(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                         filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
+            computeTCoffeWeightsMethodSel(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
+                                          filecontents2.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
         }
         tcLib.rnaPairs.push_back(tcPair);
     }
@@ -344,37 +349,15 @@ int computeTCoffeWeights(TTCoffeeLib & tcLib, TOption const & options, RnaStruct
         tcPair.idSeqH = rnaAligns[i].idBppSeqH + 1;
         tcPair.idSeqV = rnaAligns[i].idBppSeqV + 1;
 //        if(rnaAligns[i].forMinBound.upperBound > 0)
-        if(length(filecontents1.records[rnaAligns[i].idBppSeqH].fixedGraphs[0]) > 0 &&
-           length(filecontents1.records[rnaAligns[i].idBppSeqV].fixedGraphs[0]))
+        if(length(filecontents1.records[rnaAligns[i].idBppSeqH].sequence) >=
+                length(filecontents1.records[rnaAligns[i].idBppSeqV].sequence))
         {
-            if (options.tcoffeLibMode == PROPORTIONAL) {
-                _VV(options, " passed from PROPORTIONAL mode");
-                computeTCoffeWeightsProportional(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                                 filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            } else if (options.tcoffeLibMode == SWITCH) {
-                _VV(options, " passed from SWITCH mode");
-                computeTCoffeWeightsSwitch(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                           filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            } else if (options.tcoffeLibMode == ALLINTER) {
-//                std::cout << i << " seq1 " << rnaAligns[i].idBppSeqH << " seq2 " << rnaAligns[i].idBppSeqV << std::endl;
-                _VV(options, " passed from ALLINTER mode");
-                computeTCoffeWeightsAllInter(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                             filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            } else if (options.tcoffeLibMode == FIXEDINTER) {
-//                std::cout << i << " seq1 " << rnaAligns[i].idBppSeqH << " seq2 " << rnaAligns[i].idBppSeqV << std::endl;
-                _VV(options, " passed from FIXEDINTER mode");
-                computeTCoffeWeightsFixedInter(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                             filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
-            } else {
-                std::cout << "Select one of the available modes to compute the T-COFFE library" << std::endl;
-                //            return -1;
-            }
-        }
-        else
+            computeTCoffeWeightsMethodSel(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
+                       filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
+        } else
         {
-            _VV(options, " passed from SEQALIGNONLY mode");
-            computeTCoffeWeightsSeqAlignOnly(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
-                                             filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
+            computeTCoffeWeightsMethodSel(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqV],
+                       filecontents1.records[rnaAligns[i].idBppSeqH], rnaAligns[i]);
         }
         tcLib.rnaPairs.push_back(tcPair);
     }
@@ -433,7 +416,7 @@ void writeFileTCoffeeLib(TTCoffeeLib & tcLib, TOption const & options)
         tcoffeLibFile << tcLib.size << std::endl;
         for(unsigned i = 0; i < tcLib.size; ++i)
         {
-            tcoffeLibFile << tcLib.rnas[i].name << " " << tcLib.rnas[i].length << std::endl;
+            tcoffeLibFile << tcLib.rnas[i].name << " " << tcLib.rnas[i].length << " ";
             tcoffeLibFile <<  tcLib.rnas[i].sequence << std::endl;
         }
         for(unsigned i = 0; i < tcLib.rnaPairs.size(); ++i)
