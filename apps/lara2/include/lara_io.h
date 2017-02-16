@@ -74,7 +74,7 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
         _V(options, "Input file is Fasta/Fastq.");
         SeqFileIn seqFileIn(toCString(filename));
         StringSet<CharString> ids;
-        StringSet<Rna5String> seqs;
+        StringSet<IupacString> seqs;
         StringSet<CharString> quals;
         readRecords(ids, seqs, quals, seqFileIn);
         close(seqFileIn);
@@ -83,7 +83,7 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
         for (typename Size<StringSet<CharString> >::Type idx = 0u; idx < length(ids); ++idx)
         {
             filecontents.records[idx].name = ids[idx];
-            filecontents.records[idx].sequence = seqs[idx];
+            filecontents.records[idx].sequence = convert<Rna5String>(seqs[idx]);
         }
         if (length(quals) == length(ids))
         {
