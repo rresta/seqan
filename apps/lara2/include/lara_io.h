@@ -63,8 +63,7 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
         return;
 
     RnaStructFileIn rnaStructFile;
-    CharString inFilePath = getAbsolutePath(toCString(filename));
-    if (open(rnaStructFile, toCString(inFilePath), OPEN_RDONLY))
+    if (open(rnaStructFile, toCString(filename), OPEN_RDONLY))
     {
         _V(options, "Input file is RnaStruct.");
         readRecords(filecontents, rnaStructFile, 100000u);
@@ -73,7 +72,7 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
     else
     {
         _V(options, "Input file is Fasta/Fastq.");
-        SeqFileIn seqFileIn(toCString(inFilePath));
+        SeqFileIn seqFileIn(toCString(filename));
         StringSet<CharString> ids;
         StringSet<Rna5String> seqs;
         StringSet<CharString> quals;
