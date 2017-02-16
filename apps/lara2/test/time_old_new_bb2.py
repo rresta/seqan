@@ -48,24 +48,24 @@ for (infile, out1, out2) in files:
   proc.communicate()
   lara1time += time.time() - t
   if proc.returncode < 0:
-      print >>sys.stderr, "Lara was terminated by signal", -proc.returncode
+      print >>sys.stderr, "Lara1 was terminated by signal", -proc.returncode
       exit(proc.returncode)
       
   ''' 
-  JW working on 2 problems: 
-  a) Lara2 does not take absolute input file paths 
-  b) Bralibase files contain DNA letter 'T' (parse error with Lara2)
+  JW working on 2 TODOs: 
+  a) disable Lara2 progress bar in tests 
+  b) run tcoffee
   '''
       
   # run Lara2
   t = time.time()
-  #proc = subprocess.Popen([newlara_bin, "-i", infile],\
-  #       bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, shell=False)
-  #print proc.communicate()[0]
+  proc = subprocess.Popen([newlara_bin, "-i", infile, "-w", out2],\
+         bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, shell=False)
+  proc.communicate()
   lara2time += time.time() - t
-  #if proc.returncode < 0:
-  #    print >>sys.stderr, "Lara was terminated by signal", -proc.returncode
-  #    exit(proc.returncode)
+  if proc.returncode < 0:
+      print >>sys.stderr, "Lara2 was terminated by signal", -proc.returncode
+      exit(proc.returncode)
 
 print('\nTotal time for Lara1: {} seconds.'.format(lara1time))
 print('\nTotal time for Lara2: {} seconds.'.format(lara2time))
