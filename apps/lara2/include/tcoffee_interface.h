@@ -380,7 +380,7 @@ int computeTCoffeWeights(TTCoffeeLib & tcLib, TOption const & options, RnaStruct
         tcoffeePair tcPair;
         tcPair.idSeqH = rnaAligns[i].idBppSeqH + 1;
         tcPair.idSeqV = rnaAligns[i].idBppSeqV + 1;
-        std::cout << tcPair.idSeqH << " " << tcPair.idSeqV << std::endl;
+//        std::cout << tcPair.idSeqH << " " << tcPair.idSeqV << std::endl;
 //        if(rnaAligns[i].forMinBound.upperBound > 0)
         computeTCoffeWeightsMethodSel(tcPair, options, filecontents1.records[rnaAligns[i].idBppSeqH],
                        filecontents1.records[rnaAligns[i].idBppSeqV], rnaAligns[i]);
