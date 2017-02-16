@@ -71,18 +71,23 @@ void setScoreMatrix(TOptions & options)
 {
     options.laraScoreMatrix.data_gap_extend = options.laraGapExtend;
     options.laraScoreMatrix.data_gap_open = options.laraGapOpen;
-    if (options.laraScoreMatrixName != "")
-    {
-        loadScoreMatrix(options.laraScoreMatrix, toCString(getAbsolutePath(toCString(options.laraScoreMatrixName))));
-        _V(options, "Provided scoring matrix will be used " << options.laraScoreMatrixName);
-//        showScoringMatrix(options.laraScoreMatrix);
-    }
-    else
+    if (empty(options.laraScoreMatrixName))
     {
         _V(options, "Predefined RIBOSUM matrix will be used");
         setDefaultScoreMatrix(options.laraScoreMatrix, TRibosum());
-//        showScoringMatrix(options.laraScoreMatrix);
+        return;
     }
+    if (loadScoreMatrix(options.laraScoreMatrix, toCString(options.laraScoreMatrixName)))
+    {
+        _V(options, "Provided scoring matrix will be used " << options.laraScoreMatrixName);
+    }
+    else
+    {
+        std::cerr << "Matrix file could not be opened: " << options.laraScoreMatrixName
+                  << "). Predefined RIBOSUM matrix will be used." << std::endl;
+        setDefaultScoreMatrix(options.laraScoreMatrix, TRibosum());
+    }
+
 }
 
 // ----------------------------------------------------------------------------
