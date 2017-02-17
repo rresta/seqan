@@ -132,7 +132,6 @@ TCargo maximumWeightedMatchingGreedy(Graph<Undirected<TCargo> > const & graph)
 {
     typedef Graph<Undirected<TCargo> > TUGraph;
     typedef typename EdgeDescriptor<TUGraph>::Type TEdgeDescr;
-    typedef typename EdgeType<TUGraph>::Type TEdge;
     typedef typename Iterator<TUGraph, EdgeIterator>::Type TEdgeIter;
     typedef typename Iterator<TUGraph, AdjacencyIterator>::Type TAdjacIterator;
     typedef typename VertexDescriptor<TUGraph>::Type TVertexDescr;
