@@ -16,9 +16,12 @@ work_dir = os.getcwd()
 oldlara_dir = os.path.join(work_dir, "lara-1.3.2")
 oldlara_bin = os.path.join(oldlara_dir, "lara")
 oldlara_res = os.path.join(work_dir, "benchmarks", "results-lara1")
+oldtcof_bin = os.path.join(oldlara_dir, "t_coffee", "t_coffee_5.05")
 
 newlara_bin = os.path.join(work_dir, "..", "..", "..", "..", "build", "bin", "laragu")
 newlara_res = os.path.join(work_dir, "benchmarks", "results-lara2")
+newtcof_bin = os.path.join(work_dir, "..", "..", "..", "..", "build", "bin", "seqan_tcoffee")
+tc_tempfile = os.path.join(newlara_res, "tcoffeLara.lib")
 
 # create list of files
 files = []
@@ -38,6 +41,8 @@ print(str(len(files)) + " alignments to compute.")
 # process all files
 lara1time = 0.0
 lara2time = 0.0
+oldtctime = 0.0
+newtctime = 0.0
 for (infile, out1, out2) in files:
   print >>sys.stderr, "  processing", os.path.basename(out1)
   
@@ -51,21 +56,38 @@ for (infile, out1, out2) in files:
       print >>sys.stderr, "Lara1 was terminated by signal", -proc.returncode
       exit(proc.returncode)
       
-  ''' 
-  JW working on 2 TODOs: 
-  a) disable Lara2 progress bar in tests 
-  b) run tcoffee
-  '''
-      
   # run Lara2
   t = time.time()
-  proc = subprocess.Popen([newlara_bin, "-i", infile, "-w", out2],\
-         bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, shell=False)
+  proc = subprocess.Popen([newlara_bin, "-i", infile, "-td", newlara_res],\
+         bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
   proc.communicate()
   lara2time += time.time() - t
   if proc.returncode < 0:
       print >>sys.stderr, "Lara2 was terminated by signal", -proc.returncode
       exit(proc.returncode)
+  
+  # old tcoffee
+  t = time.time()
+  proc = subprocess.Popen([oldtcof_bin, "-in", tc_tempfile, "-case=upper", "-output fasta", "-clean_seq_name 1",\
+         "-outfile", out2 + ".aln", "-newtree", out2 + ".dnd"],\
+         bufsize=-1, executable=oldtcof_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+  proc.communicate()
+  oldtctime += time.time() - t
+  if proc.returncode < 0:
+      print >>sys.stderr, "T-Coffee was terminated by signal", -proc.returncode
+      exit(proc.returncode)
+  
+  # new tcoffee
+  t = time.time()
+  proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", tc_tempfile, "-m", "global", "-a", "dna",\
+         "-o", out2 + ".msf", "-b", "wavg"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
+  proc.communicate()
+  newtctime += time.time() - t
+  if proc.returncode < 0:
+      print >>sys.stderr, "SeqAn::T-Coffee was terminated by signal", -proc.returncode
+      exit(proc.returncode)
 
-print('\nTotal time for Lara1: {} seconds.'.format(lara1time))
-print('\nTotal time for Lara2: {} seconds.'.format(lara2time))
+print('Total time for Lara1:          {} seconds.'.format(lara1time))
+print('Total time for Lara2:          {} seconds.'.format(lara2time))
+print('Total time for TCoffee:        {} seconds.'.format(oldtctime))
+print('Total time for SeqAn::TCoffee: {} seconds.'.format(newtctime))
