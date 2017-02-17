@@ -449,10 +449,11 @@ int main (int argc, char const ** argv)
                 }
             }
         }
-        std::cerr << "|" ;
+        if (options.verbose > 0) std::cerr << "|";
     }
-    _VV(options, "\nmap computation time = " << boutime << "\nlemon MWM time       = " << lemtime
-                                             << "\ngreedy MWM time      = " << mwmtime);
+    if (options.verbose > 0) std::cerr << std::endl;
+    _VV(options, "map computation time = " << boutime << "\nlemon MWM time       = " << lemtime
+                                           << "\ngreedy MWM time      = " << mwmtime);
 
 // timer stop
     std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
