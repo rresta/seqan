@@ -43,6 +43,7 @@ lara1time = 0.0
 lara2time = 0.0
 oldtctime = 0.0
 newtctime = 0.0
+errors = 0
 for (infile, out1, out2) in files:
   print >>sys.stderr, "  processing", os.path.basename(out1)
   
@@ -54,7 +55,7 @@ for (infile, out1, out2) in files:
   lara1time += time.time() - t
   if proc.returncode < 0:
       print >>sys.stderr, "Lara1 was terminated by signal", -proc.returncode
-      exit(proc.returncode)
+      errors += 1
       
   # run Lara2
   t = time.time()
@@ -64,7 +65,8 @@ for (infile, out1, out2) in files:
   lara2time += time.time() - t
   if proc.returncode < 0:
       print >>sys.stderr, "Lara2 was terminated by signal", -proc.returncode
-      exit(proc.returncode)
+      errors += 1
+      continue
   
   # old tcoffee
   t = time.time()
@@ -75,18 +77,20 @@ for (infile, out1, out2) in files:
   oldtctime += time.time() - t
   if proc.returncode < 0:
       print >>sys.stderr, "T-Coffee was terminated by signal", -proc.returncode
-      exit(proc.returncode)
+      errors += 1
   
   # new tcoffee
   t = time.time()
-  proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", tc_tempfile, "-m", "global", "-a", "dna",\
+  proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", tc_tempfile, "-m", "global", "-a", "iupac",\
          "-o", out2 + ".msf", "-b", "wavg"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
   proc.communicate()
   newtctime += time.time() - t
   if proc.returncode < 0:
       print >>sys.stderr, "SeqAn::T-Coffee was terminated by signal", -proc.returncode
-      exit(proc.returncode)
+      errors += 1
 
+if errors > 0:
+  print('There were {} errors.'.format(errors))
 print('Total time for Lara1:          {} seconds.'.format(lara1time))
 print('Total time for Lara2:          {} seconds.'.format(lara2time))
 print('Total time for TCoffee:        {} seconds.'.format(oldtctime))
