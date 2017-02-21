@@ -6,9 +6,11 @@
     Author: Joerg Winkler <j.winkler@fu-berlin.de>
 '''
 
+import re
 import os
 import sys
 import time
+import numpy
 import subprocess
 from Bio import AlignIO
 
@@ -38,7 +40,9 @@ newtcof_bin = os.path.join(seqan_dir, "seqan_tcoffee")
 tc_tempfile = os.path.join(results_dir, "tcoffeLara.lib")
 
 # compiled RNAz program ( http://www.tbi.univie.ac.at/~wash/RNAz/ )
-rnaz_bin = os.path.join(work_dir, "..", "..", "..", "..", "..", "apps", "rnaz", "bin", "RNAz") # adapt this
+rnaz_bin = os.path.join(work_dir, "..", "..", "..", "..", "..", "apps", "rnaz", "bin", "RNAz") # adapt
+# compiled compalignp program ( http://www.biophys.uni-duesseldorf.de/bralibase/compalignp.tgz )
+compali_bin = os.path.join(work_dir, "..", "..", "..", "..", "..", "apps", "compalignp", "compalignp") # adapt
 
 ########################
 ##  CREATE FILE LIST  ##
@@ -62,10 +66,12 @@ lara1time = 0.0
 lara2time = 0.0
 oldtctime = 0.0
 newtctime = 0.0
+stats = {}
 had_err = []
 for (infile, outfile) in files:
-  errors = [False] * 5
-  print >>sys.stderr, "  processing", os.path.basename(outfile)
+  errors = [False] * 7
+  basename = os.path.basename(outfile)
+  print >>sys.stderr, "  processing", basename
   
   # run Lara1
   t = time.time()
@@ -112,6 +118,9 @@ for (infile, outfile) in files:
   ##  ALIGNMENT ANALYSIS  ##
   ##########################
   
+  stats[basename] = ([],[],[])
+  
+  # transform into Clustal format
   ali = AlignIO.read(outfile + "1.fasta", "fasta")
   AlignIO.write([ali[:-1]], outfile + "1.aln", "clustal")
   ali = AlignIO.read(outfile + "2.fasta", "fasta")
@@ -119,22 +128,65 @@ for (infile, outfile) in files:
   ali = AlignIO.read(outfile + "3.fasta", "fasta")
   AlignIO.write([ali], outfile + "3.aln", "clustal")
   
-  for r in "1","2","3":
-    proc = subprocess.Popen([rnaz_bin, "-o", outfile + r + ".stat", "-n", outfile + r + ".aln"],\
+  # run RNAz analysis
+  for file in [outfile + str(x) for x in (1, 2, 3)]:
+    proc = subprocess.Popen([rnaz_bin, "-o", file + ".stat", "-n", file + ".aln"],\
            bufsize=-1, executable=rnaz_bin, shell=False)
     proc.communicate()
-    errors[4] = errorhandle(proc.returncode, rnaz_bin + " " + outfile + r + ".aln") or errors[4]
-    
+    errors[4] = errorhandle(proc.returncode, rnaz_bin + " " + file + ".aln") or errors[4]
+  
+  # run compalignp
+  refalignment = infile.replace("unaligned", "structural-no_str")
+  for (i, file) in [(x - 1, outfile + str(x) + ".aln") for x in (1, 2, 3)]:
+    proc = subprocess.Popen([compali_bin, "-t", file, "-r", refalignment],\
+           bufsize=-1, executable=compali_bin, stdout=subprocess.PIPE, shell=False)
+    stats[basename][i].append(float(proc.communicate()[0]))
+    errors[5] = errorhandle(proc.returncode, compali_bin + " " + file) or errors[5]
+  
   if any(errors):
     had_err.append(errors)
     continue
-
-if len(had_err) > 0:
-  print("There were errors: " + str(had_err))
   
+  # extract statistics from files
+  for (i, file) in [(x - 1, outfile + str(x) + ".stat") for x in (1, 2, 3)]:
+    (sci, mpi) = (None, None)
+    for line in open(file, 'r'):
+      if line.startswith(" Mean pairwise identity:"):
+        mpi = float(re.findall(r"(-?\d+\.\d*)", line)[0])
+      if line.startswith(" Structure conservation index:"):
+        sci = float(re.findall(r"(-?\d+\.\d*)", line)[0])
+    
+    if sci == None or mpi == None:
+      print >>sys.stderr, "Could not parse file " + file
+      errors[6] = True
+      continue
+      
+    stats[basename][i].extend([sci, mpi])
+  
+  if any(errors):
+    had_err.append(errors)
+  
+###############
+##  RESULTS  ##
+###############
 print('Total time for Lara1:          {} seconds.'.format(lara1time))
 print('Total time for Lara2:          {} seconds.'.format(lara2time))
 print('Total time for TCoffee:        {} seconds.'.format(oldtctime))
 print('Total time for SeqAn::TCoffee: {} seconds.'.format(newtctime))
 
+if len(had_err) > 0:
+  print("There were errors: " + str(had_err))
+else:
+  # calculate cumulative values
+  vals = [zip(*x) for x in zip(*stats.values())]
+  print "\nValues for (Sum of Pairs Score, Structure Conservation Index, Mean Pairwise Identity):"
+  
+  def _make_stat_str(values):
+    return "\tMean "   + str(tuple([round(numpy.mean(x),2) for x in values]))\
+         + "\tMedian " + str(tuple([round(numpy.median(x),2) for x in values]))\
+         + "\tStdDev " + str(tuple([round(numpy.std(x),2) for x in values]))
+  
+  print "Lara1 with old TCoffee" + _make_stat_str(vals[0])
+  print "Lara2 with old TCoffee" + _make_stat_str(vals[1])
+  print "Lara2 with new TCoffee" + _make_stat_str(vals[2])
 
