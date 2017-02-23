@@ -13,6 +13,10 @@ import time
 import numpy
 import subprocess
 from Bio import AlignIO
+from Bio.Statistics.lowess import lowess
+from matplotlib import use
+use('PDF')
+import matplotlib.pyplot as plt
 
 def errorhandle(returncode, program='Program'):
   if returncode < 0:
@@ -169,6 +173,7 @@ for (infile, outfile) in files:
 ###############
 ##  RESULTS  ##
 ###############
+
 print('Total time for Lara1:          {} seconds.'.format(lara1time))
 print('Total time for Lara2:          {} seconds.'.format(lara2time))
 print('Total time for TCoffee:        {} seconds.'.format(oldtctime))
@@ -176,17 +181,48 @@ print('Total time for SeqAn::TCoffee: {} seconds.'.format(newtctime))
 
 if len(had_err) > 0:
   print("There were errors: " + str(had_err))
-else:
-  # calculate cumulative values
-  vals = [zip(*x) for x in zip(*stats.values())]
-  print "\nValues for (Sum of Pairs Score, Structure Conservation Index, Mean Pairwise Identity):"
+  exit(1)
   
-  def _make_stat_str(values):
-    return "\tMean "   + str(tuple([round(numpy.mean(x),2) for x in values]))\
-         + "\tMedian " + str(tuple([round(numpy.median(x),2) for x in values]))\
-         + "\tStdDev " + str(tuple([round(numpy.std(x),2) for x in values]))
-  
-  print "Lara1 with old TCoffee" + _make_stat_str(vals[0])
-  print "Lara2 with old TCoffee" + _make_stat_str(vals[1])
-  print "Lara2 with new TCoffee" + _make_stat_str(vals[2])
+# define macros
+(SPS, SCI, MPI) = (0, 1, 2)
+(LA1, L2O, L2N) = (0, 1, 2)
+SCORELBL = ('Sum of Pairs Score (compalignp)', 'Structure Conservation Index (RNAz)', 'Mean Pairwise Identity (RNAz)')
+PROGLBL = ('Lara1', 'Lara2 TC', 'Lara2 SeqAn::TC')
 
+# provide data sorted by MPI
+data = [zip(*x) for x in zip(*stats.values())]
+for i in (LA1, L2O, L2N):
+  (data[i][MPI], data[i][SPS], data[i][SCI]) = (list(x) for x in zip(*sorted(zip(data[i][MPI], data[i][SPS], data[i][SCI]))))
+  
+# print cumulative values
+def _make_stat_str(values):
+  return "\t Mean "   + str(tuple([round(numpy.mean(x),2) for x in values]))\
+       + "\t Median " + str(tuple([round(numpy.median(x),2) for x in values]))\
+       + "\t StdDev " + str(tuple([round(numpy.std(x),2) for x in values]))
+       
+print "\nValues for (Sum of Pairs Score, Structure Conservation Index, Mean Pairwise Identity):"
+print "Lara1 with old TCoffee" + _make_stat_str(data[LA1])
+print "Lara2 with old TCoffee" + _make_stat_str(data[L2O])
+print "Lara2 with new TCoffee" + _make_stat_str(data[L2N])
+
+# set view area for plots
+view = ([28, 100, 0.3, 1], [28, 100, 0, 1.4])
+
+for score in (SPS, SCI):
+  # calculate lowess function
+  x = [numpy.array(prog[MPI], numpy.float) for prog in data]
+  y = [prog[score] for prog in data]
+  f = [lowess(x[i], numpy.array(y[i], numpy.float)) for i in (LA1, L2O, L2N)]
+  
+  # plot data
+  for (prog, color) in ((LA1, 'r'), (L2O, 'b'), (L2N, 'g')):
+    plt.plot(map(int, x[prog]), y[prog], "." + color, ms=3)
+    plt.plot(x[prog], f[prog], color, label=PROGLBL[prog])
+    
+  plt.axis(view[score])
+  plt.xlabel(SCORELBL[MPI])
+  plt.ylabel(SCORELBL[score])
+  plt.legend(loc="lower right")
+  plt.savefig(os.path.join(results_dir, "figure" + str(score) + ".pdf"))
+  print "Plot of values saved to results/figure" + str(score) + ".pdf"
+  plt.clf()
