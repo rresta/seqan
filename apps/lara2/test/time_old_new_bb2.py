@@ -166,7 +166,6 @@ if len(had_err) > 0:
   print("There were errors: " + str(had_err))
   exit(1)
 
-
 ##########################
 ##  ALIGNMENT ANALYSIS  ##
 ##########################
@@ -236,14 +235,14 @@ view = ([28, 100, 0.3, 1], [28, 100, 0, 1.4])
 
 for score in (SPS, SCI):
   # calculate lowess function
-  x = [numpy.array(prog[MPI], numpy.float) for prog in data]
+  x = numpy.array(data[REF][MPI], numpy.float)
   y = [prog[score] for prog in data]
-  f = [lowess(x[i], numpy.array(y[i], numpy.float)) for i in PROGRAMS]
+  f = [lowess(x, numpy.array(y[i], numpy.float)) for i in PROGRAMS]
   
   # plot data
   for (prog, color) in ((LA1,'b'), (L2O,'g'), (L2N,'r'), (STC,'c'), (MAF,'m'), (REF,'k')):
-    plt.plot(map(int, x[prog]), y[prog], "." + color, ms=3)
-    plt.plot(x[prog], f[prog], color, label=PROGLBL[prog])
+    plt.plot(map(int, x), y[prog], "." + color, ms=3)
+    plt.plot(x, f[prog], color, label=PROGLBL[prog])
     
   plt.axis(view[score])
   plt.xlabel(SCORELBL[MPI])
