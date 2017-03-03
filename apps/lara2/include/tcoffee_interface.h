@@ -118,7 +118,7 @@ void computeTCoffeWeightsProportional(tcoffeePair & tcPair, TOption const & opti
         }
         if(rnaAlign.forMinBound.upperBoundVect[rnaAlign.forMinBound.mask[i].second].maxProbScoreLine > 0)
         {
-            tcW.weight = TCOFFSET + (TCMULT * rnaAlign.forMinBound.upperBoundVect[rnaAlign.forMinBound.mask[i].second].maxProbScoreLine);
+            tcW.weight = TCOFFSET + static_cast<int>(TCMULT * rnaAlign.forMinBound.upperBoundVect[rnaAlign.forMinBound.mask[i].second].maxProbScoreLine);
         }
         else
         {
