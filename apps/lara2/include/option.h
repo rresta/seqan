@@ -447,17 +447,24 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
 
     getOptionValue(options.inFileRef, parser, "inFileRef");
     getOptionValue(options.outFile, parser, "outFile");
-    CharString tmpDir, paramFile;
-    getOptionValue(tmpDir, parser, "tmpDir");
-    if (!isSet(parser, "tmpDir"))
+    if (isSet(parser, "outFile"))
     {
-        tmpDir = SEQAN_TEMP_FILENAME();
-        // remove "/test_file" suffix
-        erase(tmpDir, length(tmpDir) - 10u, length(tmpDir));
+        _V(options, "The specified output file is " << options.outFile);
     }
-    setEnv("TMPDIR", tmpDir);
-    options.tmpDir = tmpDir;
-    _V(options, "The absolute path where to create the tmpDir is " << tmpDir);
+    else
+    {
+        CharString tmpDir;
+        getOptionValue(tmpDir, parser, "tmpDir");
+        if (!isSet(parser, "tmpDir"))
+        {
+            tmpDir = SEQAN_TEMP_FILENAME();
+            // remove "/test_file" suffix
+            erase(tmpDir, length(tmpDir) - 10u, length(tmpDir));
+        }
+        setEnv("TMPDIR", tmpDir);
+        options.tmpDir = tmpDir;
+        _V(options, "The absolute path where to create the tmpDir is " << tmpDir);
+    }
     _V(options, "Initialized the Options structure");
     setScoreMatrix(options);
 //    showScoringMatrix(options.laraScoreMatrix);
