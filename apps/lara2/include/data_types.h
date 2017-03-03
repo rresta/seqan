@@ -96,7 +96,7 @@ double const EPSILON = 0.0001;
 
 //Values used for T-Coffee lib preparation
 int const TCOFFSET = 500;
-int const TCMULT = 10000;
+int const TCMULT = 100000;
 int const TCMAX = 1000;
 
 // ============================================================================
