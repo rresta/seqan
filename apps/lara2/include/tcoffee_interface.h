@@ -432,23 +432,42 @@ void createTCoffeeLib(TOption const & options, bool const & singleOrDoubleInFile
 template <typename TOption>
 void writeFileTCoffeeLib(TTCoffeeLib & tcLib, TOption const & options)
 {
-    seqan::CharString filePath = options.tmpDir;
-    append(filePath, "/tcoffeLara.lib");
+    bool had_err = false;
     std::ofstream tcoffeLibFile;
-    tcoffeLibFile.open(toCString(filePath));
-    if(tcoffeLibFile.is_open())
+    if (empty(options.outFile))
+    {
+        seqan::CharString filePath = options.tmpDir;
+        append(filePath, "/tcoffeLara.lib");
+        tcoffeLibFile.open(toCString(filePath));
+        if (!tcoffeLibFile.is_open())
+        {
+            std::cerr << "Unable to open the tcoffee lib file for writing: " << filePath << std::endl;
+            had_err = true;
+        }
+    }
+    else
+    {
+        tcoffeLibFile.open(toCString(options.outFile), std::ios::out);
+        if (!tcoffeLibFile.is_open())
+        {
+            std::cerr << "Unable to open the specified output file for writing: " << options.outFile << std::endl;
+            had_err = true;
+        }
+    }
+
+    if (!had_err)
     {
         tcoffeLibFile << "! T-COFFEE_LIB_FORMAT_01" << std::endl;
         tcoffeLibFile << tcLib.size << std::endl;
-        for(unsigned i = 0; i < tcLib.size; ++i)
+        for (unsigned i = 0; i < tcLib.size; ++i)
         {
             tcoffeLibFile << tcLib.rnas[i].name << " " << tcLib.rnas[i].length << " ";
             tcoffeLibFile <<  tcLib.rnas[i].sequence << std::endl;
         }
-        for(unsigned i = 0; i < tcLib.rnaPairs.size(); ++i)
+        for (unsigned i = 0; i < tcLib.rnaPairs.size(); ++i)
         {
             tcoffeLibFile << "# " << tcLib.rnaPairs[i].idSeqH << " " << tcLib.rnaPairs[i].idSeqV << std::endl;
-            for(unsigned j = 0; j < tcLib.rnaPairs[i].alignWeights.size(); ++j)
+            for (unsigned j = 0; j < tcLib.rnaPairs[i].alignWeights.size(); ++j)
             {
                 tcoffeLibFile << tcLib.rnaPairs[i].alignWeights[j].ntSeqH << " " << tcLib.rnaPairs[i].alignWeights[j].ntSeqV
                           << " " <<  tcLib.rnaPairs[i].alignWeights[j].weight << std::endl;
@@ -456,12 +475,6 @@ void writeFileTCoffeeLib(TTCoffeeLib & tcLib, TOption const & options)
         }
         tcoffeLibFile << "! SEQ_1_TO_N" << std::endl;
         tcoffeLibFile.close();
-    }
-    else
-    {
-        std::cout << "Unable to open the tcoffee lib file" << std::endl;
-
-        std::cout << "A valid path of tmpfolder should be set -> $ -td VALID/PATH/TMPFOLDER" << std::endl;
     }
 }
 
