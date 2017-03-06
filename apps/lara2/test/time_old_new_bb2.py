@@ -30,18 +30,23 @@ def errorhandle(returncode, program='Program'):
 ##  SET FILE PATHS  ##
 ######################
 
+l2args = [[],\
+          ["-g", "2", "-lbm", "1", "-tb", "0.1", "-ssc", "10", "-stsc", "1", "-lsm", "RIBOSUM65", "-tcm", "0"]]
+
 # define macros
 SCORES = (SPS, SCI, MPI) = (0, 1, 2)
 SCORELBL = ('Sum of Pairs Score (compalignp)', 'Structure Conservation Index (RNAz)', 'Mean Pairwise Identity (RNAz)')
-PROGRAMS = (LA1, L2O, L2N, STC, MAF, REF) = (0, 1, 2, 3, 4, 5)
-PROGLBL = ('Lara1+TC', 'Lara2+TC', 'Lara2+S::TC', 'SeqAn::TC', 'MAFFT   ', 'Reference')
+PROGLBL = ['Reference', 'Lara1+TC', 'SeqAn::TC', 'MAFFT', 'Lara2+TC']
+PROGLBL.extend(['Lara2+STC' + str(i) for i in range(len(l2args))])
+PROGRAMS = range(len(PROGLBL))
+(REF, LA1, STC, MAF, L2O, L2N) = PROGRAMS[:6]
 
 work_dir = os.getcwd()
 results_dir  = os.path.join(work_dir, "results")
 # old lara and old tcoffee
 oldlara_dir = os.path.join(work_dir, "lara-1.3.2")
 oldlara_bin = os.path.join(oldlara_dir, "lara")
-oldtcof_bin = os.path.join(oldlara_dir, "t_coffee", "t_coffee_5.05")
+oldtcof_bin = os.path.join(work_dir, "..", "..", "..", "..", "..", "apps", "tcoffee", "bin", "t_coffee")
 
 # new lara and new tcoffee
 seqan_dir = os.path.join(work_dir, "..", "..", "..", "..", "build", "bin") # adapt this to your system!
@@ -76,59 +81,34 @@ print(str(len(files)) + " alignments to compute.")
 
 progtime = [0.0] * len(PROGRAMS)
 stats = {}
-had_err = []
+errors = []
 
 for (infile, outfile) in files:
-  errors = [False] * 7
+  del errors[:]
   basename = os.path.basename(outfile)
   print >>sys.stderr, "  processing", basename
-  
+
+  # Reference
+  refalignment = infile.replace("unaligned", "structural-no_str")
+  copyfile(refalignment, outfile + str(REF) + ".fasta")
+
   # run Lara1
   t = time.time()
   proc = subprocess.Popen([oldlara_bin, "-i", infile, "-w", outfile + str(LA1) + ".fasta"],\
          bufsize=-1, executable=oldlara_bin, stdout=subprocess.PIPE, shell=False, cwd=oldlara_dir)
   proc.communicate()
   progtime[LA1] += time.time() - t
-  errors[0] = errorhandle(proc.returncode, oldlara_bin + " " + infile)
-      
-  # run Lara2
-  t = time.time()
-  proc = subprocess.Popen([newlara_bin, "-i", infile, "-td", results_dir, "-t", "1"],\
-         bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-  proc.communicate()
-  lara2time = time.time() - t
-  errors[1] = errorhandle(proc.returncode, oldlara_bin + " " + infile)
-  
-  if errors[1]:
-    had_err.append(errors)
-    continue
-  
-  # old tcoffee
-  t = time.time()
-  proc = subprocess.Popen([oldtcof_bin, "-in", tc_tempfile, "-case=upper", "-output fasta", "-clean_seq_name 1",\
-         "-outfile", outfile + str(L2O) + ".fasta", "-newtree", outfile + str(L2O) + ".dnd"],\
-         bufsize=-1, executable=oldtcof_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
-  proc.communicate()
-  progtime[L2O] += lara2time + time.time() - t
-  errors[2] = errorhandle(proc.returncode, oldtcof_bin + " " + infile)
-  
-  # new tcoffee
-  t = time.time()
-  proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", tc_tempfile, "-m", "global", "-a", "iupac", "-b", "wavg",\
-         "-o", outfile + str(L2N) + ".fasta"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
-  proc.communicate()
-  progtime[L2N] += lara2time + time.time() - t
-  errors[3] = errorhandle(proc.returncode, newtcof_bin + " " + tc_tempfile)
-  
-  # SeqAn::TCoffee without Lara
+  errors.append(errorhandle(proc.returncode, oldlara_bin + " " + infile))
+
+  # run SeqAn::TCoffee without Lara
   t = time.time()
   proc = subprocess.Popen([newtcof_bin, "-s", infile, "-a", "iupac", "-b", "wavg", "-o", outfile + str(STC) + ".fasta"],\
          bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
   proc.communicate()
   progtime[STC] += time.time() - t
-  errors[4] = errorhandle(proc.returncode, newtcof_bin + " " + infile)
+  errors.append(errorhandle(proc.returncode, newtcof_bin + " " + infile))
 
-  # MAFFT
+  # run MAFFT
   t = time.time()
   f = open(outfile + str(MAF) + ".fasta", "w")
   proc = subprocess.Popen([mafft_bin, infile],\
@@ -136,16 +116,52 @@ for (infile, outfile) in files:
   proc.communicate()
   progtime[MAF] += time.time() - t
   f.close()
-  errors[5] = errorhandle(proc.returncode, mafft_bin + " " + infile)
-  
+  errors.append(errorhandle(proc.returncode, mafft_bin + " " + infile))
+
   if any(errors):
-    had_err.append(errors)
-    continue
-  
-  # Reference
-  refalignment = infile.replace("unaligned", "structural-no_str")
-  copyfile(refalignment, outfile + str(REF) + ".fasta")
-   
+    break
+
+  # run Lara2
+  lara2time = 0.0
+  for i in range(len(l2args)):
+    libfile = outfile + str(L2N + i) + ".lib"
+    t = time.time()
+    argumentlist = [newlara_bin, "-i", infile, "-w", libfile, "-t", "4"]
+    argumentlist.extend(l2args[i])
+    proc = subprocess.Popen(argumentlist,\
+           bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+    proc.communicate()
+    lara2time = time.time() - t
+    errors.append(errorhandle(proc.returncode, newlara_bin + ' '.join(argumentlist)))
+    if i == 0:
+      progtime[L2O] += lara2time
+
+    if any(errors):
+      continue
+
+    # SeqAn::TCoffee
+    t = time.time()
+    proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", libfile, "-o", outfile + str(L2N + i) + ".fasta",\
+           "-a", "iupac", "-m", "global"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
+    proc.communicate()
+    progtime[L2N + i] += lara2time + time.time() - t
+    errors.append(errorhandle(proc.returncode, newtcof_bin + " " + libfile))
+
+  if any(errors):
+    break
+
+  # old tcoffee
+  t = time.time()
+  proc = subprocess.Popen([oldtcof_bin, "-lib", outfile + str(L2N) + ".lib", "-output", "fasta",\
+         "-outfile", outfile + str(L2O) + ".fasta", "-newtree", outfile + str(L2O) + ".dnd"],\
+         bufsize=-1, executable=oldtcof_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+  proc.communicate()
+  progtime[L2O] += time.time() - t
+  errors.append(errorhandle(proc.returncode, oldtcof_bin + " " + infile))
+
+  if any(errors):
+    break
+
   # transform into Clustal format and run RNAz analysis
   for file in [outfile + str(x) for x in PROGRAMS]:
     ali = AlignIO.read(file + ".fasta", "fasta")
@@ -154,16 +170,16 @@ for (infile, outfile) in files:
     proc = subprocess.Popen([rnaz_bin, "-o", file + ".stat", "-n", file + ".aln"],\
            bufsize=-1, executable=rnaz_bin, shell=False)
     proc.communicate()
-    errors[6] = errorhandle(proc.returncode, rnaz_bin + " " + file + ".aln") or errors[4]
+    errors.append(errorhandle(proc.returncode, rnaz_bin + " " + file + ".aln"))
 
   if any(errors):
-    had_err.append(errors)
+    break
 
-for (pname, tm) in zip(PROGLBL, progtime)[:-1]:
-  print('Total time for ' + pname + '\t {} seconds.'.format(tm))
-
-if len(had_err) > 0:
-  print("There were errors: " + str(had_err))
+print "Total run times "
+for (pname, tm) in zip(PROGLBL, progtime)[1:]:
+  print('  ' + pname + ' \t{} seconds.'.format(tm))
+if any(errors):
+  print "---> There were errors."
   exit(1)
 
 ##########################
@@ -172,10 +188,10 @@ if len(had_err) > 0:
 
 print ("\nAnalyze alignments...")
 for (infile, outfile) in files:
-  errors = [False] * 2
+  del errors[:]
   basename = os.path.basename(outfile)
 
-  stats[basename] = ([],[],[],[],[],[])
+  stats[basename] = tuple([[] for _ in range(len(PROGRAMS))])
   
   # run compalignp
   refalignment = infile.replace("unaligned", "structural-no_str")
@@ -183,11 +199,7 @@ for (infile, outfile) in files:
     proc = subprocess.Popen([compali_bin, "-t", file, "-r", refalignment],\
            bufsize=-1, executable=compali_bin, stdout=subprocess.PIPE, shell=False)
     stats[basename][i].append(float(proc.communicate()[0]))
-    errors[0] = errorhandle(proc.returncode, compali_bin + " " + file) or errors[0]
-  
-  if any(errors):
-    had_err.append(errors)
-    continue
+    errors.append(errorhandle(proc.returncode, compali_bin + " " + file))
   
   # extract statistics from files
   for (i, file) in [(x, outfile + str(x) + ".stat") for x in PROGRAMS]:
@@ -206,10 +218,7 @@ for (infile, outfile) in files:
     stats[basename][i].extend([sci, mpi])
   
   if any(errors):
-    had_err.append(errors)
-if len(had_err) > 0:
-  print("There were errors: " + str(had_err))
-  exit(1)
+    del stats[basename]
 
 ###############
 ##  RESULTS  ##
@@ -222,27 +231,27 @@ for i in PROGRAMS:
   
 # print cumulative values
 def _make_stat_str(values):
-  return "\t Mean "   + str(tuple([round(numpy.mean(x),2) for x in values]))\
-       + "\t Median " + str(tuple([round(numpy.median(x),2) for x in values]))\
-       + "\t StdDev " + str(tuple([round(numpy.std(x),2) for x in values]))
+  return "\tMean "   + str(tuple([round(numpy.mean(x),2) for x in values]))\
+       + "\tMedian " + str(tuple([round(numpy.median(x),2) for x in values]))\
+       + "\tStdDev " + str(tuple([round(numpy.std(x),2) for x in values]))
        
 print "Values for (Sum of Pairs Score, Structure Conservation Index, Mean Pairwise Identity):"
 for (pname,pval) in zip(PROGLBL,data):
-  print "  " + pname + _make_stat_str(pval)
+  print "  " + pname + "   " + _make_stat_str(pval)
 
 # set view area for plots
-view = ([28, 100, 0.3, 1], [28, 100, 0, 1.4])
+view = ([20, 100, 0.2, 1], [20, 100, 0, 1.4])
 
 for score in (SPS, SCI):
   # calculate lowess function
   x = numpy.array(data[REF][MPI], numpy.float)
   y = [prog[score] for prog in data]
-  f = [lowess(x, numpy.array(y[i], numpy.float)) for i in PROGRAMS]
+  f = [lowess(x, numpy.array(y[i], numpy.float)) for i in range(len(y))]
   
   # plot data
-  for (prog, color) in ((LA1,'b'), (L2O,'g'), (L2N,'r'), (STC,'c'), (MAF,'m'), (REF,'k')):
-    plt.plot(map(int, x), y[prog], "." + color, ms=3)
-    plt.plot(x, f[prog], color, label=PROGLBL[prog])
+  for prog in PROGRAMS:
+    plt.plot(map(int, x), y[prog], ".", ms=3)
+    plt.plot(x, f[prog], label=PROGLBL[prog])
     
   plt.axis(view[score])
   plt.xlabel(SCORELBL[MPI])
