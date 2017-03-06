@@ -134,7 +134,7 @@ struct Options
 // gap penalty for RSA
     double rsaGapPenalty;
 // scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM
-    seqan::CharString structureScoring;
+    unsigned structureScoring;
 // define the weight of _half_ an interaction match for fixed structures
     double fixedStructWeight;
 // if structureScoring=SCALING then we have to give a scaling factor
@@ -183,7 +183,7 @@ struct Options
             laraGapExtend(-5.0),
             sequenceScale(1.0),
             rsaGapPenalty(3.0),
-            structureScoring("LOGARITHMIC"),
+            structureScoring(RIBOSUM),
             fixedStructWeight(8.0),
             scalingFactor(1.0),
             tcoffeeLocation("t_coffee/t_coffee_5.05"),
@@ -278,7 +278,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("rsag", "rsaGapPenalty", "gap penalty for RSA",
                                      ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM",
-                                     ArgParseOption::STRING));
+                                     ArgParseArgument::INTEGER, "INT"));
     addOption(parser, ArgParseOption("fsw", "fixedStructWeight", "define the weight of _half_ an interaction match for "
             "fixed structures", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("scal", "scalingFactor", "if structurescoring=SCALING then we have to give a "
