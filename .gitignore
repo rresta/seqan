@@ -7,3 +7,6 @@ sandbox
 *~
 # Vim temp
 .*.sw?
+cmake-build-debug
+cmake-build-release
+results
