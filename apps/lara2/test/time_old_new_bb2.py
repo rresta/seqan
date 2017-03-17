@@ -122,6 +122,7 @@ for (infile, outfile) in files:
     break
 
   # run Lara2
+<<<<<<< HEAD
   for i in range(len(l2args)):
     libfile = outfile + str(L2N + i) + ".lib"
     t = time.time()
@@ -144,6 +145,31 @@ for (infile, outfile) in files:
            "-a", "iupac", "-m", "global"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
     proc.communicate()
     progtime[L2N + i] += time.time() - t
+=======
+  lara2time = 0.0
+  for i in range(len(l2args)):
+    libfile = outfile + str(L2N + i) + ".lib"
+    t = time.time()
+    argumentlist = [newlara_bin, "-i", infile, "-w", libfile, "-t", "4"]
+    argumentlist.extend(l2args[i])
+    proc = subprocess.Popen(argumentlist,\
+           bufsize=-1, executable=newlara_bin, stdout=subprocess.PIPE, stderr=subprocess.PIPE, shell=False)
+    proc.communicate()
+    lara2time = time.time() - t
+    errors.append(errorhandle(proc.returncode, newlara_bin + ' '.join(argumentlist)))
+    if i == 0:
+      progtime[L2O] += lara2time
+
+    if any(errors):
+      continue
+
+    # SeqAn::TCoffee
+    t = time.time()
+    proc = subprocess.Popen([newtcof_bin, "-s", infile, "-l", libfile, "-o", outfile + str(L2N + i) + ".fasta",\
+           "-a", "iupac", "-m", "global"], bufsize=-1, executable=newtcof_bin, stdout=subprocess.PIPE, shell=False)
+    proc.communicate()
+    progtime[L2N + i] += lara2time + time.time() - t
+>>>>>>> branch 'lara2test' of https://github.com/gurgese/seqan.git
     errors.append(errorhandle(proc.returncode, newtcof_bin + " " + libfile))
 
   if any(errors):
