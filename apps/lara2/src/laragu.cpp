@@ -150,6 +150,10 @@ int main (int argc, char const ** argv)
         {
             rnaAligns[i].structScore.score_matrix.data_tab[j] = rnaAligns[i].structScore.score_matrix.data_tab[j] /
                                                                 options.sequenceScale;
+            rnaAligns[i].structScore.score_matrix.data_gap_open = rnaAligns[i].structScore.score_matrix.data_gap_open /
+                                                                options.sequenceScale;
+            rnaAligns[i].structScore.score_matrix.data_gap_extend = rnaAligns[i].structScore.score_matrix.data_gap_extend /
+                                                                    options.sequenceScale;
 //TODO sequenceScale can be substituted from a runtime computed parameter that consider the identity of the sequences or other aspects
         }
     }
