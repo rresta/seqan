@@ -1,0 +1,2 @@
+RNA CoSMo is a c++ module capable to generate the consensus structure of RNA sequences. 
+It takes as input the RNA secondary structures generated using third parts tools and apply an ensamble analysis for generating a more reliable secondary fixed structure.
