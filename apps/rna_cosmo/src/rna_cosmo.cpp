@@ -124,7 +124,7 @@ int main (int argc, char const ** argv)
 //    _readRnaInputFile(filecontents2, options.inFileRef, options);
     _V(options, "Read " << length(filecontents.records) << " records from input files.");
 
-    // add the weight interaction edges vector map in the data structure using Vienna package
+// add the weight interaction edges vector map in the data structure using Vienna package
     bppInteractionGraphBuild(filecontents.records, options);
 
 
@@ -133,7 +133,10 @@ int main (int argc, char const ** argv)
     std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
 
 // CODE SHOULD BE ADDED HERE
-
+    _V(options, "STEP 1: Create functions that take the RNA seq and "
+            "generate many fixed structures using several "
+            "combinations of tools and parameters");
+    _V(options, "These functions will generate command lines for the various tools");
 
 
     testGraph();

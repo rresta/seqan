@@ -153,6 +153,8 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, "
             "verbose(2) Displays extensive statistics for each batch of reads, verbose(3) Debug output.",
             ArgParseArgument::INTEGER, "INT"));
+    addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended "
+            "input file."));
     addOption(parser, ArgParseOption("tb", "thrBppm", "(Parameter used during the RNAfold execution to select the "
             "minimum energy to be considered (default: 1e-15) ", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM",
