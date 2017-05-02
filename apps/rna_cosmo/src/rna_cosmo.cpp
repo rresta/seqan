@@ -137,6 +137,11 @@ int main (int argc, char const ** argv)
             "generate many fixed structures using several "
             "combinations of tools and parameters");
     _V(options, "These functions will generate command lines for the various tools");
+    _V(options, "STEP 2: Fixed Graph of the outputs of the tools");
+    _V(options, "STEP 3: Function that controls in RMDB if there are SHAPE of the input sequence");
+    _V(options, "STEP 4: Function that generates a consensus structure module");
+    _V(options, "STEP 5: Generate EBPSEQ file format (output)");
+    _V(options, "STEP 6: Visualization on jVitz");
 
 
     testGraph();
