@@ -1,7 +1,7 @@
 // ==========================================================================
-//               LaRAgu - Lagrangian Relaxation Aligner GU
+//               RNA CoSMo - RNA Consensus Structure Module
 // ==========================================================================
-// Copyright (c) 2015-2016, Gianvito Urgese
+// Copyright (c) 2015-2017, Gianvito Urgese
 // All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -30,8 +30,9 @@
 //
 // ==========================================================================
 // Author: Gianvito Urgese <gianvito.urgese@polito.it>
+// Author: Rossella Resta <s222385@studenti.polito.it>
 // ==========================================================================
-// This file contains the option structures and functions of seqan_laragu
+// This file contains the option structures and functions of rna cosmo
 // application.
 // ==========================================================================
 
@@ -56,7 +57,7 @@
 // ----------------------------------------------------------------------------
 
 // defines all the constants used in the app
-//#include "data_types.h"
+#include "data_types.h"
 
 //using namespace std;
 
@@ -82,10 +83,12 @@ typedef IsSlash            IsPathDelimited;
 //conserve this style
 struct Options
 {
-// Name of input files
+// use base pairs or structure
+    bool useBasePairs;
+// Name of input file
     seqan::CharString inFile;
-// Name of input fileShape
-//    seqan::CharString inFileShape;
+// Name of input fileRef
+    seqan::CharString inFileRef;
 // Name of output file (default: stdout)
     seqan::CharString outFile;
 // temporary directory where to save intermediate files. Default: use the input file directory.
@@ -94,10 +97,10 @@ struct Options
     double thrBppm;
 // scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM
     unsigned structureScoring;
-// define weight of first found edge detected in fixed graphs
-    double firstEdgeWeight;
-// define the weight of more edges detected  in fixed graphs
-    double edgeStepWeight;
+// define the weight of _half_ an interaction match for fixed structures
+    double fixedStructWeight;
+// if structureScoring=SCALING then we have to give a scaling factor
+    double scalingFactor;
 // time used for an hard timeout
     unsigned timeLimit;
 // verbose(0) no outputs,
@@ -110,19 +113,20 @@ struct Options
 // number of threads detected
     unsigned threadsCount;
     Options() :
-            thrBppm(1e-15), // 0.1 is the value used in the old Lara
+            useBasePairs(true),
+            thrBppm(1e-15), // 0.1
             structureScoring(RIBOSUM),
-            firstEdgeWeight(1.0),
-            edgeStepWeight(0.5),
+            fixedStructWeight(8.0),
+            scalingFactor(1.0),
             timeLimit(-1),
             verbose(0)
     {
-//#ifdef _OPENMP
-//        threadsCount = 1; // TODO fix and implement multithreading -> std::thread::hardware_concurrency(); // omp_get_num_threads()
-//        threads = threadsCount;
-//#else
-//        threadsCount = 1;
-//#endif
+#ifdef _OPENMP
+        threadsCount = std::thread::hardware_concurrency(); // omp_get_num_threads()
+        threads = threadsCount;
+#else
+        threadsCount = 1;
+#endif
     }
 };
 
@@ -137,48 +141,51 @@ using namespace seqan;
 template <typename TOption>
 void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
 {
-    setAppName(parser, "CoSMo");
-    setShortDescription(parser, "Consensus Structure Module for filtering Base Pair Probability Matrix of RNA secondary structure");
-    setCategory(parser, "Optimizer of RNA BPP matrix");
+    setAppName(parser, "RNA CoSMo");
+    setShortDescription(parser, "RNA Consensus Structure Module");
+    setCategory(parser, "RNA Structure Generation");
     setVersion(parser, "1.0");
     setDate(parser, "2017");
     //setDateAndVersion(parser);
     //setDescription(parser);
-    addUsageLine(parser, "./cosmo <\\fI-i inFile\\fP> \
+    addUsageLine(parser, "./rna_cosmo <\\fI-i inFile\\fP> \
             [\\fI-w outFile\\fP] [\\fI -parameters\\fP]");
     addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, "
             "verbose(2) Displays extensive statistics for each batch of reads, verbose(3) Debug output.",
             ArgParseArgument::INTEGER, "INT"));
-
-    addSection(parser, "CoSMo Options");
+    addOption(parser, ArgParseOption("s", "useBasePairs", "Use structure prediction or fixed structure from extended "
+            "input file."));
     addOption(parser, ArgParseOption("tb", "thrBppm", "(Parameter used during the RNAfold execution to select the "
             "minimum energy to be considered (default: 1e-15) ", ArgParseArgument::DOUBLE, "DOUBLE"));
     addOption(parser, ArgParseOption("stsc", "structureScoring", "scoring mode, either LOGARITHMIC, SCALE, ORIGINAL, RIBOSUM",
                                      ArgParseArgument::INTEGER, "INT"));
-    addOption(parser, ArgParseOption("few", "firstEdgeWeight", "define weight of first found edge detected in fixed graphs",
-                                     ArgParseArgument::DOUBLE, "DOUBLE"));
-    addOption(parser, ArgParseOption("esw", "edgeStepWeight", "define the weight of more edges detected  in fixed graphs",
-                                     ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("fsw", "fixedStructWeight", "define the weight of _half_ an interaction match for "
+            "fixed structures", ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("scal", "scalingFactor", "if structurescoring=SCALING then we have to give a "
+            "scaling factor", ArgParseArgument::DOUBLE, "DOUBLE"));
+    addOption(parser, ArgParseOption("tl", "timeLimit", "some additional option.", ArgParseArgument::INTEGER, "INT"));
+
 
     addSection(parser, "Input Options");
     addOption(parser, ArgParseOption("i", "inFile", "Path to the input file", ArgParseArgument::INPUT_FILE, "IN"));
-//    addOption(parser, ArgParseOption("ir", "inFileShape", "Path to the reference shape file",
-//                                     ArgParseArgument::INPUT_FILE, "IN"));
+    addOption(parser, ArgParseOption("ir", "inFileRef", "Path to the reference input file",
+                                     ArgParseArgument::INPUT_FILE, "IN"));
 
     addSection(parser, "Output Options");
     addOption(parser, seqan::ArgParseOption( "w", "outFile", "Path to the output file (default: stdout)",
                                              ArgParseArgument::OUTPUT_FILE, "OUT"));
     addOption(parser, ArgParseOption("td", "tmpDir", "Specify a temporary directory where to save intermediate files. \
             Default: use the input file directory.", ArgParseOption::STRING));
+
     // Setup performance options.
     addSection(parser, "Performance Options");
     addOption(parser, ArgParseOption("t", "threads", "Specify the number of threads to use.", ArgParseOption::INTEGER));
     setMinValue(parser, "threads", "1");
-//#ifdef _OPENMP
-//    setMaxValue(parser, "threads", "1") // TODO fix the multithreading -> std::to_string(std::thread::hardware_concurrency() + 1));
-//#else
- //   setMaxValue(parser, "threads", "1");
-//#endif
+#ifdef _OPENMP
+    setMaxValue(parser, "threads", std::to_string(std::thread::hardware_concurrency() + 1));
+#else
+    setMaxValue(parser, "threads", "1");
+#endif
 //    setDefaultValue(parser, "threads", options.threadsCount);
 }
 
@@ -274,17 +281,19 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     if (res != ArgumentParser::PARSE_OK)
         return res;
     getOptionValue(options.verbose, parser, "verbose");
+    getOptionValue(options.useBasePairs, parser, "useBasePairs");
     getOptionValue(options.thrBppm, parser, "thrBppm");
     getOptionValue(options.structureScoring, parser, "structureScoring");
-    getOptionValue(options.firstEdgeWeight, parser, "firstEdgeWeight");
-    getOptionValue(options.edgeStepWeight, parser, "edgeStepWeight");
+    getOptionValue(options.fixedStructWeight, parser, "fixedStructWeight");
+    getOptionValue(options.scalingFactor, parser, "scalingFactor");
+    getOptionValue(options.timeLimit, parser, "timeLimit");
     getOptionValue(options.threads, parser, "threads");
 
     getOptionValue(options.inFile, parser, "inFile");
     if (empty(options.inFile))
         return ArgumentParser::PARSE_ERROR;
 
-//    getOptionValue(options.inFileRef, parser, "inFileRef");
+    getOptionValue(options.inFileRef, parser, "inFileRef");
     getOptionValue(options.outFile, parser, "outFile");
     if (isSet(parser, "outFile"))
     {
@@ -304,7 +313,7 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
         options.tmpDir = tmpDir;
         _V(options, "The absolute path where to create the tmpDir is " << tmpDir);
     }
-//    showScoringMatrix(options.laraScoreMatrix);
+    _V(options, "Initialized the Options structure");
     return ArgumentParser::PARSE_OK;
 }
 

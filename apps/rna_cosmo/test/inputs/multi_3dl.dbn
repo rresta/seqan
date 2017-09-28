@@ -1,0 +1,11 @@
+> E. coli_rRNA_5s | ipknot /home/osboxes/data_test/rRNA_EColi_var.fasta > /home/osboxes/data_test/output_data/output_ipknot.dbn | RNAfold --outfile=seq2_output_RNAfold < /home/osboxes/data_test/sequencesRMDB/rRNA_EColi_var.fasta
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........[[[..........((((((((((..................]]]...............)))))))))).....................)))))))))))
+..(((((((((((((((...)))).(((...))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))..(((.(((....))))))..))))))))))) (-51.80)
+> tRNA phenylalanine (yeast) | ipknot /home/osboxes/data_test/sequencesRMDB/TRNAPH_SHP_0002.fasta > /home/osboxes/data_test/output_data/seq4/seq4_output_ipknot.dbn
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+...............(((......((((........)))).(((((.......))))).....(((((.......)))))....))).............................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((.(((.....((((((((....)).))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).......)))...)).. (-24.30)
+

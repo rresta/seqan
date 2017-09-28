@@ -66,13 +66,13 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
     RnaStructFileIn rnaStructFile;
     if (open(rnaStructFile, toCString(filename), OPEN_RDONLY))
     {
-        _V(options, "Input file is RnaStruct.");
-        readRecords(filecontents, rnaStructFile, 100000u);
+        _VVV(options, "Input file is RnaStruct.");
+        readRecords(filecontents, rnaStructFile, std::numeric_limits<unsigned>::max());
         close(rnaStructFile);
     }
     else
     {
-        _V(options, "Input file is Fasta/Fastq.");
+        _VVV(options, "Input file is Fasta/Fastq.");
         SeqFileIn seqFileIn(toCString(filename));
         StringSet<CharString> ids;
         StringSet<IupacString> seqs;

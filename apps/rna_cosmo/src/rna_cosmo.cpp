@@ -118,14 +118,59 @@ int main (int argc, char const ** argv)
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
 
-    // read input files
-    RnaStructContents filecontents;
-    _readRnaInputFile(filecontents, options.inFile, options);
+
+    // Read input files
+    RnaStructContents contentsIn;
+    _readRnaInputFile(contentsIn, options.inFile, options);
+
+    // TODO implement this functionality in the function used to read this dataformat
+    RnaStructContents contents = contentsIn;
+    /*
+    unsigned z = 1;
+    bool flag = 0;
+//    contents.header = contentsIn.header;
+    contents.records.push_back (contentsIn.records[0]);
+    for(unsigned i = 0; i < length(contentsIn.records) - 1; ++i)
+    {
+        for(unsigned j = i+1; j < length(contentsIn.records); ++j)
+        {
+            if (contentsIn.records[i].sequence == contentsIn.records[j].sequence)
+            {
+                appendValue(contents.records[z].fixedGraphs, contentsIn.records[j].fixedGraphs);
+            } else {
+                flag = 1;
+            }
+        }
+        if(flag)
+            contents.records.push_back(contentsIn.records[i]);
+    }
+    return 187;
+    */
+
+
 //    _readRnaInputFile(filecontents2, options.inFileRef, options);
-    _V(options, "Read " << length(filecontents.records) << " records from input files.");
+    _V(options, "Read " << length(contents.records) << " records from input files.");
+    _VVV(options, contents.header.description);
+    for(unsigned i = 0; i < length(contents.records); ++i)
+    {
+        _VVV(options, "iteration i = " << i);
+        _VVV(options, contents.records[i].sequence);
+        _VVV(options,contents.records[i].name);
+        for(unsigned j = 0; j < length(contents.records[i].fixedGraphs); ++j)
+        {
+            _VVV(options, "iteration j = " << j);
+            _VVV(options, contents.records[i].fixedGraphs[j].inter);
+            _VVV(options, contents.records[i].fixedGraphs[j].specs);
+            _VVV(options, contents.records[i].fixedGraphs[j].energy);
+        }
+    }
+
+    
+
+    return 167;
 
 // add the weight interaction edges vector map in the data structure using Vienna package
-    bppInteractionGraphBuild(filecontents.records, options);
+    bppInteractionGraphBuild(contents.records, options);
 
 
 // timer start
