@@ -30,8 +30,9 @@
 //
 // ==========================================================================
 // Author: Gianvito Urgese <gianvito.urgese@polito.it>
+// Author: Rossella Resta <s222385@studenti.polito.it>
 // ==========================================================================
-// This file contains the option structures and functions of seqan_laragu
+// This file contains the option structures and functions of rna cosmo
 // application.
 // ==========================================================================
 

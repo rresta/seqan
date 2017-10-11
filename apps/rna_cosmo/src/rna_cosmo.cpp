@@ -124,53 +124,53 @@ int main (int argc, char const ** argv)
     _readRnaInputFile(contentsIn, options.inFile, options);
 
     // TODO implement this functionality in the function used to read this dataformat
-    RnaStructContents contents = contentsIn;
-    /*
-    unsigned z = 1;
+    RnaStructContents contentsOut;
+    std::set<unsigned> skip;
     bool flag = 0;
 //    contents.header = contentsIn.header;
-    contents.records.push_back (contentsIn.records[0]);
-    for(unsigned i = 0; i < length(contentsIn.records) - 1; ++i)
+    //
+    for(unsigned i = 0; i < length(contentsIn.records); ++i)
     {
+        if (skip.find(i) != skip.end()) // i is contained in skip
+            continue; // next i
+
+        contentsOut.records.push_back (contentsIn.records[i]); // add current record
         for(unsigned j = i+1; j < length(contentsIn.records); ++j)
         {
             if (contentsIn.records[i].sequence == contentsIn.records[j].sequence)
             {
-                appendValue(contents.records[z].fixedGraphs, contentsIn.records[j].fixedGraphs);
-            } else {
-                flag = 1;
+                append(contentsOut.records.back().fixedGraphs, contentsIn.records[j].fixedGraphs);
+                append(contentsOut.records.back().bppMatrGraphs, contentsIn.records[j].bppMatrGraphs);
+                skip.insert(j);
             }
         }
-        if(flag)
-            contents.records.push_back(contentsIn.records[i]);
     }
-    return 187;
-    */
-
-
-//    _readRnaInputFile(filecontents2, options.inFileRef, options);
-    _V(options, "Read " << length(contents.records) << " records from input files.");
-    _VVV(options, contents.header.description);
-    for(unsigned i = 0; i < length(contents.records); ++i)
+    
+    _V(options, "Read " << length(contentsIn.records) << " records from input files.");
+    _V(options, "Read " << length(contentsOut.records) << " records from output files.");
+    _VVV(options, contentsOut.header.description);
+    for(unsigned i = 0; i < length(contentsOut.records); ++i)
     {
         _VVV(options, "iteration i = " << i);
-        _VVV(options, contents.records[i].sequence);
-        _VVV(options,contents.records[i].name);
-        for(unsigned j = 0; j < length(contents.records[i].fixedGraphs); ++j)
+        _VVV(options, contentsOut.records[i].sequence);
+        _VVV(options,contentsOut.records[i].name);
+        _VV(options, "Number of Fixed Graphs for the record " << i << " : " << length(contentsOut.records[i].fixedGraphs));
+        _VV(options, "Number of bpp Matrix for the record " << i << " : " << length(contentsOut.records[i].bppMatrGraphs));
+        for(unsigned j = 0; j < length(contentsOut.records[i].fixedGraphs); ++j)
         {
             _VVV(options, "iteration j = " << j);
-            _VVV(options, contents.records[i].fixedGraphs[j].inter);
-            _VVV(options, contents.records[i].fixedGraphs[j].specs);
-            _VVV(options, contents.records[i].fixedGraphs[j].energy);
+            _VVV(options, contentsOut.records[i].fixedGraphs[j].inter);
+            _VVV(options, contentsOut.records[i].fixedGraphs[j].specs);
+            _VVV(options, contentsOut.records[i].fixedGraphs[j].energy);
         }
     }
 
     
 
-    return 167;
+  return 167;
 
 // add the weight interaction edges vector map in the data structure using Vienna package
-    bppInteractionGraphBuild(contents.records, options);
+    bppInteractionGraphBuild(contentsOut.records, options);
 
 
 // timer start
@@ -187,6 +187,8 @@ int main (int argc, char const ** argv)
     _V(options, "STEP 4: Function that generates a consensus structure module");
     _V(options, "STEP 5: Generate EBPSEQ file format (output)");
     _V(options, "STEP 6: Visualization on jVitz");
+
+
 
 
     testGraph();
