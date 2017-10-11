@@ -145,7 +145,7 @@ int main (int argc, char const ** argv)
             }
         }
     }
-    
+
     _V(options, "Read " << length(contentsIn.records) << " records from input files.");
     _V(options, "Read " << length(contentsOut.records) << " records from output files.");
     _VVV(options, contentsOut.header.description);
