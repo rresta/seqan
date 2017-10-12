@@ -113,7 +113,7 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
     }
     else
     {
-        std::cout << "Could not open inputfile";
+        std::cerr << "Can't open the input file.";
     }
 
     std::set<unsigned> skip;

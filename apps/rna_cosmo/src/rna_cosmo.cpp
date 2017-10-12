@@ -123,11 +123,10 @@ int main (int argc, char const ** argv)
     RnaStructContents contentsOutput;
     _readMultiStructRnaInputFile(contentsOutput, options.inFile, options);
 
-  return 167;
-
 // add the weight interaction edges vector map in the data structure using Vienna package
     bppInteractionGraphBuild(contentsOutput.records, options);
 
+    return 167;
 
 // timer start
     std::clock_t begin = std::clock();
