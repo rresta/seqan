@@ -95,6 +95,66 @@ void _readRnaInputFile(RnaStructContents & filecontents, CharString filename, TO
 }
 
 // ----------------------------------------------------------------------------
+// Function _readMultiStructRnaInputFile()
+// ----------------------------------------------------------------------------
+
+template <typename TOption>
+void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString filename, TOption const & options)
+{
+    if (empty(filename))
+        return;
+
+    RnaStructFileIn rnaStructFile;
+    RnaStructContents contentsIn;
+    if (open(rnaStructFile, toCString(filename), OPEN_RDONLY))
+    {
+        readRecords(contentsIn, rnaStructFile, std::numeric_limits<unsigned>::max());
+        close(rnaStructFile);
+    }
+    else
+    {
+        std::cout << "Could not open inputfile";
+    }
+
+    std::set<unsigned> skip;
+    bool flag = 0;
+
+    for(unsigned i = 0; i < length(contentsIn.records); ++i)
+    {
+        if (skip.find(i) != skip.end())
+            continue;
+
+        contentsOut.records.push_back (contentsIn.records[i]); // add current record
+        for(unsigned j = i+1; j < length(contentsIn.records); ++j)
+        {
+            if (contentsIn.records[i].sequence == contentsIn.records[j].sequence)
+            {
+                append(contentsOut.records.back().fixedGraphs, contentsIn.records[j].fixedGraphs);
+                append(contentsOut.records.back().bppMatrGraphs, contentsIn.records[j].bppMatrGraphs);
+                skip.insert(j);
+            }
+        }
+    }
+
+    _V(options, "Read " << length(contentsIn.records) << " records from input files.");
+    _V(options, "Read " << length(contentsOut.records) << " records from output files.");
+    _VVV(options, contentsOut.header.description);
+    for(unsigned i = 0; i < length(contentsOut.records); ++i)
+    {
+        _VV(options, contentsOut.records[i].name);
+        _VV(options, contentsOut.records[i].sequence);
+        _VV(options, "Number of Fixed Graphs for the record " << i << " : " << length(contentsOut.records[i].fixedGraphs));
+        _VV(options, "Number of bpp Matrices for the record " << i << " : " << length(contentsOut.records[i].bppMatrGraphs));
+        for(unsigned j = 0; j < length(contentsOut.records[i].fixedGraphs); ++j)
+        {
+            _VVV(options, "Parameters of the " << j+1 << " Fixed Graph (specs, energy): ")
+            _VVV(options, contentsOut.records[i].fixedGraphs[j].specs);
+            _VVV(options, contentsOut.records[i].fixedGraphs[j].energy);
+        }
+    }
+}
+
+// ----------------------------------------------------------------------------
 // Function plotOutput()
 // ----------------------------------------------------------------------------
 
