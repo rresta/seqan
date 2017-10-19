@@ -120,13 +120,117 @@ int main (int argc, char const ** argv)
 
 
     // Read input files
-    RnaStructContents contentsOutput;
-    _readMultiStructRnaInputFile(contentsOutput, options.inFile, options);
+    RnaStructContents redContents;
+    _readMultiStructRnaInputFile(redContents, options.inFile, options);
 
 // add the weight interaction edges vector map in the data structure using Vienna package
-    bppInteractionGraphBuild(contentsOutput.records, options);
+// bppInteractionGraphBuild(redContents.records, options);
 
-    return 167;
+    //Creation of the output graph by assigning options.firstEdgeWeight to all the edges of the first graph
+    //assignCargo (findEdge(redContents.records[0].fixedGraphs[0], 1, 3), options.firstEdgeWeight);
+    /////////////////////////////////////////////////////////////
+
+
+    //for all the records
+
+        //for all the graphs of the record
+
+            //if it is the first assign options.firstEdgeWeight to all the edges of the first graph
+            //assignCargo(findEdge(graph.inter, vertex1, vertex2), newcargo));
+
+            //else (for all the other graphs)
+                //if the edge exist add options.edgeStepWeight to the existing weight
+                //findEdge
+                //else edge creation and assign cargo options.firstEdgeWeight
+                //addEdge
+
+    _VVV(options, "reduced Contents records length: " << length(redContents.records));
+    for (unsigned i = 0; i < length(redContents.records); ++i)
+    {
+        unsigned countOrigEdges=0;
+        unsigned countConsEdges=0;
+        unsigned countNewEdges=0;
+        RnaStructureGraph consGraph;
+        consGraph = redContents.records[i].fixedGraphs[0];
+        for (unsigned j = 0; j < redContents.records[i].seqLen; ++j)
+        {
+            RnaAdjacencyIterator adj_it(consGraph.inter, j);
+            if (degree(consGraph.inter, j) != 0 and (value(adj_it) > j))
+            {
+                ++countOrigEdges;
+                assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
+                //std::cout << getCargo(findEdge(consGraph.inter, j, value(adj_it)));
+            }
+        }
+        if (length(redContents.records[i].fixedGraphs) > 1) // in this case we have a consensus graph
+        {
+            for (unsigned k = 1; k < length(redContents.records[i].fixedGraphs); ++k)   //for the other graphs
+            {
+                for (unsigned l = 0; l < redContents.records[i].seqLen; ++l) {
+                    RnaAdjacencyIterator adj_it(consGraph.inter, l);
+                    if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and
+                        degree(consGraph.inter, l) != 0 and value(adj_it) > l)
+                    {
+                        ++countConsEdges;
+                        assignCargo(findEdge(consGraph.inter, l, value(adj_it)), getCargo(findEdge(consGraph.inter, l, value(adj_it))) + options.edgeStepWeight);
+                    }
+                    else if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it) > l)
+                    {
+                        ++countNewEdges;
+                        //addEdge(consGraph.inter, l, value(adj_it), options.firstEdgeWeight);
+                    }
+                }
+            }
+        }
+            append(redContents.records[i].fixedGraphs, consGraph);
+            _VVV(options, "Consensus Edges count: " << countConsEdges << " Original Edges count: " << countOrigEdges << " New Edges count: " << countNewEdges);
+            _VVV(options, "Edges Weights for consensus graph for record " << i << " :");
+            for (unsigned m = 0; m < redContents.records[i].seqLen; ++m)
+            {
+                if (degree(consGraph.inter, m) != 0)
+                {
+                    RnaAdjacencyIterator adj_it(consGraph.inter, m);
+                    _VVV(options, getCargo(findEdge(consGraph.inter, m, value(adj_it))));
+                }
+            }
+            if (countConsEdges != 0)
+            _VVV(options, "Number of graphs for record " << i << " after appending the consensus graph: " << length(redContents.records[i].fixedGraphs) << "\n");
+    }
+        _VVV(options, "First edge weight: " << options.firstEdgeWeight);
+        _VVV(options, "Added edge weight: " << options.edgeStepWeight);
+
+    return 1;
+
+
+
+
+
+    /*        for (StructureGraphAdjacencyIterator adj_it(consGraph.inter); !atEnd(adj_it); goNext(adj_it))
+        {
+            if (degree(consGraph.inter, adj_it) != 0)
+            {
+            std::cout << value(adj_it) << "\t";
+            assignCargo(findEdge(consGraph.inter, i , value(adj_it)), options.firstEdgeWeight);
+//            writeValue(adj_it, options.firstEdgeWeight);
+            std::cout << value(adj_it) << std::endl;
+//            int edgeWeight1 = cargo(findEdge(graph1, line.first, value(adj_it1)));
+
+        }*/
+
+    //SHAPE
+    //Function that controls in RMDB if there are SHAPE of the input sequence
+
+    //if there is a shape
+
+            //if there is a secondary structure: if the edge exist assign SHAPEweight, if it doesn't exist edge creation assign SHAPEweight
+
+            //else modifying the existing ones set a weight to existing edges according to reactivity and reactivity error
+
+    //for all the vertex of the output graph
+
+            //if there are no edges delete the ones of the bppMatrixGraph
+
+
 
 // timer start
     std::clock_t begin = std::clock();

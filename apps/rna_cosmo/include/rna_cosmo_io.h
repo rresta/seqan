@@ -116,24 +116,20 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
         std::cerr << "Can't open the input file.";
     }
 
-    std::set<unsigned> skip;
-    bool flag = 0;
-
-    for(unsigned i = 0; i < length(contentsIn.records); ++i)
+    contentsOut.records.push_back (contentsIn.records[0]); // add current record
+    for(unsigned i = 1; i < length(contentsIn.records); ++i)
     {
-        if (skip.find(i) != skip.end())
-            continue;
-
-        contentsOut.records.push_back (contentsIn.records[i]); // add current record
-        for(unsigned j = i+1; j < length(contentsIn.records); ++j)
+        bool flag = 0;
+        for(unsigned j = 0; j < length(contentsOut.records); ++j)
         {
-            if (contentsIn.records[i].sequence == contentsIn.records[j].sequence)
-            {
-                append(contentsOut.records.back().fixedGraphs, contentsIn.records[j].fixedGraphs);
-                append(contentsOut.records.back().bppMatrGraphs, contentsIn.records[j].bppMatrGraphs);
-                skip.insert(j);
+            if (contentsIn.records[i].sequence == contentsOut.records[j].sequence) {
+                append(contentsOut.records[j].fixedGraphs, contentsIn.records[i].fixedGraphs);
+                append(contentsOut.records[j].bppMatrGraphs, contentsIn.records[i].bppMatrGraphs);
+                flag = 1;
             }
         }
+        if (flag == 0)
+            contentsOut.records.push_back(contentsIn.records[i]);
     }
 
     _V(options, "Read " << length(contentsIn.records) << " records from input files.");
@@ -152,6 +148,8 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
             _VVV(options, contentsOut.records[i].fixedGraphs[j].energy);
         }
     }
+    _VV(options, "First Fixed Graph for the record 0 " << contentsOut.records[0].fixedGraphs[0].inter);
+    _VV(options, "Second Fixed Graph for the record 0 " << contentsOut.records[0].fixedGraphs[1].inter);
 }
 
 // ----------------------------------------------------------------------------

@@ -106,5 +106,13 @@ typedef std::vector<TMap > TMapVect;
 typedef std::vector<seqan::RnaRecord > TRnaVect;
 typedef StringSet<Rna5String, Dependent<Generous> > RnaSeqSet;
 
+/*!
+* @typedef RnaAdjacencyIterator
+* @headerfile <seqan/rna_io.h>
+* @brief Iterator for adjacent vertices in a @link RnaStructureGraph @endlink.
+* @signature typedef typename Iterator<Graph<Undirected<double> >, AdjacencyIterator>::Type RnaAdjacencyIterator;
+*/
+typedef typename Iterator<Graph<Undirected<double> > , AdjacencyIterator>::Type StructureGraphAdjacencyIterator;
+
 
 #endif //_INCLUDE_TOP_DATA_STRUCT_H_
