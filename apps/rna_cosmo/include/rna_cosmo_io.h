@@ -132,8 +132,8 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
             contentsOut.records.push_back(contentsIn.records[i]);
     }
 
-    _V(options, "Read " << length(contentsIn.records) << " records from input files.");
-    _V(options, "Read " << length(contentsOut.records) << " records from output files.");
+    _V(options, "Read " << length(contentsIn.records) << " records from input file.");
+    _V(options, "Read " << length(contentsOut.records) << " records from output structure.");
     _VVV(options, contentsOut.header.description);
     for(unsigned i = 0; i < length(contentsOut.records); ++i)
     {
@@ -148,8 +148,6 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
             _VVV(options, contentsOut.records[i].fixedGraphs[j].energy);
         }
     }
-    _VV(options, "First Fixed Graph for the record 0 " << contentsOut.records[0].fixedGraphs[0].inter);
-    _VV(options, "Second Fixed Graph for the record 0 " << contentsOut.records[0].fixedGraphs[1].inter);
 }
 
 // ----------------------------------------------------------------------------

@@ -118,6 +118,9 @@ int main (int argc, char const ** argv)
     if (res != ArgumentParser::PARSE_OK)  // Check the arguments
         return res == ArgumentParser::PARSE_ERROR;
 
+    // timer start
+    std::clock_t begin = std::clock();
+    std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
 
     // Read input files
     RnaStructContents redContents;
@@ -144,12 +147,13 @@ int main (int argc, char const ** argv)
                 //else edge creation and assign cargo options.firstEdgeWeight
                 //addEdge
 
-    _VVV(options, "reduced Contents records length: " << length(redContents.records));
+    _VV(options, "Found " << length(redContents.records) << " sequences in the input file.");
     for (unsigned i = 0; i < length(redContents.records); ++i)
     {
         unsigned countOrigEdges=0;
         unsigned countConsEdges=0;
         unsigned countNewEdges=0;
+        unsigned totalOutEdges=0;
         RnaStructureGraph consGraph;
         consGraph = redContents.records[i].fixedGraphs[0];
         for (unsigned j = 0; j < redContents.records[i].seqLen; ++j)
@@ -159,40 +163,48 @@ int main (int argc, char const ** argv)
             {
                 ++countOrigEdges;
                 assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
-                //std::cout << getCargo(findEdge(consGraph.inter, j, value(adj_it)));
             }
         }
-        if (length(redContents.records[i].fixedGraphs) > 1) // in this case we have a consensus graph
+        if (length(redContents.records[i].fixedGraphs) > 1)
         {
             for (unsigned k = 1; k < length(redContents.records[i].fixedGraphs); ++k)   //for the other graphs
             {
-                for (unsigned l = 0; l < redContents.records[i].seqLen; ++l) {
-                    RnaAdjacencyIterator adj_it(consGraph.inter, l);
+                for (unsigned l = 0; l < redContents.records[i].seqLen; ++l)
+                {
+                    RnaAdjacencyIterator adj_it_consGraph(consGraph.inter, l);
+                    RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
                     if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and
-                        degree(consGraph.inter, l) != 0 and value(adj_it) > l)
+                        degree(consGraph.inter, l) != 0 and value(adj_it_consGraph) > l and value(adj_it_consGraph) == value(adj_it_fixedGraph))
                     {
                         ++countConsEdges;
-                        assignCargo(findEdge(consGraph.inter, l, value(adj_it)), getCargo(findEdge(consGraph.inter, l, value(adj_it))) + options.edgeStepWeight);
+                        assignCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph)), getCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph))) + options.edgeStepWeight);
                     }
-                    else if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it) > l)
+/*                    else
                     {
-                        ++countNewEdges;
-                        //addEdge(consGraph.inter, l, value(adj_it), options.firstEdgeWeight);
-                    }
+                        //RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
+                        if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it_fixedGraph) > l)
+                        {
+                            ++countNewEdges;
+                            //addEdge(consGraph.inter, l, value(adj_it_fixedGraph), options.firstEdgeWeight);
+                            addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 1);
+                        }
+                    }*/
                 }
             }
         }
-            append(redContents.records[i].fixedGraphs, consGraph);
-            _VVV(options, "Consensus Edges count: " << countConsEdges << " Original Edges count: " << countOrigEdges << " New Edges count: " << countNewEdges);
-            _VVV(options, "Edges Weights for consensus graph for record " << i << " :");
-            for (unsigned m = 0; m < redContents.records[i].seqLen; ++m)
-            {
+        append(redContents.records[i].fixedGraphs, consGraph);
+                _VVV(options, "Edges Weights for consensus graph for record " << i << " :");
+        for (unsigned m = 0; m < redContents.records[i].seqLen; ++m)
+        {
                 if (degree(consGraph.inter, m) != 0)
                 {
                     RnaAdjacencyIterator adj_it(consGraph.inter, m);
                     _VVV(options, getCargo(findEdge(consGraph.inter, m, value(adj_it))));
+                    ++totalOutEdges;
                 }
-            }
+        }
+        //        _VV(options, "Consensus Edges count: " << countConsEdges << " Original Edges count: " << countOrigEdges << " New Edges count: " << countNewEdges);
+        _VV(options, "Consensus Edges count: " << countConsEdges << " Total Edges Count: " << totalOutEdges / 2);
             if (countConsEdges != 0)
             _VVV(options, "Number of graphs for record " << i << " after appending the consensus graph: " << length(redContents.records[i].fixedGraphs) << "\n");
     }
@@ -200,9 +212,6 @@ int main (int argc, char const ** argv)
         _VVV(options, "Added edge weight: " << options.edgeStepWeight);
 
     return 1;
-
-
-
 
 
     /*        for (StructureGraphAdjacencyIterator adj_it(consGraph.inter); !atEnd(adj_it); goNext(adj_it))
@@ -231,11 +240,6 @@ int main (int argc, char const ** argv)
             //if there are no edges delete the ones of the bppMatrixGraph
 
 
-
-// timer start
-    std::clock_t begin = std::clock();
-    std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
-
 // CODE SHOULD BE ADDED HERE
     _V(options, "STEP 1: Create functions that take the RNA seq and "
             "generate many fixed structures using several "
@@ -246,8 +250,6 @@ int main (int argc, char const ** argv)
     _V(options, "STEP 4: Function that generates a consensus structure module");
     _V(options, "STEP 5: Generate EBPSEQ file format (output)");
     _V(options, "STEP 6: Visualization on jVitz");
-
-
 
 
     testGraph();
