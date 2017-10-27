@@ -148,6 +148,7 @@ int main (int argc, char const ** argv)
                 //addEdge
 
     _VV(options, "Found " << length(redContents.records) << " sequences in the input file.");
+    //for (RnaRecord & currentRecord : redContents.records)
     for (unsigned i = 0; i < length(redContents.records); ++i)
     {
         unsigned totalConsEdges=0;  //counter for the edges present in all the fixed graphs
@@ -157,28 +158,26 @@ int main (int argc, char const ** argv)
         RnaStructureGraph consGraph;                                                    //Creation of the Consensus Graph
         consGraph = redContents.records[i].fixedGraphs[0];
         for (unsigned j = 0; j < redContents.records[i].seqLen; ++j) {
-                RnaAdjacencyIterator adj_it(consGraph.inter, j);                        //Access to the base pair of the Consensus Graph
-                if (degree(consGraph.inter, j) != 0 and (value(adj_it) > j)) {
-                    assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
-                }
+            RnaAdjacencyIterator adj_it(consGraph.inter, j);                        //Access to the base pair of the Consensus Graph
+            if (degree(consGraph.inter, j) != 0 && (value(adj_it) > j)) {
+                assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
+            }
         }
         for (unsigned k = 1; k < length(redContents.records[i].fixedGraphs); ++k)       //for the other graphs
         {
             for (unsigned l = 0; l < redContents.records[i].seqLen; ++l) {
                 RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
-                if (atEnd(adj_it_fixedGraph))                                            //control for the value of the adjacency list
+                if (atEnd(adj_it_fixedGraph) || l <= value(adj_it_fixedGraph))                                            //control for the value of the adjacency list
                     continue;
 
                 unsigned adj_val = value(adj_it_fixedGraph);
-                findEdge(consGraph.inter, l, adj_val);
-                if (findEdge(consGraph.inter, l, adj_val) != 0 and l > adj_val)          //if the edge of the fixed graph already exists in the Consensus Graph
+                if (findEdge(consGraph.inter, l, adj_val) != 0)          //if the edge of the fixed graph already exists in the Consensus Graph
                 {
                     assignCargo(findEdge(consGraph.inter, l, adj_val),
                                 getCargo(findEdge(consGraph.inter, l, adj_val)) +
                                 options.edgeStepWeight);
                 }
-
-                else if (l > adj_val)
+                else
                 {
                     addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 7);           //or options.firstEdgeWeight
                 }
@@ -215,7 +214,7 @@ int main (int argc, char const ** argv)
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
     double mwmtime = 0.0;
-    double lemtime = 0.0;
+    double lemtime = 0.0; // remove
     double boutime = 0.0;
 
 
