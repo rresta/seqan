@@ -150,81 +150,80 @@ int main (int argc, char const ** argv)
     _VV(options, "Found " << length(redContents.records) << " sequences in the input file.");
     for (unsigned i = 0; i < length(redContents.records); ++i)
     {
-        unsigned totalConsEdges=0;
-        unsigned totalOutEdges=0;
-        unsigned notPaired=0;
-        unsigned initEdges=0;
-        RnaStructureGraph consGraph;
+        unsigned totalConsEdges=0;  //counter for the edges present in all the fixed graphs
+        unsigned totalOutEdges=0;   //counter for all the edges of the Consensus Graph
+        unsigned notPaired=0;       //counter for the not paired bases of the Consensus Graph
+        unsigned initEdges=0;       //counter for the edges present only in the first fixed graph
+        RnaStructureGraph consGraph;                                                    //Creation of the Consensus Graph
         consGraph = redContents.records[i].fixedGraphs[0];
-        for (unsigned j = 0; j < redContents.records[i].seqLen; ++j)
-        {
-            RnaAdjacencyIterator adj_it(consGraph.inter, j);
-            if (degree(consGraph.inter, j) != 0 and (value(adj_it) > j))
-            {
-                assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
-            }
+        for (unsigned j = 0; j < redContents.records[i].seqLen; ++j) {
+                RnaAdjacencyIterator adj_it(consGraph.inter, j);                        //Access to the base pair of the Consensus Graph
+                if (degree(consGraph.inter, j) != 0 and (value(adj_it) > j)) {
+                    assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
+                }
         }
-        if (length(redContents.records[i].fixedGraphs) > 1)
+        for (unsigned k = 1; k < length(redContents.records[i].fixedGraphs); ++k)       //for the other graphs
         {
-            for (unsigned k = 1; k < length(redContents.records[i].fixedGraphs); ++k)   //for the other graphs
-            {
-                for (unsigned l = 0; l < redContents.records[i].seqLen; ++l)
+            for (unsigned l = 0; l < redContents.records[i].seqLen; ++l) {
+                RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
+                if (atEnd(adj_it_fixedGraph))                                            //control for the value of the adjacency list
+                    continue;
+
+                unsigned adj_val = value(adj_it_fixedGraph);
+                findEdge(consGraph.inter, l, adj_val);
+                if (findEdge(consGraph.inter, l, adj_val) != 0 and l > adj_val)          //if the edge of the fixed graph already exists in the Consensus Graph
                 {
-                    RnaAdjacencyIterator adj_it_consGraph(consGraph.inter, l);
-                    RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
-                    if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and
-                        degree(consGraph.inter, l) != 0 and value(adj_it_consGraph) > l and value(adj_it_consGraph) == value(adj_it_fixedGraph))
-                    {
-                        assignCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph)), getCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph))) + options.edgeStepWeight);
-                    }
-                    else if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it_fixedGraph) > l)
-                        {
-                            addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 7);   //options.firstEdgeWeight
-                        }
+                    assignCargo(findEdge(consGraph.inter, l, adj_val),
+                                getCargo(findEdge(consGraph.inter, l, adj_val)) +
+                                options.edgeStepWeight);
+                }
+
+                else if (l > adj_val)
+                {
+                    addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 7);           //or options.firstEdgeWeight
                 }
             }
         }
         append(redContents.records[i].fixedGraphs, consGraph);
-                _VVV(options, "Record " << i << ", " << consGraph.inter );         //
-                _VV(options, "Record " << i << ", Cargo Edge list")
+        _VVV(options, "Record " << i << ", " << consGraph.inter );
+        _VV(options, "Record " << i << ", Cargo Edge list")
         for (unsigned m = 0; m < redContents.records[i].seqLen; ++m)
         {
-                for (RnaAdjacencyIterator adj_it_cons(consGraph.inter, m); !atEnd(adj_it_cons); goNext(adj_it_cons))
-                {
-                    double const edgeWeight = getCargo(findEdge(consGraph.inter, m, value(adj_it_cons)));
-                    if (value(adj_it_cons)>m)
-                        _VVV(options,"Source: " << m << ", Target: " << value(adj_it_cons) << ", Cargo: " << edgeWeight);
-                    if (edgeWeight==5.0 and value(adj_it_cons)>m)
-                        ++initEdges;
-                    if (edgeWeight==double (options.firstEdgeWeight+(length(redContents.records[i].fixedGraphs)-2)*options.edgeStepWeight) and value(adj_it_cons)>m)
-                        ++totalConsEdges;
-                    ++totalOutEdges;
-                }
-                if (degree(consGraph.inter, m) == 0)
-                ++notPaired;
-
+            for (RnaAdjacencyIterator adj_it_cons(consGraph.inter, m); !atEnd(adj_it_cons); goNext(adj_it_cons))    //for all the edges of the vertex m
+            {
+                double const edgeWeight = getCargo(findEdge(consGraph.inter, m, value(adj_it_cons)));
+                if (value(adj_it_cons)>m)
+                _VVV(options,"Source: " << m << ", Target: " << value(adj_it_cons) << ", Cargo: " << edgeWeight);   //Cargo Edge list
+                if (edgeWeight==5.0 and value(adj_it_cons)>m)
+                    ++initEdges;
+                if (edgeWeight == options.firstEdgeWeight+(length(redContents.records[i].fixedGraphs)-2)*options.edgeStepWeight and value(adj_it_cons)>m)    //check for the maximum cargo in case of total consensus
+                    ++totalConsEdges;
+                ++totalOutEdges;
+            }
+        if (degree(consGraph.inter, m) == 0)
+            ++notPaired;
         }
+
         _VV(options,  "Total Edges Count: " << totalOutEdges / 2);
         _VV(options, "Sequence Length: " << redContents.records[i].seqLen << ", Unpaired bases: " << notPaired << ", Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
         _VVV(options, "Number of graphs for record " << i << " after appending the consensus graph: " << length(redContents.records[i].fixedGraphs) << "\n");
     }
-        _VVV(options, "First edge weight: " << options.firstEdgeWeight);
-        _VVV(options, "Added edge weight: " << options.edgeStepWeight);
-        _VVV(options, "Weight for edges added for the first time after the first fixed graph: 7");
+
+// timer stop
+    std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
+    std::clock_t end = std::clock();
+    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+
+    double mwmtime = 0.0;
+    double lemtime = 0.0;
+    double boutime = 0.0;
+
+
+// Print elapsed time
+    _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>(endChrono - beginChrono).count()); //std::chrono::microseconds
+    _VV(options, "\nTime difference = " << elapsed_secs);
 
     return 1;
-
-    /*        for (StructureGraphAdjacencyIterator adj_it(consGraph.inter); !atEnd(adj_it); goNext(adj_it))
-        {
-            if (degree(consGraph.inter, adj_it) != 0)
-            {
-            std::cout << value(adj_it) << "\t";
-            assignCargo(findEdge(consGraph.inter, i , value(adj_it)), options.firstEdgeWeight);
-//            writeValue(adj_it, options.firstEdgeWeight);
-            std::cout << value(adj_it) << std::endl;
-//            int edgeWeight1 = cargo(findEdge(graph1, line.first, value(adj_it1)));
-
-        }*/
 
     //SHAPE
     //Function that controls in RMDB if there are SHAPE of the input sequence
@@ -255,19 +254,7 @@ int main (int argc, char const ** argv)
     testGraph();
 
 
-// timer stop
-    std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
-    std::clock_t end = std::clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-    double mwmtime = 0.0;
-    double lemtime = 0.0;
-    double boutime = 0.0;
-
-
-// Print elapsed time
-    _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>(endChrono - beginChrono).count()); //std::chrono::microseconds
-    _VV(options, "\nTime difference = " << elapsed_secs);
 
     return 0;
 }
