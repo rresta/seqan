@@ -113,30 +113,50 @@ int main (int argc, char const ** argv)
     _readMultiStructRnaInputFile(reducedContents, options.inFile, options);
 
 // add the weight interaction edges vector map in the data structure using Vienna package
-// bppInteractionGraphBuild(reducedContents.records, options);
+    bppInteractionGraphBuild(reducedContents.records, options);
 
     _VV(options, "Found " << length(reducedContents.records) << " sequences in the input file.");
     for (RnaRecord & currentRecord : reducedContents.records)
     {
+        std::cout << currentRecord.bppMatrGraphs[0].inter << std::endl;
         unsigned totalConsEdges=0;  //counter for the edges present in all the fixed graphs
         unsigned totalOutEdges=0;   //counter for all the edges of the Consensus Graph
         unsigned notPaired=0;       //counter for the not paired bases of the Consensus Graph
         unsigned initEdges=0;       //counter for the edges present only in the first fixed graph
         RnaStructureGraph consGraph;                                            //Creation of the Consensus Graph
         consGraph = currentRecord.fixedGraphs[0];
-        for (unsigned j = 0; j < currentRecord.seqLen; ++j) {
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type it0(consGraph.inter);
+        while (!atEnd(it0))
+        {
+//            std::cout << "sourceVertex = " << sourceVertex(it) << " targetVertex = " << targetVertex(it) << " cargo = " << getCargo(findEdge(consGraph.inter, sourceVertex(it), targetVertex(it))) << std::endl;
+            assignCargo(findEdge(consGraph.inter, sourceVertex(it0), targetVertex(it0)), options.firstEdgeWeight);
+            goNext(it0);
+        }
+/*        for (unsigned j = 0; j < currentRecord.seqLen; ++j) {
             RnaAdjacencyIterator adj_it(consGraph.inter, j);           //Access to the base pair of the Consensus Graph
             if (degree(consGraph.inter, j) != 0 && (value(adj_it) > j)) {
                 assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
             }
         }
+*/
         for (unsigned k = 1; k < length(currentRecord.fixedGraphs); ++k)       //for the other graphs
         {
+            std::cout << currentRecord.fixedGraphs[k].inter << std::endl;
+
+            Iterator<Graph<Undirected<double> >, EdgeIterator>::Type it(currentRecord.fixedGraphs[0].inter);
+            while (!atEnd(it)) // DA USARE PER SOSTITUIRE I CICLI SUCCESSIVI
+            {
+                std::cout << "sourceVertex = " << sourceVertex(it) << " targetVertex = " << targetVertex(it) << " cargo = " << getCargo(findEdge(consGraph.inter, sourceVertex(it), targetVertex(it))) << std::endl;
+                goNext(it);
+            }
+
             for (unsigned l = 0; l < currentRecord.seqLen; ++l) {
                 RnaAdjacencyIterator adj_it_fixedGraph(currentRecord.fixedGraphs[k].inter, l);
-                if (atEnd(adj_it_fixedGraph) || l < value(adj_it_fixedGraph)) //control for the value of the adj list
+
+                if (atEnd(adj_it_fixedGraph) || l > value(adj_it_fixedGraph)) //control for the value of the adj list
                     continue;
 
+                std::cout << value(adj_it_fixedGraph) << " l=" << l << std::endl;
                 if (findEdge(consGraph.inter, l, value(adj_it_fixedGraph)) != 0)  //if the edge already exists
                 {
                     assignCargo(findEdge(consGraph.inter, l, value(adj_it_fixedGraph)),

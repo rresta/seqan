@@ -73,7 +73,7 @@ extern "C" {
 template <typename TOption>
 void bppInteractionGraphBuild(TRnaVect & rnaSeqs, TOption const & options)
 {
-#pragma omp parallel for num_threads(options.threads)
+//#pragma omp parallel for num_threads(options.threads)
     for (typename Size<TRnaVect>::Type i = 0; i < length(rnaSeqs); ++i)
     {
         if (empty(rnaSeqs[i].bppMatrGraphs))  // if dotplot or extended bpseq data are not present
