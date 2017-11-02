@@ -111,28 +111,24 @@ int main (int argc, char const ** argv)
     // Read input files
     RnaStructContents reducedContents;
     _readMultiStructRnaInputFile(reducedContents, options.inFile, options);
-// add the weight interaction edges vector map in the data structure using Vienna package
-    _VVV(options, "Number of graphs before appending the bpp Matrix: " << length(reducedContents.records[0].fixedGraphs) << "\n");
-  bppInteractionGraphBuild(reducedContents.records, options);
-    _VVV(options, "Number of graphs after compute the bpp Matrix: " << length(reducedContents.records[0].fixedGraphs) << "\n");
-    _VVV(options, "Number of bpp Matrix after compute the bpp Matrix: " << length(reducedContents.records[0].bppMatrGraphs) << "\n");
+    // add the weight interaction edges vector map in the data structure using Vienna package
+    bppInteractionGraphBuild(reducedContents.records, options);
     _VV(options, "Found " << length(reducedContents.records) << " sequences in the input file.");
     for (RnaRecord & currentRecord : reducedContents.records) {
         //std::cout << currentRecord.bppMatrGraphs[0].inter << std::endl;
         unsigned totalConsEdges = 0;  //counter for the edges present in all the fixed graphs
-        //unsigned totalOutEdges = 0;   //counter for all the edges of the Consensus Graph
         unsigned notPaired = 0;       //counter for the not paired bases of the Consensus Graph
         unsigned initEdges = 0;       //counter for the edges present only in the first fixed graph
         RnaStructureGraph consGraph;                                            //Creation of the Consensus Graph
         consGraph = currentRecord.fixedGraphs[0];
         Iterator<Graph<Undirected<double> >, EdgeIterator>::Type consEdgeIt(consGraph.inter);
         while (!atEnd(consEdgeIt)) {
-            assignCargo(findEdge(consGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)), options.firstEdgeWeight);
+            assignCargo(findEdge(consGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)),
+                        options.firstEdgeWeight);
             goNext(consEdgeIt);
         }
 
-        for (unsigned k = 1; k < length(currentRecord.fixedGraphs) -
-                                 1; ++k)       //-1 for the one appended in vienna_rna
+        for (unsigned k = 1; k < length(currentRecord.fixedGraphs); ++k)
         {
             Iterator<Graph<Undirected<double> >, EdgeIterator>::Type fixedEdgeIt(currentRecord.fixedGraphs[k].inter);
             while (!atEnd(fixedEdgeIt)) {
@@ -140,10 +136,11 @@ int main (int argc, char const ** argv)
                 if (findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)) != 0)
                 {
                     assignCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)),
-                                getCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt))) +
-                                options.edgeStepWeight);
+                                getCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt),
+                                                  targetVertex(fixedEdgeIt))) + options.edgeStepWeight);
                 } else {
-                    addEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt), options.firstEdgeWeight);
+                    addEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt),
+                            options.firstEdgeWeight);
                 }
                 goNext(fixedEdgeIt);
             }
@@ -158,11 +155,9 @@ int main (int argc, char const ** argv)
             }
 
             if (edgeWeight ==
-                options.firstEdgeWeight + (length(currentRecord.fixedGraphs) - 2) * options.edgeStepWeight) {
-                //-2 exclude the first and the last appended after computing bpp matrix
+                options.firstEdgeWeight + (length(currentRecord.fixedGraphs) - 1) * options.edgeStepWeight) {
                 ++totalConsEdges;
             }
-            //++totalOutEdges;
         }
         _VV(options, "Total Edges: " << numEdges(consGraph.inter));
         _VV(options, "Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
@@ -179,12 +174,12 @@ int main (int argc, char const ** argv)
         }
     }
 
-// timer stop
+    // timer stop
     std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
     std::clock_t end = std::clock();
     double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
 
-// Print elapsed time
+    // Print elapsed time
     _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>
             (endChrono - beginChrono).count()); //std::chrono::microseconds
     _VV(options, "\nTime difference = " << elapsed_secs);

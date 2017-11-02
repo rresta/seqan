@@ -142,14 +142,14 @@ void computeBppMatrix(TRnaStruct & rnaSeq, TOption const & options)
         }
     }
     append(rnaSeq.bppMatrGraphs, bppMatrGraph);
-    fixedGraph.specs = "vrna_fold_compound(<Sequence>, <Vienna Model Details>, VRNA_OPTION_MFE | VRNA_OPTION_PF)";
+/*    fixedGraph.specs = "vrna_fold_compound(<Sequence>, <Vienna Model Details>, VRNA_OPTION_MFE | VRNA_OPTION_PF)";
     fixedGraph.energy = gibbs;
 //TODO this data must be formatted in a smart way
 // FIXME the vienna representation should be supported before to use this piece of code
-    append(rnaSeq.fixedGraphs, fixedGraph);
+    append(rnaSeq.fixedGraphs, fixedGraph);*/
 //    if(options.verbose > 2)
 //        std::cout << "\n" << rnaSeq.bppMatrGraphs[0].inter  << std::endl;
-// TODO the graph to be used must be placed at position 0
+// TODO the graph to be used must be placed at position 0*/
 
 // free memory occupied by vrna_fold_compound
     vrna_fold_compound_free(vc);
