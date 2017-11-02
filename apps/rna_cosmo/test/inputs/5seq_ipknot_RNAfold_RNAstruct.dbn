@@ -1,0 +1,45 @@
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.(((((((.....(((((.........))))).........((((((.......))))))...)))))((((....((((((..........))))))...))))...................))..
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.((.....))(((....)))..((((((((((......((....))....((....))..........))))))))))..(((.(((....))))))..)))))))))))
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+..........((((((((......((((((....)))))).(((....(((.....)))...)))........))))))))....................((((.....))))................((........))........................................................
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+.....................................(((..(((((((..(((((((((....))))))))).(((((....)))))..))).....)))).)))..........................((...(((((((((...)))))))))..))........................................
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+...............(((......((((........)))).(((((.......))))).....(((((.......)))))....))).............................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((.(((.....((((((((....)).))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).......)))...)).. (-24.30)
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((((((...)))).(((...))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))..(((.(((....))))))..))))))))))) (-51.80)
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+..((.((((((((((((((((((((((.(((((..((......))..))))))))))))))............))))))))....(..(((.(((...(.((((((...))))))).))).)))..)...((((....)))).....)))))..)).......................................... (-30.80)
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+((((........))...((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).))))((...((((...(((((((((...)))))))))..)))))).........))......................... (-55.50)
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+...............(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))............................. (-22.20)
+>add Riboswitch 13-140, V. vulnificus/1-128
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+............((((((((....)).))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))................. (-26.1)
+>E. coli_rRNA_5s/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........((((....)))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))((((..(((....))))))).))))))))))) (-52.4)
+>glycine riboswitch, F. nucleatum/1-198
+GGACAGAGAGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGAAAACACAACAAAGAAACAACAACAACAAC
+..........(((((((((((((((((.(((((..((......))..))))))))))))))............))))))))........(((((......((((((...)))))).(((...((((....((((....)))).....))))..))).......))))).............................. (-30)
+>tRNA phenylalanine (yeast)/1-116
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACCAAAGAAACAACAACAACAAC
+...............((((((...((((........)))).(((((.......))))).....(((((.......))))).))))))............................. (-22.7)
+>P4-P6 domain, Tetrahymena ribozyme/1-202
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+(((..............((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).)))))))..((((...(((((((((...)))))))))..))))...................................... (-56.8)
