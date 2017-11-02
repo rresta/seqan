@@ -111,92 +111,72 @@ int main (int argc, char const ** argv)
     // Read input files
     RnaStructContents reducedContents;
     _readMultiStructRnaInputFile(reducedContents, options.inFile, options);
-
 // add the weight interaction edges vector map in the data structure using Vienna package
-    bppInteractionGraphBuild(reducedContents.records, options);
-
+    _VVV(options, "Number of graphs before appending the bpp Matrix: " << length(reducedContents.records[0].fixedGraphs) << "\n");
+  bppInteractionGraphBuild(reducedContents.records, options);
+    _VVV(options, "Number of graphs after compute the bpp Matrix: " << length(reducedContents.records[0].fixedGraphs) << "\n");
+    _VVV(options, "Number of bpp Matrix after compute the bpp Matrix: " << length(reducedContents.records[0].bppMatrGraphs) << "\n");
     _VV(options, "Found " << length(reducedContents.records) << " sequences in the input file.");
-    for (RnaRecord & currentRecord : reducedContents.records)
-    {
-        std::cout << currentRecord.bppMatrGraphs[0].inter << std::endl;
-        unsigned totalConsEdges=0;  //counter for the edges present in all the fixed graphs
-        unsigned totalOutEdges=0;   //counter for all the edges of the Consensus Graph
-        unsigned notPaired=0;       //counter for the not paired bases of the Consensus Graph
-        unsigned initEdges=0;       //counter for the edges present only in the first fixed graph
+    for (RnaRecord & currentRecord : reducedContents.records) {
+        //std::cout << currentRecord.bppMatrGraphs[0].inter << std::endl;
+        unsigned totalConsEdges = 0;  //counter for the edges present in all the fixed graphs
+        //unsigned totalOutEdges = 0;   //counter for all the edges of the Consensus Graph
+        unsigned notPaired = 0;       //counter for the not paired bases of the Consensus Graph
+        unsigned initEdges = 0;       //counter for the edges present only in the first fixed graph
         RnaStructureGraph consGraph;                                            //Creation of the Consensus Graph
         consGraph = currentRecord.fixedGraphs[0];
-        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type it0(consGraph.inter);
-        while (!atEnd(it0))
-        {
-//            std::cout << "sourceVertex = " << sourceVertex(it) << " targetVertex = " << targetVertex(it) << " cargo = " << getCargo(findEdge(consGraph.inter, sourceVertex(it), targetVertex(it))) << std::endl;
-            assignCargo(findEdge(consGraph.inter, sourceVertex(it0), targetVertex(it0)), options.firstEdgeWeight);
-            goNext(it0);
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type consEdgeIt(consGraph.inter);
+        while (!atEnd(consEdgeIt)) {
+            assignCargo(findEdge(consGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)), options.firstEdgeWeight);
+            goNext(consEdgeIt);
         }
-/*        for (unsigned j = 0; j < currentRecord.seqLen; ++j) {
-            RnaAdjacencyIterator adj_it(consGraph.inter, j);           //Access to the base pair of the Consensus Graph
-            if (degree(consGraph.inter, j) != 0 && (value(adj_it) > j)) {
-                assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
-            }
-        }
-*/
-        for (unsigned k = 1; k < length(currentRecord.fixedGraphs); ++k)       //for the other graphs
+
+        for (unsigned k = 1; k < length(currentRecord.fixedGraphs) -
+                                 1; ++k)       //-1 for the one appended in vienna_rna
         {
-            std::cout << currentRecord.fixedGraphs[k].inter << std::endl;
+            Iterator<Graph<Undirected<double> >, EdgeIterator>::Type fixedEdgeIt(currentRecord.fixedGraphs[k].inter);
+            while (!atEnd(fixedEdgeIt)) {
 
-            Iterator<Graph<Undirected<double> >, EdgeIterator>::Type it(currentRecord.fixedGraphs[0].inter);
-            while (!atEnd(it)) // DA USARE PER SOSTITUIRE I CICLI SUCCESSIVI
-            {
-                std::cout << "sourceVertex = " << sourceVertex(it) << " targetVertex = " << targetVertex(it) << " cargo = " << getCargo(findEdge(consGraph.inter, sourceVertex(it), targetVertex(it))) << std::endl;
-                goNext(it);
-            }
-
-            for (unsigned l = 0; l < currentRecord.seqLen; ++l) {
-                RnaAdjacencyIterator adj_it_fixedGraph(currentRecord.fixedGraphs[k].inter, l);
-
-                if (atEnd(adj_it_fixedGraph) || l > value(adj_it_fixedGraph)) //control for the value of the adj list
-                    continue;
-
-                std::cout << value(adj_it_fixedGraph) << " l=" << l << std::endl;
-                if (findEdge(consGraph.inter, l, value(adj_it_fixedGraph)) != 0)  //if the edge already exists
+                if (findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)) != 0)
                 {
-                    assignCargo(findEdge(consGraph.inter, l, value(adj_it_fixedGraph)),
-                                getCargo(findEdge(consGraph.inter, l, value(adj_it_fixedGraph))) +
+                    assignCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)),
+                                getCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt))) +
                                 options.edgeStepWeight);
+                } else {
+                    addEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt), options.firstEdgeWeight);
                 }
-                else
-                {
-                    addEdge(consGraph.inter, l, value(adj_it_fixedGraph), options.firstEdgeWeight);
-                }
+                goNext(fixedEdgeIt);
             }
         }
-        _VVV(options, consGraph.inter);
-        _VV(options, "Cargo Edge list:")
-        for (unsigned m = 0; m < currentRecord.seqLen; ++m)
-        {
-            for (RnaAdjacencyIterator adj_it_cons(consGraph.inter, m); !atEnd(adj_it_cons); goNext(adj_it_cons))
-            {
-                if (value(adj_it_cons)>m)
-                {
-                double const edgeWeight = getCargo(findEdge(consGraph.inter, m, value(adj_it_cons)));
-                _VVV(options,"Source: " << m << ", Target: " << value(adj_it_cons) << ", Cargo: " << edgeWeight);
-                if (edgeWeight==options.firstEdgeWeight)
-                    ++initEdges;
-                if (edgeWeight == options.firstEdgeWeight+(length(currentRecord.fixedGraphs)-1)*options.edgeStepWeight)
-                    ++totalConsEdges;
-                ++totalOutEdges;
-                }
+       _VVV(options,"\nConsensus Graph" << consGraph.inter);
 
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type edgIt(consGraph.inter);
+        for (edgIt; !atEnd(edgIt); goNext(edgIt)) {
+            double const edgeWeight = getCargo(findEdge(consGraph.inter, sourceVertex(edgIt), targetVertex(edgIt)));
+            if (edgeWeight == options.firstEdgeWeight) {
+                ++initEdges;
             }
-        if (degree(consGraph.inter, m) == 0)
-            ++notPaired;
-        }
-        append(currentRecord.fixedGraphs, consGraph);
-        _VV(options,  "Total Edges Count: " << totalOutEdges);
-        _VV(options, "Sequence Length: " << currentRecord.seqLen << ", Unpaired bases: " << notPaired << ", "
-                "Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
-        _VVV(options, "Number of graphs after appending the consensus graph: " << length(currentRecord.fixedGraphs)
-                                                                               << "\n");
 
+            if (edgeWeight ==
+                options.firstEdgeWeight + (length(currentRecord.fixedGraphs) - 2) * options.edgeStepWeight) {
+                //-2 exclude the first and the last appended after computing bpp matrix
+                ++totalConsEdges;
+            }
+            //++totalOutEdges;
+        }
+        _VV(options, "Total Edges: " << numEdges(consGraph.inter));
+        _VV(options, "Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
+
+        _VV(options, "Bpp Matrix Edges found in the consensus graph: ");
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type bppEdgIt(currentRecord.bppMatrGraphs[0].inter);
+        for (bppEdgIt; !atEnd(bppEdgIt); goNext(bppEdgIt)) {
+            if (findEdge(consGraph.inter, sourceVertex(bppEdgIt), targetVertex(bppEdgIt)) != 0) {
+                _VV(options, "sourceVertex = " << sourceVertex(bppEdgIt) << " targetVertex = " << targetVertex(bppEdgIt)
+                                        << " probability = " << getCargo(findEdge(currentRecord.bppMatrGraphs[0].inter,
+                                                                                   sourceVertex(bppEdgIt),
+                                                                                   targetVertex(bppEdgIt))));
+            }
+        }
     }
 
 // timer stop
@@ -210,6 +190,8 @@ int main (int argc, char const ** argv)
     _VV(options, "\nTime difference = " << elapsed_secs);
 
     return 1;
+
+/////////////////////////////////////////////////////////////////////////////////////
 
     //SHAPE
     //Function that controls in RMDB if there are SHAPE of the input sequence
