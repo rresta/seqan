@@ -1,0 +1,117 @@
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.(((((((.....(((((.........))))).........((((((.......))))))...)))))((((....((((((..........))))))...))))...................))..
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+............((((.(((....)))..))))........((((((.......))))))........((((.((.((((((..........)))))).)))))).......................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.............((((...........)))).........((((((.......))))))................((((((..........))))))..............................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.........................................((((((.......))))))................(((((............)))))..............................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((.(((.....((((((((....)).))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).......)))...)).. (-24.30)
+>add Riboswitch 13-140, V. vulnificus/1-128
+CGCUUCAUAUAAUCCUAAUGAUAUCGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+............((((((((....)).))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))................. (-26.1)
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.((.....))(((....)))..((((((((((......((....))....((....))..........))))))))))..(((.(((....))))))..)))))))))))
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........[[[..........((((((((((..................]]]...............)))))))))).....................)))))))))))
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+...(((((((((.......................((((((((((....................................))))))))))......(((....)))......))))))))).
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+....(((((((........................((((((((((....................................)))))))))).......((....))........)))))))..
+> E. coli_rRNA_5s
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((((((...)))).(((...))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))..(((.(((....))))))..))))))))))) (-51.80)
+>E. coli_rRNA_5s/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........((((....)))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))((((..(((....))))))).))))))))))) (-52.4)
+>E. coli_rRNA_5s/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........((((....)))).((((((((((.....(((....)))...(((((.......))))).))))))))))((((..(((....))))))).))))))))))) (-52.1)
+>E. coli_rRNA_5s/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((((.(((((.((.((((......)))))).))).....(((....)))...(((((.......))))).((((((((...)))))))).....)).))..))))))))))) (-50)
+>E. coli_rRNA_5s/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((((((.((((((((....(((((((.............))))..)))...))))...))))..))))..((((((((...))))))))............))))))))))) (-49.2)
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+..........((((((((......((((((....)))))).(((....(((.....)))...)))........))))))))....................((((.....))))................((........))........................................................
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+...........(((((((.......((((......))))..................................)))))))..................................................((((....))))........................................................
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+...........(((((((.......(((((....)))))...((..................)).........)))))))......................................................................................................................
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+...........(((((((........(((......)))...................................)))))))......................................................................................................................
+> glycine riboswitch, F. nucleatum
+ggacagagaGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGaaaacacaacaaagaaacaacaacaacaac
+..((.((((((((((((((((((((((.(((((..((......))..))))))))))))))............))))))))....(..(((.(((...(.((((((...))))))).))).)))..)...((((....)))).....)))))..)).......................................... (-30.80)
+>glycine riboswitch, F. nucleatum/1-198
+GGACAGAGAGGAUAUGAGGAGAGAUUUCAUUUUAAUGAAACACCGAAGAAGUAAAUCUUUCAGGUAAAAAGGACUCAUAUUGGACGAACCUCUGGAGAGCUUAUCUAAGAGAUAACACCGAAGGAGCAAAGCUAAUUUUAGCCUAAACUCUCAGGUAAAAGGACGGAGAAAACACAACAAAGAAACAACAACAACAAC
+..........(((((((((((((((((.(((((..((......))..))))))))))))))............))))))))........(((((......((((((...)))))).(((...((((....((((....)))).....))))..))).......))))).............................. (-30)
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+.....................................(((..(((((((..(((((((((....))))))))).(((((....)))))..))).....)))).)))..........................((...(((((((((...)))))))))..))........................................
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+.................((((.....(((((((....(((..(((.((((.(((((((((....))))))))).(((((....))))).))))......))).)))...))))))).....)))).....((((...(((((((((...)))))))))..))))......................................
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+.....................................(((..(((.......((((((((....))))))))...(((......)))............))).)))...............................(((((((((...)))))))))............................................
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+....................................................((((((((....))))))))..................................................................((((((((...)))))))).............................................
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+((((........))...((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).))))((...((((...(((((((((...)))))))))..)))))).........))......................... (-55.50)
+>P4-P6 domain, Tetrahymena ribozyme/1-202
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+(((..............((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).)))))))..((((...(((((((((...)))))))))..))))...................................... (-56.8)
+>P4-P6 domain, Tetrahymena ribozyme/1-202
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+((((.......((......)).......)))).....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...((((....)))).((.((...((((...(((((((((...)))))))))..)))))).))................................. (-53.7)
+>P4-P6 domain, Tetrahymena ribozyme/1-202
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+((((.....(((((..(((..((.......))..))))))))..........((((((((....)))))))).))))........(((.((((....(((((..((((.((((............)))).))))...(((((((((...))))))))).......)))))....)))).))).................... (-53.3)
+>P4-P6 domain, Tetrahymena ribozyme/1-202
+GGCCAAAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCAAAGAAACAACAACAACAAC
+.............(((((((..((.(.((........)).)))..(((((.(((((((((....))))))))).(((((....))))).)))))....((((.((....((((....))))))))))....(((...(((((((((...)))))))))..))).)))))))............................... (-53)
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+...............(((......((((........)))).(((((.......))))).....(((((.......)))))....))).............................
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+..........................[[[[...........(((((]]]]...))))).....(((((.......)))))....................................
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+.........................................(((((.......))))).....(((((.......)))))....................................
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+.........................................(((((.......))))).....(((((.......)))))....................................
+> tRNA phenylalanine (yeast)
+ggaacaaacaaaacaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAaaaccaaagaaacaacaacaacaac
+...............(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))............................. (-22.20)
+>tRNA phenylalanine (yeast)/1-116
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACCAAAGAAACAACAACAACAAC
+...............((((((...((((........)))).(((((.......))))).....(((((.......))))).))))))............................. (-22.7)
+>tRNA phenylalanine (yeast)/1-116
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACCAAAGAAACAACAACAACAAC
+...............(((((((....((((((.((......)).)))))).((((....))))(((((.......))))))))))))............................. (-22.3)
+>tRNA phenylalanine (yeast)/1-116
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACCAAAGAAACAACAACAACAAC
+...............((((((.....((.((.(((.((((((.(((((...........))).))))))))..))))).))))))))............................. (-22)
+>tRNA phenylalanine (yeast)/1-116
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACCAAAGAAACAACAACAACAAC
+...............((((((.....((((((.((......)).))))))....(((..((((........))))..))).))))))............................. (-21.8)

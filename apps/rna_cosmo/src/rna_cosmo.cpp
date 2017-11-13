@@ -110,6 +110,8 @@ int main (int argc, char const ** argv)
 
     // Read input files
     RnaStructContents reducedContents;
+    unsigned consensusCargo=0;
+    double probabilityCargo=0;
     _readMultiStructRnaInputFile(reducedContents, options.inFile, options);
     // add the weight interaction edges vector map in the data structure using Vienna package
     bppInteractionGraphBuild(reducedContents.records, options);
@@ -119,11 +121,12 @@ int main (int argc, char const ** argv)
         unsigned totalConsEdges = 0;  //counter for the edges present in all the fixed graphs
         unsigned notPaired = 0;       //counter for the not paired bases of the Consensus Graph
         unsigned initEdges = 0;       //counter for the edges present only in the first fixed graph
-        RnaStructureGraph consGraph;                                            //Creation of the Consensus Graph
-        consGraph = currentRecord.fixedGraphs[0];
-        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type consEdgeIt(consGraph.inter);
+        RnaStructureGraph consensusGraph;                                            //Creation of the Consensus Graph
+        RnaStructureGraph probabilityConsensusGraph;
+        consensusGraph = currentRecord.fixedGraphs[0];
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type consEdgeIt(consensusGraph.inter);
         while (!atEnd(consEdgeIt)) {
-            assignCargo(findEdge(consGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)),
+            assignCargo(findEdge(consensusGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)),
                         options.firstEdgeWeight);
             goNext(consEdgeIt);
         }
@@ -133,23 +136,24 @@ int main (int argc, char const ** argv)
             Iterator<Graph<Undirected<double> >, EdgeIterator>::Type fixedEdgeIt(currentRecord.fixedGraphs[k].inter);
             while (!atEnd(fixedEdgeIt)) {
 
-                if (findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)) != 0)
+                if (findEdge(consensusGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)) != 0)
                 {
-                    assignCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)),
-                                getCargo(findEdge(consGraph.inter, sourceVertex(fixedEdgeIt),
+                    assignCargo(findEdge(consensusGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt)),
+                                getCargo(findEdge(consensusGraph.inter, sourceVertex(fixedEdgeIt),
                                                   targetVertex(fixedEdgeIt))) + options.edgeStepWeight);
                 } else {
-                    addEdge(consGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt),
+                    addEdge(consensusGraph.inter, sourceVertex(fixedEdgeIt), targetVertex(fixedEdgeIt),
                             options.firstEdgeWeight);
                 }
                 goNext(fixedEdgeIt);
             }
         }
-       _VVV(options,"\nConsensus Graph" << consGraph.inter);
+       _VVV(options,"\nConsensus Graph" << consensusGraph.inter);
 
-        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type edgIt(consGraph.inter);
+        Iterator<Graph<Undirected<double> >, EdgeIterator>::Type edgIt(consensusGraph.inter);
         for (edgIt; !atEnd(edgIt); goNext(edgIt)) {
-            double const edgeWeight = getCargo(findEdge(consGraph.inter, sourceVertex(edgIt), targetVertex(edgIt)));
+            double const edgeWeight = getCargo(findEdge(consensusGraph.inter, sourceVertex(edgIt),
+                                                        targetVertex(edgIt)));
             if (edgeWeight == options.firstEdgeWeight) {
                 ++initEdges;
             }
@@ -159,17 +163,26 @@ int main (int argc, char const ** argv)
                 ++totalConsEdges;
             }
         }
-        _VV(options, "Total Edges: " << numEdges(consGraph.inter));
+        _VV(options, "Total Edges: " << numEdges(consensusGraph.inter));
         _VV(options, "Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
-
+        probabilityConsensusGraph=consensusGraph;
         _VV(options, "Bpp Matrix Edges found in the consensus graph: ");
         Iterator<Graph<Undirected<double> >, EdgeIterator>::Type bppEdgIt(currentRecord.bppMatrGraphs[0].inter);
         for (bppEdgIt; !atEnd(bppEdgIt); goNext(bppEdgIt)) {
-            if (findEdge(consGraph.inter, sourceVertex(bppEdgIt), targetVertex(bppEdgIt)) != 0) {
+            if (findEdge(consensusGraph.inter, sourceVertex(bppEdgIt), targetVertex(bppEdgIt)) != 0) {
+                consensusCargo=getCargo(findEdge(probabilityConsensusGraph.inter,
+                                                 sourceVertex(bppEdgIt),
+                                                 targetVertex(bppEdgIt)));
+                probabilityCargo=getCargo(findEdge(currentRecord.bppMatrGraphs[0].inter, sourceVertex(bppEdgIt),
+                                                   targetVertex(bppEdgIt)));
+                assignCargo(findEdge(probabilityConsensusGraph.inter, sourceVertex(bppEdgIt), targetVertex(bppEdgIt)),
+                            probabilityCargo+consensusCargo);
                 _VV(options, "sourceVertex = " << sourceVertex(bppEdgIt) << " targetVertex = " << targetVertex(bppEdgIt)
-                                        << " probability = " << getCargo(findEdge(currentRecord.bppMatrGraphs[0].inter,
-                                                                                   sourceVertex(bppEdgIt),
-                                                                                   targetVertex(bppEdgIt))));
+                                        << " probability = " << probabilityCargo << " getCargo probConsGraph:"
+                                               << getCargo(findEdge(probabilityConsensusGraph.inter,
+                                                                    sourceVertex(bppEdgIt),
+                                                                    targetVertex(bppEdgIt))));
+
             }
         }
     }
