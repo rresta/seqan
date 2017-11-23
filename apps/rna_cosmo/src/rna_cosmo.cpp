@@ -150,10 +150,10 @@ int main (int argc, char const ** argv)
     _VV(options, "Found " << length(redContents.records) << " sequences in the input file.");
     for (unsigned i = 0; i < length(redContents.records); ++i)
     {
-        unsigned countOrigEdges=0;
-        unsigned countConsEdges=0;
-        unsigned countNewEdges=0;
+        unsigned totalConsEdges=0;
         unsigned totalOutEdges=0;
+        unsigned notPaired=0;
+        unsigned initEdges=0;
         RnaStructureGraph consGraph;
         consGraph = redContents.records[i].fixedGraphs[0];
         for (unsigned j = 0; j < redContents.records[i].seqLen; ++j)
@@ -161,7 +161,6 @@ int main (int argc, char const ** argv)
             RnaAdjacencyIterator adj_it(consGraph.inter, j);
             if (degree(consGraph.inter, j) != 0 and (value(adj_it) > j))
             {
-                ++countOrigEdges;
                 assignCargo(findEdge(consGraph.inter, j, value(adj_it)), options.firstEdgeWeight);
             }
         }
@@ -176,43 +175,44 @@ int main (int argc, char const ** argv)
                     if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and
                         degree(consGraph.inter, l) != 0 and value(adj_it_consGraph) > l and value(adj_it_consGraph) == value(adj_it_fixedGraph))
                     {
-                        ++countConsEdges;
                         assignCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph)), getCargo(findEdge(consGraph.inter, l, value(adj_it_consGraph))) + options.edgeStepWeight);
                     }
-/*                    else
-                    {
-                        //RnaAdjacencyIterator adj_it_fixedGraph(redContents.records[i].fixedGraphs[k].inter, l);
-                        if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it_fixedGraph) > l)
+                    else if (degree(redContents.records[i].fixedGraphs[k].inter, l) != 0 and value(adj_it_fixedGraph) > l)
                         {
-                            ++countNewEdges;
-                            //addEdge(consGraph.inter, l, value(adj_it_fixedGraph), options.firstEdgeWeight);
-                            addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 1);
+                            addEdge(consGraph.inter, l, value(adj_it_fixedGraph), 7);   //options.firstEdgeWeight
                         }
-                    }*/
                 }
             }
         }
         append(redContents.records[i].fixedGraphs, consGraph);
-                _VVV(options, "Edges Weights for consensus graph for record " << i << " :");
+                _VVV(options, "Record " << i << ", " << consGraph.inter );         //
+                _VV(options, "Record " << i << ", Cargo Edge list")
         for (unsigned m = 0; m < redContents.records[i].seqLen; ++m)
         {
-                if (degree(consGraph.inter, m) != 0)
+                for (RnaAdjacencyIterator adj_it_cons(consGraph.inter, m); !atEnd(adj_it_cons); goNext(adj_it_cons))
                 {
-                    RnaAdjacencyIterator adj_it(consGraph.inter, m);
-                    _VVV(options, getCargo(findEdge(consGraph.inter, m, value(adj_it))));
+                    double const edgeWeight = getCargo(findEdge(consGraph.inter, m, value(adj_it_cons)));
+                    if (value(adj_it_cons)>m)
+                        _VVV(options,"Source: " << m << ", Target: " << value(adj_it_cons) << ", Cargo: " << edgeWeight);
+                    if (edgeWeight==5.0 and value(adj_it_cons)>m)
+                        ++initEdges;
+                    if (edgeWeight==double (options.firstEdgeWeight+(length(redContents.records[i].fixedGraphs)-2)*options.edgeStepWeight) and value(adj_it_cons)>m)
+                        ++totalConsEdges;
                     ++totalOutEdges;
                 }
+                if (degree(consGraph.inter, m) == 0)
+                ++notPaired;
+
         }
-        //        _VV(options, "Consensus Edges count: " << countConsEdges << " Original Edges count: " << countOrigEdges << " New Edges count: " << countNewEdges);
-        _VV(options, "Consensus Edges count: " << countConsEdges << " Total Edges Count: " << totalOutEdges / 2);
-            if (countConsEdges != 0)
-            _VVV(options, "Number of graphs for record " << i << " after appending the consensus graph: " << length(redContents.records[i].fixedGraphs) << "\n");
+        _VV(options,  "Total Edges Count: " << totalOutEdges / 2);
+        _VV(options, "Sequence Length: " << redContents.records[i].seqLen << ", Unpaired bases: " << notPaired << ", Edges with initialization cargo: " << initEdges << ", Total Consensus Edges: " << totalConsEdges);
+        _VVV(options, "Number of graphs for record " << i << " after appending the consensus graph: " << length(redContents.records[i].fixedGraphs) << "\n");
     }
         _VVV(options, "First edge weight: " << options.firstEdgeWeight);
         _VVV(options, "Added edge weight: " << options.edgeStepWeight);
+        _VVV(options, "Weight for edges added for the first time after the first fixed graph: 7");
 
     return 1;
-
 
     /*        for (StructureGraphAdjacencyIterator adj_it(consGraph.inter); !atEnd(adj_it); goNext(adj_it))
         {
