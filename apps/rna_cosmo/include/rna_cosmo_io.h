@@ -149,6 +149,108 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
         }
     }
 }
+//std::ifstream data("/home/osboxes/data_test/sequences/RMDBGLYCFN_SHP_0004.rdat");
+// --------------------------------------------------------------------------
+// Function rdatContents()
+// --------------------------------------------------------------------------
+template <typename TOption>
+void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
+                  StringSet<String<char> > & stringSetReactivity, StringSet<String<char> > & stringSetReactivityError,
+                  std::ifstream & rdatFile, TOption const & options)
+{
+    unsigned reactivityC = 0;         //number of reactivity values
+    unsigned reactivityErrC = 0;      //number of reactivity error values
+    bool isFirstString = true;
+    bool isFirstStringAgain = true;
+    unsigned numReactivities = 0;      //number of reactivity lines in rdat file
+    unsigned numReactivitiesErr = 0;      //number of reactivity error in rdat file
+    std::string currentLine;
+    std::string sequenceStr = "SEQUENCE";
+    std::string structureStr = "STRUCTURE";
+    std::string reactivityStr = "REACTIVITY:";
+    std::string reactivityErrStr = "REACTIVITY_ERROR:";
+
+    while (std::getline(rdatFile, currentLine)) {
+        std::istringstream iss(currentLine);
+        if (std::strstr(currentLine.c_str(), sequenceStr.c_str())) {
+            while (iss) {
+                std::string lineContent;
+                iss >> lineContent;
+                if (!std::strstr(lineContent.c_str(), sequenceStr.c_str()) && !lineContent.empty()) {
+                    RDATseq = lineContent;
+                    _V(options, "> Sequence\n" << RDATseq);
+                }
+            }
+        }
+        if (std::strstr(currentLine.c_str(), structureStr.c_str())) {
+            while (iss) {
+                std::string lineContent;
+                iss >> lineContent;
+                if (!std::strstr(lineContent.c_str(), structureStr.c_str()) && !lineContent.empty()) {
+                    _V(options, "> Secondary Structure\n" << lineContent);    //Dot-Bracket String
+                    CharString struc = lineContent;
+                    //from string to undirected graph
+                    bracket2graph(ifrGraph, struc);
+                    _VVV(options, "Adjacency list:\n" << "> Graph");
+                    Iterator<Graph<Undirected<double> >, EdgeIterator>::Type bppEdgIt(ifrGraph[0].inter);
+                    for (bppEdgIt; !atEnd(bppEdgIt); goNext(bppEdgIt)) {
+                        _VVV(options,"sourceVertex = " << sourceVertex(bppEdgIt) << " targetVertex = "
+                                                       << targetVertex(bppEdgIt));
+                    }
+                }
+            }
+        }
+        if (std::strstr(currentLine.c_str(), reactivityStr.c_str())) {  //reactivities line
+            std::string reactivityForStruct;
+            reactivityC = 0;
+            while (iss) {
+                std::string lineContent;
+                iss >> lineContent;
+                if (!std::strstr(lineContent.c_str(), reactivityStr.c_str()) && !lineContent.empty()) {
+                    reactivityForStruct.append(lineContent);
+                    ++reactivityC;
+                }
+            }
+            if (isFirstString) {
+                appendValue(stringSetReactivity, reactivityForStruct);
+                isFirstString = false;
+            } else {
+                resize(stringSetReactivity, numReactivities, Exact());
+                appendValue(stringSetReactivity, reactivityForStruct);
+            }
+            ++numReactivities;
+        }
+        if (std::strstr(currentLine.c_str(), reactivityErrStr.c_str())) {   //reactivity errors line
+            std::string reactivityErrForStruct;
+            reactivityErrC = 0;
+            while (iss) {
+                std::string lineContent;
+                iss >> lineContent;
+                if (!std::strstr(lineContent.c_str(), reactivityErrStr.c_str()) && !lineContent.empty()) {
+                    reactivityErrForStruct.append(lineContent);
+                    ++reactivityErrC;
+                }
+            }
+            if (isFirstStringAgain) {
+                appendValue(stringSetReactivityError,
+                            reactivityErrForStruct); // Append string to the end of the string set.
+                isFirstStringAgain = false;
+            } else {
+                resize(stringSetReactivityError, numReactivitiesErr, Exact());
+                appendValue(stringSetReactivityError, reactivityErrForStruct);
+            }
+            ++numReactivitiesErr;
+        }
+    }
+    _V(options, "> Number of Reactivity : " << length(stringSetReactivity));
+    _V(options, "> Number of Reactivity Error : " << length(stringSetReactivityError));
+    if (length(RDATseq) != reactivityC)           //check if the number of react is equal to seq length
+    {
+        _V(options, "RDAT file:\nNumber of reactivities: " << reactivityC << "\nSequence length: " << length(RDATseq));
+        _V(options, "\nRMDB file not valid.");
+    }
+}
+
 
 // ----------------------------------------------------------------------------
 // Function plotOutput()

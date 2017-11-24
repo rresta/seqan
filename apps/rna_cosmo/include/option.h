@@ -86,7 +86,7 @@ struct Options
 // Name of input files
     seqan::CharString inFile;
 // Name of input fileShape
-//    seqan::CharString inFileShape;
+    std::string inFileShape;
 // Name of output file (default: stdout)
     seqan::CharString outFile;
 // temporary directory where to save intermediate files. Default: use the input file directory.
@@ -145,7 +145,7 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
     setDate(parser, "2017");
     //setDateAndVersion(parser);
     //setDescription(parser);
-    addUsageLine(parser, "./cosmo <\\fI-i inFile\\fP> \
+    addUsageLine(parser, "./cosmo <\\fI-i inFile\\fP> <\\fI-ifr inFile\\fP> \
             [\\fI-w outFile\\fP] [\\fI -parameters\\fP]");
     addOption(parser, ArgParseOption("v", "verbose", "verbose(0) no outputs, verbose(1) Displays global statistics, "
             "verbose(2) Displays extensive statistics for each batch of reads, verbose(3) Debug output.",
@@ -163,8 +163,8 @@ void setupArgumentParser(ArgumentParser & parser, TOption const & /* options */)
 
     addSection(parser, "Input Options");
     addOption(parser, ArgParseOption("i", "inFile", "Path to the input file", ArgParseArgument::INPUT_FILE, "IN"));
-//    addOption(parser, ArgParseOption("ir", "inFileShape", "Path to the reference shape file",
-//                                     ArgParseArgument::INPUT_FILE, "IN"));
+    addOption(parser, ArgParseOption("ifr", "inFileShape", "Path to the reference shape file",
+                                     ArgParseArgument::INPUT_FILE, "IN"));
 
     addSection(parser, "Output Options");
     addOption(parser, seqan::ArgParseOption( "w", "outFile", "Path to the output file (default: stdout)",
@@ -285,7 +285,15 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     if (empty(options.inFile))
         return ArgumentParser::PARSE_ERROR;
 
-//    getOptionValue(options.inFileRef, parser, "inFileRef");
+    getOptionValue(options.inFileShape, parser, "inFileShape");
+    if (isSet(parser, "inFileShape"))
+    {
+        _V(options, "The specified reference file is " << options.inFileShape);
+    }
+    else
+    {
+        _V(options, "The reference file is not present.");
+    }
     getOptionValue(options.outFile, parser, "outFile");
     if (isSet(parser, "outFile"))
     {

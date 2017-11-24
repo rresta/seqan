@@ -105,14 +105,14 @@ int main (int argc, char const ** argv)
         return res == ArgumentParser::PARSE_ERROR;
 
     // timer start
-    std::clock_t begin = std::clock();
+    std::clock_t begin_clock = std::clock();
     std::chrono::steady_clock::time_point beginChrono = std::chrono::steady_clock::now();
 
     // Read input files
     RnaStructContents reducedContents;
     unsigned consensusCargo=0;
     double probabilityCargo=0;
-    _readMultiStructRnaInputFile(reducedContents, options.inFile, options);
+    _readMultiStructRnaInputFile(reducedContents, options.inFile, options); //STEP 1
     // add the weight interaction edges vector map in the data structure using Vienna package
     bppInteractionGraphBuild(reducedContents.records, options);
     _VV(options, "Found " << length(reducedContents.records) << " sequences in the input file.");
@@ -121,17 +121,16 @@ int main (int argc, char const ** argv)
         unsigned totalConsEdges = 0;  //counter for the edges present in all the fixed graphs
         unsigned notPaired = 0;       //counter for the not paired bases of the Consensus Graph
         unsigned initEdges = 0;       //counter for the edges present only in the first fixed graph
-        RnaStructureGraph consensusGraph;                                            //Creation of the Consensus Graph
+        RnaStructureGraph consensusGraph;
         RnaStructureGraph probabilityConsensusGraph;
-        consensusGraph = currentRecord.fixedGraphs[0];
+        consensusGraph = currentRecord.fixedGraphs[0];              //Creation of the Consensus Graph
         Iterator<Graph<Undirected<double> >, EdgeIterator>::Type consEdgeIt(consensusGraph.inter);
         while (!atEnd(consEdgeIt)) {
             assignCargo(findEdge(consensusGraph.inter, sourceVertex(consEdgeIt), targetVertex(consEdgeIt)),
                         options.firstEdgeWeight);
             goNext(consEdgeIt);
         }
-
-        for (unsigned k = 1; k < length(currentRecord.fixedGraphs); ++k)
+        for (unsigned k = 1; k < length(currentRecord.fixedGraphs); ++k)        //STEP 2
         {
             Iterator<Graph<Undirected<double> >, EdgeIterator>::Type fixedEdgeIt(currentRecord.fixedGraphs[k].inter);
             while (!atEnd(fixedEdgeIt)) {
@@ -168,7 +167,7 @@ int main (int argc, char const ** argv)
         probabilityConsensusGraph=consensusGraph;
         _VV(options, "Bpp Matrix Edges found in the consensus graph: ");
         Iterator<Graph<Undirected<double> >, EdgeIterator>::Type bppEdgIt(currentRecord.bppMatrGraphs[0].inter);
-        for (bppEdgIt; !atEnd(bppEdgIt); goNext(bppEdgIt)) {
+        for (bppEdgIt; !atEnd(bppEdgIt); goNext(bppEdgIt)) {                //STEP 3
             if (findEdge(consensusGraph.inter, sourceVertex(bppEdgIt), targetVertex(bppEdgIt)) != 0) {
                 consensusCargo=getCargo(findEdge(probabilityConsensusGraph.inter,
                                                  sourceVertex(bppEdgIt),
@@ -186,47 +185,85 @@ int main (int argc, char const ** argv)
             }
         }
     }
+//////////////////////////////////////////////////////////////////////
+    //  RMDB files
+
+    //  test/inputs/rdat_files/GLYCFN_SHP_0004.rdat //
+    //  test/inputs/rdat_files/ADD140_1M7_0011.rdat
+    //  test/inputs/rdat_files/TRNAPH_SHP_0002.rdat //
+    //  test/inputs/rdat_files/TRP4P6_DMS_0008.rdat
+    //  test/inputs/rdat_files/5SRRNA_1M7_0008.rdat
+
+    if (isSet(parser, "inFileShape")) {
+        std::ifstream rdatFile;
+        rdatFile.open(options.inFileShape);
+        _V(options, "RDAT FILE: " << options.inFileShape);
+        Rna5String RDATseq;
+        String<RnaStructureGraph> ifrGraph;
+        StringSet<String<char> > stringSetReactivity;
+        StringSet<String<char> > stringSetReactivityError;
+        rdatContents(RDATseq, ifrGraph, stringSetReactivity, stringSetReactivityError, rdatFile, options);  //STEP 4
+
+        bool seqFlag = false;
+        for (RnaRecord &currentRecord : reducedContents.records) {
+            if (currentRecord.sequence == RDATseq) {                   //STEP 5
+                seqFlag = true;
+                currentRecord.reactivity = stringSetReactivity;
+                currentRecord.reactError = stringSetReactivityError;
+                clear(stringSetReactivity);
+                clear(stringSetReactivityError);
+/*                typedef Iterator<StringSet<String<float> >, Standard>::Type TIterator;    //iteration on float strings
+                for (TIterator it = begin(currentRecord.reactivity, Standard()); it != end(currentRecord.reactivity, Standard());
+                     ++it)
+                _VVV(options, "REACTIVITY " << position(it, currentRecord.reactivity) << ": " << *it << std::endl);
+                for (TIterator it1 = begin(currentRecord.reactError, Standard()); it1 != end(currentRecord.reactError, Standard());
+                     ++it1)
+                _VVV(options, "REACTIVITY_ERROR " << position(it1, currentRecord.reactError) << ": " << *it1
+                                                  << std::endl);*/
+            }
+        }
+        if (!seqFlag) _V(options, "No sequence match Input File - Reference File .");
+    } else{
+        _V(options, "No file RDAT.")
+    }
+//////////////////////////////////////////////////////////////////////
 
     // timer stop
     std::chrono::steady_clock::time_point endChrono= std::chrono::steady_clock::now();
-    std::clock_t end = std::clock();
-    double elapsed_secs = double(end - begin) / CLOCKS_PER_SEC;
+    std::clock_t end_clock = std::clock();
+    double elapsed_secs = double(end_clock - begin_clock) / CLOCKS_PER_SEC;
 
     // Print elapsed time
     _VV(options, "\nTime difference chrono = " << std::chrono::duration_cast<std::chrono::seconds>
             (endChrono - beginChrono).count()); //std::chrono::microseconds
     _VV(options, "\nTime difference = " << elapsed_secs);
 
-    return 1;
-
 /////////////////////////////////////////////////////////////////////////////////////
 
-    //SHAPE
-    //Function that controls in RMDB if there are SHAPE of the input sequence
-
-    //if there is a shape
-
-    //if there is a secondary structure: if the edge exist assign SHAPEweight, if it doesn't exist edge creation
-    // assign SHAPEweight
-
-    //else modifying the existing ones set a weight to existing edges according to reactivity and reactivity error
-
-    //for all the vertex of the output graph
-
-            //if there are no edges delete the ones of the bppMatrixGraph
-
-
-// CODE SHOULD BE ADDED HERE
-    _V(options, "STEP 1: Create functions that take the RNA seq and "
-            "generate many fixed structures using several "
-            "combinations of tools and parameters");
-    _V(options, "These functions will generate command lines for the various tools");
-    _V(options, "STEP 2: Fixed Graph of the outputs of the tools");
-    _V(options, "STEP 3: Function that controls in RMDB if there are SHAPE of the input sequence");
-    _V(options, "STEP 4: Function that generates a consensus structure module");
-    _V(options, "STEP 5: Generate EBPSEQ file format (output)");
-    _V(options, "STEP 6: Visualization on jVitz");
-
+    _V(options,"\nSTEPS DESCRIPTION at different levels of verbose -v."
+            " ['STEP <number>' references present in the code as comments.]");
+    _VV(options, "\nSTEP 1: Function that for each RNA record appends all the corresponding Fixed Graphs "
+            "of the input file.");
+    _VVV(options, "The Graphs are obtained by using different tools. The output will be an RNA Structure "
+            "(reducedContents).");
+    _VV(options, "\nSTEP 2: Creation of the Consensus Graph. Edge initialization -few, edge step weight -esw.(*)");
+    _VVV(options, "The Cargo of the edges will be the result of the consensus.");
+    _VV(options, "\nSTEP 3: Creation of the Consensus Probability Graph.(*)");
+    _VVV(options, "Add probabilities of the bpp matrix to the cargo of the Consensus Graph.");
+    _VV(options, "\nSTEP 4: Function that reads an .rdat file -ifr.");
+    _VVV(options, "The output of the function will be the RNA sequence, the secondary structure, the String Set for "
+            "Reactivity and the one for Reactivity Error.");
+    _VV(options, "\nSTEP 5: Append Reactivty and Reactivity Error for the corresponding sequence in the initial "
+            "RNA structure.");
+    _VV(options, "\nSTEP 6 (TODO): Filter the bpp matrix.");
+    _VV(options, "\nSTEP 7 (TODO): Generate EBPSEQ file format (output).");
+    _VV(options, "\nSTEP 8 (TODO): Visualization on jVitz.");
+    _VVV(options, "\nRESULTING STRUCTURES:\nConsensus Graph,\nProbability Consensus Graph,\nReactivity and Reactivity "
+            "Error(**),\nSecondary Structure of the RDAT file(**).")
+    _VV(options, "\nNOTES:\n(*)For each Record.");
+    _VVV(options, "(**)Depends on the -ifr.");
+    _VVV(options, "INPUT FILE FOR TEST: -i test/inputs/5seq_ipknot_RNAfold_RNAstruct.dbn\nRDAT FILE (example): -ifr "
+            "test/inputs/rdat_files/ADD140_1M7_0011.rdat")
 
     return 0;
 }
