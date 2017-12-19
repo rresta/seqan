@@ -155,7 +155,7 @@ void _readMultiStructRnaInputFile(RnaStructContents & contentsOut, CharString fi
 // --------------------------------------------------------------------------
 template <typename TOption>
 void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
-                  StringSet<String<char> > & stringSetReactivity, StringSet<String<char> > & stringSetReactivityError,
+                  StringSet<String<float> > & stringSetReactivity, StringSet<String<float> > & stringSetReactivityError,
                   std::ifstream & rdatFile, TOption const & options)
 {
     unsigned reactivityC = 0;         //number of reactivity values
@@ -169,6 +169,7 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
     std::string structureStr = "STRUCTURE";
     std::string reactivityStr = "REACTIVITY:";
     std::string reactivityErrStr = "REACTIVITY_ERROR:";
+//    std::string reactivityStr = "DATA:1";
 
     while (std::getline(rdatFile, currentLine)) {
         std::istringstream iss(currentLine);
@@ -178,7 +179,7 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
                 iss >> lineContent;
                 if (!std::strstr(lineContent.c_str(), sequenceStr.c_str()) && !lineContent.empty()) {
                     RDATseq = lineContent;
-                    _V(options, "> Sequence\n" << RDATseq);
+                    _VV(options, "> Sequence\n" << RDATseq);
                 }
             }
         }
@@ -187,7 +188,7 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
                 std::string lineContent;
                 iss >> lineContent;
                 if (!std::strstr(lineContent.c_str(), structureStr.c_str()) && !lineContent.empty()) {
-                    _V(options, "> Secondary Structure\n" << lineContent);    //Dot-Bracket String
+                    _VV(options, "> Secondary Structure\n" << lineContent);    //Dot-Bracket String
                     CharString struc = lineContent;
                     //from string to undirected graph
                     bracket2graph(ifrGraph, struc);
@@ -201,16 +202,19 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
             }
         }
         if (std::strstr(currentLine.c_str(), reactivityStr.c_str())) {  //reactivities line
-            std::string reactivityForStruct;
+            String<float> reactivityForStruct;
             reactivityC = 0;
             while (iss) {
                 std::string lineContent;
                 iss >> lineContent;
                 if (!std::strstr(lineContent.c_str(), reactivityStr.c_str()) && !lineContent.empty()) {
-                    reactivityForStruct.append(lineContent);
+                    float reactToAppend;
+                    reactToAppend=std::strtof((lineContent).c_str(),0);     //from string to float
+                    appendValue(reactivityForStruct, reactToAppend);
                     ++reactivityC;
                 }
             }
+            ///////////////////////////////////////////////
             if (isFirstString) {
                 appendValue(stringSetReactivity, reactivityForStruct);
                 isFirstString = false;
@@ -221,13 +225,15 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
             ++numReactivities;
         }
         if (std::strstr(currentLine.c_str(), reactivityErrStr.c_str())) {   //reactivity errors line
-            std::string reactivityErrForStruct;
+            String<float> reactivityErrForStruct;
             reactivityErrC = 0;
             while (iss) {
                 std::string lineContent;
                 iss >> lineContent;
                 if (!std::strstr(lineContent.c_str(), reactivityErrStr.c_str()) && !lineContent.empty()) {
-                    reactivityErrForStruct.append(lineContent);
+                    float reactErrToAppend;
+                    reactErrToAppend=std::strtof((lineContent).c_str(),0);     //from string to float
+                    appendValue(reactivityErrForStruct, reactErrToAppend);
                     ++reactivityErrC;
                 }
             }
@@ -242,8 +248,9 @@ void rdatContents(Rna5String & RDATseq, String<RnaStructureGraph> & ifrGraph,
             ++numReactivitiesErr;
         }
     }
-    _V(options, "> Number of Reactivity : " << length(stringSetReactivity));
-    _V(options, "> Number of Reactivity Error : " << length(stringSetReactivityError));
+
+    _VV(options, "> Number of Reactivity : " << length(stringSetReactivity));
+    _VV(options, "> Number of Reactivity Error : " << length(stringSetReactivityError));
     if (length(RDATseq) != reactivityC)           //check if the number of react is equal to seq length
     {
         _V(options, "RDAT file:\nNumber of reactivities: " << reactivityC << "\nSequence length: " << length(RDATseq));

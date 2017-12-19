@@ -1,0 +1,1350 @@
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((...[[[[[[.)))))))))......(((....)))((((....)).((((((((((((.....))))((.[[[[[.)).]]]]]...(((((....)))))..))))))))..]]]]]]....(([[..)).]])).......................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{{(((((....[[.((((.(((((..((.]]...))..))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[[}}}.)))))]]]].........
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+...((..[[[[[[...(((((..]]]]]].((((((....))))))..(((((((....((((...(((.[[.)))..))))]][[.)))).......)))]].)))))....((((((((....))))))))((.....))((......)).)).
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+...(((((((....(((((...(((.[[[[)))......)))))(((.(((((([[.[[[[[.))).]]]]].]]...))))))....]]]]((((((.....))))))...))))))).
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{{[[[[[.......((((([[.((((....[[[.))))....))]]]......))).........[[..(((((((]]]]..)))))))...((((}}}.]]]]])))).........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.[[[{{{{.....{{{(((([[[((...........}}}[[))[[[))))....]]]..]]..(((((((..]]].)))))))...((((]]]..}}}})))).........
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+.[[(((..]]...[[[[...((((((....)))))))))]]..((((.(((((((..((((.......))))))))..))))))).]].((.(((...)))))..
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..(((..((((.((((((((....)))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[)))}}.)))))..]].........
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+[[[[..((]]]]..(((((((..((((..{{[[..)))).(((((..}}...))))).(((([[[[[...))))]]]]]))))))).]]...((((((([[[.)))))))....]]][[[[[[[..))]]]]]]]
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.....)))))..((((((...((((((.........))))))........((((((.......))))))..))))))((((.((([[[[[[.)))......]]]]]]...)))).((....))((((((.....))))))...................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((.[[.[[{{.))))))]].]]...((((((}}.....))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..((...((((.(((((((((((((....))))))))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[))}}.))))).]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..(((..((((.(((((((....))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[)))}}.)))))..]].........
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............(((((((..((((.[[[[[[.)))).(((((.......))))).(((([[[[[...))))]]]]]))))))).]]...[[((((((..]].))))))..............]]]]...
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.((.....))(((....)))..((((((((((....[[((..]]))....[[((..]][[))...]].))))))))))[[(((.(((]]..))))))..)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+.....((......))((.(((..((((((((((((((((....))))))).)))))))))..)))))...
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+........[[................[[.[[((..]]]]]].....))............
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+.((((((.....{{{{{..[[[[[[[....(((]]]]]]].))).......[[[[[))))))]]]]]((([[[.[[.)))(((.(((((((.....(((....))).((((...[[..((]]((((..((((((....))))))..))))[[[[))[[[.((((((......))....))))))))....)))))))....((((.{{{{((......(((((([[[..))))))]]]))]]].......))))...}}}})))]]]]]].(((((((....))))))).}}}}}((((.[[))))(((((...]][[)))))..]]......]]]..
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+(((((((((..((.((((.[[[.)))))).........)))).(((.{{{)))((((......))))]]]}}}..)))))
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((..[[.)))))).]]...((..(((((((...((((((([[..((((.((]].....(((((((((....))))))))).(((((....)))))............))))))...)))))))..)).)))))))..((((...(((((((((...)))))))))..))))..................((((((..[[.))))))........]]............
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((........[[[[((([[[[[)))....(((]]]]]..]]]](((((.....((((((....))))))....)))))...........(((.(([[[((((((((((.(((]]].))).)))))))))).[[.)))))(((]]..)))....))))))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+((((.[[[))))..[[{{.......(((]]..((((((....)))))).......((((.(((((((..((((...}}..))))))))..)))))))..]]]..(((...)))...)))(((((((....)))))))....((((((....)))))).
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((....[[[................[[.[[((..]]]]]]]....))...)).......
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((..[[[{{...((((]]]}}..[[[[))))((.......((((((.....[[)))))).]](((.(((((.((([[[[[[.))){{{{{.]]]]]]...))))))))}}}}}.))..]]]].))..
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.(((([[[.))))..)))))))))).))))).]]].
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..((...((((.((((((((((..((....))..)))))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[))}}.))))).]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+............(((.{{{{[[[[[(((((([[.(((]]..))).]]]].}}}}.....[[..[[..(((((((]]]]].)))))))...((((.[[[[....))))]]...]][[)))))).)))((.]].)).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.[[.(((((..(((..((((.((((((..(((((([[..))))))]])))))).))))....[[[..[[..(((((((]]]]].)))))))...{{)))]].)))))..}}.........
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+[[[[..((]]]]..(((((((((((.((.....))(((....)))..(((((((((([[[[[[((..]]))....(([[..))((]]...)).))))))))))[[(((.(((]]..))))))..)))))))))))..(((((((]]]]))))))).......[[[[[[[..))]]]]]]]
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+...(((((((.(((.((((((.((([[[...))).)))))).))).))).((.....]]].))))))...
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..((...((((.(((((((((((((....))))))))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[))}}.))))).]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..((...((((.((((((..((....))..)))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[))}}.))))).]]].........
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((....[[[................[[.[[((..]]]]]]]....))...)).......
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..(((..((((.(((((((..((((....))))..))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[)))}}.)))))..]].........
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+[[((.[[[))[[[.{{{{{{{{....{{{{.....((..]]]))]]](((((}}}}((((.(([[[((.(((((.]]].))))).))...))))))........((((((.....))))))...}}}}}}}}..(((((((....)))))))...]]..[[[[[[))))).]]]]]]
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+((....))..(((((((.[[[((.((.((((((....)))))).))...))((.....[[[))..]]]....(([[[[[.[[.)).]]]]]]]..))))))).....]]]
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+(((((..((((((...[[[[[..)))))).((((((....))))))..(((((((....((((...(((.[[.)))..))))]][[.)))).......)))]].]]]]][[[.((((((((....))))))))((.....))((......)).)))))(((((((]]].)))))))....((([[[[[[[))).]]]]]]]
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+............(((.[[[[.[[[[[[[..[[[.(((]]]((]]]]]]].]]]].))[[[[..[[..(((((((]]]]]])))))))...(((([[[[[....))))]]...]]].)))....)))((....)).....
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+[[[[..((]]]]...(((((((((...((((((.{{...[[.))))))((.}}.))((((((]].....))))))..)))))))))..(((((((....))))))).......[[[[[[[..))]]]]]]]
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+...((((((((.(((.(((((.((([[[...))).))))).))).)))).((.....]]].))))))...
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+[[[[..((]]]]..[[[[[[[......(((((......(((.((((((((..(((((((((....))))))))).((((([[..)))))[[))).]]..))))))))...((((....)))).]].....[[(((...(((((((((.]])))))))))..))).]]]]]]]...)))))(((((((....))))))).......[[[[[[[..))]]]]]]]
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.[[.(((((..(((..((((.((((((..(((((([[..))))))]])))))).))))....[[[..[[..(((((((]]]]].)))))))...{{)))]].)))))..}}.........
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+.(((....((((((.((((((((......[[..((]]...)).)))))))).)))))))))..........
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+........(((....)))...(((......[[[.)))........]]]........................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+.((((((((.....))))))....((((([[[[)))))...((]]]])).((((((..[[.))))))........]].......))...
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((..[[.))))))))]]......(((((....)))))....(((.........))).((((((..[[.))))))......]]............
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+(((..((((((......))))))..(((((.[[[...)))))((((.]][[)))))))..((..[[[[[[[[[[.[[((.....))((......))...[[[[[[[(((.........))).(((((...)))))..[[))..((....]].]]]]]]])).]]]]]]]]]]]]((((.((((((.]]].......))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.{{.(((((..((...((((.((((((((((..((....))..)))))))))).))))....[[[..[[..(((((((]]]]].)))))))...[[[))}}.))))).]]].........
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+[[[[..((]]]]..[[(([[..[[[[[....[[[[[[[....(((]]]]]]].)))..((((((...{{{{)))))).((((]]]]]]]))))...[[[[[[[.....(((....))).[[[[....}}}}[[.((((..((((((....))))))..)))).((]](((..((((((......))....))))]]]]....]]]]]]]..{{[[[[{{{(((.......(((((([[[..))))))]]]))))))......]]]]...]]}}}[[[))}}..(((((((....)))))))...[[[((((...))))[[[[[...))((]]]]]..))......]]]....(((((((....)))))))...]]].[[[[[[[..))]]]]]]]
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((...[[[[[[.)))))))))......(((....)))((((....)).((((((((((((.....))))[[.(((((.]].)))))...(((((....)))))..))))))))..]]]]]]....(([[..)).]])).......................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((....[[.((((.(((((..((.]]...))..))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.(((...((((((......[[..)))))).((((((....))))))..(((((((....((((...(((....)))..))))..[[.)))).......)))]].]])))....((((((((....))))))))((.....))((......))....
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+...(((((((....(((((...(((.[[[.)))......)))))(((.((([[[((.(((((.]]].))))).))...)))))).....]]]((((((.....))))))...))))))).
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....((((........((((([[.((((.....[[.))))....))]].......))).............(((((((..]]..)))))))...[[[[.....))))]]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+..((.........[[[((((..(((...........]]][[)))[[))))....]]...]]..(((((((......)))))))...[[[[)).......]]]].........
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+...(((.......[[[[...((((((....)))))))))]]..((((.(((((((..((((.......))))))))..))))))).]]....(((...)))....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.((((((((....)))))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+[[[[..((]]]]..(((((((..((((....[[..)))).(((((.......))))).[[[[(((((...]]]])))))))))))).]]...(((((((.[[.)))))))....]].[[[[[[[..))]]]]]]]
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.....)))))..((((((...((((((.........))))))........((((((.......))))))..))))))((((.[[[((((((.]]]......))))))...)))).........((((((.....))))))...................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((......[[.))))))........((((((]].....))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+..[[(((((...((..((((.(((((((....))))))).)))).............(((((((......))))))).....))]]..))))).............
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............(((((((..((((.[[[[...)))).(((((.......))))).[[[[(((((...]]]]))))))))))))......[[((((((..]].))))))..............]]]]...
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.((.....))(((....)))..((((((((((.....(((....)))..(((....)))((...))..))))))))))..(((.(((....))))))..)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+.....((......))((.(((..((((((((((((((((....))))))).)))))))))..)))))...
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.............................(([[..)).........]]............
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+.((((((.....[[[[[..(((((((....[[.)))))))((]]...))..[[[[[))))))]]]]].[[(((....]]((((.(((((((.....(((....))).((((.......((((((((..((((((....))))))..))))[[))))[[..((((((......))....))))))))....)))))))....((((...(((.......((((((.[[..))))))]].)))]].......)))).......)))).]]...(((((((....))))))).]]]]]((((...))))(((((.....[[)))))..]]......)))..
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+(((((((((..((.((((.[[[.)))))).........))))..[[.(((]].((((......))))]]])))..)))))
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((..[[.)))))).]]........((((((...(((((((....((((.((.......(((((((((....))))))))).(((((....)))))............))))))...)))))))..)).)))).....((((...(((((((((...)))))))))..))))..................((((((.....))))))......................
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((........[[[.((([[[[[)))....(((]]]]]...]]](((((.....((((((....))))))....)))))...........(((.(([[[((((((((((.(((]]].))).))))))))))..[[)))))((]]....))....))))))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+((((.[[[))))..[[[........((]]]..((((((....)))))).......((((.(((((((..((((.......))))))))..)))))))..]]]..(((...)))....))(((((((....)))))))....((((((....)))))).
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((..........................[[((..]].........))...)).......
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((..((([[.......)))]]..((((.(((....((...((((((.......))))))...(((.(((((.[[[((((((.]]][[[...))))))...))))))))))]]].))).)))).))..
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.(((([[[.))))..)))))))))).))))).]]].
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.((((((((((..((....))..)))))))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+............(((.((...(((.[[[[[[[[.(((]]..)))[[))).]])).............(((((((......)))))))...((((.........)))).........]]]]]].)))((....)).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+..[[(((((...((..((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).....))]]..))))).............
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+[[[[..((]]]]..(((((((((((.((.....))(((....)))..(((((((((([[...(((....)))..(((....)))((...))..))))))))))..(((.(((....))))))..)))))))))))..(((((((..]]))))))).......[[[[[[[..))]]]]]]]
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+...(((((((.(((.((((((.((.[[[....)).)))))).))).))).((.....]]].))))))...
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.((((((..((....))..)))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((..........................[[((..]].........))...)).......
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+..[[(((((...((..((((.(((((((..((((....))))..))))))).)))).............(((((((......))))))).....))]]..))))).............
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+[[[[..((]](((.[[[[[[[[....[[[[.....[[..)))]])).(((((]]]]((((.(([[[((.(((((.]]].))))).))...))))))........((((((.....))))))...]]]]]]]]..(((((((....)))))))...]]..[[[[[[))))).]]]]]]
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+((....))..(((((((.[[((..((.((((((....)))))).))...))[[.....(((]]..))).....((((((.((....)))))))).)))))))......]]
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+(((((..((((((...[[[[[..)))))).((((((....))))))..(((((((....((((...(((....)))..))))..[[.)))).......)))]].]]]]]....((((((((....))))))))((.....))((......)).)))))(((((((....)))))))....[[[.((((((]]].)))))).
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+............(((.((((.(((((((..(((.[[[)))..))))))).)))).............(((((((......)))))))...((((.[[......)))).....]]..]]]....)))((....)).....
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+[[[[..((]]]]...(((((((((...((((((......[[.))))))........((((((]].....))))))..)))))))))..(((((((....))))))).......[[[[[[[..))]]]]]]]
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+...((((((((.(((.(((((.((([[[...))).))))).))).)))).((.....]]].))))))...
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+[[[[..((]]]]..(((((((......[[[[[((....(((.(((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...))((....))...........((((...(((((((((...)))))))))..)))))))))))...]]]]](((((((....))))))).......[[[[[[[..))]]]]]]]
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+..[[(((((...((..((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).....))]]..))))).............
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+.(((....((((((.((((((((......[[..((]]...)).)))))))).)))))))))..........
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+................[[...(((]]....[[[.)))........]]]........................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))....((((([[[[))))).....]]]]...((((((..[[.))))))........]]............
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((..[[.))))))))]]......(((((....)))))....................((((((.....))))))....................
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+(((..((((((......))))))..(((((.[[[...)))))((((.]]].)))))))......((((((((((...((.....))((......))...((((((((((.........))).(((((...)))))........[[.......)))))))]]...))))))))))((((.((((((...........))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+....(((((.......((((.((((((((((..((....))..)))))))))).)))).............(((((((......)))))))...[[[[....)))))]]]].........
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+[[[[..((]]]]....((((..(((((....[[[[[[[....(((]]]]]]].)))..((((((...[[..)))))).[[..)))))))))]]...(((((((.....(((....))).((((......]](((((((..((((((....))))))..))))[[)))[[...((((((......))....))))))))....))))))).....(((..((((.......((((((.[[..))))))]].))))]]......(((....)))...)))]]...(((((((....)))))))......((((...))))(((((.....[[)))))..]].............(((((((....))))))).......[[[[[[[..))]]]]]]]
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((...[[[[[..)))))))))................((((...))))((((((((((((.....)))))..(((((....)))))((.(((((....))))).)))))))))...]]]]]....((((.....)))).......................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).............(((((((......))))))).............................
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.(((((.((((((..........)))))).(((((((()))))))))))))........((((.........[[[[[[))))..]]]]]].........((((..........((((((((....))))))))))))...................
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+..((((((((....(((((...(((.....)))......)))))(((.((((..((.(((((.....))))).)))..))))))........((((((.....))))))...))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((..((....))..))..)))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).............(((((((......))))))).............................
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+...............((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((....)))))))).)))).............(((((((......))))))).............................
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+((((....))))[[[..((((....((((..[[....[[[[[[[[))))...]]]]].[[[[(((((...]]]])))))....]]]....]]))))((]]]...))...........(((((((....)))))))
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.....)))))....[[[[[..((((((..]]]]]..))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))..(((((((.....)))))))..................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((.........))))))........((((((.......))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).)))).............(((((((......))))))).............................
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............(([[[[...))((((...........[[[[[))))...]]]]].[[[[(((((...]]]]))))).]]]]..........((((((.....)))))).....................
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.....((((((((....(((..[[[[[[[[[[.....[[....)))...)))))).))...]].....]]]]]]]]]]((((..(((....))))))).)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+..................(((..((((((((((((((((....))))))).)))))))))..))).....
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+..........................................((()))............
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+....(([[..[[[[[...((((((((.......)))))))).....[[[[[[.....))]]]]]].....]]]]]]].....((((....(((.....((((())))).((..(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).((((())))))))).)))))))))))...[[[[[[[.[[))).....))))]]....]]]]]]]......((((((((()))))))))...(((((.........(((((.......)))))........)))))..
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+.....((((....(((((.....)))))..........)))).....((((..((((......))))..)))).......
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((.....))))))..........(((((.....(((((((....(((.(((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...))))))).....)))))....((((...(((((((((...)))))))))..))))..................((((((.....))))))......................
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((...............(((((((......))))))).((((((((........(((((((.(((................))).......))))))).......)))))))).......(((((((((((.((((...))))))).)))))))).)))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+[[[[.(((]]]]...............((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))..))).................(((((((....)))))))...(((((((....)))))))
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+..........................................((()))............
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.....[[[[[..((((((..]]]]]..))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).................
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).))))).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).)))).............(((((((......)))))))..........................................(((())))..
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).............................
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+((((....))))..(((((((((((.....((((((((....(((..[[[[[[[[[[.....[[....)))...)))))).))...]].....]]]]]]]]]]((((..(((....))))))).)))))))))))..(((((((....))))))).......(((((((....)))))))
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......((((.(((.((((((.(((......))).)))))).))).))))....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((....))..)))))).)))).............(((((((......))))))).............................
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+..........................................((()))............
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((..((((....))))..))))))).)))).............(((((((......))))))).............................
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+.[[..((((((((.(((((..............))))).))))))))((((]]...(((.((((..((.(((((.....))))).)))..))))))..(((...((((((.....))))))...))).......(((((((....))))))).......[[[[[[[))))]]]]]]]
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+(((......[[..(((..]].......((((((....)))))).......[[[[[..[[..((((((.....(((((...))))).....)))))))))]].]]]]])))
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+(((((..((((((..........)))))).(((((((()))))))).(((([[.......))]].)).....((((((......)))))).........((((..........((((((((....))))))))))))................)))))(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).)))).............(((((((......)))))))..........................................(((())))..
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+((((....))))...(((((((((...((((((.........))))))........((((((.......))))))..)))))))))..(((((((....))))))).......(((((((....)))))))
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((.(((......))).))))).))).)))))....................
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+((((....))))......((((.....(((((((....(((.(((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...))))))).....)))).....((((...(((((((((...)))))))))..))))...............(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).............................
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........((((((.((((((((..((..((....))..))..)))))))).)))))).............
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+...............................((......[[....))]].......................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))........((((((((....))))))))..((((((.....))))))......................
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((.....))))))))........(((((....)))))....................((((((.....))))))....................
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+[[[[[[((([[[.[[[...)))...(((((.......)))))(((]]].]]]))).....[[[.((((((((((..((.........[[[...(((....)))(((..]]]...........(((((...))))))))]]]..............]]]]]])).))))))))))((((.((((((...........))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......))))))).............................
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+((((....))))...(((((..(((((....(((((((.......)))))))......((((((.......)))))).....))))))))))..((((....(((((...(((([[)))).((..(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).((((())))))))).)))))))))))]].[[[[[[[.))))).....))))......]]]]]]]......((((((((()))))))))...(((((.........(((((.......)))))........)))))....(((((((....))))))).......(((((((....)))))))
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((..........)))))))))................((((...))))((((((((((((.....)))))..(((((....)))))...(((((....)))))...)))))))............((((.....)))).......................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..............))))).))))................(((........)))................................
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.......((((((..........)))))).((((((....))))))..........................((((((......)))))).......................((((((((....)))))))).......................
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+..((((((((....(((((...(((.....)))......)))))(((.((((..((.(((((.....))))).)))..))))))........((((((.....))))))...))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((............))..)))))).)))).................((........)).................................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..............))))).))))................(((........)))................................
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+....................((((((....))))))........(((.(((((((..((((.......))))))))..)))))).....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((....)))))))).))))...............((((........))))...............................
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+((((....)))).(((((((....................(((((.......))))).....(((((.......)))))..............)))))))..................((((((....)))))).
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.....)))))........................................((((((.......))))))...(((..((((.((.((((((..........)))))).)))))).)))....(((((((.....)))))))..................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...(((((...........)))))........((((((.......))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).))))...............((((........))))...............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).))))...............((((........))))...............................
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+.........................................(((((.......))))).....(((((.......)))))...............((((((.....)))))).....................
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((......................((((((((((....................................)))))))))).....................)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+..................(((..((((((((((((((((....))))))).)))))))))..))).....
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+...................(((((((.......))))))).........................................................................(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).(((....))))))).)))))))))..............................................(((((((....))))))).................(((((.......)))))...............
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+......(((....(((((.....)))))..........)))......((((..((((......))))..)))).......
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((.....))))))...........((((.....((((((.....(((..(((.(((..(((((((((....))))))))).(((((....)))))..)))......))).)))....)))))).....)))).....((((...(((((((((...)))))))))..))))..................((((((.....))))))......................
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((...............(((((((......))))))).((((((((........((((((................................)))))).......)))))))).......((((((((...................)))))))).)))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+((((....))))....................((((((....)))))).........((.(((((((..((((.......))))))))..)))))........................(((((((....)))))))...(((((((....)))))))
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.........................................((((((.......))))))....((..((((.((.((((((..........)))))).)))))).))....................
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((..((.((((....))))..)).))))))).))))).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).))))...............((((........))))...............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).))))................(((........))).......................................................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).))))...............((((........))))...............................
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+((((....))))..(((((((((((......................((((((((((....................................)))))))))).....................)))))))))))..(((((((....))))))).......(((((((....)))))))
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......((((.(((.((((((.(((......))).)))))).))).))))....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).))))...............((((........))))...............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((....))..)))))).))))...............((((........))))...............................
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((..((((....))))..))))))).))))...............((((........))))...............................
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+.....((((((((.(((..................))).)))))))).........(((.((((..((.(((((.....))))).)))..))))))...((...((((((.....))))))...))........(((((((....)))))))........((((((....)))))).
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+............((((...........((((((....))))))..................((((((.....(((((...))))).....))))))))))..........
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+((((...((((((..........)))))).((((((....))))))..........................((((((......)))))).......................((((((((....)))))))).....................))))(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).))))................(((........))).......................................................
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+((((....))))...(((((((((...((((.............))))........((((((.......))))))..)))))))))..(((((((....))))))).......(((((((....)))))))
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((.(((......))).))))).))).)))))....................
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+((((....)))).......(((.....((((((.....(((..(((.((((.(((((((((....))))))))).(((((....))))).))))......))).)))....)))))).....)))......((((...(((((((((...)))))))))..))))...............(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).))))...............((((........))))...............................
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........((((((.((((((((..((..((....))..))..)))))))).)))))).............
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+........................................................................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))........((((((((....))))))))..((((((.....))))))......................
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((.....))))))))........(((((....)))))....................((((((.....))))))....................
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+.........................(((((.......))))).........................(((((..............................................................................................)))))...((((.((((((...........))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).))))...............((((........))))...............................
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+((((....))))...................(((((((.......))))))).......(((((.......))))).................................................(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).(((....))))))).)))))))))..............................................((((((((()))))))))...(((((.........(((((.......)))))........)))))....(((((((....)))))))........((((((....)))))).
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((...[[[[[[.)))))))))................((((...))))((((((((((((.....)))))..(((((....)))))((.(((((....))))).)))))))))..]]]]]]....((((.....)))).......................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).............(((((((......)))))))....(((.........)))..........
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.(((((.((((((..........)))))).(((((((()))))))))))))........((((.........[[[[[[))))..]]]]]].........((((..........((((((((....))))))))))))...................
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+..((((((((....(((((...(((.[[[[)))......)))))(((.((((..((.(((((.....))))).)))..))))))....]]]]((((((.....))))))...))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((..((....))..))..)))))).)))).............(((((((......)))))))....(((.........)))..........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).............(((((((......)))))))....(((.........)))..........
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+..((.....))....((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((....)))))))).)))).............(((((((......)))))))....((...........))..........
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+((((....))))[[[..((((....((((..[[....[[[[[[[[))))...]]]]].[[[[(((((...]]]])))))....]]]....]]))))((]]]...))...........(((((((....)))))))
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.[[[.)))))]]].[[[[[..((((((..]]]]]..))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))..(((((((.....)))))))..................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((.........))))))........((((((.......))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))....((...........))..........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).)))).............(((((((......)))))))....((...........))..........
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............(([[[[[..))((((.{{{....{{.[[[[[))))...]]]]].[[[[(((((...]]]])))))]]]]]}}.}}}....((((((.....)))))).....................
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..((((((((((((((..((((((((....(((..[[[[[[[[[[.....[[....)))...)))))...))))]].))..]]]]]]]]]]((((..(((....))))))).)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+..................(((..((((((((((((((((....))))))).)))))))))..))).....
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.........................................(((())))...........
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+...(((((..(((((...((((((((....[[[))))))))]]]..(((((.....(())))))).....))))))))))..((((....(((.....[[[[((]]]].((..(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).((((())))))))).))))))))))))).[[[[[[[[[[))).....))))]]...]]]]]]]]......((((((((()))))))))...(((((.........(((((.......)))))........)))))..
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+.(((.((((....(((((.....)))))..........)))).....((((..((((......))))..))))...))).
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((.....))))))..........(((((.....(((((((....(((.(((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...))))))).....)))))....((((...(((((((((...)))))))))..))))..................((((((.....))))))......................
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((...............(((((((......))))))).((((((((........((((((((((([[..............))))......)))))))...]]..)))))))).......(((((((((((.(((((.)))))))).)))))))).)))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+[[[[.(((]]]]...............((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))..))).................(((((((....)))))))...(((((((....)))))))
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.........................................(((())))...........
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.....[[[[[..((((((..]]]]][[))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).........]]......
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).))))).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......)))))))....((...........))..........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).)))).............(((((((......)))))))....(((.........)))..........((........)).(((())))..
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......)))))))....((...........))..........
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+((((....))))..((((((((((((((..((((((((....(((..[[[[[[[[[[.....[[....)))...)))))...))))]].))..]]]]]]]]]]((((..(((....))))))).)))))))))))..(((((((....))))))).......(((((((....)))))))
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......((((.(((.((((((.(((......))).)))))).))).))))....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))....((...........))..........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((....))..)))))).)))).............(((((((......)))))))....((...........))..........
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.........................................(((())))...........
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((..((((....))))..))))))).)))).............(((((((......)))))))....((...........))..........
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+.....((((((((.(((((.......{{{{{..))))).))))))))[[[[}}}}}(((.((((..((.(((((.....))))).)))..))))))..(((...((((((.....))))))...))).......(((((((....))))))).......(((((((]]]])))))))
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+.........[[[.(((.]]].......((((((....))))))........[[[[..[[..((((((.....(((((...))))){{{{.)))))))))]].]]]]}}}}
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+(((((..((((((..........)))))).(((((((()))))))).(((([[.......))]].))[[...((((((......))))))......((.((((...]].....((((((((....)))))))))))).)).............)))))(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).)))).............(((((((......)))))))....(((.........)))..........((........)).(((())))..
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+((((....))))...(((((((((...((((((.........))))))........((((((.......))))))..)))))))))..(((((((....))))))).......(((((((....)))))))
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((.(((......))).))))).))).)))))....................
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+(((([[[.))))..]]].((((.....(((((((....(((.(((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...))))))).....)))).....((((...(((((((((...)))))))))..))))...............(((((((....))))))).......(((((((....)))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......)))))))....((...........))..........
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........((((((.((((((((..((..((....))..))..)))))))).)))))).............
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+.............................((((....[[......))))]].....................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))........((((((((....))))))))..((((((.....))))))......................
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((.....))))))))........(((((....)))))....................((((((.....))))))....................
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+(((((((((([[.[[...))))...(((((.......)))))((((]].]])))).....[[[.{{{{{{{{{{.{{{.........[[[..[[[[.(((]]]]((..]]]...........(((((...))))))).]]]......))).....))))))}}}}}}}}}}}}}((((.((((((...........))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......)))))))....((...........))..........
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+((((....))))...(((((..(((((....(((((((.......)))))))......((((((.......)))))).....))))))))))..((((....(((((...(((([[)))).((..(((((((((((((..((((((....))))))((((.(((((..((.(((((..............))))).))....))))).)))).((((())))))))).)))))))))))]].[[[[[[[[))))).....)))).....]]]]]]]]......((((((((()))))))))...(((((.........(((((.......)))))........)))))....(((((((....))))))).......(((((((....)))))))
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+...................(((((((((..........))))))))).......((....))...((....)).((((((((((((.....))))...(((((....)))))...(((((....)))))..))))))))............((....))............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).............(((((((......))))))).............................
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....))))))).))))))))))..)))))))...
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.......((((((..........)))))).((((((....))))))..(((.(((....((((...(((....)))..)))).....)))........)))............((((((((....)))))))).......................
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+...(((((((....(((((...(((.....)))......)))))(((.(((...((.(((((.....))))).))...))))))........((((((.....))))))...))))))).
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................(((.....((((........))))...............))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((..........................)))).............(((((((......))))))).............................
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+...............((...((((((....))))))...))...(((.(((((((..((((.......))))))))..)))))).....................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((....)))))))).)))).............(((((((......))))))).............................
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggatccaaagaaaucgggcuucgguccggu
+((((....))))..(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))......(((((((....))))))).........(((((....)))))..
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+..(((((.....)))))..(((((.....(((((.........))))).........((((((.......))))))...)))))((((....((((((..........))))))...)))).........((((((.....))))))...................
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((....(((((.........))))).........((((((.......))))))..)))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).)))).............(((((((......))))))).............................
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............((((((...((((........)))).(((((.......))))).....(((((.......))))).))))))........((((((.....)))))).....................
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.((.....))(((....)))..((((((((((......((....))....((....))..........))))))))))..(((.(((....))))))..)))))))))))
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+...............((.(((..((((((((((((((((....))))))).)))))))))..)))))...
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+.((((((............(((((((.......)))))))................))))))......................(((((((................((((.................((((((....))))))................(((................)))))))....))))))).....................(((((.......)))))....................................(((((((....)))))))......(((.....)))(((((.......)))))...............
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+(((((((((..((.((((.....)))))).........)))).....(((...((((......))))...)))..)))))
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+.......((((((.....))))))...............................(((..(((.(((..(((((((((....))))))))).(((((....)))))..)))......))).)))..........................((...(((((((((...)))))))))..))....................((((((.....))))))......................
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((............((.......))....(((((....................(((((....))))).....................(((.((...((((((((((.(((....))).))))))))))....)))))............))))))))))))))
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+((((....))))....................((((((....))))))........(((.(((((((..((((.......))))))))..)))))).......................(((((((....))))))).....(((((....)))))..
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((................................................)).......
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((......................................((((((.......))))))...(((.(((((....((((((..........))))))...))))))))...............))..
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).))))).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+.........................((((((...(((....))).......................(((((((......))))))).............................))))))....((....)).....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).............................
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+((((....))))..(((((((((((.((.....))(((....)))..((((((((((......((....))....((....))..........))))))))))..(((.(((....))))))..)))))))))))..(((((((....))))))).........(((((....)))))..
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+....((.(((.(((.((((((..............)))))).))).))).((.........)).))....
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......))))))).............................
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((....))..)))))).)))).............(((((((......))))))).............................
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+.((................................................)).......
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((..((((....))))..))))))).)))).............(((((((......))))))).............................
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+......(((((((..........................)))))))..((((....((((.((...((.(((((.....))))).))...))))))........((((((.....)))))).............(((((((....))))))).............))))........
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+((....))..(((((((..........((((((....))))))...............(((....)))......(((((.((....)))))))..)))))))........
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+.(((...((((((..........)))))).((((((....))))))..(((.(((....((((...(((....)))..)))).....)))........)))............((((((((....)))))))).....................))).(((((((....))))))).........(((((....)))))..
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).)))).............(((((((......))))))).......................................((....)).....
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+((((....))))...(((((((((....(((((.........))))).........((((((.......))))))..)))))))))..(((((((....))))))).........(((((....)))))..
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+....((.((((.(((.(((((..............))))).))).)))).((.........)).))....
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+((((....))))..(((((((.................(((..(((((((..(((((((((....))))))))).(((((....)))))..))).....)))).)))..........................((...(((((((((...)))))))))..))..)))))))........(((((((....))))))).........(((((....)))))..
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............(((((((......))))))).............................
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........((((((.((((((((..........((.....)).)))))))).)))))).............
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+..............................(((............)))........................
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))....(((((....)))))............((((((.....))))))......................
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+....(((((((.....))))))).........(((((....)))))....................((((((.....))))))....................
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+.((...(((((......)))))...(((((.......)))))((((.....)))))).......((((((((((.........................(((((((................(((((...))))).................))))))).....))))))))))((((.((((((...........))))))))))
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).............(((((((......))))))).............................
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+((((....))))...........(((.....(((((((.......))))))).......(((((.......))))).......)))..........(((((((................((((.................((((((....))))))................(((................)))))))....))))))).....................(((((.......)))))....................................(((((((....)))))))......(((.....)))(((((.......))))).................(((((((....))))))).........(((((....)))))..
+> Class I Ligase
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((..........)))))))))................((((...))))((((((((((((.....)))))..(((((....)))))((.(((((....))))).)))))))))............((((.....))))....................... (-57.20)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((..((......))..))))).)))).))..........(((((((......)))))))...((((.........))))......... (-15.90)
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....)))))).)))))))))))..)))))))... (-28.20)
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+.(((((.((((((..........)))))).((((((....)))))))))))((((....((((...(((....)))..)))).....))))......((((.(.((..((...((((((((....)))))))).))..))).)))).......... (-46.90)
+> SAM I riboswitch, T. tengcongenesis
+ggUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+..((((((((....(((((...(((.....)))......)))))((((.((...((.(((((.....))))).))...))))))........((((((.....))))))...)))))))) (-37.70)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+......(((((((.((.(((((..((((........))))..).))(((((........................))))))).)).))))))).((((.........))))......... (-19.30)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((..((......))..))))).)))).))..........(((((((......)))))))...((((.........))))......... (-15.10)
+> cidGMP riboswitch, V. Cholerae
+ggUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+.(((((..((.....))...((((((....)))))))))))..(((((((.((((..((((.......)))))))).).)))))).......(((...))).... (-30.10)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((....)))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-20.50)
+> tRNAphe, E. coli
+ggccuucgggccaaGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAccgauccgcuucggcggauccaaagaaaucgggcuucgguccggu
+((((....))))..(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))......(((((((....))))))).......(((((((....))))))) (-51.30)
+> add adenine riboswitch
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+(.(((((.....))))).)(((......((((((.........))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))..(((((((.....))))))))))............... (-44.40)
+> adenine riboswitch, add
+ggACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((.........))))))........((((((.......))))))..))))))))) (-19.00)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((((((((....))))))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.80)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((....))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-19.20)
+> tRNA phenylalanine (yeast)
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............(((((((..((((........)))).(((((.......))))).....(((((.......))))))))))))........((((((.....))))))..................... (-27.50)
+> 5S rRNA, E. coli
+ggAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((((((...)))).(((...))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))..(((.(((....))))))..))))))))))) (-51.80)
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+...............((.(((..((((((((((((((((....)))))).))))))))))..)))))... (-23.70)
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+................(((...(((...))).....)))..................... ( -1.30)
+> Hepatitis C virus, IRES domain
+ggCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+.(((((((..(((((((.((((((((.(....))))))))).....((((((.......)))))).((((((...)))))).(((((((((.(...((((..((((((.(((((((.(((((.((..(((((.(.((((.((.(((((.(((((..((.(((((((......)))....)))).))....))))).))))).)).)))).))).(((.((((((.....)))))).))))))..))..)))))))))))).)).))))..)))).))))).))).))...))))(((((...))))))))..))))).)).................. (-126.70)
+> TPP riboswitch, E. coli
+gGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+.((..((((..(((.(((.....)))))).........))))..)).((((..((((......))))..))))....... (-21.60)
+> P4-P6 domain, Tetrahymena ribozyme
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+(((....((((((.....))))))...........((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).)))))))..((((...(((((((((...)))))))))..))))..................((((((.....))))))...................... (-78.20)
+> Hox A9 mRNA 5' UTR
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((...............(((((((......))))))).((((((((........(((((((((((................)))))......)))))).......)))))))).......(((((((((((.((((...))))))).)))))))).))))))))) (-58.60)
+> cidGMP riboswitch, V. Cholerae
+ggccuucgggccaaUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACccgauccgcuucggcggauccaaaucgggcuucgguccggu
+.(((.(((((((..(((.....))).)))...((((((....)))))).......(((((((.((((..((((.......)))))))).).)))))).)))).))).............(((((((....)))))))...(((((((....))))))) (-61.10)
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+((.....(((.........(((......)))........)))....))............ ( -1.70)
+> add Riboswitch 13-140, V. vulnificus
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+.((.(((.....((((((.........))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).......)))...)).. (-24.20)
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).)))))..... (-18.40)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((((..((....))..)))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.90)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+.............((.((((.(((((((..(((....)))..))))))).)))).))..........(((((((......)))))))...((((.........))))......((.(((............)))))... (-28.60)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((((((....))))))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-26.00)
+> 5S RNA, E. coli
+ggccuucgggccaaaUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGgcauccgauccgcuucggcggauccaaauaaaucgggcuucgguccggu
+((((....))))..(((((((((((((((...)))).(((...))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))..(((.(((....))))))..)))))))))))..(((((((....))))))).......(((((((....))))))) (-81.20)
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......((((.(((.((((((.(((......))).)))))).))).)))).................... (-15.00)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((((((((....))))))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.40)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((....))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-17.30)
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+((.....(((.........(((......)))........)))....))............ ( -1.70)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((..((((....))))..))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-20.10)
+> SAM I riboswitch, T. tengcongenesis
+ggccuucgggccaaUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAAccgauccgcuucggcggauccaaccaaaucgggcuucgguccggu
+((((....))))..((((((((....(((((...(((.....)))......)))))((((.((...((.(((((.....))))).))...))))))........((((((.....))))))...))))))))..(((((((....))))))).......(((((((....))))))) (-67.20)
+> 16S rRNA Four-Way Junction
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+(((..((...(((((((.(.((..((.((((((....)))))).))...)).).....(((....))).....((((((.((....)))))))).)))))))..)).))) (-35.50)
+> Ribonuclease P specificity domain, B. subtilis
+ggUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGAccgauccgcuucggcggaucccuugaaaucgggcuucgguccggu
+(((((..((((((..........)))))).((((((....))))))..(((((((....((((...(((....)))..)))).....))).......))))...(((....(.((((((((....)))))))).)....)))((......)).)))))(((((((....))))))).......(((((((....))))))) (-73.10)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+.............((.((((.(((((((..(((....)))..))))))).)))).))..........(((((((......)))))))...((((.........))))......((.(((............)))))... (-29.30)
+> adenine riboswitch, add
+ggccuucgggccaaACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGccgauccgcuucggcggauccaaacaaaucgggcuucgguccggu
+((((....))))...(((((((((...((((((.........))))))........((((((.......))))))..)))))))))..(((((((....))))))).......(((((((....))))))) (-48.70)
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((.(((......))).))))).))).))))).................... (-16.20)
+> P4-P6 domain, Tetrahymena ribozyme
+ggccuucgggccaaGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCccgauccgcuucggcggauccaauaaaaucgggcuucgguccggu
+((((....))))......((((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).))))((...((((...(((((((((...)))))))))..)))))).............(((((((....))))))).......(((((((....))))))) (-83.60)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((((((....))))))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-26.00)
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+.(((....((((((.((((((((..((..((....))..))..)))))))).))))))))).......... (-20.20)
+> Tebowned
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+..........................(((((((..(......)..))))))).................... ( -4.90)
+> Hobartner bistable switch
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))........((((((((....))))))))..((((((.....))))))...................... (-31.90)
+> M-stableRNA
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((.....))))))))........(((((....)))))...((((.........))))((((((.....)))))).................... (-28.60)
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+(((..((((((......))))))..(((((.......)))))((((.....)))))))......((((((((((.(((.((...((((...))))....(((((((...((...........(((((...)))))............))...))))))))))))))))))))))((((.((((((...........)))))))))) (-57.00)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((((..((....))..)))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.70)
+> Hepatitis C virus, IRES domain
+ggccuucgggccaaCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAAccgauccgcuucggcggauccaagcaaaucgggcuucgguccggu
+((((....))))....((((..(.(((((.((((((((.(....))))))))).....((((((.......)))))).((((((...)))))).(((((((((.(...((((..((((((.(((((((.(((((.((..(((((.(.((((.((.(((((.(((((..((.(((((((......)))....)))).))....))))).))))).)).)))).))).(((.((((((.....)))))).))))))..))..)))))))))))).)).))))..)))).))))).))).))...))))))..))))....(((((.......))))).................(((((((....))))))).......(((((((....))))))) (-153.80)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..(((....)))..))))))).))))....................................................((((...(((((........))).))...)))) (-51.75)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((....))..)))))).)))).........................((((((.....((((.........))))...)))))) (-40.16)
+> taR10 riboregulator antisense
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+...............((.(((..((((((((((((((((....))))))).)))))))))..)))))... (-60.79)
+> crR10 riboregulator UTR
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((..............))))).))).)))))((.........))....... (-26.83)
+> RNA-IN S3
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+....................................(((.............)))..... ( -1.48)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).)))).........................((((((......(((.........)))....)))))) (-35.59)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))......((((....((((...)))))))) (-64.61)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).........................((((((.........................)))))) (-51.35)
+> crR12 riboregulator UTR
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+.......(((.(((.((((((..............)))))).))).))).((.........))....... (-25.22)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((....)))))))).)))).........................((((((.....((((.........))))...)))))) (-35.78)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((..((......))..))))).)))).........................((((((.........................)))))) (-33.62)
+> taR12 riboregulator antisense
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........((((((...(((((((((((((((((....))))))).))))))))))...))))))... (-36.22)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..........(((...))).)))))).)))).........................((((((.....((((.........))))...)))))) (-31.48)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).........................((((((.....((((.........))))...)))))) (-51.26)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((..((....))..)))))))))).)))).........................((((((.........................)))))) (-54.13)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).........................((((((......(((.........)))....)))))) (-43.00)
+> R1 translational copy number control regulator hairpin
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).)))))..... (-51.75)
+> btuB riboswitch leader sequence, E. coli
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+....................(((((.(((((((((...(((.((((.....)))).....((..((((.((...(......)...)).)).)).))...(((((((...((...........(((((...)))))............))...))))))).)))...))))).))))))))).((((((........)))))).... (-54.41)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((..((......))..))))).)))).))........................................................... (-24.16)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((..((((....))))..))))))).)))).........................((((((.........................)))))) (-26.47)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((((((((....))))))))))))).)))).............(((((((......)))))))......((((....((((...)))))))) (-62.55)
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+....................................(((.............)))..... ( -0.34)
+> pT181 transcriptional attenuator
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................(((((((...)))(((..((((((((((.(((........................))).))..............(((((...............)))))...)).))))))..))))))). (-43.17)
+> pMU720 translational copy number control regulator hairpin
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........((((((....(((((..((..((....))..))..)))))....))))))............. (-14.61)
+> RNA-IN S4
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................((((((.......)))..)))........... ( -6.16)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((((..((....))..)))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-28.1)
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((((((((....))))))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-28)
+>Tebowned/1-72
+GGACGAUUGAGGAUAUUUAGACAUAGAGAAGGCAAUGGAGAGAGAGCUUUUUAAAGAAACAACAACAACAAC
+..........................(((((((............))))))).................... (-4.3)
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((..((((....))))..))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-20.3)
+>5S RNA, E. coli/1-180
+GGCCUUCGGGCCAAAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAUCCGAUCCGCUUCGGCGGAUCCAAAUAAAUCGGGCUUCGGUCCGGU
+..................(((((((.........((((....)))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))((((..(((....))))))).)))))))................................................. (-44.1)
+>SAM I riboswitch, T. tengcongenesis/1-177
+GGCCUUCGGGCCAAUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAACCGAUCCGCUUCGGCGGAUCCAACCAAAUCGGGCUUCGGUCCGGU
+..............((((((((....(((((...(((.....)))......)))))((((.((...((.(((((.....))))).))...))))))...((((...((((.....)))))))).))))))))............................................. (-38)
+>adenine riboswitch, add/1-131
+GGCCUUCGGGCCAAACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUGCCGAUCCGCUUCGGCGGAUCCAAACAAAUCGGGCUUCGGUCCGGU
+...............(((((((((...((((((.........))))))........((((((.......))))))..)))))))))............................................. (-18.7)
+>add adenine riboswitch/1-166
+GGGAACCGAGUAGGUUCGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUGGGAUCCGAGUAGGAUCCUGAAAAAAACAACAACAAC
+(((((((.....))))).)).(((((..........)))))...((((....)))).((((((.......)))))).((((((.((((.((.((((((..........)))))).)))))))))))).((((((((.....))))))))................. (-44.6)
+>Hobartner bistable switch/1-89
+GGUGGCUUCGAGUAGAAGCCUUAUGUACCGGAAGGUGCGAAUCUUCCGAAGGAUCCGAGUAGGAUCCAAAAAGAAACAACAACAACAAC
+...((((((.....))))))........((((((((....))))))))..((((((.....))))))...................... (-32.1)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((((..((....))..)))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.9)
+>cidGMP riboswitch, V. Cholerae/1-105
+GGUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUAC
+..(((((((......((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))..)).))))).......... (-28.8)
+>pT181 transcriptional attenuator/1-106
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((....))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-19.4)
+>Ribonuclease P specificity domain, B. subtilis/1-156
+GGUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGA
+..(((..((((((..........)))))).((((((....))))))(((..(((.......))).))).(((((((((......))))))..))).((.((((..........((((((((....)))))))))))).))..((......)).))) (-44.3)
+>Hepatitis C virus, IRES domain/1-338
+GGCCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAA
+............(((((.((((((((.(....))))))))).....((((((.......)))))).((((((...)))))).(((((((((.....((((..((((((.(((((((.(((((((((..((((((....))))))((((.(((((..((.(((((((......)))....)))).))....))))).)))).(((....)))((.(((.((((((.....)))))).)))))))))...)))))))))))).)).))))..))))..)))).))).))...)))))((((...))))(((((.......)))))............... (-123.4)
+>RNA-IN S3/1-60
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+................(((...(((...))).....)))..................... (-1.4)
+>RNA-IN S4/1-60
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+((.....(((.........(((......)))........)))....))............ (-1.7)
+>tRNAphe, E. coli/1-135
+GGCCUUCGGGCCAAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCACCGAUCCGCUUCGGCGGAUCCAAAGAAAUCGGGCUUCGGUCCGGU
+..............((((((...((((........)))).(((((.......))))).....(((((.......))))).))))))................................................. (-22.7)
+>P4-P6 domain, Tetrahymena ribozyme/1-223
+GGCCUUCGGGCCAAGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCCCGAUCCGCUUCGGCGGAUCCAAUAAAAUCGGGCUUCGGUCCGGU
+...................(((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).))).((...((((...(((((((((...)))))))))..))))...))..................................................... (-56)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+......(((((((.(((...))).((((........)))).(((.((((((........................)))))).))).))))))).((((.........))))......... (-20.2)
+>pMU720 translational copy number control regulator hairpin/1-71
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+.(((....((((((.((((((((..((..((....))..))..)))))))).))))))))).......... (-20.2)
+>R1 translational copy number control regulator hairpin/1-64
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.((((....))))..)))))))))).)))))..... (-18.4)
+>pT181 transcriptional attenuator/1-108
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((((....)))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-20.7)
+>taR12 riboregulator antisense/1-71
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+...........(((((((..(((((((((((((((((....)))))).)))))))))))..)))))))... (-28.6)
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((..((......))..))))).)))).))..........(((((((......)))))))...((((.........))))......... (-15.3)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((((((....))))))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-26.2)
+>TPP riboswitch, E. coli/1-80
+GGACUCGGGGUGCCCUUCUGCGUGAAGGCUGAGAAAUACCCGUAUCACCUGAUCUGGAUAAUGCCAGCGUAGGGAAGUUC
+.((..((((..(((.(((.....)))))).........))))..)).((((..((((......))))..))))....... (-23.9)
+>Class I Ligase/1-187
+GGAACCGCGAGUAGCGGAAAUCCAGUAGGAACACUAUACUACUGGAUAAUCAAAGACAAAUCUGCCCGAAGGGCUUGAGAACAUCGAAACACGAUGCAGAGGUGGCAGCCUCCGGUGGGUUAAAACCCAACGUUCUCAACAAUAGUGAAAAGCGCGAGUAGCGCAACAAAGAAACAACAACAACAAC
+....((((.....))))..(((((((((..........)))))))))................((((...)))).(((((.(((((.....)))))..(((((....)))))((.(((((....))))).)).))))).............((((.....))))....................... (-59.1)
+>btuB riboswitch leader sequence, E. coli/1-206
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+((((...(((((.(((.....((..(((((.......))))).))))).)))))))))......((((((((((.((((...((((((...))).))).(((((((...((...........(((((...)))))............))...)))))))).)))))))))))))((((.((((((...........)))))))))) (-57.8)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((((((....))))))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-26.2)
+>crR12 riboregulator UTR/1-70
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......((((.(((.((((((.(((......))).)))))).))).)))).................... (-15)
+>Hox A9 mRNA 5' UTR/1-176
+CUUCGUUGGCCACAAUUAAAACAAACCAGAUCGUGGAGCUGCGCGAUCCCUUUGCAUAAAAACAUAUGGCUUUUGCUAUAAAAAUUAUGACUGCAAAACACCGGGCCAUUAAUAGCGUGCGGAGUGAUUUACGCGUUAUUGUUCUGCCGGGCGGACACGUGACGCGCGUGGCCAAU
+....(((((((((...............(((((((......))))))).((((((((........(((((((((((................)))))......)))))).......)))))))).......(((((((((((.((((...))))))).)))))))).))))))))) (-60.1)
+>M-stableRNA/1-103
+GGAAACGCAACGAGUAGUUGCGUUACGCAGCAGUCCUCCAGAGGACAUUUUUCGAGCAGGUAGAGAGGAUCCGAGUAGGAUCCAAAGAAACAACAACAACAAC
+...((((((((.....))))))))........(((((....)))))....(((.........))).((((((.....)))))).................... (-28.7)
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.((((((..((....))..)))))).)))).))..........(((((((......)))))))...((((.........))))......... (-17.5)
+>16S rRNA Four-Way Junction/1-110
+GGGAAACUGCCUGAUGGAGGGGGAUAACUACUGGAAACGGUAGCUAAUACCGCAUAACGUCGCAAGACCAAAGAGGGGGACCUUCGGGCCUCUUGCCAUCGGAUGUGCCC
+(((..((...(((((((((((((.((.((((((....)))))).))............(((....)))....(((((...)))))...)))))).)))))))..)).))) (-34.5)
+>P4-P6 domain, Tetrahymena ribozyme/1-239
+GGCCAAAGGCGUCGAGUAGACGCCAACAACGGAAUUGCGGGAAAGGGGUCAACAGCCGUUCAGUACCAAGUCUCAGGGGAAACUUUGAGAUGGCCUUGCAAAGGGUAUGGUAAUAAGCUGACGGACAUGGUCCUAACCACGCAGCCAAGUCCUAAGUCAACAGAUCUUCUGUUGAUAUGGAUGCAGUUCAAAACCAAACCGUCAGCGAGUAGCUGACAAAAAGAAACAACAACAACAAC
+(((....((((((.....))))))............(((((...(((((((....((((.((((((((.(((((((((....))))))))).(((((....))))).)))).....))))))))...)))))))..)).))).)))..((((...(((((((((...)))))))))..))))..................((((((.....))))))...................... (-79.5)
+>pT181 transcriptional attenuator/1-139
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+.............((.((((.(((((((..(((....)))..))))))).)))).))..........(((((((......)))))))...((((.........))))......((.(((............)))))... (-28.8)
+>SAM I riboswitch, T. tengcongenesis/1-120
+GGUUCUUAUCAAGAGAAGCAGAGGGACUGGCCCGACGAAGCUUCAGCAACCGGUGUAAUGGCGAUCAGCCAUGACCAAGGUGCUAAAUCCAGCAAGCUCGAACAGCUUGGAAGAUAAGAA
+..((((((((....(((((...(((.....)))......)))))((((.((...((.(((((.....))))).))...))))))...((((...((((.....)))))))).)))))))) (-37.6)
+>tRNA phenylalanine (yeast)/1-133
+GGAACAAACAAAACAGCGGAUUUAGCUCAGUUGGGAGAGCGCCAGACUGAAGAUCUGGAGGUCCUGUGUUCGAUCCACAGAAUUCGCACCAAAACGUUAAGGAGUACUUAACCAAAGAAACAACAACAACAAC
+...............((((((...((((........)))).(((((.......))))).....(((((.......))))).))))))........((((((.....))))))..................... (-28)
+>crR10 riboregulator UTR/1-70
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+......(((((.(((.(((((.(((......))).))))).))).))))).................... (-16.2)
+>Ribonuclease P specificity domain, B. subtilis/1-201
+GGUCGUGCCUAGCGAAGUCAUAAGCUAGGGCAGUCUUUAGAGGCUGACGGCAGGAAAAAAGCCUACGUCUUCGGAUAUGGCUGAGUAUCCUUGAAAGUGCCACAGUGACGAAGUCUCACUAGAAAUGGUGAGAGUGGAACGCGGUAAACCCCUCGACCGAUCCGCUUCGGCGGAUCCCUUGAAAUCGGGCUUCGGUCCGGU
+..(((..((((((..........)))))).((((((....))))))(((..(((.......))).))).(((((((((......))))))..))).((.((((..........((((((((....)))))))))))).))..((......)).)))............................................. (-44.7)
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((((((((((....))))))))))))).)))).))..........(((((((......)))))))...((((.........))))......... (-27.6)
+>5S rRNA, E. coli/1-123
+GGAUGCCUGGCGGCCGUAGCGCGGUGGUCCCACCUGACCCCAUGCCGAACUCAGAAGUGAAACGCCGUAGCGCCGAUGGUAGUGUGGGGUCUCCCCAUGCGAGAGUAGGGAACUGCCAGGCAU
+..(((((((((((.........((((....)))).((((((((((...((.((...(((..((...))..)))...)))).))))))))))((((..(((....))))))).))))))))))) (-52.4)
+>RNA-IN S4/1-60
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+((.....(((.........(((......)))........)))....))............ (-1.7)
+>cidGMP riboswitch, V. Cholerae/1-158
+GGCCUUCGGGCCAAUGUCACGCACAGGGCAAACCAUUCGAAAGAGUGGGACGCAAAGCCUCCGGCCUAAACCAGAAGACAUGGUAGGUAGCGGGGUUACCGAUGGCAAAAUGCAUACCCGAUCCGCUUCGGCGGAUCCAAAUCGGGCUUCGGUCCGGU
+..............(((((((......((...((((((....))))))...))..((((.(((((((..((((.......))))))))..)))))))..)).)))))................................................... (-28.8)
+>pT181 transcriptional attenuator/1-139
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+.............((.((((.(((((((..(((....)))..))))))).)))).))..........(((((((......)))))))...((((.........))))......((.(((............)))))... (-29.5)
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+.............((.((((.(((((..((......))..))))).)))).))..........(((((((......)))))))...((((.........))))......... (-16.1)
+>taR10 riboregulator antisense/1-70
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+...............((.(((..((((((((((((((((....)))))).))))))))))..)))))... (-24.1)
+>Hepatitis C virus, IRES domain/1-395
+GGCCUUCGGGCCAACCAUGAAUCACUCCCCUGUGAGGAACUACUGUCUUCACGCAGAAAGCGUCUAGCCAUGGCGUUAGUAUGAGUGUCGUGCAGCCUCCAGGACCCCCCCUCCCGGGAGAGCCAUAGUGGUCUGCGGAACCGGUGAGUACACCGGAAUUGCCAGGACGACCGGGUCCUUUCUUGGAUUAACCCGCUCAAUGCCUGGAGAUUUGGGCGUGCCCCCGCGAGACUGCUAGCCGAGUAGUGUUGGGUCGCGAAAGGCCUUGUGGUACUGCCUGAUAGGGUGCUUGCGAGUGCCCCGGGAGGUCUCGUAGACCGUGCAUCAUGAGCACGAAUCCUAAACCUCAACCGAUCCGCUUCGGCGGAUCCAAGCAAAUCGGGCUUCGGUCCGGU
+........................(((((.((((((((.(....))))))))).....((((((.......)))))).((((((...)))))).(((((((((.....((((..((((((.(((((((.(((((((((..((((((....))))))((((.(((((..((.(((((((......)))....)))).))....))))).)))).(((....)))((.(((.((((((.....)))))).)))))))))...)))))))))))).)).))))..))))..)))).))).))...)))))((((...))))(((((.......)))))............................................................ (-123.4)
+>add Riboswitch 13-140, V. vulnificus/1-128
+CGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUCUGUCGCUUUAUCCGAAAUUUUAUAAAGAGAAGACUCAUGAAUUACUUUGACCUGCCG
+............((((((.........))))))........((((((.......)))))).((((((.((((.((.((((((..........)))))).))))))))))))................. (-25.4)
+>adenine riboswitch, add/1-74
+GGACGCUUCAUAUAAUCCUAAUGAUAUGGUUUGGGAGUUUCUACCAAGAGCCUUAAACUCUUGAUUAUGAAGUG
+...(((((((((...((((((.........))))))........((((((.......))))))..))))))))) (-18.1)
+>pT181 transcriptional attenuator/1-106
+AACAAAAUAAAAAGGAGUCGCUCACGCUUGGCGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((....))))))).)))).............................................................. (-11.1)
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUGUACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((((......)))))))))))).)))).............................................................. (-21.1)
+>pT181 transcriptional attenuator/1-139
+AACAAAAUAAAAAGGAGUCGCUCACGGAGGCCUUGGCGGGAGUCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................(((((.((((((..(((....)))..)))))).................................................................(((((........)).)))).)))). (-11.7)
+>RNA-IN S4/1-60
+GCCAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGGAACUUGGCGGAACUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((............)))))).)))).............................................................. (-8.9)
+>pT181 transcriptional attenuator/1-108
+AACAAAAUAAAAAGGAGUCGCUCACGCUUUGGCGAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.(((((((......))))))).)))).............................................................. (-9.5)
+>taR12 riboregulator antisense/1-71
+ACCCAAAUCCAGGAGGUGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCAUAUAUCUCUAGA
+.......................................................................
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUUGGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((((......)))))))))))).)))).............................................................. (-20)
+>pT181 transcriptional attenuator/1-139
+AACAAAAUAAAAAGGAGUCGCUCACGGGGGUGUUGGCGCAGACCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGAGCCUCUACCUGCUUCGGCCGAUA
+................((((.(((((((..((......))..))))))).))))...........................................................((.(((............)))))... (-18.4)
+>crR10 riboregulator UTR/1-70
+GAAUUCUACCUAUCUGCUCUUGAAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+.......((((.(((.(((..................))).))).)))).((.........))....... (-5.3)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGUUCUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..((((((....))))))..)))))).)))).............................................................. (-18.1)
+>RNA-IN S3/1-60
+GGGAAAAAUCAAUAAGGAGACAACAAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+............................................................
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGCUAGACCAUGCUUUUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((................)))).)))).............................................................. (-6.9)
+>pT181 transcriptional attenuator/1-118
+AACAAAAUAAAAAGGAGUCGCUCACGUUCAACUUUGGCGAGUACGAUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((......................)))).)))).............................................................. (-2.2)
+>RNA-IN S4/1-60
+GCCAAAAAUCAAUAAGGAGACAAACAGAUGUGCGAACUCGAUGCUAGCAAAGGAGAAGAA
+....................................(((.............)))..... (-0.2)
+>R1 translational copy number control regulator hairpin/1-64
+AAAAGCAAAAACCCCGAUAAUCUUCUUCAACUUUGGCGAGUACGAAAAGAUUACCGGGGCCCAC
+...........(((((.(((((((.(((.(((......)))..)))))))))).)))))..... (-16.4)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGAGGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((............)))))))))).)))).............................................................. (-15.4)
+>pMU720 translational copy number control regulator hairpin/1-71
+AAGGAAAACCCCCACUAUUUUUCCUCGAACUUGGCGGAACGCAGAAAAAUAAUGGGGGCCUCACAGAAUAC
+........(((..........................................)))............... (-0.8)
+>btuB riboswitch leader sequence, E. coli/1-206
+GCCGGUCCUGUGAGUUAAUAGGGAAUCCAGUGCGAAUCUGGAGCUGACGCGCAGCGGUAAGGAAAGGUGCGAUGAUUGCGUUAUGCGGACACUGCCAUUCGGUGGGAAGUCAUCAUCUCUUAGUAUCUUAGAUACCCCUCCAAGCCCGAAGACCUGCCGGCCAACGUCGCAUCUGGUUCUCAUCAUCGCGUAAUAUUGAUGAAACC
+..........................((((.......))))...........................................................((.(((.............................))).)).........................................(((((..........))))).... (-4.3)
+>pT181 transcriptional attenuator/1-112
+AACAAAAUAAAAAGGAGUCGCUCACGAAGACCGCCCUCCCUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((................)))).)))).............................................................. (-7)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+...................((...((((........))))....)).......................................................................... (-4.4)
+>taR10 riboregulator antisense/1-70
+ACACCCAAAUUCAUGAGCAGAUUGGUAGUGGUGGUUAAUGAAAAUUAACUUACUACUACCUUUCUCUAGA
+..................(((..((((((((((((((((....))))))).)))))))))..)))..... (-21.3)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCUGCGAACUUGGCGGAACGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((((((............)))))))))).)))).............................................................. (-22)
+>pT181 transcriptional attenuator/1-120
+AACAAAAUAAAAAGGAGUCGCUCACGCCUCGAACUUGGCGGUUCGCAGUGUGAACGACAUCAUUCAAAGAAAAAAACACUGAGUUGUUUUUAUAAUCUUGUAUAUUUAGAUAUUAAACGA
+................((((.((((((..(((((......)))))..)))))).)))).............................................................. (-11.5)
+>crR12 riboregulator UTR/1-70
+GAAUUCUACCAUUCACCUCUUGGAUUUGGGUAUUAAAGAGGAGAAAGGUACCAUGAGCAAAGGAGAAGAA
+...............((((((..............))))))............................. (-2.8)
