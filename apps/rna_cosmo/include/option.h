@@ -280,8 +280,9 @@ ArgumentParser::ParseResult parse(TOption & options, ArgumentParser & parser, in
     getOptionValue(options.firstEdgeWeight, parser, "firstEdgeWeight");
     getOptionValue(options.edgeStepWeight, parser, "edgeStepWeight");
     getOptionValue(options.threads, parser, "threads");
-
     getOptionValue(options.inFile, parser, "inFile");
+//    getOptionValue(options.inFile, parser, "inFile");
+
     if (empty(options.inFile))
         return ArgumentParser::PARSE_ERROR;
 

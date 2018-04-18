@@ -487,12 +487,14 @@ inline void createPseudoHeader(RnaHeader & header, std::vector<RnaRecord> & reco
         {
             records[idx].fixedGraphs[gr].specs = "n/a";
             hasFixed = true;
+            //appendValue(header.fixLabels, "n/a"); // this should not be neccessary
         }
 
         for (TSizeRnaRecordVector gr = 0; gr < length(records[idx].bppMatrGraphs); ++gr)
         {
             records[idx].bppMatrGraphs[gr].specs = "n/a";
             hasBppMatr = true;
+            //appendValue(header.bppLabels, "n/a"); // this should not be neccessary
         }
     }
 

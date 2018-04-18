@@ -113,6 +113,13 @@ int main (int argc, char const ** argv)
     unsigned consensusCargo=0;
     double probabilityCargo=0;
     float thr=1.5;      //threshold for filtered-graph
+
+
+
+    _V(options, "first input FILE: " << toCString(options.inFile));
+    //_V(options, "second input FILE: " << toCString(options.inFile1));
+
+    //for
     _readMultiStructRnaInputFile(reducedContents, options.inFile, options); //STEP 1
     for (RnaRecord & currentRecord : reducedContents.records) {
         if (length(currentRecord.fixedGraphs)==10) {
@@ -156,12 +163,11 @@ int main (int argc, char const ** argv)
     for (RnaRecord & currentRecord : reducedContents.records) {
         ////////////////////////////////////////////////////////////////////////////
 
-        ////////////////////////////////////////////////////////////////////////////
         _V(options, "\nSEQUENCE: " << currentRecord.name << "\n" << currentRecord.sequence);
         _V(options, "Length: " << currentRecord.seqLen);
         _V(options, "\nBPP MATRIX:");
         _V(options, "Total Edges: " << numEdges(currentRecord.bppMatrGraphs[0].inter));
-        //std::cout << currentRecord.bppMatrGraphs[0].inter << std::endl;
+
         unsigned totalConsEdges = 0;  //counter for the edges present in all the fixed graphs
         unsigned notPaired = 0;       //counter for the not paired bases of the Consensus Graph
         unsigned initEdges = 0;       //counter for the edges present only in the first fixed graph
@@ -346,29 +352,29 @@ int main (int argc, char const ** argv)
 
                 //evaluation of values for paired AND NOT nucleotides of rdat graph
 
-//                for (unsigned i=0; i<currentRecord.seqLen; ++i)
-//                {
-//                    rdat_cosmo << i+1 << " " << meanReact[i] << "\n";
-//                    if (degree(ifrGraph[0].inter, i) != 0)
-//                    {
-//                        std::cout << i << " nucleotide : " << "react 0 "<< currentRecord.reactivity[0][i] << std::endl;
-//                        std::cout << i << " nucleotide : " << "\tMax R "<< maxReact[i] <<"\tMin R "
-//                         << minReact[i] << std::endl;
-//                        std::cout << i << " nucleotide : " << "m r "<< meanReact[i] << "\tm err r "<< meanReactErr[i]
-//                                  << std::endl;
-//                        std::cout << i << " nucleotide : " <<"\tweighted m r x 100 " << weightedMeanReact[i]*100
-//                        << std::endl;
-//                    } else {
-//                        std::cout << "NOT " << i << " nucleotide : " << "react 0 " << currentRecord.reactivity[0][i]
-//                         << std::endl;
-//                        std::cout << "NOT " << i << " nucleotide : "<< "\tMax R "<< maxReact[i] <<"\tMin R "
-//                         << minReact[i] << std::endl;
-//                        std::cout << "NOT " << i << " nucleotide : "<< "m r "<< meanReact[i] << "\tm err r "
-//                         << meanReactErr[i] << std::endl;
-//                        std::cout << "NOT " << i << " nucleotide : "<<"\tweighted m r x 100 "
-//                         << weightedMeanReact[i]*100 << std::endl;
-//                    }
-//                }
+                for (unsigned i=0; i<currentRecord.seqLen; ++i)
+                {
+                    std::cout << "rdat_cosmo " << i << " nucleotide.  Mean reactivity: " << meanReact[i] << "\n";
+                    if (degree(ifrGraph[0].inter, i) != 0)
+                    {
+                        std::cout << i << " nucleotide : " << "react 0 "<< currentRecord.reactivity[0][i] << std::endl;
+                        std::cout << i << " nucleotide : " << "\tMax R "<< maxReact[i] <<"\tMin R "
+                         << minReact[i] << std::endl;
+                        std::cout << i << " nucleotide : " << "m r "<< meanReact[i] << "\tm err r "<< meanReactErr[i]
+                                  << std::endl;
+                        std::cout << i << " nucleotide : " <<"\tweighted m r x 100 " << weightedMeanReact[i]*100
+                        << std::endl;
+                    } else {
+                        std::cout << "NOT " << i << " nucleotide : " << "react 0 " << currentRecord.reactivity[0][i]
+                         << std::endl;
+                        std::cout << "NOT " << i << " nucleotide : "<< "\tMax R "<< maxReact[i] <<"\tMin R "
+                         << minReact[i] << std::endl;
+                        std::cout << "NOT " << i << " nucleotide : "<< "m r "<< meanReact[i] << "\tm err r "
+                         << meanReactErr[i] << std::endl;
+                        std::cout << "NOT " << i << " nucleotide : "<<"\tweighted m r x 100 "
+                         << weightedMeanReact[i]*100 << std::endl;
+                    }
+                }
                 //////////////////////////////////////////////////////////////////////
 
                 //delete verteces of the bpp matrix
